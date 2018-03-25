@@ -42,14 +42,13 @@ class NewsRepository extends Repository {
     const ZERO    = 0;
     const ONE     = 1;
 
-    function __construct(NewsCategory $category, News $news, ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 20, $current = 1, Tag $tag) {
+    function __construct(NewsCategory $category, News $news, ResponseService $response, Request $request, AuthService $auth, User $user, $perpages = 20, $current = 1, Tag $tag) {
         $this->category  = $category;
         $this->model     = $news;
         $this->user      = $user;
         $this->response  = $response;
         $this->request   = $request;
         $this->auth      = $auth;
-        $this->companyId = $this->auth->user()->company_id;
         $this->perpages  = $perpages;
         $this->current   = $current;
         $this->tag       = $tag;
@@ -106,7 +105,6 @@ class NewsRepository extends Repository {
     const KEYWORD_META     = 'keyword_meta';
     const SEND_AT          = 'send_at';
     const AUTHOR           = 'author';
-    const COMPANY_ID       = 'company_id';
     const CREATED_BY       = 'created_by';
     const UPDATED_BY       = 'updated_by';
 
@@ -189,7 +187,6 @@ class NewsRepository extends Repository {
             $data['image_url'] = IMAGENEWS . $filename;
         }
         $data['created_by'] = $this->auth->user()->id;
-        $data['company_id'] = $this->auth->user()->company_id;
         $obj                = $this->model->create($data);
         if ($obj) {
             foreach ($listTag as $value) {
