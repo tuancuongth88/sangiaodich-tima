@@ -22,8 +22,6 @@ class NewsCategoryRepository extends BaseRepository {
 
     protected $moduleName;
 
-    protected $categoryUser;
-
     protected $news;
 
     const ZERO = 0;
@@ -39,9 +37,8 @@ class NewsCategoryRepository extends BaseRepository {
 
     const MODULE_NAME = 'NEWS';
 
-    function __construct(NewsCategory $category, AuthService $auth, ResponseService $response, Request $request, NewsCategoryUser $categoryUser, News $news) {
+    function __construct(NewsCategory $category, AuthService $auth, ResponseService $response, Request $request, News $news) {
         $this->model        = $category;
-        $this->categoryUser = $categoryUser;
         $this->auth         = $auth;
         $this->response     = $response;
         $this->request      = $request;
@@ -157,7 +154,7 @@ class NewsCategoryRepository extends BaseRepository {
         if ($check > 0) {
             return redirect()->action('Administrators\News\NewsCategoryController@index')->with('error', true)->with('message', 'Vui lòng xóa tài liệu thuộc danh mục này trước!');
         }
-        $destroyRelate = $this->categoryUser->where(self::CATEGORY_NEWS_ID, $id)->delete();
+        $destroyRelate =  $this->model->where(self::ID, $id)->delete();
         return $this->redirectBackAction();
     }
 
