@@ -193,7 +193,7 @@ class FaqRepository extends Repository {
                 ->orderBy('created_at', 'DESC');
         }
         $listData = $query->paginate($this->perpages);
-        return view('administrator.faqs.index', ['data' => $listData]);
+        return view('administrator.faqs.faqs.index', ['data' => $listData]);
     }
 
     /*
@@ -219,7 +219,7 @@ class FaqRepository extends Repository {
     }
 
     public function create() {
-        return view('administrator.faqs.create');
+        return view('administrator.faqs.faqs.create');
     }
 
     public function edit($id) {
