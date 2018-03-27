@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Administrators\Faqs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repositories\Administrators\Faqs\FaqRepository;
+use App\Http\Repositories\Administrators\Faqs\FaqCategoriesRepository;
 
 class FaqCategoriesController extends Controller
 {
     private $repository;
 
-    function __construct(FaqRepository $repository)
+    function __construct(FaqCategoriesRepository $repository)
     {
         $this->repository = $repository;
     }

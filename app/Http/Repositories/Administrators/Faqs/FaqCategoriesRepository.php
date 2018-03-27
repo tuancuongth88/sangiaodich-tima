@@ -1,7 +1,7 @@
 <?php namespace App\Http\Repositories\Administrators\Faqs;
 
-use App\Http\Repositories\Administrators\Repository;
-use App\Models\FaqCategories\FaqCategories;
+use App\Http\Repositories\Administrators\BaseRepository;
+use App\Models\Faqs\FaqCategories;
 use App\Models\Faqs\Faq;
 use App\Models\Users\User;
 use App\Services\AuthService;
@@ -9,7 +9,7 @@ use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Validator;
 
-class FaqCategoriesRepository extends Repository
+class FaqCategoriesRepository extends BaseRepository
 {
 
     protected $request;

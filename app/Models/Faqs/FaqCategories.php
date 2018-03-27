@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\FaqCategories;
+namespace App\Models\Faqs;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;

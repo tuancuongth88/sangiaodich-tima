@@ -66,7 +66,10 @@
                                        class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    {{ Form::open(array('method'=>'DELETE', 'action' => array('Administrators\Faqs\FaqCategoriesController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
+                                    {{ Form::open(array('method'=>'DELETE',
+                                    'action' => array('Administrators\Faqs\FaqCategoriesController@destroy',
+                                     $value->id), 'style' => 'display: inline-block;'))
+                                     }}
                                     <button onclick="return confirm('Bạn có chắc chắn muốn xóa?');"
                                             class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
                                         <i class="fa fa-close"></i>

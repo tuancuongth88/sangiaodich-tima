@@ -5,17 +5,15 @@
             <a href="index.html" class="m-menu__link ">
                 <i class="m-menu__link-icon flaticon-line-graph"></i>
                 <span class="m-menu__link-title">
-                                        <span class="m-menu__link-wrap">
-                                            <span class="m-menu__link-text">
-                                                Dashboard
-                                            </span>
+                    <span class="m-menu__link-wrap">
+                        <span class="m-menu__link-text">
+                            Dashboard
+                        </span>
                         <span class="m-menu__link-badge">
-                                                <span class="m-badge m-badge--danger">
-                                                    2
-                                                </span>
+                            <span class="m-badge m-badge--danger">2</span>
                         </span>
-                        </span>
-                        </span>
+                    </span>
+                </span>
             </a>
         </li>
         <li class="m-menu__section">
@@ -28,8 +26,8 @@
             <a href="#" class="m-menu__link m-menu__toggle">
                 <i class="m-menu__link-icon flaticon-tea-cup"></i>
                 <span class="m-menu__link-text">
-                                        Tin tức
-                                    </span>
+                    Tin tức
+                </span>
                 <i class="m-menu__ver-arrow la la-angle-right"></i>
             </a>
             <div class="m-menu__submenu ">
@@ -42,8 +40,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Danh mục
-                                                </span>
+                                Danh mục
+                            </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
@@ -52,8 +50,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Bài viết
-                                                </span>
+                                Bài viết
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -63,8 +61,8 @@
             <a href="#" class="m-menu__link m-menu__toggle">
                 <i class="m-menu__link-icon flaticon-tea-cup"></i>
                 <span class="m-menu__link-text">
-                                        Hỏi đáp
-                                    </span>
+                    Hỏi đáp
+                </span>
                 <i class="m-menu__ver-arrow la la-angle-right"></i>
             </a>
             <div class="m-menu__submenu ">
@@ -77,8 +75,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Danh mục
-                                                </span>
+                                Danh mục
+                            </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
@@ -87,8 +85,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Bài viết
-                                                </span>
+                                Bài viết
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -99,8 +97,8 @@
             <a href="#" class="m-menu__link m-menu__toggle">
                 <i class="m-menu__link-icon flaticon-users"></i>
                 <span class="m-menu__link-text">
-                                        User
-                                    </span>
+                    User
+                </span>
                 <i class="m-menu__ver-arrow la la-angle-right"></i>
             </a>
             <div class="m-menu__submenu ">
@@ -112,8 +110,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Danh sách
-                                                </span>
+                                Danh sách
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -124,7 +122,7 @@
             <a href="#" class="m-menu__link m-menu__toggle">
                 <i class="m-menu__link-icon flaticon-layers"></i>
                 <span class="m-menu__link-text">
-                                Đối tác
+                    Đối tác
                 </span>
                 <i class="m-menu__ver-arrow la la-angle-right"></i>
             </a>
@@ -138,8 +136,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Danh mục
-                                                </span>
+                                Danh mục
+                            </span>
                         </a>
                     </li>
                     <li class="m-menu__item " aria-haspopup="true">
@@ -148,8 +146,8 @@
                                 <span></span>
                             </i>
                             <span class="m-menu__link-text">
-                                                    Đối tác
-                                                </span>
+                                Đối tác
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -160,7 +158,7 @@
             <a href="#" class="m-menu__link m-menu__toggle">
                 <i class="m-menu__link-icon flaticon-layers"></i>
                 <span class="m-menu__link-text">
-                                Contact Form
+                    Contact Form
                 </span>
                 <i class="m-menu__ver-arrow la la-angle-right"></i>
             </a>

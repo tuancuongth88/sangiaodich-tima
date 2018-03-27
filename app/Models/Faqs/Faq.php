@@ -5,29 +5,33 @@ namespace App\Models\Faqs;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Faq extends Model {
+class Faq extends Model
+{
     use SoftDeletes;
 
     public $fillable = [
-        'question', 'answer', 'created_by', 'updated_by', 'company_id',
+        'category_id', 'question', 'answer', 'created_by', 'updated_by', 'company_id',
     ];
 
     protected $dates = ['deleted_at'];
 
-    public static function getTableName() {
-        return with(new static )->getTable();
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
     }
 
     public static $rules = [
         'question' => 'required|max:250',
+        'category_id' => 'required',
     ];
 
     public static $messages = [
         'required' => ':attribute không được để trống.',
-        'max'      => ':attribute không quá 255 ký tự.',
+        'max' => ':attribute không quá 255 ký tự.',
     ];
 
-    public function scopeSearch($query, $search = '', $field = '') {
+    public function scopeSearch($query, $search = '', $field = '')
+    {
         if (empty($field)) {
             $fields = array('question');
         } else {
@@ -46,10 +50,19 @@ class Faq extends Model {
                                 $q->orWhere($value, 'like', '%' . $str . '%');
                             }
                         }
-
                     }
                 }
             }
         });
+    }
+
+    public function scopePagination($query, $itemPerPages, $currentPage)
+    {
+        return $query->take($itemPerPages)->skip($itemPerPages * ($currentPage - 1));
+    }
+
+    public function scopeCategory($query, $categoryId)
+    {
+        return $query->where('category_id', $categoryId);
     }
 }
