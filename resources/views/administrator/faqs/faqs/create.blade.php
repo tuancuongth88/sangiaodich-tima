@@ -67,7 +67,10 @@
                                 </label>
                                 <select class="form-control m-input m-input--solid" id="category_id"
                                         name="category_id">
-                                    @foreach ($category as $element)
+                                    <option value="0">
+                                        Chọn danh mục
+                                    </option>
+                                    @foreach ($categories as $element)
                                         <option value="{{ $element['id'] }}">
                                             {{ $element['name'] }}
                                         </option>

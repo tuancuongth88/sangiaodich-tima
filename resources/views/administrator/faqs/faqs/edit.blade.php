@@ -67,8 +67,8 @@
                                 </label>
                                 <select class="form-control m-input m-input--solid" id="category_id"
                                         name="category_id">
-                                    @foreach ($category as $element)
-                                        <option value="{{ $element['id'] }}">
+                                    @foreach ($categories as $element)
+                                        <option value="{{ $element['id'] }}" {{ ($data['category_id'] == $element['id']) ? 'selected' : ''}}>
                                             {{ $element['name'] }}
                                         </option>
                                     @endforeach

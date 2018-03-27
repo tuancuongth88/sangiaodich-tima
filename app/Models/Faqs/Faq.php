@@ -10,7 +10,7 @@ class Faq extends Model
     use SoftDeletes;
 
     public $fillable = [
-        'category_id', 'question', 'answer', 'created_by', 'updated_by', 'company_id',
+        'category_id', 'question', 'answer', 'created_by', 'updated_by',
     ];
 
     protected $dates = ['deleted_at'];

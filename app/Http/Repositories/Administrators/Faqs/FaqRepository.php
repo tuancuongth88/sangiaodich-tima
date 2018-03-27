@@ -2,6 +2,7 @@
 
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\Faqs\Faq;
+use App\Models\Faqs\FaqCategories;
 use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
@@ -11,7 +12,7 @@ use Validator;
 class FaqRepository extends Repository
 {
 
-    private $category;
+    private $categories;
 
     private $model;
 
@@ -40,6 +41,7 @@ class FaqRepository extends Repository
     const ONE = 1;
 
     function __construct(
+        FaqCategories $categories,
         Faq $faq,
         ResponseService $response,
         Request $request,
@@ -50,6 +52,7 @@ class FaqRepository extends Repository
         $current = 1
     )
     {
+        $this->categories = $categories;
         $this->model = $faq;
         $this->user = $user;
         $this->response = $response;
@@ -77,6 +80,7 @@ class FaqRepository extends Repository
     const ID = 'id';
     const QUESTION = 'question';
     const ANSWER = 'answer';
+    const CATEGORY_ID = 'category_id';
     const COMPANY_ID = 'company_id';
     const CREATED_BY = 'created_by';
     const UPDATED_BY = 'updated_by';
@@ -93,7 +97,8 @@ class FaqRepository extends Repository
     {
         return $this->request->only(
             self::QUESTION,
-            self::ANSWER
+            self::ANSWER,
+            self::CATEGORY_ID
         );
     }
 
@@ -109,7 +114,8 @@ class FaqRepository extends Repository
     {
         return $this->request->only(
             self::QUESTION,
-            self::ANSWER
+            self::ANSWER,
+            self::CATEGORY_ID
         );
     }
 
@@ -248,13 +254,15 @@ class FaqRepository extends Repository
 
     public function create()
     {
-        return view('administrator.faqs.faqs.create');
+        $categories = $this->categories->get()->toArray();
+        return view('administrator.faqs.faqs.create', ['categories' => $categories]);
     }
 
     public function edit($id)
     {
+        $categories = $this->categories->get()->toArray();
         $data = $this->model->find($id)->toArray();
-        return view('administrator.faqs.edit', ['data' => $data]);
+        return view('administrator.faqs.faqs.edit', ['categories' => $categories, 'data' => $data]);
     }
 
     /*
