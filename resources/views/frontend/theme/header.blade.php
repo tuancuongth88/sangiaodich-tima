@@ -1,54 +1,128 @@
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <title>TIMA - SÀN KẾT NỐI TÀI CHÍNH LỚN NHẤT VIỆT NAM</title>
+    <meta name="description" content="abc"/>
+    <meta name="keywords" content="acb"/>
 
-  <title>Dashboard - PixelAdmin: Responsive Bootstrap Template</title>
+    <link href="{{ URL::asset('/frontend/css/select2.css') }}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom.css') }}" type="text/css"/>
 
-   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('/frontend/css/font-awesome.min.css') }}" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-  <!-- DEMO ONLY: Function for the proper stylesheet loading according to the demo settings -->
-    <script>function _pxDemo_loadStylesheet(a,b,c){var c=c||decodeURIComponent((new RegExp(";\\s*"+encodeURIComponent("px-demo-theme")+"\\s*=\\s*([^;]+)\\s*;","g").exec(";"+document.cookie+";")||[])[1]||"clean"),d="rtl"===document.getElementsByTagName("html")[0].getAttribute("dir");document.write(a.replace(/^(.*?)((?:\.min)?\.css)$/,'<link href="$1'+(c.indexOf("dark")!==-1&&a.indexOf("/css/")!==-1&&a.indexOf("/themes/")===-1?"-dark":"")+(!d||0!==a.indexOf("/frontend/css")&&0!==a.indexOf("/frontend/demo")?"":".rtl")+'$2" rel="stylesheet" type="text/css"'+(b?'class="'+b+'"':"")+">"))}
+    <script>
+        var isMobile = 0;
     </script>
 
-  <!-- DEMO ONLY: Set RTL direction -->
-  <script>"ltr"!==document.getElementsByTagName("html")[0].getAttribute("dir")&&"1"===decodeURIComponent((new RegExp(";\\s*"+encodeURIComponent("px-demo-rtl")+"\\s*=\\s*([^;]+)\\s*;","g").exec(";"+document.cookie+";")||[])[1]||"0")&&document.getElementsByTagName("html")[0].setAttribute("dir","rtl");</script>
-
-  <!-- DEMO ONLY: Load PixelAdmin core stylesheets -->
-  <script>
-    _pxDemo_loadStylesheet('/frontend/css/bootstrap.min.css', 'px-demo-stylesheet-bs');
-    _pxDemo_loadStylesheet('/frontend/css/bootstrap.min.css', 'px-demo-stylesheet-bs');
-    _pxDemo_loadStylesheet('/frontend/css/pixeladmin.min.css', 'px-demo-stylesheet-core');
-    _pxDemo_loadStylesheet('/frontend/css/widgets.min.css', 'px-demo-stylesheet-widgets');
-  </script>
-
-  <!-- DEMO ONLY: Load theme -->
-  <script>
-    function _pxDemo_loadTheme(a){var b=decodeURIComponent((new RegExp(";\\s*"+encodeURIComponent("px-demo-theme")+"\\s*=\\s*([^;]+)\\s*;","g").exec(";"+document.cookie+";")||[])[1]||"clean");_pxDemo_loadStylesheet(a+b+".min.css","px-demo-stylesheet-theme",b)}
-    _pxDemo_loadTheme('/frontend/css/themes/');
-  </script>
-
-  <!-- Demo frontend -->
-  <script>_pxDemo_loadStylesheet('/frontend/demo/demo.css');</script>
-  <!-- / Demo frontend -->
-
-  <!-- holder.js -->
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.9.0/holder.js"></script>
-
-  <!-- Pace.js -->
-  <script src="{{ URL::asset('/frontend/pace/pace.min.js') }}"></script>
-
-  <script src="{{ URL::asset('/frontend/demo/demo.js') }}"></script>
-
-  <!-- Custom styling -->
-  <style>
-    .page-header-form .input-group-addon,
-    .page-header-form .form-control {
-      background: rgba(0,0,0,.05);
-    }
-  </style>
-  <!-- / Custom styling -->
 </head>
+
 <body>
+
+<div class="page-wrapper page-home">
+
+    <!--start header-->
+    <header id="header" class="header">
+        <div class="container d-flex flex-row flex-lg-column">
+            <div class="topbar header__topbar hidden-md-down">
+                <ul class="topbar-list mb-0">
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="/User/Register/">Đăng ký</a>
+                    </li>
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="/User/Login/">
+                            Đăng nhập
+                        </a>
+                    </li>
+
+
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="/Home/Notification/">
+                            Thông báo
+                        </a>
+                    </li>
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="/huong-dan-giao-dich-tren-san-tima.html">
+                            Hỗ trợ
+                        </a>
+                    </li>
+
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="/Home/InstallApp/">
+                            <i class="icon-mobile"></i>
+                        </a>
+                    </li>
+
+
+                    <li class="topbar-list__item">
+                        <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:18006919">
+                            <i class="icon-phone-gray mr-1"></i>
+                            <strong>1800.6919</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <nav class="navbar navbar-toggleable-md w-100 p-0">
+
+                <button id="main-nav-toggle" class="hamburger hamburger--slider main-nav-toggle collapsed hidden-lg-up"
+                        data-toggle="collapse" data-target="#main-nav-collapse" aria-controls="main-nav-collapse"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                <span class="hamburger-box d-block">
+                    <span class="hamburger-inner"></span>
+                </span>
+                    <span class="fs-11" style="">Menu</span>
+
+                </button>
+
+                <a class="navbar-brand header__logo py-0" href="/">
+                    <img class="header__logo-img img-fluid" src="frontend/images/logo1.png" alt="Tima">
+                </a>
+                <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:18006919">
+                    <i class="header__call-icon align-self-center icon-phone-lg d-flex mr-2"></i>
+                    <div class="media-body align-self-center">
+                        <div class="header__call-number">
+                            1800 6919
+                        </div>
+                        <div class="header__call-time">
+                            07:30 - 18:30, Thứ Hai - CN
+                        </div>
+                    </div>
+                </a>
+                <div class="collapse navbar-collapse" id="main-nav-collapse">
+                    <ul class="main-nav navbar-nav ml-auto">
+                        <li class="nav-item active ">
+                            <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="/Borrower/">Cần một khoản vay</a>
+                        </li>
+
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="/san-giao-dich.html">SÀN GIAO DỊCH</a>
+                        </li>
+
+
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="/Home/About/">VỀ TIMA</a>
+                        </li>
+                        <li class="nav-item shomb  ">
+                            <a class="nav-link" href="/news/">Tin tức</a>
+                        </li>
+
+                        <li class="nav-item hidden-md-up  ">
+                            <a class="nav-link" href="/Home/Support/">Trung tâm hỗ trợ</a>
+                        </li>
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="/User/Login/">Đăng nhập</a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="main-page">

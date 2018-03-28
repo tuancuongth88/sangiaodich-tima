@@ -1,68 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- begin::Head -->
-
 @include('frontend.theme.header')
-  <!-- jQuery -->
-  <script src="{{ URL::asset('/frontend/js/jquery.min.js') }}"></script>
-<!-- end::Head -->
-<!-- end::Body -->
-@include('frontend.theme.left-slidebar')
 
-@include('frontend.theme.header-bar')
-<div class="px-content" style="">
+<div class="main-page">
     @yield('content')
 </div>
 @include('frontend.theme.footer-bar')
 
-  <!-- ==============================================================================
-  |
-  |  SCRIPTS
-  |
-  =============================================================================== -->
+<script src="{{ URL::asset('/frontend/js/jquery.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/swiper.jquery.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/bootstrap-slider.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/jquery.incremental-counter.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/custom.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/common.js') }}"></script>
+
+<script type="text/javascript" src="{{ URL::asset('/frontend/js/jquery.noty.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('/frontend/js/top.js') }}"></script>
 
 
-  <script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
-  <script src="{{ URL::asset('/frontend/js/pixeladmin.min.js') }}"></script>
 
-  <script>
-    // -------------------------------------------------------------------------
-    // Initialize DEMO sidebar
+<script src="{{ URL::asset('/frontend/js/jquery.validate.min.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/select2.min.js') }}"></script>
 
-    $(function() {
-      pxDemo.initializeDemoSidebar();
+<!--Vào trang con thì bỏ chú thích js 1 dòng dưới này-->
+<!--<script src="files/js/scripts.js"></script>-->
+<script>
 
-      $('#px-demo-sidebar').pxSidebar();
-      pxDemo.initializeDemo();
-    });
-  </script>
+    jQuery.validator.addMethod("phone", function(value, element){
+        var $reg1 = /^01\d{9}$/,
+            $reg2 = /^09\d{8}$/,
+            $reg3 = /^08\d{8}$/;
+        return this.optional(element) || $reg1.test(value) || $reg2.test(value) || $reg3.test(value);
+    }, "Số điện thoại không hợp lệ");
 
-  <script type="text/javascript">
-    // -------------------------------------------------------------------------
-    // Initialize DEMO
+    jQuery.validator.addMethod("email", function(value, element){
+        var $reg = /^[a-zA-Z0-9][a-zA-Z0-9\._]{2,62}[a-zA-Z0-9]@[a-z0-9\-]{3,}(\.[a-z]{2,4}){1,2}$/;
+        return this.optional(element) || $reg.test(value);
+    }, "Email không hợp lệ");
 
-    $(function() {
-      var file = String(document.location).split('/').pop();
+    $(document).ready(function () {
+        $('.chatbox-zoom').click(function () {
+            $('.chatbox-body').toggle();
+        });
 
-      // Remove unnecessary file parts
-      file = file.replace(/(\.html).*/i, '$1');
+        $('.chatbox-form').validate({
+            rules: {
+                chat_fullname: {
+                    required: true,
+                },
+                chat_email: {
+                    required: true,
+                    email: true
+                },
+                chat_content: {
+                    required: true
+                }
+            },
+            messages: {
+                chat_fullname: {
+                    required: 'Chưa nhập Tên',
+                },
+                chat_email: {
+                    required: 'Chưa nhập email',
+                },
+                chat_content: {
+                    required: 'Chưa nhập nội dung',
+                }
+            },
+            errorElement: 'div',
+            errorPlacement: function (place, element) {
+                place.addClass('error-message').appendTo(element.closest('div'));
+            },
+            highlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+                } else if (element.type === "select-one" || element.type === "select-multiple") {
+                    var $element = $(element);
+                    $element.addClass(errorClass).removeClass(validClass);
+                    var $next = $element.next();
+                    if ($next.length > 0 && $next.hasClass('select2')) {
+                        $next.addClass(errorClass).removeClass(validClass);
+                    }
+                } else {
+                    $(element).addClass(errorClass).removeClass(validClass);
+                }
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).addClass(validClass).removeClass(errorClass);
+                } else if (element.type === "select-one" || element.type === "select-multiple") {
+                    var $element = $(element);
+                    $element.addClass(validClass).removeClass(errorClass);
+                    var $next = $element.next();
+                    if ($next.length > 0 && $next.hasClass('select2')) {
+                        $next.addClass(validClass).removeClass(errorClass);
+                    }
+                } else {
+                    $(element).addClass(validClass).removeClass(errorClass);
+                }
+            },
+            submitHandler: function (form) {
+                /*viet xu ly o day*/
+                return false;
+            }
+        });
+    })
+</script>
 
-      if (!/.html$/i.test(file)) {
-        file = 'index.html';
-      }
 
-      // Activate current nav item
-      $('body > .px-nav')
-        .find('.px-nav-item > a[href="' + file + '"]')
-        .parent()
-        .addClass('active');
-
-      $('body > .px-nav').pxNav();
-      $('body > .px-footer').pxFooter();
-
-      $('#navbar-notifications').perfectScrollbar();
-      $('#navbar-messages').perfectScrollbar();
-    });
-  </script>
 </body>
 </html>

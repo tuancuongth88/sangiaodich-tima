@@ -3,5 +3,5 @@
 
 @section('content')
 
-@include('frontend.news.comment')
+xxx
 @stop

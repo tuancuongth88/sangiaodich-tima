@@ -26,8 +26,6 @@ class NewsRepository extends Repository {
 
     protected $auth;
 
-    private $companyId;
-
     private $perpages;
 
     private $current;
