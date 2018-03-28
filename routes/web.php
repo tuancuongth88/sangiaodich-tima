@@ -16,7 +16,6 @@ Route::get('/', function () {
 });
 // Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
 Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@postLogin']);
@@ -56,7 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
 });
 
-Route::resource('template', 'Frontends\Homes\HomeController');
+Route::resource('home', 'Frontends\Homes\HomeController');
 
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
