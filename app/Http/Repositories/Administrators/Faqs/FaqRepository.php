@@ -2,15 +2,17 @@
 
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\Faqs\Faq;
+use App\Models\Faqs\FaqCategories;
 use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Validator;
 
-class FaqRepository extends Repository {
+class FaqRepository extends Repository
+{
 
-    private $category;
+    private $categories;
 
     private $model;
 
@@ -30,22 +32,34 @@ class FaqRepository extends Repository {
 
     private $faq;
 
-    const PIN     = 1;
-    const UNPIN   = 0;
+    const PIN = 1;
+    const UNPIN = 0;
     const APPROVE = 1;
-    const DRAFT   = 2;
-    const WAIT    = 0;
-    const ZERO    = 0;
-    const ONE     = 1;
+    const DRAFT = 2;
+    const WAIT = 0;
+    const ZERO = 0;
+    const ONE = 1;
 
-    function __construct(Faq $faq, ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 20, $current = 1) {
-        $this->model    = $faq;
-        $this->user     = $user;
+    function __construct(
+        FaqCategories $categories,
+        Faq $faq,
+        ResponseService $response,
+        Request $request,
+        AuthService $auth,
+        User $user,
+        $companyId = 0,
+        $perpages = 20,
+        $current = 1
+    )
+    {
+        $this->categories = $categories;
+        $this->model = $faq;
+        $this->user = $user;
         $this->response = $response;
-        $this->request  = $request;
-        $this->auth     = $auth;
+        $this->request = $request;
+        $this->auth = $auth;
         $this->perpages = $perpages;
-        $this->current  = $current;
+        $this->current = $current;
     }
 
     /*
@@ -57,14 +71,16 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function validator(array $array) {
+    public function validator(array $array)
+    {
         return Validator::make($array, $this->model::$rules, $this->model::$messages);
     }
 
     // field of user table.
-    const ID         = 'id';
-    const QUESTION   = 'question';
-    const ANSWER     = 'answer';
+    const ID = 'id';
+    const QUESTION = 'question';
+    const ANSWER = 'answer';
+    const CATEGORY_ID = 'category_id';
     const COMPANY_ID = 'company_id';
     const CREATED_BY = 'created_by';
     const UPDATED_BY = 'updated_by';
@@ -77,10 +93,12 @@ class FaqRepository extends Repository {
     | @return field before validator and store.
     | @Author : haind
      */
-    protected function getInputFieldStore() {
+    protected function getInputFieldStore()
+    {
         return $this->request->only(
             self::QUESTION,
-            self::ANSWER
+            self::ANSWER,
+            self::CATEGORY_ID
         );
     }
 
@@ -92,10 +110,12 @@ class FaqRepository extends Repository {
     | @return field before validator and update.
     | @Author : haind
      */
-    protected function getInputFieldUpdate() {
+    protected function getInputFieldUpdate()
+    {
         return $this->request->only(
             self::QUESTION,
-            self::ANSWER
+            self::ANSWER,
+            self::CATEGORY_ID
         );
     }
 
@@ -108,9 +128,10 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function store() {
+    public function store()
+    {
         try {
-            $data      = $this->getInputFieldStore();
+            $data = $this->getInputFieldStore();
             $validator = $this->validator($data);
             if ($validator->fails()) {
                 return redirect()
@@ -120,7 +141,9 @@ class FaqRepository extends Repository {
             }
             $obj = $this->model->create($data);
             if ($obj) {
-                return redirect()->action('Administrators\Faqs\FaqController@index')->with('status', true)->with('message', 'Thêm mới thành công!');
+                return redirect()->action(
+                    'Administrators\Faqs\FaqController@index'
+                )->with('status', true)->with('message', 'Thêm mới thành công!');
             }
             return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Thêm mới thất bại!');
         } catch (\Exception $e) {
@@ -137,17 +160,18 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function update($id) {
+    public function update($id)
+    {
         try {
             $data = $this->model->find($id);
-            if ($data == NULL) {
+            if ($data == null) {
                 return $this->response->json(false, '', 'MESSAGE.SOMETHING_WENT_WRONG');
             }
             $input = $this->getInputFieldUpdate();
             foreach ($input as $key => $value) {
                 $data->$key = $value;
             }
-            $data      = $data->toArray();
+            $data = $data->toArray();
             $validator = $this->validator($data);
             if ($validator->fails()) {
                 return redirect()
@@ -157,18 +181,22 @@ class FaqRepository extends Repository {
             }
             $data['image_url'] = '';
             if ($this->request->hasFile('image_url')) {
-                $file              = $this->request->image_url;
-                $destinationPath   = public_path() . IMAGENEWS;
-                $filename          = time() . '_' . $file->getClientOriginalName();
-                $uploadSuccess     = $file->move($destinationPath, $filename);
+                $file = $this->request->image_url;
+                $destinationPath = public_path() . IMAGENEWS;
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $uploadSuccess = $file->move($destinationPath, $filename);
                 $data['image_url'] = IMAGENEWS . $filename;
             }
             $data[self::UPDATED_BY] = $this->auth->user()->id;
-            $obj                    = $this->model->find($id)->update($data);
+            $obj = $this->model->find($id)->update($data);
             if (!$obj) {
-                return redirect()->action('Administrators\Faqs\FaqController@index')->with('error', true)->with('message', 'Cập nhật thất bại!');
+                return redirect()->action(
+                    'Administrators\Faqs\FaqController@index'
+                )->with('error', true)->with('message', 'Cập nhật thất bại!');
             }
-            return redirect()->action('Administrators\Faqs\FaqController@index')->with('status', true)->with('message', 'Cập nhật thành công!');
+            return redirect()->action(
+                'Administrators\Faqs\FaqController@index'
+            )->with('status', true)->with('message', 'Cập nhật thành công!');
         } catch (Exception $e) {
             return $this->response->json(false, '', $this->getErrorMessage($e));
         }
@@ -183,17 +211,18 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function index() {
+    public function index()
+    {
         $orderField = ($this->request->has('field')) ? $this->request->input('field') : self::ID;
-        $orderType  = ($this->request->has('type')) ? $this->request->input('type') : self::ID;
-        $query      = $this->model->orderBy($orderField, ($orderType) ? 'asc' : 'desc');
+        $orderType = ($this->request->has('type')) ? $this->request->input('type') : self::ID;
+        $query = $this->model->orderBy($orderField, ($orderType) ? 'asc' : 'desc');
         if ($this->request->has('query')) {
             $query = $query
                 ->search($this->request->input('search'))
                 ->orderBy('created_at', 'DESC');
         }
         $listData = $query->paginate($this->perpages);
-        return view('administrator.faqs.index', ['data' => $listData]);
+        return view('administrator.faqs.faqs.index', ['data' => $listData]);
     }
 
     /*
@@ -205,26 +234,35 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         try {
             $obj = $this->model->find($id);
             $obj->delete();
             if (!$obj) {
-                return redirect()->action('Administrators\Faqs\FaqController@index')->with('error', true)->with('message', 'Xóa thất bại!');
+                return redirect()->action(
+                    'Administrators\Faqs\FaqController@index'
+                )->with('error', true)->with('message', 'Xóa thất bại!');
             }
-            return redirect()->action('Administrators\Faqs\FaqController@index')->with('status', true)->with('message', 'Xóa thành công!');
+            return redirect()->action(
+                'Administrators\Faqs\FaqController@index'
+            )->with('status', true)->with('message', 'Xóa thành công!');
         } catch (Exception $e) {
             return $this->response->json(false, '', 'MESSAGE.SOMETHING_WENT_WRONG');
         }
     }
 
-    public function create() {
-        return view('administrator.faqs.create');
+    public function create()
+    {
+        $categories = $this->categories->get()->toArray();
+        return view('administrator.faqs.faqs.create', ['categories' => $categories]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
+        $categories = $this->categories->get()->toArray();
         $data = $this->model->find($id)->toArray();
-        return view('administrator.faqs.edit', ['data' => $data]);
+        return view('administrator.faqs.faqs.edit', ['categories' => $categories, 'data' => $data]);
     }
 
     /*
@@ -236,27 +274,26 @@ class FaqRepository extends Repository {
     | @Author : haind
      */
 
-    public function getSearch() {
+    public function getSearch()
+    {
         if ($this->request->has('query')) {
             $objModel = $this->model
                 ->search($this->request->input('search'))
                 ->orderBy('created_at', 'DESC');
             $total = $objModel->count();
-            $data  = $objModel->get()->toArray();
+            $data = $objModel->get()->toArray();
             if ($total > 0) {
                 foreach ($data as $key => $value) {
                     $dataResponse[] = [
-                        'id'          => $value[self::ID],
-                        'name'        => $value[self::QUESTION],
-                        'sub_name'    => '',
+                        'id' => $value[self::ID],
+                        'name' => $value[self::QUESTION],
+                        'sub_name' => '',
                         'description' => '',
-                        'url'         => route('user.edit', ['id' => $value['id']]),
+                        'url' => route('user.edit', ['id' => $value['id']]),
                     ];
                 }
             }
             return view('administrator.theme.search-result', ['total' => $total, 'data' => $dataResponse]);
         }
-
     }
-
 }

@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     //faq route
     Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
+    Route::resource('/faq-categories', 'Administrators\Faqs\FaqCategoriesController');
     Route::resource('/faq', 'Administrators\Faqs\FaqController');
     //project route
 

@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Validator;
 
-class NewsRepository extends Repository {
+class NewsRepository extends Repository
+{
 
     private $category;
 
@@ -32,24 +33,25 @@ class NewsRepository extends Repository {
 
     private $tag;
 
-    const PIN     = 1;
-    const UNPIN   = 0;
+    const PIN = 1;
+    const UNPIN = 0;
     const APPROVE = 1;
-    const DRAFT   = 2;
-    const WAIT    = 0;
-    const ZERO    = 0;
-    const ONE     = 1;
+    const DRAFT = 2;
+    const WAIT = 0;
+    const ZERO = 0;
+    const ONE = 1;
 
-    function __construct(NewsCategory $category, News $news, ResponseService $response, Request $request, AuthService $auth, User $user, $perpages = 20, $current = 1, Tag $tag) {
-        $this->category  = $category;
-        $this->model     = $news;
-        $this->user      = $user;
-        $this->response  = $response;
-        $this->request   = $request;
-        $this->auth      = $auth;
-        $this->perpages  = $perpages;
-        $this->current   = $current;
-        $this->tag       = $tag;
+    function __construct(NewsCategory $category, News $news, ResponseService $response, Request $request, AuthService $auth, User $user, $perpages = 20, $current = 1, Tag $tag)
+    {
+        $this->category = $category;
+        $this->model = $news;
+        $this->user = $user;
+        $this->response = $response;
+        $this->request = $request;
+        $this->auth = $auth;
+        $this->perpages = $perpages;
+        $this->current = $current;
+        $this->tag = $tag;
     }
 
     /*
@@ -61,16 +63,16 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function onload() {
+    public function onload()
+    {
         $category = $this->category->company($this->companyId)->get();
-        $user     = $this->user->where('companyId', $this->companyId)->get();
+        $user = $this->user->where('companyId', $this->companyId)->get();
         if (count($category) > 0 || count($user) > 0) {
-            return $this->response->json(true,
-                [
-                    'category' => $category,
-                    'user'     => $user,
-                ],
-                '');
+            return $this->response->json(
+                true,
+                ['category' => $category, 'user' => $user,],
+                ''
+            );
         } else {
             return $this->response->json(false, '', 'MESSAGE.SOMETHING_WENT_WRONG');
         }
@@ -85,26 +87,27 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function validator(array $array) {
+    public function validator(array $array)
+    {
         return Validator::make($array, $this->model::$rules, $this->model::$messages);
     }
 
     // field of user table.
-    const ID               = 'id';
-    const TITLE            = 'title';
-    const URL              = 'url';
-    const DESCRIPTION      = 'description';
-    const CONTENT          = 'content';
-    const IS_COMMENT       = 'is_comment';
-    const CATEGORY_ID      = 'category_id';
-    const IMAGE_URL        = 'image_url';
-    const TITLE_META       = 'title_meta';
+    const ID = 'id';
+    const TITLE = 'title';
+    const URL = 'url';
+    const DESCRIPTION = 'description';
+    const CONTENT = 'content';
+    const IS_COMMENT = 'is_comment';
+    const CATEGORY_ID = 'category_id';
+    const IMAGE_URL = 'image_url';
+    const TITLE_META = 'title_meta';
     const DESCRIPTION_META = 'description_meta';
-    const KEYWORD_META     = 'keyword_meta';
-    const SEND_AT          = 'send_at';
-    const AUTHOR           = 'author';
-    const CREATED_BY       = 'created_by';
-    const UPDATED_BY       = 'updated_by';
+    const KEYWORD_META = 'keyword_meta';
+    const SEND_AT = 'send_at';
+    const AUTHOR = 'author';
+    const CREATED_BY = 'created_by';
+    const UPDATED_BY = 'updated_by';
 
     /*
     |--------------------------------------------------------------------------
@@ -114,7 +117,8 @@ class NewsRepository extends Repository {
     | @return field before validator and store.
     | @Author : haind
      */
-    protected function getInputFieldStore() {
+    protected function getInputFieldStore()
+    {
         return $this->request->only(
             self::TITLE,
             self::URL,
@@ -139,7 +143,8 @@ class NewsRepository extends Repository {
     | @return field before validator and update.
     | @Author : haind
      */
-    protected function getInputFieldUpdate() {
+    protected function getInputFieldUpdate()
+    {
         return $this->request->only(
             self::TITLE,
             self::URL,
@@ -165,11 +170,12 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function store() {
-        $listTag            = explode(',', $this->request->input('tags'));
-        $data               = $this->getInputFieldStore();
+    public function store()
+    {
+        $listTag = explode(',', $this->request->input('tags'));
+        $data = $this->getInputFieldStore();
         $data['is_comment'] = ($this->request->has('is_comment')) ? $this->request->input('is_comment') : self::ZERO;
-        $validator          = $this->validator($data);
+        $validator = $this->validator($data);
         if ($validator->fails()) {
             return redirect()
                 ->back()
@@ -178,14 +184,14 @@ class NewsRepository extends Repository {
         }
         $data['image_url'] = '';
         if ($this->request->hasFile('image_url')) {
-            $file              = $this->request->image_url;
-            $destinationPath   = public_path() . IMAGENEWS;
-            $filename          = time() . '_' . $file->getClientOriginalName();
-            $uploadSuccess     = $file->move($destinationPath, $filename);
+            $file = $this->request->image_url;
+            $destinationPath = public_path() . IMAGENEWS;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
             $data['image_url'] = IMAGENEWS . $filename;
         }
         $data['created_by'] = $this->auth->user()->id;
-        $obj                = $this->model->create($data);
+        $obj = $this->model->create($data);
         if ($obj) {
             foreach ($listTag as $value) {
                 $dataRelated[] = new Tag(['tag' => $value]);
@@ -205,7 +211,8 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function update($id) {
+    public function update($id)
+    {
         $data = $this->model->find($id);
         if (!$data) {
             return redirect()->action('Administrators\News\NewsController@index')->with('error', true)->with('message', 'Cập nhật không thành công!');
@@ -214,7 +221,7 @@ class NewsRepository extends Repository {
         foreach ($input as $key => $value) {
             $data->$key = $value;
         }
-        $data      = $data->toArray();
+        $data = $data->toArray();
         $validator = $this->validator($data);
         if ($validator->fails()) {
             return redirect()
@@ -223,14 +230,14 @@ class NewsRepository extends Repository {
                 ->withInput($data);
         }
         if ($this->request->hasFile('image_url')) {
-            $file              = $this->request->image_url;
-            $destinationPath   = public_path() . IMAGENEWS;
-            $filename          = time() . '_' . $file->getClientOriginalName();
-            $uploadSuccess     = $file->move($destinationPath, $filename);
+            $file = $this->request->image_url;
+            $destinationPath = public_path() . IMAGENEWS;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
             $data['image_url'] = IMAGENEWS . $filename;
         }
         $data[self::UPDATED_BY] = $this->auth->user()->id;
-        $obj                    = $this->model->find($id)->update($data);
+        $obj = $this->model->find($id)->update($data);
         if (!$obj) {
             $listTag = explode(',', $this->request->input('tags'));
 
@@ -253,7 +260,8 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function index() {
+    public function index()
+    {
         // $orderField = ($this->request->has('field')) ? $this->request->input('field') : self::ID;
         // $orderType  = ($this->request->has('type')) ? $this->request->input('type') : self::ID;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
@@ -274,7 +282,8 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function show($id) {
+    public function show($id)
+    {
         $news = $this->model->find($id);
         if (!empty($news)) {
             return $this->response->json(true, $news, '');
@@ -291,7 +300,8 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $news = $this->model->find($id);
         $news->delete();
         $this->tag->where('news_id', $id)->delete();
@@ -310,9 +320,10 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function putApprove($id) {
-        $obj               = $this->model->find($id);
-        $obj->is_approve   = ($obj->is_approve == self::APPROVE) ? self::ZERO : self::APPROVE;
+    public function putApprove($id)
+    {
+        $obj = $this->model->find($id);
+        $obj->is_approve = ($obj->is_approve == self::APPROVE) ? self::ZERO : self::APPROVE;
         $obj->approve_time = Carbon::now();
         $obj->save();
         if (!$obj->image_url) {
@@ -324,15 +335,17 @@ class NewsRepository extends Repository {
         return redirect()->action('Administrators\News\NewsController@index')->with('status', true)->with('message', 'Duyệt tin thành công!');
     }
 
-    public function create() {
+    public function create()
+    {
         $category = $this->category->get()->toArray();
         return view('administrator.news.news.create', ['category' => $category]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $category = $this->category->get();
-        $data     = $this->model->find($id);
-        $tags     = $this->tag->where('news_id', $id)->pluck('tag')->toArray();
+        $data = $this->model->find($id);
+        $tags = $this->tag->where('news_id', $id)->pluck('tag')->toArray();
         if (count($tags) > 0) {
             $data->tags = implode(',', $tags);
         }
@@ -352,21 +365,22 @@ class NewsRepository extends Repository {
     | @Author : haind
      */
 
-    public function getSearch() {
+    public function getSearch()
+    {
         if ($this->request->has('query')) {
             $newsModel = $this->model
                 ->search($this->request->input('search'))
                 ->orderBy('created_at', 'DESC');
             $total = $newsModel->count();
-            $data  = $newsModel->get()->toArray();
+            $data = $newsModel->get()->toArray();
             if ($total > 0) {
                 foreach ($data as $key => $value) {
                     $dataResponse[] = [
-                        'id'          => $value[self::ID],
-                        'name'        => $value[self::TITLE],
-                        'sub_name'    => '',
+                        'id' => $value[self::ID],
+                        'name' => $value[self::TITLE],
+                        'sub_name' => '',
                         'description' => $value[self::DESCRIPTION],
-                        'url'         => route('user.edit', ['id' => $value['id']]),
+                        'url' => route('user.edit', ['id' => $value['id']]),
                     ];
                 }
             }

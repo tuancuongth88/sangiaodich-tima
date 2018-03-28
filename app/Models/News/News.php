@@ -6,17 +6,18 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class News extends Model {
+class News extends Model
+{
     use SoftDeletes,
         Sluggable;
 
     const UNACCEPT = 0;
     const ACCEPTED = 1;
-    const DRAFT    = 2;
-    const ONE      = 1;
-    const ZERO     = 0;
+    const DRAFT = 2;
+    const ONE = 1;
+    const ZERO = 0;
 
-    protected $table      = 'news';
+    protected $table = 'news';
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -39,8 +40,8 @@ class News extends Model {
     ];
 
     public static $rules = [
-        'title'       => 'required',
-        'author'      => 'required',
+        'title' => 'required',
+        'author' => 'required',
         'category_id' => 'required',
     ];
 
@@ -50,15 +51,18 @@ class News extends Model {
 
     protected $dates = ['deleted_at'];
 
-    public function setSendAtAttribute($value) {
+    public function setSendAtAttribute($value)
+    {
         $this->attributes['send_at'] = \Carbon\Carbon::parse($value);
     }
 
-    public function getSendAtAttribute($value) {
+    public function getSendAtAttribute($value)
+    {
         return date('d-m-Y H:i', strtotime($value));
     }
 
-    public function scopeSearch($query, $search = '', $field = '') {
+    public function scopeSearch($query, $search = '', $field = '')
+    {
         if (empty($field)) {
             $fields = array('title', 'description', 'content');
         } else {
@@ -77,18 +81,19 @@ class News extends Model {
                                 $q->orWhere($value, 'like', '%' . $str . '%');
                             }
                         }
-
                     }
                 }
             }
         });
     }
 
-    public function scopePagination($query, $itemPerPages, $currentPage) {
+    public function scopePagination($query, $itemPerPages, $currentPage)
+    {
         return $query->take($itemPerPages)->skip($itemPerPages * ($currentPage - 1));
     }
 
-    public function scopeCategory($query, $categoryId) {
+    public function scopeCategory($query, $categoryId)
+    {
         return $query->where('category_id', $categoryId);
     }
 
@@ -97,24 +102,29 @@ class News extends Model {
     //     // return App\Models\Users\User::find($)
     // }
 
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->hasOne('App\Models\Users\User', 'id', 'author')->where('active', self::ONE);
 
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('App\Models\Users\User', 'author', 'id');
     }
 
-    public function scopeApprove($query) {
+    public function scopeApprove($query)
+    {
         return $query->where('is_approve', self::ONE);
     }
 
-    public function scopeSlug($query, $slug) {
+    public function scopeSlug($query, $slug)
+    {
         return $query->where('slug', $slug);
     }
 
-    public function tags() {
+    public function tags()
+    {
         return $this->hasMany('App\Models\News\Tag');
     }
 
@@ -123,7 +133,8 @@ class News extends Model {
      *
      * @return array
      */
-    public function sluggable() {
+    public function sluggable()
+    {
         return [
             'slug' => [
                 'source' => 'title',
