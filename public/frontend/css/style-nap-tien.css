@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i&subset=vietnamese');
+html, body {
+    font-family: "Roboto", sans-serif;
+}
+@media screen and (min-width: 320px) {
+    .upperbg {
+        width: 90%;
+    }
+    .bank-list li {
+        width: 30%;
+    }
+    label.form-control-static {
+        font-weight: 400;
+        text-align: left;
+    }
+    .mb-15{
+        margin-bottom: 15px;
+    }
+    .help-block.text-danger {
+        text-align: right;
+    }
+    .OTP-form label.form-control-static{
+        display: block;
+        text-align: left;
+        font-weight: 500;
+    }
+    .OTP-form .help-block.text-danger {
+        text-align: left;
+    }
+	.linkbank-tabs>li {
+		display: table-cell;
+		width: 1%;
+	}
+	.linkbank-tabs.nav-pills>li>a {
+		font-size: 11px;
+	}
+}
+@media screen and (min-width: 500px) {
+    .bank-list li {
+        width: 23%;
+    }
+	.linkbank-tabs.nav-pills>li>a {
+		font-size: 14px;
+	}
+}
+@media screen and (min-width: 680px) {
+    .bank-list li {
+        width: 18%;
+    }
+}
+@media screen and (min-width: 768px) {
+    .bank-list li {
+        width: auto;
+    }
+}
+@media screen and (min-width:992px) {
+    label.form-control-static {
+        text-align: right;
+        display: block;
+    }
+    .help-block.text-danger {
+        text-align: left;
+    }
+    .mb-15{
+        margin-bottom: 0px;
+    }
+    .OTP-form label.form-control-static{
+        display: block;
+        text-align: right;
+    }
+}
+.multi-language{
+    margin: 0px;
+    padding: 0px;
+    list-style: inside none;
+}
+
+.multi-language li {
+    display: inline-block;
+}
+.d-flex {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -o-flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-flex-end {
+    align-items: flex-end;
+}
+
+#banner {
+    border-bottom: 3px solid #f48120;
+    padding-bottom: 17px;
+}
+#banner .brand-logo .no-logo {
+    font-size: 24px;
+    font-weight: 500;
+    color: #474747;
+}
+.d-flex {
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -o-flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-flex-end {
+    align-items: flex-end;
+}
+
+#banner {
+    border-bottom: 3px solid #f48120;
+    padding-bottom: 17px;
+}
+#banner .brand-logo .no-logo {
+    font-size: 24px;
+    font-weight: 500;
+    color: #474747;
+}
+#top {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+#order-infomation {
+    background: #efefef;
+    padding: 17px 0px;
+}
+.order-label {
+	background-color: #eee;
+}
+.order-value {
+    color: #424242;
+    font-size: 16px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.order-value.text-primary {
+    color: #f48120;
+}
+#copyright {
+    padding: 10px 0px;
+    border-top: 1px solid #b3b3b3;
+    text-align: center;
+    color: #919191;
+    font-weight: 400;
+}
+
+#certification {
+    padding: 10px 0px;
+}
+
+#certification img {
+    margin: 0 auto;
+}
+.note {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#content {
+    padding: 30px 0px;
+}
+.text-underline {
+    text-decoration: underline;
+}
+
+.form-control-feedback.fa {
+    line-height: 34px;
+}
+
+.has-left-feedback {
+    position: relative;
+}
+.has-left-feedback .form-control {
+    padding-left: 30.5px;
+    padding-right: initial;
+}
+.has-left-feedback .form-control-feedback {
+    left: 0;
+    right: initial;
+}
+.btn-nav {
+    color: #60646c;
+}
+.btn-nav.btn:active,
+.btn-nav.btn:focus{
+    box-shadow: none;
+}
+.bank-list {
+    margin: 0px 0px 40px 0px;
+    padding: 0;
+    list-style: inside none;
+}
+.bank-list li {
+    padding: 4px 3px;
+    border: 1px solid #d5d5d5;
+    float: left;
+    margin-right: 9px;
+    margin-bottom: 9px;
+}
+
+.form-control {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: #f48120;
+}
+h4.guide-title {
+    font-weight: 500;
+    font-size: 16px;
+}
+.search-menu {
+    margin: 3px 0px 0px;
+    padding: 0;
+    list-style: inside none;
+    border: 1px solid #acacac;
+    padding: 5px;
+}
+.search-menu>.item>a {
+    padding: 5px;
+    display: block;
+}
+.search-menu>.item>a:hover {
+    background: #eaeaea;
+    text-decoration: none;
+}
+.search-menu>.item .bank-logo {
+    border: 1px solid #d8d5d5;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 85px;
+    max-height: 44px;
+    margin-right: 10px;
+}
+.search-menu>.item .bank-logo img {
+    width: 100%;
+}
+.search-menu>.item .bank-info {
+    display: inline-block;
+    vertical-align: middle;
+}
+.search-menu>.item .item-search-text {
+    padding: 15px 0px;
+    color: #1f1f1f;
+}
+
+.search-menu>.item .bank-info .bank-code {
+    color: #1f1f1f;
+}
+.search-menu>.item .bank-info .bank-fullname {
+    color: #6e6e6e;
+    font-size: 10px;
+    font-weight: 300;
+}
+.bank-card {
+    width: 282px;
+    height: 178px;
+    position: relative;
+    background-color: #dddddf;
+    padding: 20px;
+    border-radius:5px;
+}
+.bank-preview {
+    width: 282px;
+    height: 178px;
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius:5px;
+    border: 1px solid #b7b7b7;
+    display: table;
+}
+.bank-preview .bank-logo {
+    display: table-cell;
+    vertical-align: middle;
+}
+.bank-preview .bank-logo img {
+    margin: 0 auto;
+}
+.bank-card .card-bank-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.bank-card .card-bank-info {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+}
+.bank-card .card-bank-info .card-holder,
+.bank-card .card-bank-info .card-join-date,
+.bank-card .card-bank-info .card-number {
+    color: #2c3638;
+    font-size: 11px;
+    border: 2px solid transparent;
+    padding: 0px 10px;
+    position: absolute;
+    white-space: nowrap;
+}
+.bank-card .card-bank-info .card-holder {
+    left: 0;
+    bottom: 0;
+}
+.bank-card .card-bank-info .card-join-date {
+    color: #2c3638;
+    font-size: 14px;
+    left: 30px;
+    bottom: 15px;
+}
+.bank-card .card-bank-info .card-number {
+    bottom: 33px;
+    font-size: 18px;
+    color: #2c3638;
+}
+.bank-card .card-bank-info .card-holder.active,
+.bank-card .card-bank-info .card-join-date.active,
+.bank-card .card-bank-info .card-number.active {
+    border-color: #ff8d00;
+    background-color:  rgba(255,255,255,0.5);
+}
+.has-icon-feedback {
+    position: relative;
+}
+.has-icon-feedback .form-control-feedback {
+    top: 0px;
+    right: 10px;
+}
+.has-icon-feedback .form-control {
+    padding-right: 49.5px;
+}
+.btn {
+    font-size: 16px;
+}
+.btn-default {
+    background: #c0c0c0;
+}
+.help-block.text-danger{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+.linkbank-tabs {
+    border-top: 1px solid #b7b7b7;
+    border-left: 1px solid #b7b7b7;
+}
+.linkbank-tabs.nav-pills>li>a {
+    border-right: 1px solid #b7b7b7;
+    border-bottom: 1px solid #b7b7b7;
+    color: #60646c;
+    padding: 5px;
+    border-radius: 0px;
+    background-color: #fff;
+    font-weight: 500;
+	margin-bottom: 0px;
+}
+.linkbank-tabs.nav-pills>li.active>a {
+    color: #f48120;
+    background: #fff;
+    border-bottom-color: #f48120;
+}
+.modal-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c2c2c;
+    margin-bottom: 20px;
+}
+.modal-content {
+    border-radius: 0px;
+}
+.modal-dialog {
+    top: 50%;
+    transform: translateY(-75%) !important;
+}
+.nav-contents {
+    padding-top: 20px;
+}
+.OTP-form,
+.account-info {
+    text-align: center;
+}
+.bank-account-info {
+    color: #424242;
+    font-size: 16px;
+    font-weight: 500;
+}
+.account-info {
+    margin-bottom: 40px;
+}
+.otp-guide {
+    margin-bottom: 20px;
+}
+.otp-guide p {
+    margin-bottom: 0px;
+}
+.resend-otp {
+    color: #878787;
+    font-size: 12px;
+}
+.message {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    font-size: 16px;
+}
+.message.text-danger {
+    color: #ff0000;
+}
+.message.text-success {
+    color: #43ba56;
+}
+.guide-line {
+    font-weight: 400;
+}
+.return-shop-action {
+    margin-top: 35px;
+}
+.return-shop-action a {
+    font-size: 16px;
+}
+#search-overbg {
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1499;
+}
+[data-action="banksearch"] {
+    z-index: 1500;
+}
+.upperbg{
+    position: absolute;
+    z-index: 1500;
+    width: 100%;
+}
+.search-menu {
+    z-index: 1500;
+    background: #fff;
+}
+.search-box {
+    min-height: 49px;
+}
