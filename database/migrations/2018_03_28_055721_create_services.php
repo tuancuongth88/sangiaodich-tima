@@ -16,10 +16,9 @@ class CreateServices extends Migration
         //
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('service_code',256)->nullable();
-            $table->string('service_name',256)->nullable();
-            $table->string('status',256)->nullable();
-            $table->string('image_url',256)->nullable();
+            $table->string('service_name', 256)->nullable();
+            $table->integer('status')->nullable();
+            $table->string('image_url', 256)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
