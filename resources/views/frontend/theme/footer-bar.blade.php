@@ -103,14 +103,14 @@
                                 <div class="mb-3 mr-3 mr-md-0">
                                     <a target="_blank" class="gomobile__link"
                                        href="#">
-                                        <img class="img-responsive" src="frontend/images/appstore.png" alt="">
+                                        <img class="img-responsive" src="{{ asset('frontend/images/appstore.png') }}" alt="">
                                     </a>
                                 </div>
 
                                 <div>
                                     <a target="_blank" class="gomobile__link"
                                        href="#">
-                                        <img class="img-responsive" src="frontend/images/googleplay.png" alt="">
+                                        <img class="img-responsive" src="{{ asset('frontend/images/googleplay.png') }}" alt="">
                                     </a>
                                 </div>
                             </div>

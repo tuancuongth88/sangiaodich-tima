@@ -1,6 +1,4 @@
-<?php
-
-namespace App\Http\Controllers\Frontends\User;
+<?php namespace App\Http\Controllers\Frontends\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\Frontends\Users\UsersRepository;
@@ -8,10 +6,11 @@ use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
-    // public function __construct(UsersRepository $repository) {
-    //     $this->repository = $repository;
-    // }
+    private $repository;
 
+    public function __construct(UsersRepository $repository) {
+        $this->repository = $repository;
+    }
 
     /**
      * Get register form
@@ -23,7 +22,7 @@ class UsersController extends Controller
     /**
      * Process request from register form
      */
-    public function postRegisterForm(){
-    	
+    public function postRegisterForm(Request $request){
+    	return $this->repository->storeUser();
     }
 }

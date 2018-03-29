@@ -37,11 +37,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     Route::resource('/news-category', 'Administrators\News\NewsCategoryController');
     Route::resource('/news', 'Administrators\News\NewsController');
-    Route::post('/upload', 'Administrators\Systems\UploadController@postUpload');
+    // Route::post('/upload', 'Administrators\Systems\UploadController@postUpload');
     Route::put('/news/accept/{id}', 'Administrators\News\NewsController@putApprove');
     // Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     //faq route
-    Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
+    // Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
     Route::resource('/faq-categories', 'Administrators\Faqs\FaqCategoriesController');
     Route::resource('/faq', 'Administrators\Faqs\FaqController');
     //project route
@@ -63,7 +63,7 @@ Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
-    Route::get('register', 'Frontends\User\UsersController@getRegisterForm');
-    Route::post('register', 'Frontends\User\UsersController@postRegisterForm');
+    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
+    Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
 });
 
