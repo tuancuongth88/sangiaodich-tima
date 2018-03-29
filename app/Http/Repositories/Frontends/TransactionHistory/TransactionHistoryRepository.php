@@ -52,21 +52,13 @@ class TransactionHistoryRepository extends Repository
     {
         $status_tranhistory = $this->model->status_transactionhistory;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
-        if ($this->request->has('query')) {
-            $newsModel = $newsModel
-                ->search($this->request->input('query'));
-        }
         $listData = $newsModel->paginate($this->perpages);
-        dd([
-            'data' => $listData,
-            'services' => $this->services,
-            'list_status' => $status_tranhistory,
-        ]);
+        $list_services = $this->services->get()->toArray();
         return view(
-            'frontend.tranhistory.index',
+            'frontend.transactionhistory.index',
             [
                 'data' => $listData,
-                'services' => $this->services,
+                'services' => $list_services,
                 'list_status' => $status_tranhistory,
             ]
         );

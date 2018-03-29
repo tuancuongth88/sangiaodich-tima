@@ -5,6 +5,7 @@ namespace App\Models\TransactionHistory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class TransactionHistory extends Model
 {
     use SoftDeletes;
@@ -20,6 +21,16 @@ class TransactionHistory extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\Users\User', 'author', 'id');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo('App\Models\Services\Services', 'service_id');
+    }
 
     //1 ch
     public $status_transactionhistory =
