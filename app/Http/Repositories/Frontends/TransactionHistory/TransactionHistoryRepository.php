@@ -1,4 +1,4 @@
-<?php namespace App\Http\Repositories\Frontends\TransactionHistoryRepository;
+<?php namespace App\Http\Repositories\Frontends\TransactionHistory;
 
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\Services;
@@ -48,15 +48,15 @@ class TransactionHistoryRepository extends Repository
         return $this->model->approve()->orderBy(self::ID, 'desc')->take(5)->get();
     }
 
-    public function getTransactionHistory()
+    public function index()
     {
         $status_tranhistory = $this->model->status_transactionhistory;
-        $listData = $this->model
-            ->category($categoryId)
-            ->approve()
-            ->orderBy(self::ID, 'desc')
-            ->paginate($this->perpages);
-        $listLatest = self::getLatest();
+        $newsModel = $this->model->orderBy(self::ID, 'DESC');
+        if ($this->request->has('query')) {
+            $newsModel = $newsModel
+                ->search($this->request->input('query'));
+        }
+        $listData = $newsModel->paginate($this->perpages);
         return view(
             'frontend.tranhistory.index',
             [
@@ -66,6 +66,4 @@ class TransactionHistoryRepository extends Repository
             ]
         );
     }
-
-
 }
