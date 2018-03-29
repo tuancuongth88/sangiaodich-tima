@@ -58,3 +58,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
+
+// Route for User Member
+Route::group(['prefix' => 'user'], function(){
+    Route::get('register', 'Frontends\User\UsersController@getRegisterForm');
+    Route::post('register', 'Frontends\User\UsersController@postRegisterForm');
+});
+
