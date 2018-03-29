@@ -1,7 +1,7 @@
 <?php namespace App\Http\Repositories\Frontends\TransactionHistory;
 
 use App\Http\Repositories\Administrators\Repository;
-use App\Models\Services;
+use App\Models\Services\Services;
 use App\Models\TransactionHistory\TransactionHistory;
 use App\Models\Users\User;
 use App\Services\AuthService;
@@ -17,7 +17,7 @@ class TransactionHistoryRepository extends Repository
     private $user;
     private $response;
     private $request;
-    private $auth;
+    protected $auth;
     private $perpages;
     private $current;
 
@@ -57,6 +57,11 @@ class TransactionHistoryRepository extends Repository
                 ->search($this->request->input('query'));
         }
         $listData = $newsModel->paginate($this->perpages);
+        dd([
+            'data' => $listData,
+            'services' => $this->services,
+            'list_status' => $status_tranhistory,
+        ]);
         return view(
             'frontend.tranhistory.index',
             [
