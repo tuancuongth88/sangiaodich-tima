@@ -53,6 +53,10 @@ class TransactionHistoryRepository extends Repository
         $status_tranhistory = $this->model->status_transactionhistory;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
         $listData = $newsModel->paginate($this->perpages);
+        $count_tran = $newsModel->count();
+        //status
+        $count_tran_status = $this->model::where('status', '=', 1)->get()->count();
+
         $list_services = $this->services->get()->toArray();
         return view(
             'frontend.transactionhistory.index',
