@@ -62,4 +62,5 @@ Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCat
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
+Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getSearch');
 Route::resource('transactionhistory', 'Frontends\TransactionHistory\TransactionHistoryController');

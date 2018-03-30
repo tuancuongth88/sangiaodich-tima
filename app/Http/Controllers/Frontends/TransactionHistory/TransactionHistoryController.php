@@ -19,4 +19,9 @@ class TransactionHistoryController extends Controller
     {
         return $this->repository->index();
     }
+
+    public function getSearch()
+    {
+        return $this->repository->getSearch();
+    }
 }
