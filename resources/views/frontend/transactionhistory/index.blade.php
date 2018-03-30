@@ -80,7 +80,7 @@
                         <select class="form-control border-primary rounded-0 fs-15" id="cbProduct">
                             <option value="-10">Chọn Gói Sản Phẩm...</option>
                             @foreach ($services as $key_sv=>$val_sv)
-                                <option value="{{ $key_sv['id'] }}">
+                                <option value="{{ $val_sv['id'] }}">
                                     {{ $val_sv['service_name'] }}
                                 </option>
                             @endforeach
@@ -123,7 +123,7 @@
                     <div class="table-responsive">
                         <table class="tm-table-1 table text-gray-light" style="min-width:unset">
                             <tbody>
-                            <tr>
+                            <tr class="header-table-tran">
                                 <th class="text-center hidden-xs-down">
                                     <div class="border-right">
                                         STT
@@ -434,64 +434,25 @@
     </div>
 
     <script type="text/javascript">
-        $('#cbProduct').ready(function () {
-            $("#author").select2({
-                placeholder: "Tìm kiếm người dùng",
-                allowClear: true,
-                ajax: {
-                    url: "/administrator/user/search",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            keyword: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        // parse the results into the format expected by Select2
-                        // since we are using custom formatting functions we do not need to
-                        // alter the remote JSON data, except to indicate that infinite
-                        // scrolling can be used
-                        params.page = params.page || 1;
-
-                        return {
-                            results: data.data,
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                },
-            });
-
-            $('#cbProduct').ready(function () {
-
-                $('#cbProduct').change(function () {
-                    var myurl = $(this).attr('href');
-                    $.ajax(
-                        {
-                            url: "/frontends/transactionhistory/search",
-                            type: "get",
-                            datatype: "html",
-                            beforeSend: function () {
-                                $('#ajax-loading').show();
-                            }
-                        })
-                        .done(function (data) {
-                            $('#ajax-loading').hide();
-                            $("#projects").empty().html(data.html);
-                        })
-                        .fail(function (jqXHR, ajaxOptions, thrownError) {
-                            alert('No response from server');
-                        });
-                    return false;
-                })
-
-            });
-
-        });
+        jQuery(document).ready(function () {
+            $('#cbProduct').change(function () {
+                var product = $(this).val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table body").append(data);
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            })
+        })
     </script>
 
 @stop

@@ -71,8 +71,17 @@ class TransactionHistoryRepository extends Repository
         );
     }
 
-    public function getSearch()
+    public function getTranByProduct()
     {
+
+        $product = $this->request->input('product');
+        $status_tranhistory = $this->model->status_transactionhistory;
+
+        $data = $this->model::where('service_id', '=', $product)->paginate($this->perpages);
+
+        $html = view('frontend.transactionhistory.search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
+
+        return response()->json(array('success' => true, 'html' => $html));
 
     }
 }
