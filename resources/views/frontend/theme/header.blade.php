@@ -36,7 +36,6 @@
                         </a>
                     </li>
 
-
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/Notification/">
                             Thông báo
