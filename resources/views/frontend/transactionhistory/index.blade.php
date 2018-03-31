@@ -275,184 +275,46 @@
             </div>
         </div>
 
-        <div class="tm-card bg-white py-5 mb-5">
-            <div class="container">
-                <h2 class="tm-card__heading text-center mb-6">
-                    Các gói sản phẩm vay
-                </h2>
-
-                <div class="tm-card__body tm-feature">
-                    <div id="tm-feature-swiper" class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-theo-cam-co-tai-san.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/11.png" alt="cam-co-tai-san"
-                                             style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-theo-cam-co-tai-san.html">
-                                        Vay cầm cố tài sản
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-tin-chap.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/1.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-tin-chap.html">
-                                        Vay tín chấp <br> theo lương
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-qua-so-ho-khau.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/3.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-qua-so-ho-khau.html">
-                                        Vay theo sổ <br> hộ khẩu
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-theo-hoa-don-dien-nuoc.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/9.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-theo-hoa-don-dien-nuoc.html">
-                                        Vay theo hóa<br/> đơn điện nước
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/5.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-tra-gop.html">
-                                        Vay trả góp <br> theo ngày
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-dang-ky-xe.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/2.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-dang-ky-xe.html">
-                                        Vay theo đăng <br> ký xe máy
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-dang-ky-o-to.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/4.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-dang-ky-o-to.html">
-                                        Cầm đăng ký ô tô
-                                    </a>
-                                </h3>
-                            </div>
-
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-o-to.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/7.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-o-to.html">
-                                        Cầm ô tô
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-mua-o-to-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/8.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-mua-o-to-tra-gop.html">
-                                        Vay mua <br> ô tô trả góp
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="vay-mua-nha-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/6.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="vay-mua-nha-tra-gop.html">
-                                        Vay mua <br> nhà trả góp
-                                    </a>
-                                </h3>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="tm-feature__nav container stick-center">
-                        <div id="tm-feature__next" class="swiper-button-prev tm-feature__next"></div>
-                        <div id="tm-feature__prev" class="swiper-button-next tm-feature__prev"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script type="text/javascript">
         jQuery(document).ready(function () {
             $('#cbProduct').change(function () {
                 var product = $(this).val();
+                var status = $('#cbStatus').val();
                 $.ajax(
                     {
-                        url: "transactionhistory/search?product=" + product,
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
                         type: "get",
                         datatype: "html"
                     })
                     .done(function (data) {
                         $("table tr").not('.header-table-tran').remove();
-                        $("table body").append(data);
+                        $("table tbody").append(data);
                     })
                     .fail(function (jqXHR, ajaxOptions, thrownError) {
                         alert('No response from server');
                     });
                 return false;
-            })
-        })
+            });
+
+            $('#cbStatus').change(function () {
+                var product = $('#cbProduct').val();
+                var status = $(this).val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table tbody").append(data);
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
+        });
     </script>
 
 @stop
