@@ -25,7 +25,7 @@ class CreateTransactionHistory extends Migration
             $table->bigInteger('amount')->nullable();
             $table->integer('amount_day')->nullable();
             $table->dateTime('payment_day')->nullable();
-            $table->string('status', 256)->nullable();
+            $table->integer('status')->nullable();
             $table->string('created_time', 256)->nullable();
             $table->integer('telesales_id')->nullable();
             $table->dateTime('telesales_time')->nullable();

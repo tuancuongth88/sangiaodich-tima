@@ -258,15 +258,8 @@
                     <div class="d-flex">
                         <nav class="d-flex justify-content-between ml-lg-2" aria-label="Page navigation">
                             <ul class="pagination pagination-sm mb-0 mr-3">
-                                <li class="page-item page-item--prev d-flex">
-                                    <a class="page-link" href="#">Prev</a>
-                                </li>
-                                <li class="page-item d-flex align-items-center">
-                                    <div class="px-3 text-nowrap"><span id="lblCurrentPage">1</span> of 1368</div>
-                                </li>
-                                <li class="page-item page-item--next d-flex">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
+                                {{ $data->links() }}
+                                Tổng số {{ $data->total() }} bản ghi
                             </ul>
                         </nav>
                     </div>
