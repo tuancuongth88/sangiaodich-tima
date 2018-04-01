@@ -80,7 +80,7 @@
                         <select class="form-control border-primary rounded-0 fs-15" id="cbProduct">
                             <option value="-10">Chọn Gói Sản Phẩm...</option>
                             @foreach ($services as $key_sv=>$val_sv)
-                                <option value="{{ $key_sv['id'] }}">
+                                <option value="{{ $val_sv['id'] }}">
                                     {{ $val_sv['service_name'] }}
                                 </option>
                             @endforeach
@@ -123,7 +123,7 @@
                     <div class="table-responsive">
                         <table class="tm-table-1 table text-gray-light" style="min-width:unset">
                             <tbody>
-                            <tr>
+                            <tr class="header-table-tran">
                                 <th class="text-center hidden-xs-down">
                                     <div class="border-right">
                                         STT
@@ -257,17 +257,8 @@
 
                     <div class="d-flex">
                         <nav class="d-flex justify-content-between ml-lg-2" aria-label="Page navigation">
-                            <ul class="pagination pagination-sm mb-0 mr-3">
-                                <li class="page-item page-item--prev d-flex">
-                                    <a class="page-link" href="#">Prev</a>
-                                </li>
-                                <li class="page-item d-flex align-items-center">
-                                    <div class="px-3 text-nowrap"><span id="lblCurrentPage">1</span> of 1368</div>
-                                </li>
-                                <li class="page-item page-item--next d-flex">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
+                            {{ $data->links() }}
+                            Tổng số {{ $data->total() }} bản ghi
                         </nav>
                     </div>
 
@@ -275,223 +266,46 @@
             </div>
         </div>
 
-        <div class="tm-card bg-white py-5 mb-5">
-            <div class="container">
-                <h2 class="tm-card__heading text-center mb-6">
-                    Các gói sản phẩm vay
-                </h2>
-
-                <div class="tm-card__body tm-feature">
-                    <div id="tm-feature-swiper" class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-theo-cam-co-tai-san.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/11.png" alt="cam-co-tai-san"
-                                             style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-theo-cam-co-tai-san.html">
-                                        Vay cầm cố tài sản
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-tin-chap.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/1.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-tin-chap.html">
-                                        Vay tín chấp <br> theo lương
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-qua-so-ho-khau.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/3.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-qua-so-ho-khau.html">
-                                        Vay theo sổ <br> hộ khẩu
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-theo-hoa-don-dien-nuoc.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/9.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-theo-hoa-don-dien-nuoc.html">
-                                        Vay theo hóa<br/> đơn điện nước
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/5.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-tra-gop.html">
-                                        Vay trả góp <br> theo ngày
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-dang-ky-xe.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/2.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-dang-ky-xe.html">
-                                        Vay theo đăng <br> ký xe máy
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-dang-ky-o-to.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-
-                                        <img src="files/images/4.png" style="width:88px"/>
-                                    </div>
-                                </a>
-
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-dang-ky-o-to.html">
-                                        Cầm đăng ký ô tô
-                                    </a>
-                                </h3>
-                            </div>
-
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/cam-o-to.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/7.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/cam-o-to.html">
-                                        Cầm ô tô
-                                    </a>
-                                </h3>
-                            </div>
-
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="/vay-mua-o-to-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/8.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="/vay-mua-o-to-tra-gop.html">
-                                        Vay mua <br> ô tô trả góp
-                                    </a>
-                                </h3>
-                            </div>
-                            <div class="tm-feature__item swiper-slide text-center">
-                                <a href="vay-mua-nha-tra-gop.html">
-                                    <div class="tm-feature__thumb mb-2 mx-auto">
-                                        <img src="files/images/6.png" style="width:88px"/>
-                                    </div>
-                                </a>
-                                <h3 class="tm-feature__title">
-                                    <a href="vay-mua-nha-tra-gop.html">
-                                        Vay mua <br> nhà trả góp
-                                    </a>
-                                </h3>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="tm-feature__nav container stick-center">
-                        <div id="tm-feature__next" class="swiper-button-prev tm-feature__next"></div>
-                        <div id="tm-feature__prev" class="swiper-button-next tm-feature__prev"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        $('#cbProduct').ready(function () {
-            $("#author").select2({
-                placeholder: "Tìm kiếm người dùng",
-                allowClear: true,
-                ajax: {
-                    url: "/administrator/user/search",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            keyword: params.term, // search term
-                            page: params.page
-                        };
-                    },
-                    processResults: function (data, params) {
-                        // parse the results into the format expected by Select2
-                        // since we are using custom formatting functions we do not need to
-                        // alter the remote JSON data, except to indicate that infinite
-                        // scrolling can be used
-                        params.page = params.page || 1;
-
-                        return {
-                            results: data.data,
-                            pagination: {
-                                more: (params.page * 30) < data.total_count
-                            }
-                        };
-                    },
-                    cache: true
-                },
-            });
-
-            $('#cbProduct').ready(function () {
-
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
                 $('#cbProduct').change(function () {
-                    var myurl = $(this).attr('href');
+                    var product = $(this).val();
+                    var status = $('#cbStatus').val();
                     $.ajax(
                         {
-                            url: "/frontends/transactionhistory/search",
+                            url: "transactionhistory/search?product=" + product + "&status=" + status,
                             type: "get",
-                            datatype: "html",
-                            beforeSend: function () {
-                                $('#ajax-loading').show();
-                            }
+                            datatype: "html"
                         })
                         .done(function (data) {
-                            $('#ajax-loading').hide();
-                            $("#projects").empty().html(data.html);
+                            $("table tr").not('.header-table-tran').remove();
+                            $("table tbody").append(data);
                         })
                         .fail(function (jqXHR, ajaxOptions, thrownError) {
                             alert('No response from server');
                         });
                     return false;
-                })
+                });
 
+                $('#cbStatus').change(function () {
+                    var product = $('#cbProduct').val();
+                    var status = $(this).val();
+                    $.ajax(
+                        {
+                            url: "transactionhistory/search?product=" + product + "&status=" + status,
+                            type: "get",
+                            datatype: "html"
+                        })
+                        .done(function (data) {
+                            $("table tr").not('.header-table-tran').remove();
+                            $("table tbody").append(data);
+                        })
+                        .fail(function (jqXHR, ajaxOptions, thrownError) {
+                            alert('No response from server');
+                        });
+                    return false;
+                });
             });
-
-        });
-    </script>
+        </script>
 
 @stop

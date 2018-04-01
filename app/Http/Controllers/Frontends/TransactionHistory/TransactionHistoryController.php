@@ -20,8 +20,8 @@ class TransactionHistoryController extends Controller
         return $this->repository->index();
     }
 
-    public function getSearch()
+    public function getTranByProduct()
     {
-        return $this->repository->getSearch();
+        return $this->repository->getTranByProduct();
     }
 }

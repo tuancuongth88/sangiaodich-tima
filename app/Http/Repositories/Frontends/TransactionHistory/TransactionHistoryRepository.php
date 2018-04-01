@@ -71,8 +71,31 @@ class TransactionHistoryRepository extends Repository
         );
     }
 
-    public function getSearch()
+    public function getTranByProduct()
     {
+
+        $product = $this->request->input('product');
+        $status = $this->request->input('status');
+        $status_tranhistory = $this->model->status_transactionhistory;
+
+        $where_cloud = array();
+        if ((int)$product > 0) {
+            $where_cloud[] = ['service_id', '=', $product];
+        }
+        if ((int)$status > 0) {
+            $where_cloud[] = ['status', '=', $status];
+        }
+
+
+        if (!empty($where_cloud)) {
+            $data = $this->model::where($where_cloud)->paginate($this->perpages);
+        } else {
+            $data = $this->model->paginate($this->perpages);
+        }
+
+        $html = view('frontend.transactionhistory.search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
+
+        return response()->json(array('success' => true, 'html' => $html));
 
     }
 }
