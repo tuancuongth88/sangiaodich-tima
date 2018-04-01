@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServices extends Migration
+class CreateViewSearchAllTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateServices extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('view_search_all', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('service_name', 256)->nullable();
-            $table->integer('status')->nullable();
-            $table->string('image_url', 256)->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,7 +26,6 @@ class CreateServices extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('view_search_all');
     }
 }

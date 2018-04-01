@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
@@ -68,3 +69,5 @@ Route::group(['prefix' => 'user'], function(){
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 });
 
+Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
+Route::resource('transactionhistory', 'Frontends\TransactionHistory\TransactionHistoryController');

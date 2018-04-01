@@ -17,7 +17,7 @@
     <script>
         var isMobile = 0;
     </script>
-
+    <script src="{{ URL::asset('/frontend/js/jquery.min.js') }}"></script>
 </head>
 
 <body>
@@ -37,7 +37,6 @@
                             Đăng nhập
                         </a>
                     </li>
-
 
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/Notification/">
