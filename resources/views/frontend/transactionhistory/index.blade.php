@@ -256,9 +256,9 @@
 
 
                     <div class="d-flex">
-                        <nav class="d-flex justify-content-between ml-lg-2" aria-label="Page navigation">
+                        <nav class="d-flex justify-content-between ml-lg-2 navigation-tran "
+                             aria-label="Page navigation">
                             {{ $data->links() }}
-                            Tổng số {{ $data->total() }} bản ghi
                         </nav>
                     </div>
 
@@ -268,6 +268,7 @@
 
         <script type="text/javascript">
             jQuery(document).ready(function () {
+                paginationInit();
                 $('#cbProduct').change(function () {
                     var product = $(this).val();
                     var status = $('#cbStatus').val();
@@ -279,7 +280,10 @@
                         })
                         .done(function (data) {
                             $("table tr").not('.header-table-tran').remove();
-                            $("table tbody").append(data);
+                            $("table tbody").append(data.html);
+                            $(".navigation-tran").empty();
+                            $(".navigation-tran").append(data.pagination);
+                            paginationInit();
                         })
                         .fail(function (jqXHR, ajaxOptions, thrownError) {
                             alert('No response from server');
@@ -298,13 +302,44 @@
                         })
                         .done(function (data) {
                             $("table tr").not('.header-table-tran').remove();
-                            $("table tbody").append(data);
+                            $("table tbody").append(data.html);
+                            $(".navigation-tran").empty();
+                            $(".navigation-tran").append(data.pagination);
+                            paginationInit();
                         })
                         .fail(function (jqXHR, ajaxOptions, thrownError) {
                             alert('No response from server');
                         });
                     return false;
                 });
+                function paginationInit() {
+                    $('ul.pagination .page-link').click(function (e) {
+                        e.preventDefault();
+                        var url_href = $(this).attr('href');
+                        if (url_href === undefined) {
+                            return;
+                        }
+                        var product = $('#cbProduct').val();
+                        var status = $('#cbStatus').val();
+                        $.ajax(
+                            {
+                                url: url_href + "&product=" + product + "&status=" + status,
+                                type: "get",
+                                datatype: "html"
+                            })
+                            .done(function (data) {
+                                $("table tr").not('.header-table-tran').remove();
+                                $("table tbody").append(data.html);
+                                $(".navigation-tran").empty();
+                                $(".navigation-tran").append(data.pagination);
+                                paginationInit();
+                            })
+                            .fail(function (jqXHR, ajaxOptions, thrownError) {
+                                alert('No response from server');
+                            });
+                        return false;
+                    });
+                }
             });
         </script>
 

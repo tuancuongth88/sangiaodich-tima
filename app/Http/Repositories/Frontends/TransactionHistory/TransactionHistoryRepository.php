@@ -52,12 +52,19 @@ class TransactionHistoryRepository extends Repository
     {
         $status_tranhistory = $this->model->status_transactionhistory;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
-        $listData = $newsModel->paginate($this->perpages);
+        $listData = $newsModel->paginate(1);
         $count_all_tran = $newsModel->count();
         //status
         $count_tran_cancel = $this->model::where('status', '=', 5)->get()->count();
         $count_tran_wait = $this->model::where('status', '=', 1)->get()->count();
         $list_services = $this->services->get()->toArray();
+
+        $page = $this->request->input('page');
+        if ($page) {
+            $html = view('frontend.transactionhistory.search', ['data' => $listData, 'list_status' => $status_tranhistory])->render();
+            return response()->json(array('success' => true, 'html' => $html, 'pagination' => $listData->links()->toHtml()));
+        }
+
         return view(
             'frontend.transactionhistory.index',
             [
@@ -90,12 +97,10 @@ class TransactionHistoryRepository extends Repository
         if (!empty($where_cloud)) {
             $data = $this->model::where($where_cloud)->paginate($this->perpages);
         } else {
-            $data = $this->model->paginate($this->perpages);
+            $data = $this->model->paginate(1);
         }
-
         $html = view('frontend.transactionhistory.search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
-
-        return response()->json(array('success' => true, 'html' => $html));
+        return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
 
     }
 }
