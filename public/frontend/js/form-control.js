@@ -1,0 +1,2 @@
+initCity();
+initDistrict();

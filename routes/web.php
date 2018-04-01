@@ -65,5 +65,6 @@ Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 Route::group(['prefix' => 'user'], function(){
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
+    Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 });
 

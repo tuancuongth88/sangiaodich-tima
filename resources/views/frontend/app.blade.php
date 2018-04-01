@@ -14,12 +14,9 @@
 <script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
 <script src="{{ URL::asset('/frontend/js/swiper.jquery.min.js') }}"></script>
 <script src="{{ URL::asset('/frontend/js/bootstrap-slider.min.js') }}"></script>
-<script src="{{ URL::asset('/frontend/js/bootstrap-select.min.js') }}"></script>
+{{-- <script src="{{ URL::asset('/frontend/js/bootstrap-select.min.js') }}"></script> --}}
 <script src="{{ URL::asset('/frontend/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ URL::asset('/frontend/js/jquery.incremental-counter.min.js') }}"></script>
-<script src="{{ URL::asset('/frontend/js/custom.js') }}"></script>
-<script src="{{ URL::asset('/frontend/js/common.js') }}"></script>
-<script src="{{ URL::asset('/frontend/js/custom_tan.js') }}"></script>
 
 <script type="text/javascript" src="{{ URL::asset('/frontend/js/jquery.noty.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/frontend/js/top.js') }}"></script>
@@ -27,7 +24,12 @@
 
 
 {{-- <script src="{{ URL::asset('/frontend/js/jquery.validate.min.js') }}"></script> --}}
-{{-- <script src="{{ URL::asset('/frontend/js/select2.min.js') }}"></script> --}}
+<script src="{{ URL::asset('/frontend/js/select2.min.js') }}"></script>
+
+<script src="{{ URL::asset('/frontend/js/custom.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/common.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/form-control.js') }}"></script>
+<script src="{{ URL::asset('/frontend/js/custom_tan.js') }}"></script>
 
 <!--Vào trang con thì bỏ chú thích js 1 dòng dưới này-->
 <!--<script src="files/js/scripts.js"></script>-->

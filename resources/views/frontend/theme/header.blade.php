@@ -7,10 +7,10 @@
     <meta name="description" content="abc"/>
     <meta name="keywords" content="acb"/>
 
-    {{-- <link href="{{ URL::asset('/frontend/css/select2.css') }}" type="text/css" rel="stylesheet" /> --}}
+    <link href="{{ URL::asset('/frontend/css/select2.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.4.0.0-beta.3.min.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css') }}" type="text/css"/>
-    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap-select.min.css') }}" type="text/css"/>
+    {{-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap-select.min.css') }}" type="text/css"/> --}}
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom_tan.css') }}" type="text/css"/>
 
