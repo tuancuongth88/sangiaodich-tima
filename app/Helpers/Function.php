@@ -156,3 +156,105 @@ function VndText($amount) {
 
     return ucfirst($textnumber . "đồng chẵn");
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| GET LOCATION NESTED LIST.
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : tantan
+ */
+function getLocationList(){
+    if( $exists = Storage::disk('local')->exists('locations.json') ){
+        $locationTree = json_decode(Storage::disk('local')->get('locations.json'), true);
+        if( is_array($locationTree) ){
+            return $locationTree;
+        }
+    }
+    return [];
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| GET CHILD LIST OF A LOCATION.
+|--------------------------------------------------------------------------
+| @params $parent number, $max_depth number
+| @return list of location
+| @Author : tantan
+ */
+function getLocationTree(string $parent, $max_depth = 1){
+    $_return = [];
+    $locationTree = getLocationList();
+    foreach ($locationTree as $value) {
+        if( $max_depth == 1 ){
+            if( $parent != null && $value['parent1'] == (string)$parent ){
+                $_return[] = $value;
+            }
+        }
+        else {
+            if( $parent != null && $value['parent1'] == $parent | $value['parent2'] == $parent ){
+                $_return[] = $value;
+            }
+        }
+    }
+    return $_return;
+}
+
+/*
+|--------------------------------------------------------------------------
+| GET LOCATION BY TID.
+|--------------------------------------------------------------------------
+| @params $tid number, $parent number
+| @return list of location
+| @Author : tantan
+ */
+function getLocation(int $tid, string $parent){
+    $tid = $tid ?? 0;
+    $locationTree = getLocationList();
+    foreach ($locationTree as $value) {
+        if( $value['tid'] == $tid && !empty($parent) && ($value['parent1'] == $parent | $value['parent2'] == $parent) ){
+            return $value;
+        }
+    }
+    return null;
+}
+
+/*
+|--------------------------------------------------------------------------
+| GET LIST OF CITY.
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : tantan
+ */
+function getCityList(){
+    $_return = [];
+    $locationTree = getLocationTree(0);
+    foreach ($locationTree as $value) {
+        $_return[$value['tid']] = $value['name'];
+    }
+    return $_return;
+}
+
+/*
+|--------------------------------------------------------------------------
+| GET LIST OF DISTRICT.
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : tantan
+ */
+function getDistrictList(string $city = null){
+    $_return = [];
+    $locationTree = getLocationList();
+    foreach ($locationTree as $value) {
+        if( $value['depth'] == 1 ){
+            if( $city == null ){
+                $_return[$value['tid']] = $value['name'];
+            } else if( $value['parent1'] == $city ){
+                $_return[$value['tid']] = $value['name'];
+            }
+        }
+    }
+    return $_return;
+}

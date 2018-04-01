@@ -54,6 +54,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/user/search-data', 'Administrators\Users\UserController@getSearchData');
     Route::resource('/user', 'Administrators\Users\UserController');
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
+
+    // Manage location, city, district
+    Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');
+    Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
 });
 
 Route::resource('home', 'Frontends\Homes\HomeController');
@@ -67,6 +71,11 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
+});
+
+// Route for all ajax
+Route::group(['prefix' => 'ajax'], function(){
+    Route::post('/get-district-by-city', 'AjaxController@getDistrictByCity');
 });
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
