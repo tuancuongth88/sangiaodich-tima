@@ -257,10 +257,8 @@
 
                     <div class="d-flex">
                         <nav class="d-flex justify-content-between ml-lg-2" aria-label="Page navigation">
-                            <ul class="pagination pagination-sm mb-0 mr-3">
-                                {{ $data->links() }}
-                                Tổng số {{ $data->total() }} bản ghi
-                            </ul>
+                            {{ $data->links() }}
+                            Tổng số {{ $data->total() }} bản ghi
                         </nav>
                     </div>
 
@@ -268,46 +266,46 @@
             </div>
         </div>
 
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            $('#cbProduct').change(function () {
-                var product = $(this).val();
-                var status = $('#cbStatus').val();
-                $.ajax(
-                    {
-                        url: "transactionhistory/search?product=" + product + "&status=" + status,
-                        type: "get",
-                        datatype: "html"
-                    })
-                    .done(function (data) {
-                        $("table tr").not('.header-table-tran').remove();
-                        $("table tbody").append(data);
-                    })
-                    .fail(function (jqXHR, ajaxOptions, thrownError) {
-                        alert('No response from server');
-                    });
-                return false;
-            });
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                $('#cbProduct').change(function () {
+                    var product = $(this).val();
+                    var status = $('#cbStatus').val();
+                    $.ajax(
+                        {
+                            url: "transactionhistory/search?product=" + product + "&status=" + status,
+                            type: "get",
+                            datatype: "html"
+                        })
+                        .done(function (data) {
+                            $("table tr").not('.header-table-tran').remove();
+                            $("table tbody").append(data);
+                        })
+                        .fail(function (jqXHR, ajaxOptions, thrownError) {
+                            alert('No response from server');
+                        });
+                    return false;
+                });
 
-            $('#cbStatus').change(function () {
-                var product = $('#cbProduct').val();
-                var status = $(this).val();
-                $.ajax(
-                    {
-                        url: "transactionhistory/search?product=" + product + "&status=" + status,
-                        type: "get",
-                        datatype: "html"
-                    })
-                    .done(function (data) {
-                        $("table tr").not('.header-table-tran').remove();
-                        $("table tbody").append(data);
-                    })
-                    .fail(function (jqXHR, ajaxOptions, thrownError) {
-                        alert('No response from server');
-                    });
-                return false;
+                $('#cbStatus').change(function () {
+                    var product = $('#cbProduct').val();
+                    var status = $(this).val();
+                    $.ajax(
+                        {
+                            url: "transactionhistory/search?product=" + product + "&status=" + status,
+                            type: "get",
+                            datatype: "html"
+                        })
+                        .done(function (data) {
+                            $("table tr").not('.header-table-tran').remove();
+                            $("table tbody").append(data);
+                        })
+                        .fail(function (jqXHR, ajaxOptions, thrownError) {
+                            alert('No response from server');
+                        });
+                    return false;
+                });
             });
-        });
-    </script>
+        </script>
 
 @stop
