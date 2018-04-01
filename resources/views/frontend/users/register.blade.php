@@ -897,7 +897,7 @@
                                     </p>
 
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg fs-13 px-3 rounded" name="txtCodeConfirm" id="txtCodeConfirm" placeholder="xxxx" title="">
+                                        <input type="text" class="form-control form-control-lg fs-13 px-3 rounded" name="txtCodeConfirm" id="txtCodeConfirm" placeholder="xxxx" title="" required>
                                     </div>
 
                                     <button type="submit" class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5">Tiếp tục</button>
