@@ -35,10 +35,10 @@ class TransactionHistoryRepository extends Repository
     {
         $this->model = $transactionHistory;
         $this->services = $services;
-        $this->user = $user;
         $this->response = $response;
         $this->request = $request;
         $this->auth = $auth;
+        $this->user = $user;
         $this->perpages = $perpages;
         $this->current = $current;
     }
@@ -50,6 +50,8 @@ class TransactionHistoryRepository extends Repository
 
     public function index()
     {
+        $id = $this->auth->user()->id;
+
         $status_tranhistory = $this->model->status_transactionhistory;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
         $listData = $newsModel->paginate($this->perpages);
@@ -172,7 +174,6 @@ class TransactionHistoryRepository extends Repository
 
     public function getManageBysServiceAndStatus()
     {
-
         $product = $this->request->input('product');
         $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
@@ -194,5 +195,33 @@ class TransactionHistoryRepository extends Repository
         $html = view('frontend.transactionhistory.m_search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
         return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
 
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | CONVERT JSON TO STRING LOCATION TREE.
+   |--------------------------------------------------------------------------
+   | @params $tree aray
+   | @return String
+   | @Author : tantan
+    */
+    function exportLocationTree($tree)
+    {
+        $output = "";
+        foreach ($tree as $term) {
+            // If a term already starts with dashes, we have to escape the name.
+            if (substr($term['name'], 0, 1) == '-') {
+                $name = '"' . $term['name'] . '"';
+            } else {
+                $name = $term['name'];
+            }
+            $output .= str_repeat('-', $term['depth']) . $name . "\n";
+        }
+        return $output;
+    }
+
+    function substrPhone($phone)
+    {
+        return substr($phone, 0, 3) . "*****" . substr($phone, 0, -3);
     }
 }
