@@ -63,4 +63,7 @@ Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail'
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
+Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
+Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage');
+Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::resource('transactionhistory', 'Frontends\TransactionHistory\TransactionHistoryController');

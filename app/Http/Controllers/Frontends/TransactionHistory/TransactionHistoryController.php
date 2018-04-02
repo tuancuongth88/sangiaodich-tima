@@ -24,4 +24,19 @@ class TransactionHistoryController extends Controller
     {
         return $this->repository->getTranByProduct();
     }
+
+    public function searchTranByPhoneAndIdCard()
+    {
+        return $this->repository->searchTranByPhoneAndIdCard();
+    }
+
+    public function manage()
+    {
+        return $this->repository->manageTran();
+    }
+
+    public function m_search()
+    {
+        return $this->repository->getManageBysServiceAndStatus();
+    }
 }

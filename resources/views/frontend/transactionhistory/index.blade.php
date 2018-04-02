@@ -265,16 +265,66 @@
                 </div>
             </div>
         </div>
+    </div>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            paginationInit();
+            $('#cbProduct').change(function () {
+                var product = $(this).val();
+                var status = $('#cbStatus').val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table tbody").append(data.html);
+                        $(".navigation-tran").empty();
+                        $(".navigation-tran").append(data.pagination);
+                        paginationInit();
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
 
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                paginationInit();
-                $('#cbProduct').change(function () {
-                    var product = $(this).val();
+            $('#cbStatus').change(function () {
+                var product = $('#cbProduct').val();
+                var status = $(this).val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table tbody").append(data.html);
+                        $(".navigation-tran").empty();
+                        $(".navigation-tran").append(data.pagination);
+                        paginationInit();
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
+
+            function paginationInit() {
+                $('ul.pagination .page-link').click(function (e) {
+                    e.preventDefault();
+                    var url_href = $(this).attr('href');
+                    if (url_href === undefined) {
+                        return;
+                    }
+                    var product = $('#cbProduct').val();
                     var status = $('#cbStatus').val();
                     $.ajax(
                         {
-                            url: "transactionhistory/search?product=" + product + "&status=" + status,
+                            url: url_href + "&product=" + product + "&status=" + status,
                             type: "get",
                             datatype: "html"
                         })
@@ -290,57 +340,8 @@
                         });
                     return false;
                 });
-
-                $('#cbStatus').change(function () {
-                    var product = $('#cbProduct').val();
-                    var status = $(this).val();
-                    $.ajax(
-                        {
-                            url: "transactionhistory/search?product=" + product + "&status=" + status,
-                            type: "get",
-                            datatype: "html"
-                        })
-                        .done(function (data) {
-                            $("table tr").not('.header-table-tran').remove();
-                            $("table tbody").append(data.html);
-                            $(".navigation-tran").empty();
-                            $(".navigation-tran").append(data.pagination);
-                            paginationInit();
-                        })
-                        .fail(function (jqXHR, ajaxOptions, thrownError) {
-                            alert('No response from server');
-                        });
-                    return false;
-                });
-                function paginationInit() {
-                    $('ul.pagination .page-link').click(function (e) {
-                        e.preventDefault();
-                        var url_href = $(this).attr('href');
-                        if (url_href === undefined) {
-                            return;
-                        }
-                        var product = $('#cbProduct').val();
-                        var status = $('#cbStatus').val();
-                        $.ajax(
-                            {
-                                url: url_href + "&product=" + product + "&status=" + status,
-                                type: "get",
-                                datatype: "html"
-                            })
-                            .done(function (data) {
-                                $("table tr").not('.header-table-tran').remove();
-                                $("table tbody").append(data.html);
-                                $(".navigation-tran").empty();
-                                $(".navigation-tran").append(data.pagination);
-                                paginationInit();
-                            })
-                            .fail(function (jqXHR, ajaxOptions, thrownError) {
-                                alert('No response from server');
-                            });
-                        return false;
-                    });
-                }
-            });
-        </script>
+            }
+        });
+    </script>
 
 @stop
