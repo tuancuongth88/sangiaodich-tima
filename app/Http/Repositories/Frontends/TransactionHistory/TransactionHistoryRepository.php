@@ -223,7 +223,9 @@ class TransactionHistoryRepository extends Repository
 
     public function updateStatus()
     {
-        $post_update = $this->request->input('post_update');
-        $this->model::where('post_update', '=', $post_update)->update(['set' => 'setval']);
+        $loanCreditId = $this->request->input('loanCreditId');
+        $status = $this->request->input('status');
+        var_dump($loanCreditId);
+        $this->model::where('id', '=', $loanCreditId)->update(['status' => $status]);
     }
 }
