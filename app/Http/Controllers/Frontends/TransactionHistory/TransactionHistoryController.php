@@ -39,4 +39,8 @@ class TransactionHistoryController extends Controller
     {
         return $this->repository->getManageBysServiceAndStatus();
     }
+    public function updateStatus()
+    {
+        return $this->repository->updateStatus();
+    }
 }

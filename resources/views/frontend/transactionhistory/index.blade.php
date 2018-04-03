@@ -341,6 +341,27 @@
                     return false;
                 });
             }
+
+
+            $('.updatestatus').click(function (e) {
+                e.preventDefault();
+
+               //todo
+                $.ajax(
+                    {
+                        url: "/updatestatus" + "&product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+
+           //todo
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
         });
     </script>
 
