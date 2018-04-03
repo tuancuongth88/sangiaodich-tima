@@ -67,4 +67,4 @@ Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionH
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/transactionhistory/updateStatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
-Route::resource('transactionhistory', 'Frontends\TransactionHistory\TransactionHistoryController');
+Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');

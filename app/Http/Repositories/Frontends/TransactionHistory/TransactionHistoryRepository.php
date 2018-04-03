@@ -220,13 +220,10 @@ class TransactionHistoryRepository extends Repository
         return $output;
     }
 
-    function substrPhone($phone)
+
+    public function updateStatus()
     {
-        return substr($phone, 0, 3) . "*****" . substr($phone, 0, -3);
-    }
-	
-	public function updateStatus(){
         $post_update = $this->request->input('post_update');
-        $this->model::where('post_update','=',$post_update)->update(['set'=>'setval']);
+        $this->model::where('post_update', '=', $post_update)->update(['set' => 'setval']);
     }
 }

@@ -189,7 +189,7 @@
                                                 Anh Trung
                                             </div>
                                             <div class="text-gray-lighter">
-                                                090*****489
+                                                {{substrPhone('0982633825')}}
                                             </div>
                                         </div>
                                     </div>
