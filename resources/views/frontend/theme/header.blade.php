@@ -26,6 +26,10 @@
             }
         });
     </script>
+
+
+    @yield('js_header')
+
 </head>
 
 <body>

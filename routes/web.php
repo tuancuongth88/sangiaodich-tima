@@ -73,6 +73,11 @@ Route::group(['prefix' => 'user'], function(){
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 });
 
+// Route dang ky vay
+Route::get('/dang-ky-vay/{service}', 'Frontends\Services\ServicesController@registerForm');
+Route::post('/dang-ky-vay', 'Frontends\Services\ServicesController@postRegisterForm');
+
+
 // Route for all ajax
 Route::group(['prefix' => 'ajax'], function(){
     Route::post('/get-district-by-city', 'AjaxController@getDistrictByCity');
