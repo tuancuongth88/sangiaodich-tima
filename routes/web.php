@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
 Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@postLogin']);
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
@@ -38,11 +39,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     Route::resource('/news-category', 'Administrators\News\NewsCategoryController');
     Route::resource('/news', 'Administrators\News\NewsController');
-    Route::post('/upload', 'Administrators\Systems\UploadController@postUpload');
+    // Route::post('/upload', 'Administrators\Systems\UploadController@postUpload');
     Route::put('/news/accept/{id}', 'Administrators\News\NewsController@putApprove');
     // Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     //faq route
-    Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
+    // Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
     Route::resource('/faq-categories', 'Administrators\Faqs\FaqCategoriesController');
     Route::resource('/faq', 'Administrators\Faqs\FaqController');
     //project route
@@ -56,7 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
 });
 
-Route::resource('template', 'Frontends\Homes\HomeController');
+Route::resource('home', 'Frontends\Homes\HomeController');
 
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
@@ -68,3 +69,10 @@ Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryC
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/transactionhistory/updateStatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+// Route for User Member
+Route::group(['prefix' => 'user'], function(){
+    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
+    Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
+    Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
+});
+

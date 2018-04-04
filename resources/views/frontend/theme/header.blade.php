@@ -8,9 +8,11 @@
     <meta name="keywords" content="acb"/>
 
     <link href="{{ URL::asset('/frontend/css/select2.css') }}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.4.0.0-beta.3.min.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/style.css') }}" type="text/css"/>
+    {{-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap-select.min.css') }}" type="text/css"/> --}}
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom.css') }}" type="text/css"/>
-
+    <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom_tan.css') }}" type="text/css"/>
 
     <script>
         var isMobile = 0;
@@ -78,7 +80,7 @@
                 </button>
 
                 <a class="navbar-brand header__logo py-0" href="/">
-                    <img class="header__logo-img img-fluid" src="frontend/images/logo1.png" alt="Tima">
+                    <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Tima">
                 </a>
                 <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:18006919">
                     <i class="header__call-icon align-self-center icon-phone-lg d-flex mr-2"></i>
