@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Services\Services;
 use App\Models\Slides\Slide;
 use App\Models\TransactionHistory\TransactionHistory;
 use Illuminate\Http\Request;
@@ -26,7 +27,13 @@ class HomeController extends Controller
     public function index()
     {
         $data = Slide::all();
-        $totalMoney = $history = TransactionHistory::where('');
-        return view('home', ['data' => $data]);
+        $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
+        $listService = Services::all();
+//        $total
+        $listTransactionNews = TransactionHistory::orderBy('id', 'desc')->paginate(50);
+        return view('home', ['data' => $data,
+                                        'totalmoney' => $totalMoney,
+                                        'list_service' => $listService,
+                                        'list_transaction' => $listTransactionNews]);
     }
 }

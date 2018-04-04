@@ -42,7 +42,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::put('/news/accept/{id}', 'Administrators\News\NewsController@putApprove');
     // Route::get('/news/search', 'Administrators\News\NewsController@getSearch');
     //faq route
-    Route::get('/faq/search', 'Administrators\Projects\ProjectController@getSearch');
     Route::resource('/faq-categories', 'Administrators\Faqs\FaqCategoriesController');
     Route::resource('/faq', 'Administrators\Faqs\FaqController');
     //project route
@@ -54,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/user/search-data', 'Administrators\Users\UserController@getSearchData');
     Route::resource('/user', 'Administrators\Users\UserController');
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
+
+    Route::resource('/service', 'Administrators\Services\ServiceController');
 });
 
 Route::resource('template', 'Frontends\Homes\HomeController');
