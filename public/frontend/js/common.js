@@ -17,26 +17,29 @@ function initDistrict() {
         theme: "bootstrap",
         placeholder: 'Chọn Quận/Huyện...',
         disabled: isCitySelected() ? void 0 : !0,
-        // ajax: {
-        //     url: '/District/Autocomplete/',
-        //     dataType: "json",
-        //     data: function (b) {
-        //         return {
-        //             city_id: $("#cbCity").val(),
-        //             term: ''
-        //         };
-        //     },
-        //     processResults: function (b, c) {
-        //         return {
-        //             results: $.map(b.collection, function (b) {
-        //                 return {
-        //                     text: b.Name,
-        //                     id: b.ID,
-        //                 };
-        //             })
-        //         };
-        //     }
-        // }
+        ajax: {
+            url: '/ajax/get-district-by-city',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            // dataType: "json",
+            data: function (b) {
+                return {
+                    city_id: $("#cbCity").val(),
+                };
+            },
+            error: function(error){
+                console.log(error);
+            },
+            processResults: function (data) {
+                var results = {results: []};
+                $.each(data, function (key, value) {
+                    results.results.push({id: key, text: value});
+                });
+                return results;
+            }
+        }
     });
 
     $("#cbDistrict").on("change", function(b) {

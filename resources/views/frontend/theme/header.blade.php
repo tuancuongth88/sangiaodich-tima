@@ -6,6 +6,7 @@
     <title>TIMA - SÀN KẾT NỐI TÀI CHÍNH LỚN NHẤT VIỆT NAM</title>
     <meta name="description" content="abc"/>
     <meta name="keywords" content="acb"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="{{ URL::asset('/frontend/css/select2.css') }}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap.4.0.0-beta.3.min.css') }}" type="text/css"/>
@@ -20,6 +21,17 @@
     <script src="{{ URL::asset('/frontend/js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
     <script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        });
+    </script>
+
+
+    @yield('js_header')
+
 </head>
 
 <body>
