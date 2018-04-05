@@ -289,10 +289,40 @@ function minusDay($day)
     return (floor($kq / (60 * 60 * 24)));
 }
 
+function minusDaycount($payment_day, $create_time)
+{
+
+    $payment_day = strtotime($payment_day);
+    $create_time = strtotime($create_time);
+    $kq = abs($payment_day - $create_time);
+    return (floor($kq / (60 * 60 * 24)));
+}
+
 // to timestam
 function convertDate($format, $date)
 {
     $date = strtotime($date);
     return date($format, $date);
+}
 
+/*
+|--------------------------------------------------------------------------
+| convert amount
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : cuongnt
+ */
+function convertAmount($amount){
+    if(strlen($amount) < 7){
+        $result = $amount / 100000;
+        return $result. ' Trăm nghìn';
+    }
+    if(strlen($amount) < 10){
+        $result = $amount / 1000000;
+        return $result. ' Triệu';
+    }
+    if(strlen($amount) > 9){
+        $result = $amount / 1000000000;
+        return $result. ' Tỷ';
+    }
 }
