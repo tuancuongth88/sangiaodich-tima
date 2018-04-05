@@ -1,14 +1,16 @@
 <?php
-function safestrtotime($s) {
+function safestrtotime($s)
+{
     $basetime = 0;
     if (preg_match("/19(\d\d)/", $s, $m) && ($m[1] < 70)) {
-        $s        = preg_replace("/19\d\d/", 1900 + $m[1] + 68, $s);
+        $s = preg_replace("/19\d\d/", 1900 + $m[1] + 68, $s);
         $basetime = 0x80000000 + 1570448;
     }
     return $basetime + strtotime($s);
 }
 
-function stringToDate($var) {
+function stringToDate($var)
+{
     if (!empty($var)) {
         return implode("-", array_reverse(explode("/", $var)));
     } else {
@@ -17,7 +19,8 @@ function stringToDate($var) {
 
 }
 
-function dateToString($date = '') {
+function dateToString($date = '')
+{
     if ($date != '' AND $date != '0000-00-00') {
         return date("d/m/Y", safestrtotime($date));
     } else {
@@ -25,7 +28,8 @@ function dateToString($date = '') {
     }
 }
 
-function dateToStringY($date = '') {
+function dateToStringY($date = '')
+{
     if ($date != '' AND $date != '0000-00-00') {
         return date("d/m/y", safestrtotime($date));
     } else {
@@ -33,7 +37,8 @@ function dateToStringY($date = '') {
     }
 }
 
-function dateToTime($var) {
+function dateToTime($var)
+{
     if (!empty($var)) {
         return safestrtotime(implode("-", array_reverse(explode("/", $var))));
     } else {
@@ -41,7 +46,8 @@ function dateToTime($var) {
     }
 }
 
-function dateTimeToTime($var) {
+function dateTimeToTime($var)
+{
     if (!empty($var)) {
         $dateTime = explode('-', str_replace(' ', '', $var));
         return safestrtotime(implode("-", array_reverse(explode("/", $dateTime[0]))) . ' ' . $dateTime[1]);
@@ -50,7 +56,8 @@ function dateTimeToTime($var) {
     }
 }
 
-function timeToDate($date = '') {
+function timeToDate($date = '')
+{
     if ($date != '') {
         return date("d/m/Y", $date);
     } else {
@@ -58,14 +65,17 @@ function timeToDate($date = '') {
     }
 }
 
-function timeToDateTime($date = '') {
+function timeToDateTime($date = '')
+{
     if ($date != '') {
         return date("d/m/Y - H:i", $date);
     } else {
         return $date;
     }
 }
-function exportWord($text, $font, $size, $bold) {
+
+function exportWord($text, $font, $size, $bold)
+{
     $phpWord = new \PhpOffice\PhpWord\PhpWord();
     $section = $phpWord->addSection();
 //
@@ -90,14 +100,15 @@ function exportWord($text, $font, $size, $bold) {
     $objWriter->save('helloWorld.docx');
 }
 
-function VndText($amount) {
+function VndText($amount)
+{
     if ($amount <= 0) {
         return $textnumber = "Tiền phải là số nguyên dương lớn hơn số 0";
     }
-    $Text        = array("không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín");
+    $Text = array("không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín");
     $TextLuythua = array("", "nghìn", "triệu", "tỷ", "ngàn tỷ", "triệu tỷ", "tỷ tỷ");
-    $textnumber  = "";
-    $length      = strlen($amount);
+    $textnumber = "";
+    $length = strlen($amount);
 
     for ($i = 0; $i < $length; $i++) {
         $unread[$i] = 0;
@@ -229,7 +240,8 @@ function getLocation(string $tid, string $parent = null){
 | @return list of location
 | @Author : tantan
  */
-function getCityList(){
+function getCityList()
+{
     $_return = [];
     $locationTree = getLocationTree(0);
     foreach ($locationTree as $value) {
@@ -245,7 +257,8 @@ function getCityList(){
 | @return list of location
 | @Author : tantan
  */
-function getDistrictList(string $city = null){
+function getDistrictList(string $city = null)
+{
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
@@ -258,4 +271,10 @@ function getDistrictList(string $city = null){
         }
     }
     return $_return;
+}
+
+
+function substrPhone($phone)
+{
+    return substr($phone, 0, 3) . "*****" . substr($phone, -3);
 }

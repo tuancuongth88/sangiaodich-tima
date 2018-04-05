@@ -168,6 +168,11 @@
                                         Trạng thái
                                     </div>
                                 </th>
+                                <th class="text-center">
+                                    <div class="border-right">
+                                        &nbsp;
+                                    </div>
+                                </th>
                             </tr>
                             @foreach ($data as $key_data=>$data_val)
                                 <tr>
@@ -230,18 +235,34 @@
                                             </div>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="td-inner media d-flex justify-content-center text-center">
+                                            <div class="text-nowrap">
+                                                <div class="text-nowrap">
+                                                    <span class="badge badge-danger align-self-center">
+                                                        {{isset($list_status[$data_val['status']])?
+                                                        $list_status[$data_val['status']]:'Đã hủy'
+                                                        }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="">
                                         <div id="277548"
                                              class="td-inner d-flex flex-column align-items-center text-center btnbuy">
                                             <ul class="list-h-1 align-self-start mt-3">
                                                 <li class="list-h-1__item">
-                                                    <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                                            data-toggle="modal" data-target="#myModal" title="Nhận đơn">
-                                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                        {{isset($list_status[$data_val['status']])?
-                                                        $list_status[$data_val['status']]:'Đã hủy'
-                                                        }}
-                                                    </button>
+                                                    @if($data_val['status']==1)
+                                                        <button type="button" class="btn btn-outline-danger btn-sm updatestatus"
+                                                                data-toggle="modal" data-target="#myModal"
+                                                                title="Hủy đơn vay"
+                                                                onclick="showModal(4, 'Ngô Tuấn Cường', 289730, '5,000,000' )">
+                                                            Hủy
+                                                        </button>
+                                                    @else
+                                                        &nbsp;
+                                                    @endif
                                                 </li>
                                             </ul>
                                         </div>
@@ -251,10 +272,7 @@
                             </tbody>
                         </table>
                     </div>
-
                     <hr>
-
-
                     <div class="d-flex">
                         <nav class="d-flex justify-content-between ml-lg-2 navigation-tran "
                              aria-label="Page navigation">
@@ -265,16 +283,87 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                paginationInit();
-                $('#cbProduct').change(function () {
-                    var product = $(this).val();
+    <div id="myModal" class="modal fade" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="width:110%">
+                <div class="modal-header">
+
+                    <h6 class="modal-title" id="title"></h6>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="btnLoanerAccept" onclick="LoanerCancelLoanCredit(289730);">Đồng ý</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Hủy</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            paginationInit();
+            $('#cbProduct').change(function () {
+                var product = $(this).val();
+                var status = $('#cbStatus').val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table tbody").append(data.html);
+                        $(".navigation-tran").empty();
+                        $(".navigation-tran").append(data.pagination);
+                        paginationInit();
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
+
+            $('#cbStatus').change(function () {
+                var product = $('#cbProduct').val();
+                var status = $(this).val();
+                $.ajax(
+                    {
+                        url: "transactionhistory/search?product=" + product + "&status=" + status,
+                        type: "get",
+                        datatype: "html"
+                    })
+                    .done(function (data) {
+                        $("table tr").not('.header-table-tran').remove();
+                        $("table tbody").append(data.html);
+                        $(".navigation-tran").empty();
+                        $(".navigation-tran").append(data.pagination);
+                        paginationInit();
+                    })
+                    .fail(function (jqXHR, ajaxOptions, thrownError) {
+                        alert('No response from server');
+                    });
+                return false;
+            });
+
+            function paginationInit() {
+                $('ul.pagination .page-link').click(function (e) {
+                    e.preventDefault();
+                    var url_href = $(this).attr('href');
+                    if (url_href === undefined) {
+                        return;
+                    }
+                    var product = $('#cbProduct').val();
                     var status = $('#cbStatus').val();
                     $.ajax(
                         {
-                            url: "transactionhistory/search?product=" + product + "&status=" + status,
+                            url: url_href + "&product=" + product + "&status=" + status,
                             type: "get",
                             datatype: "html"
                         })
@@ -290,57 +379,37 @@
                         });
                     return false;
                 });
+            }
 
-                $('#cbStatus').change(function () {
-                    var product = $('#cbProduct').val();
-                    var status = $(this).val();
-                    $.ajax(
-                        {
-                            url: "transactionhistory/search?product=" + product + "&status=" + status,
-                            type: "get",
-                            datatype: "html"
-                        })
-                        .done(function (data) {
-                            $("table tr").not('.header-table-tran').remove();
-                            $("table tbody").append(data.html);
-                            $(".navigation-tran").empty();
-                            $(".navigation-tran").append(data.pagination);
-                            paginationInit();
-                        })
-                        .fail(function (jqXHR, ajaxOptions, thrownError) {
-                            alert('No response from server');
-                        });
-                    return false;
+        });
+    </script>
+
+    <script>
+        function showModal(typeId, name, loanCreditId, totalMoney) {
+            // switch (typeId) {
+            //     case 4:
+            //         $("#title").text('Bạn đồng ý hủy hồ sơ hd-' + loanCreditId + ' với số tiền ' + totalMoney + ' vnđ');
+            //         $("#btnLoanerAccept").attr("onclick", "LoanerCancelLoanCredit(" + loanCreditId + ");");
+            //         break;
+            // }
+
+
+            $.ajax(
+                {
+                    url: "/updatestatus" + "&loanCreditId=" + loanCreditId + "&status=" + 5,
+                    type: "get",
+                    datatype: "html"
+                })
+                .done(function (data) {
+
+                    //todo
+                })
+                .fail(function (jqXHR, ajaxOptions, thrownError) {
+                    alert('No response from server');
                 });
-                function paginationInit() {
-                    $('ul.pagination .page-link').click(function (e) {
-                        e.preventDefault();
-                        var url_href = $(this).attr('href');
-                        if (url_href === undefined) {
-                            return;
-                        }
-                        var product = $('#cbProduct').val();
-                        var status = $('#cbStatus').val();
-                        $.ajax(
-                            {
-                                url: url_href + "&product=" + product + "&status=" + status,
-                                type: "get",
-                                datatype: "html"
-                            })
-                            .done(function (data) {
-                                $("table tr").not('.header-table-tran').remove();
-                                $("table tbody").append(data.html);
-                                $(".navigation-tran").empty();
-                                $(".navigation-tran").append(data.pagination);
-                                paginationInit();
-                            })
-                            .fail(function (jqXHR, ajaxOptions, thrownError) {
-                                alert('No response from server');
-                            });
-                        return false;
-                    });
-                }
-            });
-        </script>
+            return false;
+        }
 
+
+    </script>
 @stop
