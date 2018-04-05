@@ -176,10 +176,11 @@ function VndText($amount)
 | @return list of location
 | @Author : tantan
  */
-function getLocationList(){
-    if( $exists = Storage::disk('local')->exists('locations.json') ){
+function getLocationList()
+{
+    if ($exists = Storage::disk('local')->exists('locations.json')) {
         $locationTree = json_decode(Storage::disk('local')->get('locations.json'), true);
-        if( is_array($locationTree) ){
+        if (is_array($locationTree)) {
             return $locationTree;
         }
     }
@@ -195,17 +196,17 @@ function getLocationList(){
 | @return list of location
 | @Author : tantan
  */
-function getLocationTree(string $parent, $max_depth = 1){
+function getLocationTree(string $parent, $max_depth = 1)
+{
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $max_depth == 1 ){
-            if( $parent != null && (string)$value['parent1'] == (string)$parent ){
+        if ($max_depth == 1) {
+            if ($parent != null && (string)$value['parent1'] == (string)$parent) {
                 $_return[] = $value;
             }
-        }
-        else {
-            if( $parent != null && (string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent ){
+        } else {
+            if ($parent != null && (string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent) {
                 $_return[] = $value;
             }
         }
@@ -221,12 +222,13 @@ function getLocationTree(string $parent, $max_depth = 1){
 | @return list of location
 | @Author : tantan
  */
-function getLocation(string $tid, string $parent = null){
+function getLocation(string $tid, string $parent = null)
+{
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( (string)$value['tid'] == $tid && !empty($parent) && ((string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent) ){
+        if ((string)$value['tid'] == $tid && !empty($parent) && ((string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent)) {
             return $value;
-        } else if( (string)$value['tid'] == $tid && empty($parent) ){
+        } else if ((string)$value['tid'] == $tid && empty($parent)) {
             return $value;
         }
     }
@@ -262,10 +264,10 @@ function getDistrictList(string $city = null)
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $value['depth'] == 1 ){
-            if( $city == null ){
+        if ($value['depth'] == 1) {
+            if ($city == null) {
                 $_return[$value['tid']] = $value['name'];
-            } else if( $value['parent1'] == $city ){
+            } else if ($value['parent1'] == $city) {
                 $_return[$value['tid']] = $value['name'];
             }
         }
@@ -279,8 +281,18 @@ function substrPhone($phone)
     return substr($phone, 0, 3) . "*****" . substr($phone, -3);
 }
 
-function minusDay($day){
+
+function minusDay($day)
+{
     $ngay_ket_thuc = strtotime($day);
-    $kq = abs($ngay_ket_thuc - time()) ;
-    return (floor($kq / (60*60*24)));
+    $kq = abs($ngay_ket_thuc - time());
+    return (floor($kq / (60 * 60 * 24)));
+}
+
+// to timestam
+function convertDate($format, $date)
+{
+    $date = strtotime($date);
+    return date($format, $date);
+
 }

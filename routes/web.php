@@ -66,15 +66,19 @@ Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCat
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
+
+
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
 Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
-Route::get('/transactionhistory/updateStatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
+Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
+Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
+
 // Route for User Member
-Route::group(['prefix' => 'user'], function(){
+Route::group(['prefix' => 'user'], function () {
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
@@ -86,9 +90,9 @@ Route::post('/dang-ky-vay', 'Frontends\Services\ServicesController@postRegisterF
 
 
 // Route for all ajax
-Route::group(['prefix' => 'ajax'], function(){
+Route::group(['prefix' => 'ajax'], function () {
     Route::post('/get-district-by-city', 'AjaxController@getDistrictByCity');
 });
 
-Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
-Route::resource('transactionhistory', 'Frontends\TransactionHistory\TransactionHistoryController');
+
+

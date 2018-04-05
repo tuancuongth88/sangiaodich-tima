@@ -189,7 +189,7 @@
                                                 Anh Trung
                                             </div>
                                             <div class="text-gray-lighter">
-                                                {{substrPhone('0982633825')}}
+                                                {{substrPhone($data_val['customer_phone'])}}
                                             </div>
                                         </div>
                                     </div>
@@ -218,10 +218,10 @@
                                     <div class="td-inner d-flex justify-content-center h-100">
                                         <ul class="list-h-1 align-self-start mt-3">
                                             <li class="list-h-1__item text-primary">
-                                                21:23
+                                                {{convertDate('H:i',$data_val['created_at'])}}
                                             </li>
                                             <li class="list-h-1__item">
-                                                {{$data_val['created_at']}}
+                                                {{convertDate('Y-m-d',$data_val['created_at'])}}
                                             </li>
                                         </ul>
                                     </div>
@@ -251,7 +251,9 @@
                                             <li class="list-h-1__item">
                                                 @if($data_val['status']==1)
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                                            data-toggle="modal" data-target="#myModal" title="Nhận đơn">
+                                                            data-toggle="modal" data-target="#myModal" title="Nhận đơn"
+                                                            onclick="update('','','{{$data_val['id']}}',2)"
+                                                    >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Nhận đơn
                                                     </button>
@@ -352,5 +354,25 @@
                 });
             }
         });
+    </script>
+    <script>
+        function update(typeId, name, loanCreditId, nextStatus) {
+            $.ajax(
+                {
+                    url: "quan-ly-don-vay/updatestatus" + "?loanCreditId=" + loanCreditId + "&status=" + nextStatus,
+                    type: "get",
+                    datatype: "html"
+                })
+                .done(function (data) {
+
+                    //todo
+                })
+                .fail(function (jqXHR, ajaxOptions, thrownError) {
+                    alert('No response from server');
+                });
+            return false;
+        }
+
+
     </script>
 @stop
