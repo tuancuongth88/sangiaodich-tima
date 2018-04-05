@@ -18,6 +18,7 @@ class RemoveAmountDetailDayDetailAddThemToFieldsOfServiceTable extends Migration
         Schema::table('services', function (Blueprint $table) {
             $table->longText('amount_detail')->after('service_name')->nullable();
             $table->longText('day_detail')->after('service_name')->nullable();
+            $table->string('icon_url', 256)->after('image_url')->nullable();
         });
     }
 
@@ -29,7 +30,7 @@ class RemoveAmountDetailDayDetailAddThemToFieldsOfServiceTable extends Migration
     public function down()
     {
         Schema::table('services', function (Blueprint $table) {
-            $table->dropColumn(['amount_detail', 'day_detail']);
+            $table->dropColumn(['amount_detail', 'day_detail', 'icon_url']);
         });
         Schema::create('service_amount_detail', function (Blueprint $table) {
             $table->increments('id');
