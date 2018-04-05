@@ -280,4 +280,11 @@ function substrPhone($phone)
     return substr($phone, 0, 3) . "*****" . substr($phone, -3);
 }
 
+// to timestam
 
+function convertDate($format, $date)
+{
+    $date = strtotime($date);
+    return date($format, $date);
+
+}

@@ -225,7 +225,6 @@ class TransactionHistoryRepository extends Repository
     {
         $loanCreditId = $this->request->input('loanCreditId');
         $status = $this->request->input('status');
-        var_dump($loanCreditId);
         $this->model::where('id', '=', $loanCreditId)->update(['status' => $status]);
     }
 }

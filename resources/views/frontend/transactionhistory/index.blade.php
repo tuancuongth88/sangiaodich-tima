@@ -389,13 +389,6 @@
 
     <script>
         function showModal(typeId, name, loanCreditId, totalMoney) {
-            // switch (typeId) {
-            //     case 4:
-            //         $("#title").text('Bạn đồng ý hủy hồ sơ hd-' + loanCreditId + ' với số tiền ' + totalMoney + ' vnđ');
-            //         $("#btnLoanerAccept").attr("onclick", "LoanerCancelLoanCredit(" + loanCreditId + ");");
-            //         break;
-            // }
-
 
             $.ajax(
                 {
