@@ -3,6 +3,7 @@
 define('IMAGENEWS', '/upload/news/');
 define('IMAGEUSER', '/upload/users/');
 define('IMAGEPARTNER', '/upload/partner/');
+define('IMAGESERVICE', '/upload/service/');
 define('ONE', 1);
 define('ZERO', 0);
 define('APPROVE', 1);

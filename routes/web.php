@@ -17,7 +17,6 @@ Route::get('/', function () {
 // Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
 Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@postLogin']);
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
@@ -55,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/user', 'Administrators\Users\UserController');
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
 
+    Route::resource('/service', 'Administrators\Services\ServiceController');
     // Manage location, city, district
     Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');
     Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
@@ -72,6 +72,7 @@ Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryC
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/transactionhistory/updateStatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
