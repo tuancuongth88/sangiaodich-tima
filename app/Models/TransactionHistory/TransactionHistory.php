@@ -10,6 +10,11 @@ class TransactionHistory extends Model
 {
     use SoftDeletes;
 
+    const STATUS_APPROVE = 4;
+    const STATUS_WAIT = 1;
+    const STATUS_RECEIVED = 2;
+    const STATUS_BORROWING = 3;
+    const STATUS_CANCEL = 5;
 
     protected $table = 'transaction_history';
     protected $primaryKey = 'id';
