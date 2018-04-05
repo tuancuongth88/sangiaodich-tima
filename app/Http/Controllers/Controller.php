@@ -10,4 +10,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    public function __construct(){
+    	/*
+    	|-------------------------------------------------------------------
+		| * Middleware redirect after submit form
+		|-------------------------------------------------------------------
+    	| neu co request->get('destination') thi redirect ve dia chi nay
+        | @author tantan
+        */
+        $this->middleware('redirect');
+	}
 }
