@@ -35,10 +35,10 @@ class TransactionHistoryRepository extends Repository
     {
         $this->model = $transactionHistory;
         $this->services = $services;
-        $this->user = $user;
         $this->response = $response;
         $this->request = $request;
         $this->auth = $auth;
+        $this->user = $user;
         $this->perpages = $perpages;
         $this->current = $current;
     }
@@ -50,9 +50,11 @@ class TransactionHistoryRepository extends Repository
 
     public function index()
     {
+        $id = $this->auth->user()->id;
+
         $status_tranhistory = $this->model->status_transactionhistory;
         $newsModel = $this->model->orderBy(self::ID, 'DESC');
-        $listData = $newsModel->paginate(1);
+        $listData = $newsModel->paginate($this->perpages);
         $count_all_tran = $newsModel->count();
         //status
         $count_tran_cancel = $this->model::where('status', '=', 5)->get()->count();
@@ -97,10 +99,131 @@ class TransactionHistoryRepository extends Repository
         if (!empty($where_cloud)) {
             $data = $this->model::where($where_cloud)->paginate($this->perpages);
         } else {
-            $data = $this->model->paginate(1);
+            $data = $this->model->paginate($this->perpages);
         }
         $html = view('frontend.transactionhistory.search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
         return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
 
+    }
+
+    public function searchTranByPhoneAndIdCard()
+    {
+        $s_mobile = trim($this->request->input('phone'));
+        $cardnumber = trim($this->request->input('cardnumber'));
+        $status_tranhistory = $this->model->status_transactionhistory;
+
+        $where_cloud = array();
+        if ($s_mobile != '') {
+            $where_cloud[] = ['customer_mobile', '=', $s_mobile];
+        }
+        if ($cardnumber != '') {
+            $where_cloud[] = ['user_id', '=', $cardnumber];
+        }
+
+
+        if (!empty($where_cloud)) {
+            $data = $this->model::where($where_cloud)->paginate(1);
+        } else {
+            return view('frontend.transactionhistory.s_index');
+        }
+
+        if ($data->count() > 0) {
+            $html = view(
+                'frontend.transactionhistory.s_search',
+                ['data' => $data, 'list_status' => $status_tranhistory]
+            )->render();
+        } else {
+            return '';
+        }
+
+        return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
+    }
+
+    public function manageTran()
+    {
+        $status_tranhistory = $this->model->status_transactionhistory;
+        $newsModel = $this->model->orderBy(self::ID, 'DESC');
+        $listData = $newsModel->paginate($this->perpages);
+
+        //status
+        $count_tran_wait_consultant = $this->model::where('status', '=', 1)->get()->count();
+        $count_tran_wait_receive = $this->model::where('status', '=', 2)->get()->count();
+        $count_tran_is_borrowing = $this->model::where('status', '=', 3)->get()->count();
+        $sum_amount_tran_is_borrowing = $this->model::where('status', '=', 3)->sum('amount');
+        $list_services = $this->services->get()->toArray();
+
+        $page = $this->request->input('page');
+        if ($page) {
+            $html = view('frontend.transactionhistory.m_search', ['data' => $listData, 'list_status' => $status_tranhistory])->render();
+            return response()->json(array('success' => true, 'html' => $html, 'pagination' => $listData->links()->toHtml()));
+        }
+
+        return view(
+            'frontend.transactionhistory.manage',
+            [
+                'data' => $listData,
+                'services' => $list_services,
+                'list_status' => $status_tranhistory,
+                'count_tran_wait_consultant' => $count_tran_wait_consultant,
+                'count_tran_wait_receive' => $count_tran_wait_receive,
+                'count_tran_is_borrowing' => $count_tran_is_borrowing,
+                'sum_amount_tran_is_borrowing' => $sum_amount_tran_is_borrowing
+            ]
+        );
+    }
+
+    public function getManageBysServiceAndStatus()
+    {
+        $product = $this->request->input('product');
+        $status = $this->request->input('status');
+        $status_tranhistory = $this->model->status_transactionhistory;
+
+        $where_cloud = array();
+        if ((int)$product > 0) {
+            $where_cloud[] = ['service_id', '=', $product];
+        }
+        if ((int)$status > 0) {
+            $where_cloud[] = ['status', '=', $status];
+        }
+
+
+        if (!empty($where_cloud)) {
+            $data = $this->model::where($where_cloud)->paginate($this->perpages);
+        } else {
+            $data = $this->model->paginate($this->perpages);
+        }
+        $html = view('frontend.transactionhistory.m_search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
+        return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
+
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | CONVERT JSON TO STRING LOCATION TREE.
+   |--------------------------------------------------------------------------
+   | @params $tree aray
+   | @return String
+   | @Author : tantan
+    */
+    function exportLocationTree($tree)
+    {
+        $output = "";
+        foreach ($tree as $term) {
+            // If a term already starts with dashes, we have to escape the name.
+            if (substr($term['name'], 0, 1) == '-') {
+                $name = '"' . $term['name'] . '"';
+            } else {
+                $name = $term['name'];
+            }
+            $output .= str_repeat('-', $term['depth']) . $name . "\n";
+        }
+        return $output;
+    }
+
+
+    public function updateStatus()
+    {
+        $post_update = $this->request->input('post_update');
+        $this->model::where('post_update', '=', $post_update)->update(['set' => 'setval']);
     }
 }

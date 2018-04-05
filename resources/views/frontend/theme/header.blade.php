@@ -18,6 +18,8 @@
         var isMobile = 0;
     </script>
     <script src="{{ URL::asset('/frontend/js/jquery.min.js') }}"></script>
+    <script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
+    <script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
 </head>
 
 <body>
