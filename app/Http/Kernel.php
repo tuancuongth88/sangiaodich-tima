@@ -19,6 +19,7 @@ class Kernel extends HttpKernel {
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \Barryvdh\Cors\HandleCors::class,
+        \App\Http\Middleware\RedirectDestination::class,
     ];
 
     /**
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel {
         'jwt.refresh'   => \App\Http\Middleware\RefreshToken::class,
         'cors'          => \Barryvdh\Cors\HandleCors::class,
         'authenticate'  => \App\Http\Middleware\Auth::class,
+        'redirect'  => \App\Http\Middleware\RedirectDestination::class,
     ];
 }

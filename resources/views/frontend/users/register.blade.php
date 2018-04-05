@@ -17,7 +17,6 @@
                                 <div class="fs-13" id="divFormRegister">
                                     {{ Form::open(['action' => 'Frontends\Users\UsersController@postRegisterForm', 'method' => 'POST', 'autocomplete' => "off"]) }}
                                         @csrf
-                                        {{-- @method('post') --}}
 
                                         <div class="tm-regform__header d-flex justify-content-between align-items-center p-3">
                                             <h2 class="text-uppercase fs-16 fw-4 mb-0">

@@ -176,7 +176,6 @@ function VndText($amount)
 | @return list of location
 | @Author : tantan
  */
-
 function getLocationList(){
     if( $exists = Storage::disk('local')->exists('locations.json') ){
         $locationTree = json_decode(Storage::disk('local')->get('locations.json'), true);
@@ -196,18 +195,17 @@ function getLocationList(){
 | @return list of location
 | @Author : tantan
  */
-
 function getLocationTree(string $parent, $max_depth = 1){
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
         if( $max_depth == 1 ){
-            if( $parent != null && $value['parent1'] == (string)$parent ){
+            if( $parent != null && (string)$value['parent1'] == (string)$parent ){
                 $_return[] = $value;
             }
         }
         else {
-            if( $parent != null && $value['parent1'] == $parent | $value['parent2'] == $parent ){
+            if( $parent != null && (string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent ){
                 $_return[] = $value;
             }
         }
@@ -223,12 +221,12 @@ function getLocationTree(string $parent, $max_depth = 1){
 | @return list of location
 | @Author : tantan
  */
-
-function getLocation(int $tid, string $parent){
-    $tid = $tid ?? 0;
+function getLocation(string $tid, string $parent = null){
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $value['tid'] == $tid && !empty($parent) && ($value['parent1'] == $parent | $value['parent2'] == $parent) ){
+        if( (string)$value['tid'] == $tid && !empty($parent) && ((string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent) ){
+            return $value;
+        } else if( (string)$value['tid'] == $tid && empty($parent) ){
             return $value;
         }
     }
@@ -242,8 +240,8 @@ function getLocation(int $tid, string $parent){
 | @return list of location
 | @Author : tantan
  */
-
-function getCityList(){
+function getCityList()
+{
     $_return = [];
     $locationTree = getLocationTree(0);
     foreach ($locationTree as $value) {
@@ -259,8 +257,8 @@ function getCityList(){
 | @return list of location
 | @Author : tantan
  */
-
-function getDistrictList(string $city = null){
+function getDistrictList(string $city = null)
+{
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {

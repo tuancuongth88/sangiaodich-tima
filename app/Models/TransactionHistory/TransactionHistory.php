@@ -20,7 +20,7 @@ class TransactionHistory extends Model
     protected $primaryKey = 'id';
 
     public $fillable = [
-        'trans_id,service_id,customer_name,customer_mobile,user_id,province_id,district_id,amount,
+        'trans_id,service_id,customer_name,customer_mobile,user_id,city_id,ward_id,district_id,amount,
         amount_day,payment_day,status,created_time,telesales_id,telesales_time,sales_id,
         sales_time,fee,fee_type,percent_discount'
     ];
@@ -35,6 +35,36 @@ class TransactionHistory extends Model
     public function service()
     {
         return $this->belongsTo('App\Models\Services\Services', 'service_id');
+    }
+
+    public function city()
+    {
+        $city = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
+        if( $this->city_id ){
+            $data = getLocation($this->city_id);
+            return $data ? (object)$data : $city;
+        }
+        return (object)$city;
+    }
+
+    public function district()
+    {
+        $district = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
+        if( $this->district_id ){
+            $data = !empty($this->city_id) ? getLocation($this->district_id, $this->city_id) : getLocation($this->district_id);
+            return $data ? (object)$data : $district;
+        }
+        return (object)$district;
+    }
+
+    public function ward()
+    {
+        $ward = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
+        if( $this->ward_id ){
+            $data = ($this->city_id) ? getLocation($this->ward_id, $this->city_id) : getLocation($this->ward_id);
+            return $data ? (object)$data : $ward;
+        }
+        return (object)$ward;
     }
 
     //1 ch

@@ -28,6 +28,9 @@ class User extends Authenticatable {
         'phone',
         'avatar',
         'identity',
+        'city_id',
+        'district_id',
+        'ward_id',
     ];
 
     /**
