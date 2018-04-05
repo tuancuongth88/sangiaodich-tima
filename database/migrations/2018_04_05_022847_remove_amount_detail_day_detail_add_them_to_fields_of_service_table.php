@@ -19,6 +19,7 @@ class RemoveAmountDetailDayDetailAddThemToFieldsOfServiceTable extends Migration
             $table->longText('amount_detail')->after('service_name')->nullable();
             $table->longText('day_detail')->after('service_name')->nullable();
             $table->string('icon_url', 256)->after('image_url')->nullable();
+            $table->smallInteger('status')->default(0)->change();
         });
     }
 
