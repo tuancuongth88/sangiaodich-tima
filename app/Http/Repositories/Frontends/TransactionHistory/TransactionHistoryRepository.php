@@ -311,5 +311,5 @@ class TransactionHistoryRepository extends Repository
         $input['service_code'] = $service->id;
         $this->model->create($input);
         return redirect()->back()->with('status', true)->with('message', 'Đăng ký thành công!')->with('redirect', true);
-    }
+        
 }

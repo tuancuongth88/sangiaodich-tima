@@ -254,14 +254,15 @@
                                             <ul class="list-h-1 align-self-start mt-3">
                                                 <li class="list-h-1__item">
                                                     @if($data_val['status']==1)
-                                                        <button type="button" class="btn btn-outline-danger btn-sm updatestatus"
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger btn-sm updatestatus"
                                                                 data-toggle="modal" data-target="#myModal"
                                                                 title="Hủy đơn vay"
-                                                                onclick="showModal(4, 'Ngô Tuấn Cường', 289730, '5,000,000' )">
+                                                                onclick="showModal(4, '', '{{$data_val['id']}}', '5,000,000' )">
                                                             Hủy
                                                         </button>
                                                     @else
-                                                        &nbsp;
+                                                        &nbsp;&nbsp;
                                                     @endif
                                                 </li>
                                             </ul>
@@ -296,7 +297,9 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="btnLoanerAccept" onclick="LoanerCancelLoanCredit(289730);">Đồng ý</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"
+                            id="btnLoanerAccept" onclick="LoanerCancelLoanCredit(289730);">Đồng ý
+                    </button>
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Hủy</button>
 
                 </div>
@@ -386,17 +389,10 @@
 
     <script>
         function showModal(typeId, name, loanCreditId, totalMoney) {
-            // switch (typeId) {
-            //     case 4:
-            //         $("#title").text('Bạn đồng ý hủy hồ sơ hd-' + loanCreditId + ' với số tiền ' + totalMoney + ' vnđ');
-            //         $("#btnLoanerAccept").attr("onclick", "LoanerCancelLoanCredit(" + loanCreditId + ");");
-            //         break;
-            // }
-
 
             $.ajax(
                 {
-                    url: "/updatestatus" + "&loanCreditId=" + loanCreditId + "&status=" + 5,
+                    url: "lich-su-don-vay/updatestatus" + "?loanCreditId=" + loanCreditId + "&status=" + 5,
                     type: "get",
                     datatype: "html"
                 })
