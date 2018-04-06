@@ -2,7 +2,7 @@
 namespace App\Http\Repositories\Administrators\Services;
 
 use App\Http\Repositories\Administrators\Repository;
-use App\Models\Services\Services;
+use App\Models\Services\Service;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Carbon\Carbon;
@@ -21,7 +21,7 @@ class ServiceRepository extends Repository {
 
     private $current;
 
-    function __construct(Services $service, Request $request, ResponseService $response,  $perpages = 20, $current = 1) {
+    function __construct(Service $service, Request $request, ResponseService $response,  $perpages = 20, $current = 1) {
         $this->model    = $service;
         $this->request  = $request;
         $this->response = $response;
@@ -45,7 +45,10 @@ class ServiceRepository extends Repository {
     // field of user table.
     const ID          = 'id';
     const NAME        = 'service_name';
+    const ICON_URL    = 'icon_url';
     const IMAGE_URL   = 'image_url';
+    const DAY_DETAIL   = 'day_detail';
+    const AMOUNT_DETAIL   = 'amount_detail';
 
     /*
     |--------------------------------------------------------------------------
@@ -58,6 +61,9 @@ class ServiceRepository extends Repository {
     protected function getInputFieldStore() {
         return $this->request->only(
             self::NAME,
+            self::ICON_URL,
+            self::DAY_DETAIL,
+            self::AMOUNT_DETAIL,
             self::IMAGE_URL
         );
     }
@@ -73,7 +79,10 @@ class ServiceRepository extends Repository {
     protected function getInputFieldUpdate() {
         return $this->request->only(
             self::NAME,
-            self::IMAGE_URL
+            self::ICON_URL,
+            self::IMAGE_URL,
+            self::DAY_DETAIL,
+            self::AMOUNT_DETAIL
         );
     }
 
@@ -82,35 +91,13 @@ class ServiceRepository extends Repository {
             $orderField = ($this->request->has('field')) ? $this->request->input('field') : self::ID;
             $orderType  = ($this->request->has('type')) ? $this->request->input('type') : self::ID;
             $query      = $this->model;
-            $query       = $query->orderBy($orderField, ($orderType) ? 'asc' : 'desc');
+            $query       = $query->orderBy($orderField, ($orderType) ? 'desc' : 'asc');
             $listService = $query->paginate($this->perpages);
             return view('administrator.services.index', ['data' => $listService]);
         } catch (Exception $e) {
             return $this->response->json(false, '', 'MESSAGE.SOMETHING_WENT_WRONG');
         }
     }
-
-    /*
-    |--------------------------------------------------------------------------
-    | DETAIL NEWS
-    |--------------------------------------------------------------------------
-    | @params id news
-    | @return object news
-    | @Author : haind
-     */
-
-    
-
-    /*
-    |--------------------------------------------------------------------------
-    | DELETE NEWS
-    |--------------------------------------------------------------------------
-    | @params id news
-    | @return BOOLEAN
-    | @Author : haind
-     */
-
-    
 
     public function create() {
         return view('administrator.services.create');
@@ -126,13 +113,19 @@ class ServiceRepository extends Repository {
                     ->withErrors($validator)
                     ->withInput($data);
             }
-            $data['image_url'] = '';
             if ($this->request->hasFile('image_url')) {
                 $file              = $this->request->image_url;
                 $destinationPath   = public_path() . IMAGESERVICE;
                 $filename          = time() . '_' . $file->getClientOriginalName();
                 $uploadSuccess     = $file->move($destinationPath, $filename);
                 $data['image_url'] = IMAGESERVICE . $filename;
+            }
+            if ($this->request->hasFile('icon_url')) {
+                $file              = $this->request->icon_url;
+                $destinationPath   = public_path() . IMAGESERVICE;
+                $filename          = time() . '_' . $file->getClientOriginalName();
+                $uploadSuccess     = $file->move($destinationPath, $filename);
+                $data['icon_url'] = IMAGESERVICE . $filename;
             }
             $data['status'] = 1;
             $service               = $this->model->create($data);
@@ -161,15 +154,15 @@ class ServiceRepository extends Repository {
 
     public function update($id) {
         try {
-            $data = $this->model->find($id);
-            if ($data == NULL) {
-                return $this->response->json(false, '', 'MESSAGE.SOMETHING_WENT_WRONG');
+            $model = $this->model->find($id);
+            if ($model == NULL) {
+                abort(404);
             }
             $input = $this->getInputFieldUpdate();
             foreach ($input as $key => $value) {
-                $data->$key = $value;
+                $model->$key = $value;
             }
-            $data      = $data->toArray();
+            $data      = $model->toArray();
             $validator = $this->validator($data);
             if ($validator->fails()) {
                 return redirect()
@@ -177,7 +170,6 @@ class ServiceRepository extends Repository {
                     ->withErrors($validator)
                     ->withInput($data);
             }
-            $data['image_url'] = '';
             if ($this->request->hasFile('image_url')) {
                 $file              = $this->request->image_url;
                 $destinationPath   = public_path() . IMAGENEWS;
@@ -185,7 +177,14 @@ class ServiceRepository extends Repository {
                 $uploadSuccess     = $file->move($destinationPath, $filename);
                 $data['image_url'] = IMAGENEWS . $filename;
             }
-            $obj                    = $this->model->find($id)->update($data);
+            if ($this->request->hasFile('icon_url')) {
+                $file              = $this->request->icon_url;
+                $destinationPath   = public_path() . IMAGESERVICE;
+                $filename          = time() . '_' . $file->getClientOriginalName();
+                $uploadSuccess     = $file->move($destinationPath, $filename);
+                $data['icon_url'] = IMAGESERVICE . $filename;
+            }
+            $obj = $model->update($data);
             if (!$obj) {
                 return redirect()->route('service.index')->with('status', false)->with('message', 'Cập nhật thất bại!');
             }

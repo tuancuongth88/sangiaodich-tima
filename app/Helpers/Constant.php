@@ -8,6 +8,8 @@ define('ONE', 1);
 define('ZERO', 0);
 define('APPROVE', 1);
 
+define('NO_IMG', '/frontend/images/nophoto.png');
+
 /**
  * Loai thanh vien
  */

@@ -42,33 +42,42 @@
                                 </div>
                             </div>
                         </div>
-                        {{ Form::open(array('route' => 'service.store', 'class' => 'm-form m-form--fit m-form--label-align-right', 'enctype' => 'multipart/form-data')) }}
-                        <div class="m-portlet__body">
-                            <meta name="csrf-token" content="{{ csrf_token() }}">
-                            <div class="form-group m-form__group">
-                                <label for="name">
-                                    Tên dịch vụ
-                                </label>
-                                <input type="text" class="form-control m-input" id="service_name" placeholder="Tên dịch vụ" name="service_name">
+                        {{ Form::open(array('route' => 'service.store', 'class' => 'm-form m-form--fit m-form--label-align-right', 'files' => true)) }}
+                            <div class="m-portlet__body">
+                                @csrf
+                                <div class="form-group m-form__group">
+                                    <label for="name">Tên danh mục dịch vụ</label>
+                                    <input type="text" class="form-control m-input" id="service_name" placeholder="Tên dịch vụ" name="service_name">
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <label for="day_detail">Khoảng thời gian</label>
+                                    {{ Form::text('day_detail', Common::SERVICE_DAY_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '1weeks, 10days, 1months, 1years']) }}
+                                    <p><i>Mỗi mốc thời gian ngăn cách bằng dấu phẩy ","  Chỉ sử dụng 1 đơn vị duy nhất cho mỗi ô nhập này. Các đơn vị khả dụng: days, weeks, months, years.</i>
+                                        <br>VD: 10days, 20days, 30days
+                                    </p>
+                                </div>
+                                <div class="form-group m-form__group">
+                                    <label for="amount_detail">Khoảng tiền cho vay</label>
+                                    {{ Form::text('amount_detail', Common::SERVICE_AMOUNT_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '5, 10, 15, 20']) }}
+                                    <p><i>Mỗi đơn vị (x 1.000.000) ngăn cách bằng dấu phẩy "," 1 triệu <=> 1 ; 1 tỷ <=> 1000</i>
+                                        <br>VD: 100, 200, 500, 1000, 10000 <=> 100tr, 200tr, 500tr, 1tỷ, 10tỷ
+                                    </p>
+                                </div>
+                                <div class="form-group m-form__group col-md-6">
+                                    <label for="name">Ảnh icon</label>
+                                    <input type="file" class="form-control m-input" name="icon_url"><br>
+                                </div>
+                                <div class="form-group m-form__group col-md-6">
+                                    <label for="name">Ảnh banner</label>
+                                    <input type="file" class="form-control m-input" name="image_url">
+                                </div>
                             </div>
-                            <div class="form-group m-form__group col-md-6">
-                                <label for="name">
-                                    Ảnh
-                                </label>
-                                <input type="file" class="form-control m-input" name="image_url">
+                            <div class="m-portlet__foot m-portlet__foot--fit">
+                                <div class="m-form__actions">
+                                    <button class="btn btn-primary">Lưu</button>
+                                    <a class="btn btn-secondary" href="{{ route('service.index') }}">Trở về danh sách</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="m-portlet__foot m-portlet__foot--fit">
-                            <div class="m-form__actions">
-                                <button class="btn btn-primary">
-                                    Lưu
-                                </button>
-                                <a class="btn btn-secondary" href="{{ route('service.index') }}">
-                                    Trở về danh sách
-                                </a>
-                            </div>
-                        </div>
-                        {{-- </form> --}}
                         {{ Form::close() }}
                     </div>
                     <!--end::Portlet-->

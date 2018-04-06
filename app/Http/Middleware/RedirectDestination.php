@@ -33,9 +33,9 @@ class RedirectDestination
 
         if( in_array($request->method(), ['POST', 'PUT', "DELETE"]) ){
             // dd($request->session()->all());
-            if( $request->session()->has('destination') && !empty(session('destination')) && $request->session()->get('redirect') ){
+            if( session()->has('destination') && !empty(session('destination')) && session()->get('redirect') ){
                 $redirect = session('destination');
-                $request->session()->forget('destination');
+                session()->forget('destination');
                 // dd($redirect);
                 return redirect($redirect);
             }

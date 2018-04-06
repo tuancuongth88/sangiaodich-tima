@@ -26,7 +26,7 @@
             <div class="col-xs-12" style="margin-bottom: 20px">
                 <a href="{{ route('service.create') }}" class="btn btn-primary m-btn m-btn--icon">
                 <span>
-                    <i class="fa flaticon-pie-chart"></i>
+                    <i class="fa fa-plus"></i>
                     <span>
                         Thêm mới
                     </span>
@@ -38,33 +38,35 @@
                 <div class="m-section__content">
                     <table class="table m-table m-table--head-bg-success">
                         <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Tên </th>
-                            <th>Ảnh </th>
-                            <th>Tùy chọn</th>
-                        </tr>
+                            <tr>
+                                <th width="50px">STT</th>
+                                <th>Tên</th>
+                                <th>Icon</th>
+                                <th>Ngày tạo</th>
+                                <th width="120px">Tùy chọn</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach($data as $key => $value)
-                            <tr>
-                                <th scope="row">
-                                    {{ $key + 1 }}
-                                </th>
-                                <td>{{ $value['service_name'] }}</td>
-                                <td><img src="{{ $value['image_url'] }}" style="width: 50px;height: 50px;"></td>
-                                <td>
-                                    {{ Form::open(array('method'=>'DELETE', 'route' => array('service.destroy', $value->id), 'style' => 'display: inline-block;')) }}
-                                    <button onclick="return confirm('Bạn có chắc chắn muốn xóa?');" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
-                                        <i class="fa flaticon-cogwheel-1"></i>
-                                    </button>
-                                    {{ Form::close() }}
-                                    <a href="{{ route('service.edit', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
-                                        <i class="fa flaticon-clock"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach($data as $key => $value)
+                                <tr>
+                                    <th scope="row">
+                                        {{ $key + 1 }}
+                                    </th>
+                                    <td>{{ $value['service_name'] }}</td>
+                                    <td><img src="{{ ($value->icon_url) ? $value->icon_url : NO_IMG }}" style="width: 50px"></td>
+                                    <td>{{ $value->created_at }}</td>
+                                    <td>
+                                        <a title="Sửa" href="{{ route('service.edit', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        {{ Form::open(array('method'=>'DELETE', 'route' => array('service.destroy', $value->id), 'style' => 'display: inline-block;')) }}
+                                        <button title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?');" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        {{ Form::close() }}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

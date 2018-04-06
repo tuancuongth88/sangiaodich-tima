@@ -164,14 +164,14 @@
             <div class="m-menu__submenu ">
                 <span class="m-menu__arrow"></span>
                 <ul class="m-menu__subnav">
-                    <li class="m-menu__item " aria-haspopup="true">
+                    <li class="m-menu__item">
                         <a href="{{ route('service.index') }}" class="m-menu__link ">
-                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                <span></span>
-                            </i>
-                            <span class="m-menu__link-text">
-                                Quản lý dịch vụ
-                            </span>
+                            <i class="fa fa-list-ul"></i> Danh sách dịch vụ
+                        </a>
+                    </li>
+                    <li class="m-menu__item">
+                        <a href="{{ action('Administrators\Services\ServiceController@create') }}" class="m-menu__link ">
+                            <i class="fa fa-list-ul"></i> Thêm mới
                         </a>
                     </li>
                 </ul>

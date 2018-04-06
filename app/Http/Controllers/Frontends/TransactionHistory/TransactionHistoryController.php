@@ -43,4 +43,30 @@ class TransactionHistoryController extends Controller
     {
         return $this->repository->updateStatus();
     }
+
+    /*
+    |---------------------------------------
+    | Get form user register to borrow
+    |---------------------------------------
+    | @params $service string service_slug
+    | @method GET
+    | @return view
+    | @author tantan
+    */
+    public function registerForm($service){
+        return $this->repository->getDetailForm($service);
+    }
+
+    /*
+    |---------------------------------------
+    | Process form user register to borrow
+    |---------------------------------------
+    | @params
+    | @method POST
+    | @return responsive
+    | @author tantan
+    */
+    public function postRegisterForm($service){
+        return $this->repository->postDetailForm($service);
+    }
 }

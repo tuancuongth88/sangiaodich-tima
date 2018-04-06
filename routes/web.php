@@ -25,6 +25,7 @@ Route::get('user/activation/{token}', 'Auth\RegisterController@activateUser')->n
 // Route::group(['prefix' => 'administrator', 'middleware' => 'authenticate'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //system route
+    Route::resource('/', 'Administrators\Systems\DashboardController');
 
     Route::get('partner-category/search', 'Administrators\Partner\PartnerCategoryController@getSearch');
     Route::resource('/partner-category', 'Administrators\Partner\PartnerCategoryController');
@@ -75,14 +76,19 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
-    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm');
-    Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm');
+    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register');
+    Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
+    Route::get('/login', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.login');
+    Route::post('/login', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.dologin');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 });
 
 // Route dang ky vay
-Route::get('/dang-ky-vay/{service}', 'Frontends\Services\ServicesController@registerForm');
-Route::post('/dang-ky-vay', 'Frontends\Services\ServicesController@postRegisterForm');
+Route::group(['prefix' => 'dang-ky-vay'], function(){
+    Route::get('/', 'Frontends\Services\ServicesController@index')->name('services.site.list');
+    Route::get('/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@registerForm')->name('services.site.form');
+    Route::post('/register/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@postRegisterForm')->name('services.site.register');
+});
 
 
 // Route for all ajax

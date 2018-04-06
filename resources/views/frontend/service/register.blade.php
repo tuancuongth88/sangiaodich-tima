@@ -1,16 +1,47 @@
 @extends('frontend.app')
 @section('title','Đăng ký vay')
 
-@section('js_footer')
-<script type="text/javascript">
-	$(document).ready(function () {
-		initSlider(4);
-	});
-</script>
-@stop
+<?php
+$amountConfig = $data->amount_config();
+$amountTicks = $amountLabels = $amountPositions = [];
+foreach ($amountConfig as $key => $value) {
+    $amountTicks[] = $value['number'];
+    $amountLabels[] = '"'.$value['text'].'"';
+    $amountPositions[] = (count($amountConfig)-1 > 0) ? $key*(100/(count($amountConfig)-1)) : 100;
+}
+
+$dayConfig = $data->day_config();
+$dayTicks = $dayLabels = $dayPositions = [];
+foreach ($dayConfig as $key => $value) {
+    $dayTicks[] = $value['number'];
+    $dayLabels[] = '"'.$value['number'].'"';
+    $dayPositions[] = (count($dayConfig)-1 > 0) ? $key*(100/(count($dayConfig)-1)) : 100;
+}
+?>
+@if( count($amountConfig) > 1 && count($dayConfig) > 1 )
+    @section('js_footer')
+    <script type="text/javascript">
+        $('#application_amount').slider({
+            value: {{ $amountConfig[1]['number'] }},
+            formatter: function (b) {
+                $('.spanAmount').text(b.toLocaleString("en"));
+            }
+        });
+
+        $('#application_term').slider({
+            value: {{ $dayConfig[1]['number'] }},
+            formatter: function (b) {
+                $('#payDate').text(moment().add( b, '{{ $dayConfig[0]['unit'] }}' ).format("DD.MM.YYYY"));
+                $('#spanTerm').text(b);
+                //_countCalcValues(producttype);
+            }
+        });
+    </script>
+    @stop
+@endif
 
 @section('content')
-{{ Form::open(['action' => 'Frontends\Services\ServicesController@postRegisterForm', 'method' => 'POST']) }}
+{{ Form::open(['route' => ['services.site.register', $data->slug], 'method' => 'POST']) }}
     <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('frontend/images/bg-hk.jpg') }}');">
         <div class="container d-flex flex-column align-items-end px-0">
             <div class="w-100 w-xl-66 relative px-3">
@@ -19,25 +50,26 @@
                     <div class="p-lg-5 p-3">
                         <div class="row">
                             <div class="col-md-8 mb-3 mb-md-0">
-                                <div class="text-gray mb-3">
-                                    <div>
-                                        Tôi cần vay
-                                        <span class="text-gray-dark spanAmount">10,000,000</span>
-                                        VNĐ
-                                    </div>
-                                    <input style="display: none" class="bootstrap-slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="10000000" id="application_amount" name="application_amount"/>
-                                    <div class="d-flex justify-content-between"></div>
-                                </div>
 
-                                <div class="text-gray mb-3">
-                                    <div>
-                                        trong
-                                        <span class="text-gray-dark" id="spanTerm">30</span>
-                                        <span id="spanTextDay">Ngày</span>
+                                @if( count($amountConfig) > 1 && count($dayConfig) > 1 )
+                                    <div class="text-gray mb-3">
+                                        <div>Tôi cần vay <span class="text-gray-dark spanAmount">10,000,000</span> VNĐ</div>
+                                        <input type="hidden" 
+                                            data-slider-ticks="[{{ implode(',', $amountTicks) }}]"
+                                            data-slider-ticks-labels='[{{ implode(',', $amountLabels) }}]' 
+                                            ticks_positions="[{{ implode(',', $amountPositions) }}]"
+                                            data-slider-step="{{ $amountConfig[1]['number'] - $amountConfig[0]['number'] }}"
+                                            id="application_amount" name="amount" value=""/>
                                     </div>
-                                    <input style="display: none" class="bootstrap-slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="30" id="application_term" name="application_term"/>
-                                    <div class="d-flex justify-content-between"></div>
-                                </div>
+                                    <div class="text-gray mb-3">
+                                        <div>trong <span class="text-gray-dark" id="spanTerm">30</span> <span id="spanTextDay">{{ $dayConfig[0]['text'] }}</span></div>
+                                        <input type="hidden" id="application_term" name="amount_day"
+                                            data-slider-ticks="[{{ implode(',', $dayTicks) }}]"
+                                            data-slider-ticks-labels='[{{ implode(',', $dayLabels) }}]' 
+                                            ticks_positions="[{{ implode(',', $dayPositions) }}]"
+                                            data-slider-step="{{ $dayConfig[1]['number'] - $dayConfig[0]['number'] }}"/>
+                                    </div>
+                                @endif
 
                                 <p class="text-gray mb-0 fs-12">
                                     Tima tư vấn gói vay theo sổ hộ khẩu, khoản vay đến 50 triệu. Kỳ hạn vay 90
@@ -46,29 +78,27 @@
                                 </p>
 
                                 <div class="text-gray mb-3">
-                                    <input type="checkbox" name="chkDieuKhoan" id="chkDieuKhoan" checked="">
-                                    <label for="chkDieuKhoan"> <a href="/Dieu-Khoan-Nguoi-Vay.html" target="_blank"> Điều khoản </a> đăng ký khoản
-                                        vay </label>
+                                    <input type="checkbox" name="agree_term" checked>
+                                    <labels> <a href="~/" target="_blank"> Điều khoản </a> đăng ký khoản vay </label>
                                 </div>
 
                             </div>
-
                             <div class="col-md-4 d-flex flex-column">
                                 <div class="form-group mb-2">
-                                    <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="application_full_name" id="application_full_name" value="">
+                                    <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="" id="" value="{{ $user->fullname }}">
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="application_mobile_phone" name="application_mobile_phone" value="">
+                                    <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="" name="" value="{{ $user->phone }}">
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    {{ Form::select( 'city', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
                                     <span class="error text-primary">{{ $errors->first('city') }}</span>
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    {{ Form::select( 'district', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
                                     <span class="error text-primary">{{ $errors->first('district') }}</span>
                                 </div>
 

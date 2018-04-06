@@ -100,7 +100,7 @@ function exportWord($text, $font, $size, $bold)
     $objWriter->save('helloWorld.docx');
 }
 
-function VndText($amount)
+function VndText($amount, string $unit = "đồng chẵn")
 {
     if ($amount <= 0) {
         return $textnumber = "Tiền phải là số nguyên dương lớn hơn số 0";
@@ -165,7 +165,30 @@ function VndText($amount)
     $textnumber = str_replace("mươi một", "mươi mốt", $textnumber);
     $textnumber = str_replace("mười năm", "mười lăm", $textnumber);
 
-    return ucfirst($textnumber . "đồng chẵn");
+    return ucfirst($textnumber . $unit);
+}
+
+/*
+|----------------------------------------------------------
+| Read a number to text summary
+|----------------------------------------------------------
+| @params $amount integer >= 1000000
+| @return string
+| @author tantan
+|*/
+function VndTextSummary($amount) : string
+{
+    if( $amount < 1000000 ){
+        return '';
+    }
+    $amount = $amount/1000000;
+    if( $amount < 1000 ){
+        return $amount.'tr';
+    }
+    else{
+        $amount = $amount/1000;
+        return $amount.'tỷ';
+    }
 }
 
 

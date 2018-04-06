@@ -14,6 +14,7 @@
     {{-- <link rel="stylesheet" href="{{ URL::asset('/frontend/css/bootstrap-select.min.css') }}" type="text/css"/> --}}
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ URL::asset('/frontend/css/custom_tan.css') }}" type="text/css"/>
+    @yield('css_header')
 
     <script>
         var isMobile = 0;
@@ -28,12 +29,7 @@
             }
         });
     </script>
-
-
     @yield('js_header')
-
-    <script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
-    <script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
 </head>
 
 <body>
@@ -46,10 +42,10 @@
             <div class="topbar header__topbar hidden-md-down">
                 <ul class="topbar-list mb-0">
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/User/Register/">Đăng ký</a>
+                        <a class="topbar-list__link" href="{{ route('frontend.user.register') }}">Đăng ký</a>
                     </li>
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/User/Login/">
+                        <a class="topbar-list__link" href="{{ route('frontend.user.login') }}">
                             Đăng nhập
                         </a>
                     </li>
@@ -113,8 +109,8 @@
                             <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
 
-                        <li class="nav-item  ">
-                            <a class="nav-link" href="/Borrower/">Cần một khoản vay</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('services.site.list') }}">Cần một khoản vay</a>
                         </li>
 
                         <li class="nav-item  ">

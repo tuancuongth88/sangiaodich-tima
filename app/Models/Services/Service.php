@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 
-class Services extends Model
+class Service extends Model
 {
     //
     use Notifiable;
     use Sluggable;
     use SoftDeletes;
+    use SluggableScopeHelpers;
 
     const UNACCEPT = 0;
     const ACCEPTED = 1;
@@ -54,5 +56,36 @@ class Services extends Model
                 'source' => 'service_name'
             ]
         ];
+    }
+
+    /*
+    |----------------------------------------------------------
+    | Get day detail config of a service
+    |----------------------------------------------------------
+    | @params string
+    | @return array
+    | @author: tantan
+    */
+    public function day_config(){
+        return \Common::getServiceDayDetail($this->day_detail);
+    }
+
+    /*
+    |----------------------------------------------------------
+    | Get amount detail config of a service
+    |----------------------------------------------------------
+    | @params string
+    | @return array
+    | @author: tantan
+    */
+    public function amount_config(){
+        $_return = [];
+        $amountDetail = $this->amount_detail ?? \Common::SERVICE_AMOUNT_DETAIL;
+        $_exp = explode(',', $amountDetail);
+        foreach ($_exp as $value) {
+            $value = ((int)$value)*1000000;
+            $_return[] = ['number' => $value, 'text' => VndTextSummary($value)];
+        }
+        return $_return;
     }
 }
