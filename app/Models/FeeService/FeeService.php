@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FeeService extends Model
 {
-   use SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'fee_service';
     protected $primaryKey = 'id';
 
     public $fillable = [
-        'service_id','service_code','fee','created_by','created_time','validate_time','exprice_time','status'
+        'service_id', 'service_code', 'fee', 'created_by', 'validate_time', 'expire_time', 'status'
     ];
 
     protected $dates = ['deleted_at'];

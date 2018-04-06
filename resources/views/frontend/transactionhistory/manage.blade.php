@@ -231,17 +231,24 @@
                                 <td>
                                     <div class="td-inner media d-flex justify-content-center text-center">
                                         <div class="text-nowrap">
+
                                             @if($data_val['status']==1)
                                                 <div class="text-nowrap">
                                                 <span class="text-primary">
-                                                    11,000 ₫
+                                                   {{
+                                                   convertFeeDiscount($data_val['service_id'])['fee']
+                                                   }} đ
                                                 </span>
                                                     <hr class="my-0">
                                                     <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">
-                                                22,000 ₫
+                                                {{
+                                                   convertFeeDiscount($data_val['service_id'])['fee_service']
+                                                   }} đ
                                             </span>
                                                     <span style="font-size:12px;color:black;margin-left:5px;">
-                                                -50%
+                                                -{{
+                                                   convertFeeDiscount($data_val['service_id'])['discount_percent']
+                                                   }}%
                                             </span>
                                                 </div>
                                             @else
