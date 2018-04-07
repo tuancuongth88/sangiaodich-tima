@@ -199,7 +199,7 @@
                                         <div class="text-nowrap">
                                             {{ getLocation($data_val['district_id'])['name'] }}
                                             <hr class="my-0">
-                                            {{getLocation($data_val['provice_id'])['name']}}
+                                            {{getLocation($data_val['province_id'])['name']}}
                                         </div>
                                     </div>
                                 </td>
