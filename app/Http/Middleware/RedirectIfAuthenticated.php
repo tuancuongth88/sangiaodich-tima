@@ -18,7 +18,6 @@ class RedirectIfAuthenticated {
         if (Auth::check()) {
             return redirect()->route('frontend.user.edit', [Auth::user()->id]);
         }
-
         return $next($request);
     }
 }

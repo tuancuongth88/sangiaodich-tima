@@ -30,27 +30,7 @@ class UsersRepository extends Repository {
 
     /*
     |--------------------------------------------------------------------------
-    | INPUT FIELD STORE
-    |--------------------------------------------------------------------------
-    | @params
-    | @return field before validator and store.
-    | @Author : tantan
-     */
-    protected function getInputFieldStore()
-    {
-        return $this->request->only(
-            self::FULLNAME,
-            self::PHONE,
-            self::USERNAME,
-            self::EMAIL,
-            self::PASSWORD,
-            self::TYPE
-        );
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | VALIDATOR ARRAY FIELD.
+    | VALIDATOR ARRAY FIELD FOR ONLY LOGIN.
     |--------------------------------------------------------------------------
     | @params $array array.
     | @return mix \Validator
@@ -101,7 +81,7 @@ class UsersRepository extends Repository {
     | @Author : tantan
      */
     public function storeUser(){
-        $input = $this->getInputFieldStore();
+        $input = $this->request->all();
         $validator = $this->validator($input);
         if ($validator->fails()) {
             return redirect()
@@ -188,9 +168,9 @@ class UsersRepository extends Repository {
                 ->withInput($input);
         }
 
-        $remember = ($input['agree'] == 'on') ? true : false;
-        if ( Auth::attempt( ['phone' => $input['phone'], 'password' => $input['password'] ], $remember) ) {
-            return redirect()->action('Frontends\Homes\HomeController@index')->with('status', true)->with('message', 'Đăng nhập thành công!');
+        $remember = (isset($input['agree']) && $input['agree'] == 'on') ? true : false;
+        if ( \Auth::attempt( ['phone' => $input['phone'], 'password' => $input['password'] ], $remember) ) {
+            return redirect()->route('frontend.user.edit', [\Auth::user()->id])->with('status', true)->with('message', 'Đăng nhập thành công!');
         } else {
             return redirect()->back()->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
         }
