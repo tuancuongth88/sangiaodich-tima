@@ -221,7 +221,7 @@
                                         <div class="td-inner media d-flex justify-content-center text-center">
                                             <div class="text-nowrap">
                                                 <div class="text-nowrap">
-                                                    {{$data_val['fee']}}
+                                                    {{number_format($data_val['amount'])}} VND
                                                 </div>
                                             </div>
                                         </div>

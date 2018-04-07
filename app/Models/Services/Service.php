@@ -43,6 +43,16 @@ class Service extends Model
         return $query->take($itemPerPages)->skip($itemPerPages * ($currentPage - 1));
     }
 
+    public function feeservice()
+    {
+        return $this->hasOne('App\Models\FeeService', 'service_id','id');
+    }
+
+    public function feediscountconfig()
+    {
+        return $this->belongsTo('App\Models\FeeDiscountConfig', 'service_id','id');
+    }
+
     /**
      * Return the sluggable configuration array for this model.
      *
