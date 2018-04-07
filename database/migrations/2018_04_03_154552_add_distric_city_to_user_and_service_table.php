@@ -19,7 +19,7 @@ class AddDistricCityToUserAndServiceTable extends Migration
             $table->string('city_id', 125)->after('address')->nullable();
         });
         Schema::table('transaction_history', function (Blueprint $table) {
-            $table->dropColumn('provice_id');
+            $table->dropColumn('province_id');
             $table->string('district_id', 125)->nullable()->change();
             $table->string('ward_id', 125)->after('user_id')->nullable();
             $table->string('city_id', 125)->after('user_id')->nullable();

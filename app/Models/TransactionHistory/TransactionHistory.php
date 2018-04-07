@@ -34,6 +34,10 @@ class TransactionHistory extends Model
         return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
     }
 
+    public function userVay(){
+        return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
+    }
+
     public function service()
     {
         return $this->belongsTo('App\Models\Services\Service', 'service_id');

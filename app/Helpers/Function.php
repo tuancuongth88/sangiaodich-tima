@@ -309,11 +309,13 @@ function substrPhone($phone)
 }
 
 
-function minusDay($day)
+function minusDay($endDay, $startDay)
 {
-    $ngay_ket_thuc = strtotime($day);
-    $kq = abs($ngay_ket_thuc - time());
-    return (floor($kq / (60 * 60 * 24)));
+    $ngay_ket_thuc = strtotime($endDay);
+    $ngay_bat_dau = strtotime($startDay);
+    $kq = abs($ngay_ket_thuc - $ngay_bat_dau) ;
+    return (floor($kq / (60*60*24)));
+
 }
 
 function minusDaycount($payment_day, $create_time)

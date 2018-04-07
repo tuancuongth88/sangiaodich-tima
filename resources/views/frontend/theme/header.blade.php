@@ -111,7 +111,7 @@
                 <div class="collapse navbar-collapse" id="main-nav-collapse">
                     <ul class="main-nav navbar-nav ml-auto">
                         <li class="nav-item active ">
-                            <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ action('Frontends\Homes\HomeController@index') }}">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
