@@ -199,7 +199,7 @@
                                         <div class="text-nowrap">
                                             {{ getLocation($data_val['district_id'])['name'] }}
                                             <hr class="my-0">
-                                            {{getLocation($data_val['province_id'])['name']}}
+                                            {{getLocation($data_val['city_id'])['name']}}
                                         </div>
                                     </div>
                                 </td>
@@ -236,18 +236,18 @@
                                                 <div class="text-nowrap">
                                                 <span class="text-primary">
                                                    {{
-                                                   convertFeeDiscount($data_val['service_id'])['fee']
+                                                   convertFeeDiscount($data_val['service_code'])['fee']
                                                    }} đ
                                                 </span>
                                                     <hr class="my-0">
                                                     <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">
                                                 {{
-                                                   convertFeeDiscount($data_val['service_id'])['fee_service']
+                                                   convertFeeDiscount($data_val['service_code'])['fee_service']
                                                    }} đ
                                             </span>
                                                     <span style="font-size:12px;color:black;margin-left:5px;">
                                                 -{{
-                                                   convertFeeDiscount($data_val['service_id'])['discount_percent']
+                                                   convertFeeDiscount($data_val['service_code'])['discount_percent']
                                                    }}%
                                             </span>
                                                 </div>

@@ -23,10 +23,10 @@
                 <div class="icon-male-circle wf-38 d-flex align-self-center mr-3 hidden-xs-down"></div>
                 <div class="media-body align-self-center text-ellipsis">
                     <div class="tm-table__para fw-6 line-height-heading mb-1">
-                        Anh Trung
+                        {{ $data_val->user->fullname }}
                     </div>
                     <div class="text-gray-lighter">
-                        090*****489
+                        {{substrPhone($data_val->user->phone)}}
                     </div>
                 </div>
             </div>
@@ -34,9 +34,9 @@
         <td class="hidden-xs-down">
             <div class="td-inner d-flex justify-content-center text-center">
                 <div class="text-nowrap">
-                    {{$data_val['district_id']}}
+                    {{ getLocation($data_val['district_id'])['name'] }}
                     <hr class="my-0">
-                    {{$data_val['provice_id']}}
+                    {{getLocation($data_val['city_id'])['name']}}
                 </div>
             </div>
         </td>
@@ -44,7 +44,9 @@
             <div class="td-inner d-flex justify-content-center text-center">
                 <div class="text-nowrap">
                                             <span class="text-primary">
-                                                {{$data_val['amount']}} Triệu - {{$data_val['amount_day']}} Ngày
+                                                {{convertAmount($data_val['amount'])}}
+                                                {{minusDaycount($data_val['payment_day'],$data_val['created_at'])}}
+                                                - Ngày
                                             </span>
                     <hr class="my-0">
                     {{$data_val->service->service_name}}
@@ -55,10 +57,10 @@
             <div class="td-inner d-flex justify-content-center h-100">
                 <ul class="list-h-1 align-self-start mt-3">
                     <li class="list-h-1__item text-primary">
-                        21:23
+                        {{convertDate('H:i',$data_val['created_at'])}}
                     </li>
                     <li class="list-h-1__item">
-                        {{$data_val['created_at']}}
+                        {{convertDate('Y-m-d',$data_val['created_at'])}}
                     </li>
                 </ul>
             </div>
@@ -66,18 +68,33 @@
         <td>
             <div class="td-inner media d-flex justify-content-center text-center">
                 <div class="text-nowrap">
-                    <div class="text-nowrap">
+
+                    @if($data_val['status']==1)
+                        <div class="text-nowrap">
                                                 <span class="text-primary">
-                                                    11,000 ₫
+                                                   {{
+                                                   convertFeeDiscount($data_val['service_code'])['fee']
+                                                   }} đ
                                                 </span>
-                        <hr class="my-0">
-                        <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">
-                                                22,000 ₫
+                            <hr class="my-0">
+                            <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">
+                                                {{
+                                                   convertFeeDiscount($data_val['service_code'])['fee_service']
+                                                   }} đ
                                             </span>
-                        <span style="font-size:12px;color:black;margin-left:5px;">
-                                                -50%
+                            <span style="font-size:12px;color:black;margin-left:5px;">
+                                                -{{
+                                                   convertFeeDiscount($data_val['service_code'])['discount_percent']
+                                                   }}%
                                             </span>
-                    </div>
+                        </div>
+                    @else
+                        <span class="badge badge-danger align-self-center">
+                                                {{isset($list_status[$data_val['status']])?
+                                                $list_status[$data_val['status']]:'Đã hủy'
+                                                }}
+                                                </span>
+                    @endif
                 </div>
             </div>
         </td>
@@ -88,9 +105,43 @@
                     <li class="list-h-1__item">
                         @if($data_val['status']==1)
                             <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                    data-toggle="modal" data-target="#myModal" title="Nhận đơn">
+                                    data-toggle="modal" data-target="#myModal" title="Nhận đơn"
+                                    onclick="update('','','{{$data_val['id']}}',2)"
+                            >
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 Nhận đơn
+                            </button>
+                            <button type="button" class="btn btn-outline-success btn-sm mr-2"
+                                    data-target="#myModal" title="Hủy đơn"
+                                    onclick="update('','','{{$data_val['id']}}',5)"
+                            >
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                Hủy
+                            </button>
+                        @elseif($data_val['status']==2)
+                            <button type="button" class="btn btn-outline-success btn-sm mr-2"
+                                    data-toggle="modal" data-target="#myModal"
+                                    title="Đồng ý giải ngân"
+                                    onclick="update('','','{{$data_val['id']}}',3)"
+                            >
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                Giải ngân
+                            </button>
+                            <button type="button" class="btn btn-outline-success btn-sm mr-2"
+                                    data-target="#myModal" title="Từ chối giải ngân"
+                                    onclick="update('','','{{$data_val['id']}}',5)"
+                            >
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                Hủy
+                            </button>
+                        @elseif($data_val['status']==3)
+                            <button type="button" class="btn btn-outline-success btn-sm mr-2"
+                                    data-toggle="modal" data-target="#myModal"
+                                    title="Tất toán"
+                                    onclick="update('','','{{$data_val['id']}}',4)"
+                            >
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                Tất toán
                             </button>
                         @endif
                     </li>

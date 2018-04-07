@@ -23,7 +23,7 @@ class TransactionHistory extends Model
     protected $primaryKey = 'id';
 
     public $fillable = [
-        'trans_id', 'service_id', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id', 'district_id,amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id', 'telesales_time', 'sales_id',
+        'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id', 'district_id,amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id', 'telesales_time', 'sales_id',
         'sales_time', 'fee', 'fee_type', 'percent_discount'
     ];
 
@@ -40,7 +40,7 @@ class TransactionHistory extends Model
 
     public function service()
     {
-        return $this->belongsTo('App\Models\Services\Service', 'service_id');
+        return $this->belongsTo('App\Models\Services\Services', 'service_code');
     }
 
 
