@@ -89,7 +89,7 @@ class TransactionHistoryRepository extends Repository
 
         $where_cloud = array();
         if ((int)$product > 0) {
-            $where_cloud[] = ['service_id', '=', $product];
+            $where_cloud[] = ['service_code', '=', $product];
         }
         if ((int)$status > 0) {
             $where_cloud[] = ['status', '=', $status];
@@ -180,7 +180,7 @@ class TransactionHistoryRepository extends Repository
 
         $where_cloud = array();
         if ((int)$product > 0) {
-            $where_cloud[] = ['service_id', '=', $product];
+            $where_cloud[] = ['service_code', '=', $product];
         }
         if ((int)$status > 0) {
             $where_cloud[] = ['status', '=', $status];
