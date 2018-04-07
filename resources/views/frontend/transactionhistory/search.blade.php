@@ -45,7 +45,7 @@
             <div class="td-inner media d-flex justify-content-center text-center">
                 <div class="text-nowrap">
                     <div class="text-nowrap">
-                        {{$data_val['fee']}}
+                        {{number_format($data_val['amount'])}} VND
                     </div>
                 </div>
             </div>
@@ -59,18 +59,35 @@
                 </div>
             </div>
         </td>
+        <td>
+            <div class="td-inner media d-flex justify-content-center text-center">
+                <div class="text-nowrap">
+                    <div class="text-nowrap">
+                        <span class="badge badge-danger align-self-center">
+                            {{isset($list_status[$data_val['status']])?
+                            $list_status[$data_val['status']]:'Đã hủy'
+                            }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </td>
         <td class="">
             <div id="277548"
                  class="td-inner d-flex flex-column align-items-center text-center btnbuy">
                 <ul class="list-h-1 align-self-start mt-3">
                     <li class="list-h-1__item">
-                        <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                data-toggle="modal" data-target="#myModal" title="Nhận đơn">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            {{isset($list_status[$data_val['status']])?
-                            $list_status[$data_val['status']]:'Đã hủy'
-                            }}
-                        </button>
+                        @if($data_val['status']==1)
+                            <button type="button"
+                                    class="btn btn-outline-danger btn-sm updatestatus"
+                                    data-toggle="modal" data-target="#myModal"
+                                    title="Hủy đơn vay"
+                                    onclick="showModal(4, '', '{{$data_val['id']}}', '5,000,000' )">
+                                Hủy
+                            </button>
+                        @else
+                            &nbsp;&nbsp;
+                        @endif
                     </li>
                 </ul>
             </div>

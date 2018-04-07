@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 // Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
 Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@postLogin']);
@@ -68,7 +67,6 @@ Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail'
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 
-
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
 Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage');
@@ -80,11 +78,17 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
-    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register');
+    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
-    Route::get('/login', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.login');
-    Route::post('/login', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.dologin');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
+    
+    Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login')->middleware('guest');
+    Route::get('/logout', 'Frontends\Users\usersController@logout')->name('frontend.user.logout')->middleware('auth');
+    Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
+
+    Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
+    Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
+
 });
 
 // Route dang ky vay

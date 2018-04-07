@@ -1,6 +1,14 @@
 <?php namespace Custom\Services;
+use Illuminate\Support\Facades\Auth;
 
 class Common {
+
+    private $currentUser;
+
+    public function __construct(Auth $auth){
+        $this->currentUser = Auth::user();
+    }
+
 	const SERVICE_DAY_DETAIL = "10days, 20days, 30days, 40days, 50days, 60days, 70days, 80days, 90days";
 	const SERVICE_AMOUNT_DETAIL = "5, 10, 15, 20, 25, 30, 35, 40, 45, 50";
 	const DAY = 'days';
@@ -46,6 +54,19 @@ class Common {
     		$_return[] = ['number' => $number, 'unit' => str_replace($number, '', $value), 'text' => $unit];
     	}
     	return $_return;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | Get fullname of user
+    |----------------------------------------------------------
+    | @params
+    | @return string
+    | @author: tantan
+    */
+    public static function getDisplayNameUser(){
+        $user = Auth::user();
+        return $user->fullname ?? $user->phone ?? $user->username;
     }
 
 }

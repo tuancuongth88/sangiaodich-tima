@@ -216,6 +216,7 @@ return [
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
         'Common'       => Custom\Services\Common::class,
+        'PermissionCommon' => Custom\Services\PermissionCommon::class,
     ],
 
 ];

@@ -41,14 +41,22 @@
         <div class="container d-flex flex-row flex-lg-column">
             <div class="topbar header__topbar hidden-md-down">
                 <ul class="topbar-list mb-0">
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="{{ route('frontend.user.register') }}">Đăng ký</a>
-                    </li>
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="{{ route('frontend.user.login') }}">
-                            Đăng nhập
-                        </a>
-                    </li>
+                    @guest
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.register') }}">Đăng ký</a>
+                        </li>
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.login') }}">Đăng nhập</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.edit', [\Auth::user()->id]) }}">{{ \Common::getDisplayNameUser() }}</a>
+                        </li>
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.logout') }}">Đăng xuất</a>
+                        </li>
+                    @endauth
 
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/Notification/">
@@ -106,7 +114,7 @@
                 <div class="collapse navbar-collapse" id="main-nav-collapse">
                     <ul class="main-nav navbar-nav ml-auto">
                         <li class="nav-item active ">
-                            <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ action('Frontends\Homes\HomeController@index') }}">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
