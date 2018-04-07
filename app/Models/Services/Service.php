@@ -45,12 +45,12 @@ class Service extends Model
 
     public function feeservice()
     {
-        return $this->hasOne('App\Models\FeeService', 'service_id','id');
+        return $this->hasOne('App\Models\FeeService', 'service_code','id');
     }
 
     public function feediscountconfig()
     {
-        return $this->belongsTo('App\Models\FeeDiscountConfig', 'service_id','id');
+        return $this->belongsTo('App\Models\FeeDiscountConfig', 'service_code','id');
     }
 
     /**

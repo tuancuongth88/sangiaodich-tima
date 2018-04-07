@@ -2,7 +2,7 @@
 namespace App\Http\Repositories\Frontends\Homes;
 
 use App\Http\Repositories\Administrators\Repository;
-use App\Models\Services\Services;
+use App\Models\Services\Service;
 use App\Models\Slides\Slide;
 use App\Models\TransactionHistory\TransactionHistory;
 use App\Models\Users\User;
@@ -30,7 +30,7 @@ class HomesRepository extends Repository
     public function index(){
         $data = Slide::all();
         $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
-        $listService = Services::all();
+        $listService = Service::all();
 //        $total
         $listTransactionNews = TransactionHistory::orderBy('id', 'desc')->paginate($this->perpage);
         $total_reg_borrow = User::where('type', VAY)->count();

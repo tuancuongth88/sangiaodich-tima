@@ -53,6 +53,9 @@
                         <li class="topbar-list__item">
                             <a class="topbar-list__link" href="{{ route('frontend.user.edit', [\Auth::user()->id]) }}">{{ \Common::getDisplayNameUser() }}</a>
                         </li>
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.logout') }}">Đăng xuất</a>
+                        </li>
                     @endauth
 
                     <li class="topbar-list__item">
