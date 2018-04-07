@@ -404,7 +404,7 @@
             }
         });
     </script>
-    <script>
+    <script type="text/javascript">
         function update(typeId, name, loanCreditId, nextStatus) {
             $.ajax(
                 {
@@ -413,7 +413,6 @@
                     datatype: "html"
                 })
                 .done(function (data) {
-
                     location.reload();
                 })
                 .fail(function (jqXHR, ajaxOptions, thrownError) {
@@ -421,7 +420,5 @@
                 });
             return false;
         }
-
-
     </script>
 @stop

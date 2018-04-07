@@ -71,7 +71,8 @@
                         <div class="td-inner d-flex justify-content-center text-center">
                             <div class="text-nowrap">
                                 <span class="text-primary">
-                                    {{$data_val['fee']}}Triệu - {{$data_val['amount_day']}} Ngày
+                                    {{convertAmount($data_val['amount'])}} -
+                                    {{minusDaycount($data_val['payment_day'],$data_val['created_at'])}} Ngày
                                 </span>
                                 <hr class="my-0">
                                 {{$data_val->service->service_name}}
