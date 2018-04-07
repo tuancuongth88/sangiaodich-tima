@@ -69,4 +69,30 @@ class UsersController extends Controller
     public function postloginForm(){
         return $this->repository->doLogin();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GET PROFILE FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method GET
+    | @Author : tantan
+     */
+    public function getProfileForm(){
+        return view('frontend.users.profile');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | POST LOGIN FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postProfileForm(){
+        return $this->repository->saveProfile();
+    }
 }

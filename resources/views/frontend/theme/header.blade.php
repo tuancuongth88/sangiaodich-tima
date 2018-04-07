@@ -51,7 +51,7 @@
                     @endguest
                     @auth
                         <li class="topbar-list__item">
-                            <a class="topbar-list__link" href="{{ route('frontend.user.register') }}"></a>
+                            <a class="topbar-list__link" href="{{ route('frontend.user.edit', [\Auth::user()->id]) }}">{{ \Common::getDisplayNameUser() }}</a>
                         </li>
                     @endauth
 

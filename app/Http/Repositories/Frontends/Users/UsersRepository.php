@@ -7,6 +7,7 @@ use App\Services\ResponseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class UsersRepository extends Repository {
@@ -45,6 +46,26 @@ class UsersRepository extends Repository {
             self::PASSWORD,
             self::TYPE
         );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | VALIDATOR ARRAY FIELD.
+    |--------------------------------------------------------------------------
+    | @params $array array.
+    | @return mix \Validator
+    | @Author : tantan
+     */
+    public function loginValidator(array $array){
+        $messages = [
+            'required'       => 'Vui lòng nhập :attribute',
+            self::PASSWORD.'.required'         => 'Vui lòng nhập mật khẩu.',
+            self::PHONE.'.required' => 'Vui lòng nhập số điện thoại.',
+        ];
+        return Validator::make($array, [
+            self::PHONE         => 'required',
+            self::PASSWORD      => 'required',
+        ], $messages);
     }
 
     /*
@@ -158,6 +179,34 @@ class UsersRepository extends Repository {
     | @Author : tantan
      */
     public function doLogin(){
+        $input = $this->request->all();
+        $validator = $this->loginValidator($input);
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput($input);
+        }
+
+        $remember = ($input['agree'] == 'on') ? true : false;
+        if ( Auth::attempt( ['phone' => $input['phone'], 'password' => $input['password'] ], $remember) ) {
+            return redirect()->action('Frontends\Homes\HomeController@index')->with('status', true)->with('message', 'Đăng nhập thành công!');
+        } else {
+            return redirect()->back()->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
+        }
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method POST
+    | @Author : tantan
+     */
+    public function saveProfile(){
         $input = $this->request->all();
         dd($input);
     }

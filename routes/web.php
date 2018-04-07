@@ -78,12 +78,16 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
-    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register');
+    Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
     
-    Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login');
+    Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login')->middleware('guest');
     Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
+
+    Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit');
+    Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit');
+
 });
 
 // Route dang ky vay

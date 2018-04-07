@@ -65,7 +65,8 @@ class Common {
     | @author: tantan
     */
     public static function getDisplayNameUser(){
-        dd($this->currentUser->get());
+        $user = Auth::user();
+        return $user->fullname ?? $user->phone ?? $user->username;
     }
 
 }

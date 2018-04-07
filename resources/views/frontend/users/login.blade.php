@@ -4,6 +4,7 @@
 @section('content')
     <div class="container py-5">
         @include('frontend.alert.messages')
+        @include('frontend.alert.errors-validate')
         <div class="tm-reg">
             <div class="row gutter-10px flex-column-reverse flex-md-row">
                 <div class="col-main col-md-6 d-flex">
@@ -33,7 +34,7 @@
                                     </p>
 
                                     <div class="form-group">
-                                        {{ Form::text('username', null, ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'placeholder' => "Nhập số điện thoại"]) }}
+                                        {{ Form::text('phone', null, ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'placeholder' => "Nhập số điện thoại"]) }}
                                     </div>
 
                                     <div class="form-group">
