@@ -38,13 +38,17 @@ class HomesRepository extends Repository
 
         $open_time = strtotime("00:00");
         $close_time = strtotime("23:59");
-        $total_bill_day = TransactionHistory::where('created_at', '>=', $open_time)->where('created_at', '<=', $close_time)->count();
+        $total_bill_day = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)
+                                            ->where('created_at', '>=', $open_time)
+                                            ->where('created_at', '<=', $close_time)
+                                            ->count();
         return view('home', ['data' => $data,
                 'totalmoney' => $totalMoney,
                 'list_service' => $listService,
                 'list_transaction' => $listTransactionNews,
                 'total_reg_borrow' => $total_reg_borrow,
-                'total_reg_loan' => $total_reg_loan]
+                'total_reg_loan' => $total_reg_loan,
+                'total_bill_on_day' => $total_bill_day,]
         );
     }
 

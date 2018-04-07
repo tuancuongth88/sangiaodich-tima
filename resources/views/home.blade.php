@@ -174,7 +174,7 @@
                                                 Đơn vay mới trong ngày
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                3,638
+                                                {{ $total_bill_on_day }}
                                             </p>
                                         </div>
                                     </div>
