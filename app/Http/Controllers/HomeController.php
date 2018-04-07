@@ -26,14 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Slide::all();
-        $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
-        $listService = Services::all();
-//        $total
-        $listTransactionNews = TransactionHistory::orderBy('id', 'desc')->paginate(50);
-        return view('home', ['data' => $data,
-                                        'totalmoney' => $totalMoney,
-                                        'list_service' => $listService,
-                                        'list_transaction' => $listTransactionNews]);
+
     }
 }

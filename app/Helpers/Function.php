@@ -285,4 +285,5 @@ function minusDay($day){
     $ngay_ket_thuc = strtotime($day);
     $kq = abs($ngay_ket_thuc - time()) ;
     return (floor($kq / (60*60*24)));
+
 }

@@ -51,7 +51,6 @@
         <div class="container">
             <div class="rounded bg-white p-3 pt-4">
             <div class="row">
-
                 <div class="col-main col-xl-9 border-right mb-6 mb-xl-0">
                     <div class="tm-card">
                         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -79,10 +78,10 @@
                                                 <div class="icon-male-circle wf-38 d-flex align-self-center mr-3"></div>
                                                 <div class="media-body align-self-center text-ellipsis">
                                                     <div class="tm-table__para fw-6 text-primary">
-                                                        {{ $listTransaction->customer_name }}
+                                                        {{ $listTransaction->userVay->fullname }}
                                                     </div>
                                                     <div class="tm-table__para text-gray-light">
-                                                        {{ substrPhone($listTransaction->customer_mobile) }}
+                                                        {{ substrPhone($listTransaction->userVay->phone) }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,9 +90,9 @@
 
                                         <div class="tm-table__col tm-table__col--3">
                                             <div class="tm-table__item-td">
-                                                Bi&#234;n H&#242;a
+                                                {{ getLocation($listTransaction->district_id, 0) }}
                                                 <hr class="my-0">
-                                                Đồng Nai
+                                                {{ getLocation($listTransaction->province_id, 0) }}
                                             </div>
                                         </div>
 
@@ -103,6 +102,9 @@
                                                 <span class="text-primary">{{ number_format($listTransaction->amount) }} VNĐ</span>
                                                 <hr class="my-0">
                                                 {{ $listTransaction->service->service_name }}
+                                                <span class="text-primary">10,000,000 VNĐ</span>
+                                                <hr class="my-0">
+                                                Vay t&#237;n chấp theo lương
                                             </div>
                                         </div>
 
@@ -113,6 +115,10 @@
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
                                                     Ngày
+                                                    60
+                                                </div>
+                                                <div class="tm-table__para text-gray-light">
+                                                    Ng&#224;y
                                                 </div>
                                             </div>
                                         </div>
@@ -127,6 +133,10 @@
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
                                                     {{ date('y/m/d', $date) }}
+                                                    20:42
+                                                </div>
+                                                <div class="tm-table__para text-gray-light">
+                                                    22/03/2018
                                                 </div>
                                             </div>
                                         </div>
@@ -244,7 +254,7 @@
                                                 Số người đăng ký vay
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                1,104,825
+                                                {{ number_format($total_reg_borrow) }}
                                             </p>
                                         </div>
                                     </div>
@@ -260,7 +270,7 @@
                                                 Số người tham gia cho vay
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                9,728
+                                                {{ number_format($total_reg_loan) }}
                                             </p>
                                         </div>
                                     </div>
@@ -270,6 +280,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
