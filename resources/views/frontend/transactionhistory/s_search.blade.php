@@ -25,14 +25,9 @@
                         STT
                     </div>
                 </th>
-                <th class="text-center ">
-                    <div class="border-right">
-                        Khách hàng
-                    </div>
-                </th>
                 <th class="text-center hidden-xs-down">
                     <div class="border-right">
-                        Khu vực
+                        Hợp đồng
                     </div>
                 </th>
                 <th class="text-center hidden-xs-down">
@@ -65,25 +60,10 @@
                             </ul>
                         </div>
                     </td>
-                    <td>
-                        <div class="td-inner media">
-                            <div class="icon-male-circle wf-38 d-flex align-self-center mr-3 hidden-xs-down"></div>
-                            <div class="media-body align-self-center text-ellipsis">
-                                <div class="tm-table__para fw-6 line-height-heading mb-1">
-                                    {{$key_data['customer_name']}}
-                                </div>
-                                <div class="text-gray-lighter">
-                                    {{$data_val['customer_mobile']}}
-                                </div>
-                            </div>
-                        </div>
-                    </td>
                     <td class="hidden-xs-down">
                         <div class="td-inner d-flex justify-content-center text-center">
                             <div class="text-nowrap">
-                                {{$data_val['provice_id']}}
-                                <hr class="my-0">
-                                {{$data_val['district_id']}}
+                                HĐ-{{$data_val['id']}}
                             </div>
                         </div>
                     </td>
@@ -91,7 +71,8 @@
                         <div class="td-inner d-flex justify-content-center text-center">
                             <div class="text-nowrap">
                                 <span class="text-primary">
-                                    {{$data_val['fee']}}Triệu - {{$data_val['amount_day']}} Ngày
+                                    {{convertAmount($data_val['amount'])}} -
+                                    {{minusDaycount($data_val['payment_day'],$data_val['created_at'])}} Ngày
                                 </span>
                                 <hr class="my-0">
                                 {{$data_val->service->service_name}}
@@ -102,10 +83,10 @@
                         <div class="td-inner d-flex justify-content-center h-100">
                             <ul class="list-h-1 align-self-start mt-3">
                                 <li class="list-h-1__item text-primary">
-                                    21:23
+                                    {{convertDate('H:i',$data_val['create_time'])}}
                                 </li>
                                 <li class="list-h-1__item">
-                                    {{$data_val['created_time']}}
+                                    {{convertDate('Y-m-d',$data_val['created_time'])}}
                                 </li>
                             </ul>
                         </div>
@@ -113,7 +94,7 @@
                     <td class="">
                         <div id="277548"
                              class="td-inner d-flex flex-column align-items-center text-center btnbuy">
-                            <ul class="list-h-1 align-self-start mt-3">
+                            <ul class="list-h-1  mt-3">
                                 <li class="list-h-1__item">
                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
                                             data-toggle="modal" data-target="#myModal" title="Nhận đơn">

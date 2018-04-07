@@ -87,12 +87,11 @@
                                             </div>
                                         </div>
 
-
                                         <div class="tm-table__col tm-table__col--3">
                                             <div class="tm-table__item-td">
-                                                {{ getLocation($listTransaction->district_id, 0) }}
+                                                {{ getLocation($listTransaction->district_id)['name'] }}
                                                 <hr class="my-0">
-                                                {{ getLocation($listTransaction->province_id, 0) }}
+                                                {{ getLocation($listTransaction->city_id)['name'] }}
                                             </div>
                                         </div>
 
@@ -102,23 +101,16 @@
                                                 <span class="text-primary">{{ number_format($listTransaction->amount) }} VNĐ</span>
                                                 <hr class="my-0">
                                                 {{ $listTransaction->service->service_name }}
-                                                <span class="text-primary">10,000,000 VNĐ</span>
-                                                <hr class="my-0">
-                                                Vay t&#237;n chấp theo lương
                                             </div>
                                         </div>
 
                                         <div class="tm-table__col tm-table__col--4">
                                             <div class="tm-table__item-td">
                                                 <div class="tm-table__para fw-6">
-                                                    {{ minusDay($listTransaction->payment_day) }}
+                                                    {{ minusDay($listTransaction->payment_day, $listTransaction->created_at) }}
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
                                                     Ngày
-                                                    60
-                                                </div>
-                                                <div class="tm-table__para text-gray-light">
-                                                    Ng&#224;y
                                                 </div>
                                             </div>
                                         </div>
@@ -132,11 +124,7 @@
                                                     {{ date('H:i:s', $date) }}
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
-                                                    {{ date('y/m/d', $date) }}
-                                                    20:42
-                                                </div>
-                                                <div class="tm-table__para text-gray-light">
-                                                    22/03/2018
+                                                    {{ date('Y/m/d', $date) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -152,10 +140,10 @@
                             <div class="text-center text-md-left mb-3 mb-md-0">
                                 Chúng tôi có hàng nghìn đơn xin vay mỗi ngày!
                             </div>
-                            <a class="btn btn-lg btn-success px-5 text-white fs-16" href="#">
+                            <a class="btn btn-lg btn-success px-5 text-white fs-16" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">
                                 ĐĂNG KÝ VAY NGAY
                             </a>
-                            <a class="btn btn-lg btn-primary px-5 text-white fs-16" href="#">
+                            <a class="btn btn-lg btn-primary px-5 text-white fs-16" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">
                                 THAM GIA CHO VAY
                             </a>
                         </div>

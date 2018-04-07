@@ -202,5 +202,14 @@
                 </ul>
             </div>
         </li>
+        <!-- cấu hình hệ thống -->
+        <li class="m-menu__item">
+            <a href="{{ action('Administrators\Systems\DashboardController@getLocation') }}" class="m-menu__link">
+                <i class="m-menu__link-icon flaticon-layers"></i>
+                <span class="m-menu__link-text">
+                    Danh mục tỉnh, thành
+                </span>
+            </a>
+        </li>
     </ul>
 </div>

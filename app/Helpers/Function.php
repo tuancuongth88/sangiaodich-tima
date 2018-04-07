@@ -1,4 +1,8 @@
 <?php
+
+use App\Models\FeeDiscountConfig\FeeDiscountConfig;
+use App\Models\FeeService\FeeService;
+
 function safestrtotime($s)
 {
     $basetime = 0;
@@ -176,11 +180,11 @@ function VndText($amount)
 | @return list of location
 | @Author : tantan
  */
-
-function getLocationList(){
-    if( $exists = Storage::disk('local')->exists('locations.json') ){
+function getLocationList()
+{
+    if ($exists = Storage::disk('local')->exists('locations.json')) {
         $locationTree = json_decode(Storage::disk('local')->get('locations.json'), true);
-        if( is_array($locationTree) ){
+        if (is_array($locationTree)) {
             return $locationTree;
         }
     }
@@ -196,18 +200,17 @@ function getLocationList(){
 | @return list of location
 | @Author : tantan
  */
-
-function getLocationTree(string $parent, $max_depth = 1){
+function getLocationTree(string $parent, $max_depth = 1)
+{
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $max_depth == 1 ){
-            if( $parent != null && $value['parent1'] == (string)$parent ){
+        if ($max_depth == 1) {
+            if ($parent != null && (string)$value['parent1'] == (string)$parent) {
                 $_return[] = $value;
             }
-        }
-        else {
-            if( $parent != null && $value['parent1'] == $parent | $value['parent2'] == $parent ){
+        } else {
+            if ($parent != null && (string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent) {
                 $_return[] = $value;
             }
         }
@@ -223,12 +226,13 @@ function getLocationTree(string $parent, $max_depth = 1){
 | @return list of location
 | @Author : tantan
  */
-
-function getLocation(int $tid, string $parent){
-    $tid = $tid ?? 0;
+function getLocation(string $tid, string $parent = null)
+{
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $value['tid'] == $tid && !empty($parent) && ($value['parent1'] == $parent | $value['parent2'] == $parent) ){
+        if ((string)$value['tid'] == $tid && !empty($parent) && ((string)$value['parent1'] == $parent | (string)$value['parent2'] == $parent)) {
+            return $value;
+        } else if ((string)$value['tid'] == $tid && empty($parent)) {
             return $value;
         }
     }
@@ -242,8 +246,8 @@ function getLocation(int $tid, string $parent){
 | @return list of location
 | @Author : tantan
  */
-
-function getCityList(){
+function getCityList()
+{
     $_return = [];
     $locationTree = getLocationTree(0);
     foreach ($locationTree as $value) {
@@ -259,15 +263,15 @@ function getCityList(){
 | @return list of location
 | @Author : tantan
  */
-
-function getDistrictList(string $city = null){
+function getDistrictList(string $city = null)
+{
     $_return = [];
     $locationTree = getLocationList();
     foreach ($locationTree as $value) {
-        if( $value['depth'] == 1 ){
-            if( $city == null ){
+        if ($value['depth'] == 1) {
+            if ($city == null) {
                 $_return[$value['tid']] = $value['name'];
-            } else if( $value['parent1'] == $city ){
+            } else if ($value['parent1'] == $city) {
                 $_return[$value['tid']] = $value['name'];
             }
         }
@@ -281,9 +285,94 @@ function substrPhone($phone)
     return substr($phone, 0, 3) . "*****" . substr($phone, -3);
 }
 
-function minusDay($day){
-    $ngay_ket_thuc = strtotime($day);
-    $kq = abs($ngay_ket_thuc - time()) ;
+
+function minusDay($endDay, $startDay)
+{
+    $ngay_ket_thuc = strtotime($endDay);
+    $ngay_bat_dau = strtotime($startDay);
+    $kq = abs($ngay_ket_thuc - $ngay_bat_dau) ;
     return (floor($kq / (60*60*24)));
+
+}
+
+function minusDaycount($payment_day, $create_time)
+{
+
+    $payment_day = strtotime($payment_day);
+    $create_time = strtotime($create_time);
+    $kq = abs($payment_day - $create_time);
+    return (floor($kq / (60 * 60 * 24)));
+}
+
+// to timestam
+function convertDate($format, $date)
+{
+    $date = strtotime($date);
+    return date($format, $date);
+}
+
+/*
+|--------------------------------------------------------------------------
+| convert amount
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : cuongnt
+ */
+function convertAmount($amount)
+{
+    if (strlen($amount) < 7) {
+        $result = $amount / 100000;
+        return $result . ' Trăm nghìn';
+    }
+    if (strlen($amount) < 10) {
+        $result = $amount / 1000000;
+        return $result . ' Triệu';
+    }
+    if (strlen($amount) > 9) {
+        $result = $amount / 1000000000;
+        return $result . ' Tỷ';
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| convert amount
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : cuongnt
+ */
+function convertFeeDiscount($service_id)
+{
+
+    $obj_feeService = null;
+    $obj_feeDiscount = null;
+    $feeService = FeeService::where('service_id', '=', $service_id)->get()->toArray();
+    if (isset($feeService[0]) && !empty($feeService[0])) {
+        $obj_feeService = $feeService[0];
+    }
+
+    $feeDiscount = FeeDiscountConfig::where('service_id', '=', $service_id)->get()->toArray();
+    if (isset($feeDiscount[0]) && !empty($feeDiscount[0])) {
+        $obj_feeDiscount = $feeDiscount[0];
+    }
+    if (!$obj_feeService || !$obj_feeDiscount) {
+        return ['fee' => 0, 'fee_service' => 0, 'discount_percent' => 0];
+    }
+
+    $fee_service = $obj_feeService['fee'];
+    $validate_time = $obj_feeDiscount['validate_time'];
+    $expire_time = $obj_feeDiscount['expire_time'];
+    $discount_percent = $obj_feeDiscount['discount_percent'];
+
+    $is_discount = false;
+    $today = date("Y-m-d H:i:s");
+    if (($validate_time <= $today) &&
+        ($today <= $expire_time)) {
+        $fee = ($discount_percent * $fee_service) / 100;
+        $is_discount = true;
+    } else {
+        $fee = $fee_service;
+    }
+    return ['fee' => number_format($fee), 'fee_service' => number_format($fee_service), 'discount_percent' => $discount_percent];
 
 }

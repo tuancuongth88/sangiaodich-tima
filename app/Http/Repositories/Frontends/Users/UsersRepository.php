@@ -119,9 +119,8 @@ class UsersRepository extends Repository {
         ///// Remove all session after validate OTP
         $this->request->session()->forget('OTP');
         $this->request->session()->forget('input');
-        $this->request->session()->flush();
 
-        return redirect()->back()->with('register_success', true);
+        return redirect()->back()->with('register_success', true)->with('redirect', true);
     }
 
     /*

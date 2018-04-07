@@ -20,9 +20,12 @@ class CreateTransactionHistory extends Migration
             $table->string('customer_name', 256)->nullable();
             $table->integer('customer_mobile')->nullable();
             $table->integer('user_id')->nullable();
+            $table->string('user_create_name', 256)->nullable();
             $table->integer('user_receiver')->nulable();
             $table->integer('province_id')->nullable();
+            $table->integer('province_name')->nullable();
             $table->integer('district_id')->nullable();
+            $table->string('district_name', 256)->nullable();
             $table->bigInteger('amount')->nullable();
             $table->integer('amount_day')->nullable();
             $table->dateTime('payment_day')->nullable();

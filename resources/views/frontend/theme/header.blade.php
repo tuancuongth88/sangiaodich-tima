@@ -32,6 +32,8 @@
 
     @yield('js_header')
 
+    <script src="{{ URL::asset('/frontend/js/tether.min.js') }}"></script>
+    <script src="{{ URL::asset('/frontend/js/bootstrap.min.js') }}"></script>
 </head>
 
 <body>
@@ -44,7 +46,7 @@
             <div class="topbar header__topbar hidden-md-down">
                 <ul class="topbar-list mb-0">
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/User/Register/">Đăng ký</a>
+                        <a class="topbar-list__link" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">Đăng ký</a>
                     </li>
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/User/Login/">
@@ -108,7 +110,7 @@
                 <div class="collapse navbar-collapse" id="main-nav-collapse">
                     <ul class="main-nav navbar-nav ml-auto">
                         <li class="nav-item active ">
-                            <a class="nav-link" href="/">Trang chủ <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ action('Frontends\Homes\HomeController@index') }}">Trang chủ <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item  ">
