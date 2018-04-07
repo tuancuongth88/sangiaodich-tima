@@ -148,5 +148,18 @@ class UsersRepository extends Repository {
         return 1234;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method POST
+    | @Author : tantan
+     */
+    public function doLogin(){
+        $input = $this->request->all();
+        dd($input);
+    }
 
 }

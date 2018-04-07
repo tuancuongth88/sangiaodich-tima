@@ -41,14 +41,19 @@
         <div class="container d-flex flex-row flex-lg-column">
             <div class="topbar header__topbar hidden-md-down">
                 <ul class="topbar-list mb-0">
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="{{ route('frontend.user.register') }}">Đăng ký</a>
-                    </li>
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="{{ route('frontend.user.login') }}">
-                            Đăng nhập
-                        </a>
-                    </li>
+                    @guest
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.register') }}">Đăng ký</a>
+                        </li>
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.login') }}">Đăng nhập</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="topbar-list__item">
+                            <a class="topbar-list__link" href="{{ route('frontend.user.register') }}"></a>
+                        </li>
+                    @endauth
 
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/Notification/">

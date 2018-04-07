@@ -81,9 +81,10 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 Route::group(['prefix' => 'user'], function(){
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
-    Route::get('/login', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.login');
-    Route::post('/login', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.dologin');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
+    
+    Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login');
+    Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
 });
 
 // Route dang ky vay

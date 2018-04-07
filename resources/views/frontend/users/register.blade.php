@@ -22,7 +22,7 @@
                                             <h2 class="text-uppercase fs-16 fw-4 mb-0">
                                                 Đăng ký tài khoản
                                             </h2>
-                                            <a class="text-primary fs-13" href="/User/Login">
+                                            <a class="text-primary fs-13" href="{{ route('frontend.user.login') }}">
                                                 <ins>Đăng nhập</ins>
                                             </a>
                                         </div>

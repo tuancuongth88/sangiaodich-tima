@@ -43,4 +43,30 @@ class UsersController extends Controller
     public function validateOTP(Request $request){
         return $this->repository->validateOTP();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GET LOGIN FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method GET
+    | @Author : tantan
+     */
+    public function getloginForm(){
+        return view('frontend.users.login');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | POST LOGIN FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postloginForm(){
+        return $this->repository->doLogin();
+    }
 }
