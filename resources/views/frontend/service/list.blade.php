@@ -29,7 +29,7 @@
                                 </a>
                                 <h3 class="fw-4 text-uppercase product_borrow fw-6 mb-0">
                                     <a href="{{ route('services.site.form', ['service' => $service->slug]) }}">
-                                        Vay cầm cố tài sản
+                                        {{ $service->service_name }}
                                     </a>
                                 </h3>
                             </div>

@@ -25,7 +25,7 @@ class Service extends Model
     protected $table = 'services';
     protected $primaryKey = 'id';
 
-    protected $fillable = ['service_name', 'status', 'image_url', 'icon_url', 'day_detail', 'amount_detail'];
+    protected $fillable = ['service_name', 'status', 'image_url', 'icon_url', 'day_detail', 'amount_detail', 'fee', 'discount'];
 
     public static $rules = [
         'service_name' => 'required',

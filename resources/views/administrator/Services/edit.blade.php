@@ -49,10 +49,34 @@
                                     <label for="name">Tên danh mục dịch vụ</label>
                                     <input type="text" class="form-control m-input" id="service_name" value="{{ $data->service_name }}" name="service_name">
                                 </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group m-form__group">
+                                            <label>Giá dịch vụ</label>
+                                            <div class="input-group">
+                                                {{ Form::number('fee', $data->fee, ['class' => 'form-control m-input', 'placeholder' => 'Giá dịch vụ', 'min' => 0]) }}
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">VNĐ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group m-form__group">
+                                            <label>Giảm giá</label>
+                                            <div class="input-group">
+                                                {{ Form::number('discount', $data->discount, ['class' => 'form-control m-input', 'placeholder' => 'Giảm giá', 'min' => 0, 'max' => 100]) }}
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group m-form__group">
                                     <label for="day_detail">Khoảng thời gian</label>
                                     {{ Form::text('day_detail', ($data->day_detail ? $data->day_detail : Common::SERVICE_DAY_DETAIL ), ['class' => 'form-control m-input', 'placeholder' => '1weeks, 10days, 1months, 1years']) }}
-                                    <p><i>Mỗi mốc thời gian ngăn cách bằng dấu phẩy "," Chỉ sử dụng 1 đơn vị duy nhất cho mỗi ô nhập này. Các đơn vị khả dụng: days, weeks, months, years.</i>
+                                    <p><i>Mỗi mốc thời gian ngăn cách bằng dấu phẩy "," Chỉ sử dụng <b>1 đơn vị duy nhất.</b> Các đơn vị khả dụng: days, weeks, months, years.</i>
                                         <br>VD: 10days, 20days, 30days
                                     </p>
                                 </div>
