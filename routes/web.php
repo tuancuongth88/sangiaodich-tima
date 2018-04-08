@@ -90,7 +90,6 @@ Route::group(['prefix' => 'user'], function(){
 
     Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
     Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
-
 });
 
 // Route dang ky vay
