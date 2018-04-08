@@ -89,13 +89,13 @@ class Common {
     | GET SERVICE LIST OF AN USER
     |----------------------------------------------------------
     | @params
-    | @return array of service Models
+    | @return array of service id
     | @author: tantan
     */
     public static function getServicesOfUser($uid){
         $services = RelationModel::where('source_table', 'users')
             ->where('source_id', $uid)
-            ->where('target_table', 'services')->lists('target_id');
+            ->where('target_table', 'services')->distinct()->lists('target_id');
         return $services;
     }
 
@@ -104,13 +104,13 @@ class Common {
     | GET DISTRICT LIST OF AN USER
     |----------------------------------------------------------
     | @params
-    | @return array of service Models
+    | @return array of location id
     | @author: tantan
     */
     public static function getDistrictsOfUser($uid){
         $services = RelationModel::where('source_table', 'users')
             ->where('source_id', $uid)
-            ->where('target_table', 'locations')->lists('target_id');
+            ->where('target_table', 'locations')->distinct()->lists('target_id');
         return $services;
     }
 

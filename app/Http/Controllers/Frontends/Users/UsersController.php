@@ -82,8 +82,8 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getProfileForm(){
-        return $this->repository->getProfile();
+    public function getProfileForm($user){
+        return $this->repository->getProfile($user);
     }
 
     /*
@@ -97,6 +97,32 @@ class UsersController extends Controller
      */
     public function postProfileForm(){
         return $this->repository->saveProfile();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST SERVICE.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveService($user){
+        return $this->repository->postSaveService($user);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST LOCATION.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveLocation($user){
+        return $this->repository->postSaveLocation($user);
     }
 
     /*

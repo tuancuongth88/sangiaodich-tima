@@ -105,6 +105,12 @@ Route::group(['prefix' => 'user'], function(){
     */
     Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
     Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
+
+    //  Save list sercice to an user
+    Route::post('/{user}/edit/save-services', 'Frontends\Users\UsersController@postSaveService')->name('frontend.user.save_service')->middleware('owner');
+    
+    //  Save list district to an user
+    Route::post('/{user}/edit/save-locations', 'Frontends\Users\UsersController@postSaveLocation')->name('frontend.user.save_location')->middleware('owner');
 });
 
 /*
