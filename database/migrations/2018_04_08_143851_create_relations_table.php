@@ -21,6 +21,7 @@ class CreateRelationsTable extends Migration
             $table->integer('target_id')->nullable();
             $table->longText('data')->nullable();
             $table->tinyInteger('status')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
