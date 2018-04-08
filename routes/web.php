@@ -78,6 +78,8 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 
 // Route for User Member
 Route::group(['prefix' => 'user'], function(){
+    Route::get('/', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.register')->middleware('guest');
+
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
