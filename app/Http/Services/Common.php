@@ -1,6 +1,16 @@
 <?php namespace Custom\Services;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Services\Service as ServiceModel;
+use App\Models\Relation as RelationModel;
 
 class Common {
+
+    private $currentUser;
+
+    public function __construct(Auth $auth){
+        $this->currentUser = Auth::user();
+    }
+
 	const SERVICE_DAY_DETAIL = "10days, 20days, 30days, 40days, 50days, 60days, 70days, 80days, 90days";
 	const SERVICE_AMOUNT_DETAIL = "5, 10, 15, 20, 25, 30, 35, 40, 45, 50";
 	const DAY = 'days';
@@ -46,6 +56,62 @@ class Common {
     		$_return[] = ['number' => $number, 'unit' => str_replace($number, '', $value), 'text' => $unit];
     	}
     	return $_return;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | Get fullname of user
+    |----------------------------------------------------------
+    | @params
+    | @return string
+    | @author: tantan
+    */
+    public static function getDisplayNameUser(){
+        $user = Auth::user();
+        return $user->fullname ?? $user->phone ?? $user->username;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET ALL SERVICE LIST
+    |----------------------------------------------------------
+    | @params
+    | @return array an be provice for select option
+    | @author: tantan
+    */
+    public static function getListServices(){
+        $services = ServiceModel::lists('service_name', 'id');
+        return $services;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET SERVICE LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service id
+    | @author: tantan
+    */
+    public static function getServicesOfUser($uid){
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'services')->distinct()->lists('target_id');
+        return $services;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET DISTRICT LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of location id
+    | @author: tantan
+    */
+    public static function getDistrictsOfUser($uid){
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'locations')->distinct()->lists('target_id');
+        return $services;
     }
 
 }

@@ -15,14 +15,14 @@
                             @if( !session('errorOTP') && !session('register_success') )
                                 {{-- Form đăng ký --}}
                                 <div class="fs-13" id="divFormRegister">
-                                    {{ Form::open(['action' => 'Frontends\Users\UsersController@postRegisterForm', 'method' => 'POST', 'autocomplete' => "off"]) }}
+                                    {{ Form::open(['action' => 'Frontends\Users\UsersController@postRegisterForm', 'method' => 'POST']) }}
                                         @csrf
 
                                         <div class="tm-regform__header d-flex justify-content-between align-items-center p-3">
                                             <h2 class="text-uppercase fs-16 fw-4 mb-0">
                                                 Đăng ký tài khoản
                                             </h2>
-                                            <a class="text-primary fs-13" href="/User/Login">
+                                            <a class="text-primary fs-13" href="{{ route('frontend.user.login') }}">
                                                 <ins>Đăng nhập</ins>
                                             </a>
                                         </div>
@@ -50,11 +50,11 @@
                                                 <span class="error">{{ $errors->first('password') }}</span>
                                             </div>
                                             <div class="form-group">
-                                                {{ Form::select( 'city', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                                                {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
                                                 <span class="error text-primary">{{ $errors->first('city') }}</span>
                                             </div>
                                             <div class="form-group">
-                                                {{ Form::select( 'district', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                                                {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
                                                 </select>
                                                 <span class="error text-primary">{{ $errors->first('district') }}</span>
                                             </div>
@@ -63,13 +63,13 @@
                                                 <label class="mb-0 mr-3" for="fc-radio-1">Bạn cần:</label>
 
                                                 <label class="custom-control custom-radio fs-13 mr-4">
-                                                    <input id="fc-radio-1" value="{{ VAY }}" name="type" type="radio" class="custom-control-input">
+                                                    <input id="fc-radio-1" value="{{ \PermissionCommon::VAY }}" name="type" type="radio" class="custom-control-input">
                                                     <span class="custom-control-indicator"></span>
                                                     <span class="custom-control-description">Vay</span>
                                                 </label>
 
                                                 <label class="custom-control custom-radio fs-13">
-                                                    <input id="fc-radio-2" value="{{ CHO_VAY }}" name="type" type="radio" class="custom-control-input" checked>
+                                                    <input id="fc-radio-2" value="{{ \PermissionCommon::CHO_VAY }}" name="type" type="radio" class="custom-control-input" checked>
                                                     <span class="custom-control-indicator"></span>
                                                     <span class="custom-control-description">Cho vay</span>
                                                 </label>
@@ -92,7 +92,7 @@
                                         <h3 class="mb-3 mb-md-4 fs-16 text-center" id="TitleResetPassword">Mã xác nhận không đúng, vui lòng đăng ký lại</h3>
                                         <p class="text-center" id="ContentResetPassword">Bạn đã hết phiên đăng ký, vui lòng đăng ký lại</p>
 
-                                        <a class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">Quay lại màn hình đăng ký</a>
+                                        <a class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5" href="{{ route('frontend.user.register') }}">Quay lại màn hình đăng ký</a>
                                     </div>
                                 </div>
                             @else
@@ -106,7 +106,7 @@
                                         <h3 class="mb-3 mb-md-4 fs-16 text-center" id="TitleResetPassword">Chúc mừng bạn đã đăng ký thành công!</h3>
                                         <p class="text-center" id="ContentResetPassword">Chúng tôi sẽ liên lạc lại với bạn để xác nhận thông tin đăng ký.</p>
 
-                                        <a class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">Đăng nhập ngay</a>
+                                        <a class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5" href="{{ route('frontend.user.login') }}">Đăng nhập ngay</a>
                                     </div>
                                 </div>
                             @endif

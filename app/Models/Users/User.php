@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Users;
+use App\Models\Relation as RelationModel;
 
 use Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,26 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable {
     use Notifiable,
         SoftDeletes;
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     * @author tantan
+     */
+    protected $dispatchesEvents = [
+        // 'retrieved' => Name_Of_Event::class, // fire when an existing model is retrieved from the database
+        // 'creating' => Name_Of_Event::class, // a new model is saved for the first time
+        // 'created' => Name_Of_Event::class, // a new model is saved for the first time
+        // 'updating' => Name_Of_Event::class,
+        // 'updated' => Name_Of_Event::class,
+        // 'saving' => Name_Of_Event::class,
+        // 'saved' => Name_Of_Event::class,
+        // 'deleting' => Name_Of_Event::class,
+        // 'deleted' => Name_Of_Event::class,
+        // 'restoring' => Name_Of_Event::class,
+        // 'restored' => Name_Of_Event::class,
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +52,7 @@ class User extends Authenticatable {
         'city_id',
         'district_id',
         'ward_id',
+        'type',
     ];
 
     /**
@@ -92,6 +114,85 @@ class User extends Authenticatable {
                 }
             }
         });
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET SERVICE LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service id
+    | @author: tantan
+    */
+    public function services() : array{
+        $list = \Common::getServicesOfUser($this->id);
+        return $list;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET DISTRICT LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of location id
+    | @author: tantan
+    */
+    public function locations() : array{
+        $list = \Common::getDistrictsOfUser($this->id);
+        if( !empty($this->district_id) && !in_array($this->district_id, $list) ){
+            $list[] = $this->district_id;
+        }
+        return $list;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | SAVE SERVICE LIST TO AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service id
+    | @author: tantan
+    */
+    public function saveServices(array $services = []){
+        RelationModel::where('source_table' , 'users')
+            ->where('source_id', $this->id)
+            ->where('target_table', 'services')
+            ->forceDelete();
+        $_return = [];
+        foreach ($services as $value) {
+            $_return[] = RelationModel::create([
+                'source_table' => 'users',
+                'source_id' => $this->id,
+                'target_table' => 'services',
+                'target_id' => $value,
+            ])->target_id;
+        }
+        return $_return;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | SAVE DISTRICT LIST TO AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of location id
+    | @author: tantan
+    */
+    public function saveLocations(array $locations = []){
+        RelationModel::where('source_table' , 'users')
+            ->where('source_id', $this->id)
+            ->where('target_table', 'locations')
+            ->forceDelete();
+        $_return = [];
+        foreach ($locations as $value) {
+            $_return[] = RelationModel::create([
+                'source_table' => 'users',
+                'source_id' => $this->id,
+                'target_table' => 'locations',
+                'target_id' => $value,
+            ])->target_id;
+        }
+        return $_return;
     }
 
 }

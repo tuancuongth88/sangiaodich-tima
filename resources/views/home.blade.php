@@ -51,7 +51,6 @@
         <div class="container">
             <div class="rounded bg-white p-3 pt-4">
             <div class="row">
-
                 <div class="col-main col-xl-9 border-right mb-6 mb-xl-0">
                     <div class="tm-card">
                         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -79,21 +78,20 @@
                                                 <div class="icon-male-circle wf-38 d-flex align-self-center mr-3"></div>
                                                 <div class="media-body align-self-center text-ellipsis">
                                                     <div class="tm-table__para fw-6 text-primary">
-                                                        {{ $listTransaction->customer_name }}
+                                                        {{ $listTransaction->userVay->fullname }}
                                                     </div>
                                                     <div class="tm-table__para text-gray-light">
-                                                        {{ substrPhone($listTransaction->customer_mobile) }}
+                                                        {{ substrPhone($listTransaction->userVay->phone) }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-
                                         <div class="tm-table__col tm-table__col--3">
                                             <div class="tm-table__item-td">
-                                                Bi&#234;n H&#242;a
+                                                {{ getLocation($listTransaction->district_id)['name'] }}
                                                 <hr class="my-0">
-                                                Đồng Nai
+                                                {{ getLocation($listTransaction->city_id)['name'] }}
                                             </div>
                                         </div>
 
@@ -109,7 +107,7 @@
                                         <div class="tm-table__col tm-table__col--4">
                                             <div class="tm-table__item-td">
                                                 <div class="tm-table__para fw-6">
-                                                    {{ minusDay($listTransaction->payment_day) }}
+                                                    {{ minusDay($listTransaction->payment_day, $listTransaction->created_at) }}
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
                                                     Ngày
@@ -126,7 +124,7 @@
                                                     {{ date('H:i:s', $date) }}
                                                 </div>
                                                 <div class="tm-table__para text-gray-light">
-                                                    {{ date('y/m/d', $date) }}
+                                                    {{ date('Y/m/d', $date) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -142,10 +140,10 @@
                             <div class="text-center text-md-left mb-3 mb-md-0">
                                 Chúng tôi có hàng nghìn đơn xin vay mỗi ngày!
                             </div>
-                            <a class="btn btn-lg btn-success px-5 text-white fs-16" href="#">
+                            <a class="btn btn-lg btn-success px-5 text-white fs-16" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">
                                 ĐĂNG KÝ VAY NGAY
                             </a>
-                            <a class="btn btn-lg btn-primary px-5 text-white fs-16" href="#">
+                            <a class="btn btn-lg btn-primary px-5 text-white fs-16" href="{{ action('Frontends\Users\UsersController@getRegisterForm') }}">
                                 THAM GIA CHO VAY
                             </a>
                         </div>
@@ -176,7 +174,7 @@
                                                 Đơn vay mới trong ngày
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                3,638
+                                                {{ $total_bill_on_day }}
                                             </p>
                                         </div>
                                     </div>
@@ -193,7 +191,7 @@
                                                 Tổng đơn vay trên hệ thống
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                1,531,673
+                                                {{ $total_bill_system }}
                                             </p>
                                         </div>
                                     </div>
@@ -210,7 +208,7 @@
                                                 Tổng đơn đã được tư vấn
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                1,416,243
+                                                0
                                             </p>
                                         </div>
                                     </div>
@@ -244,7 +242,7 @@
                                                 Số người đăng ký vay
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                1,104,825
+                                                {{ number_format($total_reg_borrow) }}
                                             </p>
                                         </div>
                                     </div>
@@ -260,7 +258,7 @@
                                                 Số người tham gia cho vay
                                             </p>
                                             <p class="tm-stats__num mb-0">
-                                                9,728
+                                                {{ number_format($total_reg_loan) }}
                                             </p>
                                         </div>
                                     </div>
@@ -270,9 +268,158 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
     </div>
     </div>
+
+    <!--Mô hình hoạt động-->
+
+    <div class="tm-card bg-white py-5 mb-md-2">
+        <div class="container of-hidden">
+            <h2 class="tm-card__heading text-center mb-6">
+                Mô hình hoạt động sàn <span class="hidden-sm-down">Tima</span>
+            </h2>
+
+            <div class="tm-card__body tm-steps">
+
+
+                <div class="row">
+
+                    <div class="tm-steps__item col-md-3">
+                        <div class="tm-steps__thumb mb-4 hidden-sm-down">
+                            <img class="tm-steps__img img-responsive mx-auto" src="frontend/images/1s.png"
+                                 alt="Đăng ký vay">
+                        </div>
+
+                        <div class="tm-steps__body media">
+                            <div class="tm-steps__num mr-10px">
+                                1
+                            </div>
+                            <div class="media-body">
+                                <h3 class="tm-steps__heading text-primary mb-1">
+                                    Đăng ký vay
+                                </h3>
+                                <div class="tm-steps__lead">
+                                    Hoàn tất điền thông tin trong 1 phút
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tm-steps__item col-md-3">
+                        <div class="tm-steps__thumb mb-4 hidden-sm-down">
+                            <img class="tm-steps__img img-responsive mx-auto"
+                                 src="frontend/images/2s.png"
+                                 alt="Kết nối ">
+                        </div>
+
+                        <div class="tm-steps__body media">
+                            <div class="tm-steps__num mr-10px">
+                                2
+                            </div>
+                            <div class="media-body">
+                                <h3 class="tm-steps__heading text-primary mb-1">
+                                    Kết nối
+                                </h3>
+                                <div class="tm-steps__lead">
+                                    Ngay lập tức người cho vay sẽ nhận được đơn xin vay của bạn
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tm-steps__item col-md-3">
+                        <div class="tm-steps__thumb mb-4 hidden-sm-down">
+                            <img class="tm-steps__img img-responsive mx-auto"
+                                 src="frontend/images/3s.png"
+                                 alt="Xét duyệt">
+                        </div>
+
+                        <div class="tm-steps__body media">
+                            <div class="tm-steps__num mr-10px">
+                                3
+                            </div>
+                            <div class="media-body">
+                                <h3 class="tm-steps__heading text-primary mb-1">
+                                    Xét duyệt
+                                </h3>
+                                <div class="tm-steps__lead">
+                                    Nhận kết quả nhanh chóng sau khi gửi hồ sơ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tm-steps__item col-md-3">
+                        <div class="tm-steps__thumb mb-4 hidden-sm-down">
+                            <img class="tm-steps__img img-responsive mx-auto"
+                                 src="frontend/images/4s.png"
+                                 alt="Nhận tiền">
+                        </div>
+
+                        <div class="tm-steps__body media" style="margin-bottom:0px;">
+                            <div class="tm-steps__num mr-10px">
+                                4
+                            </div>
+                            <div class="media-body">
+                                <h3 class="tm-steps__heading text-primary mb-1">
+                                    Nhận tiền
+                                </h3>
+                                <div class="tm-steps__lead">
+                                    Tiền sẽ được chuyển vào tài khoản của bạn hoặc nhận tiền mặt
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tm-card py-4 py-md-0">
+        <div class="container">
+            <div class="tm-card__body tm-support d-flex justify-content-between align-items-center">
+
+                <h3 class="tm-support__heading d-flex align-items-center mb-0 hidden-sm-down">
+                    <img class="align-self-end mx-4" src="frontend/images/callcenter-g.png"
+                         alt="Tổng đài tư vấn miễn phí">
+                    <span class="hidden-sm-down">Tổng đài tư vấn miễn phí</span>
+                </h3>
+
+                <a class="tm-support__number d-flex align-items-center" href="tel:18006919">
+                    <i class="icon-phone mr-1 mr-md-3"></i>
+                    1800 6919
+                </a>
+
+                <a class="d-flex align-items-center" href="/Home/Support/">
+                    <i class="icon-faq mr-md-3"></i>
+                    <span class="hidden-md-down">Câu hỏi thường gặp</span>
+                </a>
+
+                <a class="d-flex align-items-center" href="/User/Register/">
+                    <i class="icon-accounts mr-md-3"></i>
+                    <span class="hidden-md-down">Đăng ký</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Báo chí nói về Tima-->
+    <!--Tin tức-->
+    <div class="tm-card mb-5">
+        <div class="container" id="topnewsinhomepage">
+
+        </div>
+    </div>
+    <!-- end tin tuc -->
+
+    <!--Tổng đài-->
 @stop

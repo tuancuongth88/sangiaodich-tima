@@ -7,6 +7,8 @@ use App\Services\ResponseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use App\Events\UserRegister;
 use Validator;
 
 class UsersRepository extends Repository {
@@ -29,22 +31,22 @@ class UsersRepository extends Repository {
 
     /*
     |--------------------------------------------------------------------------
-    | INPUT FIELD STORE
+    | VALIDATOR ARRAY FIELD FOR ONLY LOGIN.
     |--------------------------------------------------------------------------
-    | @params
-    | @return field before validator and store.
+    | @params $array array.
+    | @return mix \Validator
     | @Author : tantan
      */
-    protected function getInputFieldStore()
-    {
-        return $this->request->only(
-            self::FULLNAME,
-            self::PHONE,
-            self::USERNAME,
-            self::EMAIL,
-            self::PASSWORD,
-            self::TYPE
-        );
+    public function loginValidator(array $array){
+        $messages = [
+            'required'       => 'Vui lòng nhập :attribute',
+            self::PASSWORD.'.required'         => 'Vui lòng nhập mật khẩu.',
+            self::PHONE.'.required' => 'Vui lòng nhập số điện thoại.',
+        ];
+        return Validator::make($array, [
+            self::PHONE         => 'required',
+            self::PASSWORD      => 'required',
+        ], $messages);
     }
 
     /*
@@ -80,7 +82,7 @@ class UsersRepository extends Repository {
     | @Author : tantan
      */
     public function storeUser(){
-        $input = $this->getInputFieldStore();
+        $input = $this->request->all();
         $validator = $this->validator($input);
         if ($validator->fails()) {
             return redirect()
@@ -107,10 +109,11 @@ class UsersRepository extends Repository {
         $otp = session('OTP');
         $oldInput = session('input');
 
-        if( $codeConfirm == $otp ){
-            ///////// Accept your code, save new user to database
-            $oldInput['password'] = Hash::make($oldInput['password']);
-            $this->model->create($oldInput);
+        if( trim($codeConfirm) == $otp ){
+            $user = $this->model->create($oldInput);
+
+            ////////// Khai bao event, thong bao cho cac Listener biet
+            event(new UserRegister($user));
         } else{
             ///////// Deny your code
             return redirect()->back()->with('errorOTP', 1);
@@ -148,5 +151,108 @@ class UsersRepository extends Repository {
         return 1234;
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method POST
+    | @Author : tantan
+     */
+    public function doLogin(){
+        $input = $this->request->all();
+        $validator = $this->loginValidator($input);
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput($input);
+        }
+
+        $remember = (isset($input['agree']) && $input['agree'] == 'on') ? true : false;
+        if ( \Auth::attempt( ['phone' => $input['phone'], 'password' => $input['password'] ], $remember) ) {
+            return redirect()->route('frontend.user.edit', [\Auth::user()->id])->with('status', true)->with('message', 'Đăng nhập thành công!');
+        } else {
+            return redirect()->back()->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
+        }
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | GET PROFILE FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method GET
+    | @Author : tantan
+     */
+    public function getProfile($user){
+        $data = $this->model::find($user);
+        if( $data == null ){
+            return abort(404);
+        }
+        if( Auth::user()->type == \PermissionCommon::CHO_VAY ){
+            return view('frontend.users.profile_cho_vay')
+                ->with(compact('data'));
+        }
+        if( Auth::user()->type == \PermissionCommon::VAY ){
+            return view('frontend.users.profile_vay');
+        }
+        return view('frontend.users.profile');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method POST
+    | @Author : tantan
+     */
+    public function saveProfile(){
+        $input = $this->request->all();
+        dd($input);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST SERVICE.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveService($user){
+        $input = $this->request->get('servies');
+        $data = $this->model->find($user);
+        if( $data == null ){
+            return abort(404);
+        }
+        $data->saveServices($input);
+        return redirect()->back()->with('status', true)->with('message', 'Lưu thành công');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST LOCATION.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveLocation($user){
+        $input = $this->request->get('districts');
+        $data = $this->model->find($user);
+        if( $data == null ){
+            return abort(404);
+        }
+        $data->saveLocations($input);
+        return redirect()->back()->with('status', true)->with('message', 'Lưu thành công');
+    }
 
 }

@@ -20,26 +20,31 @@ class TransactionHistory extends Model
     protected $primaryKey = 'id';
 
     public $fillable = [
-        'trans_id', 'service_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id', 'district_id', 'amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id', 'telesales_time', 'sales_id', '
-        sales_time', 'fee', 'fee_type', 'percent_discount'
+        'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id', 'district_id,amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id', 'telesales_time', 'sales_id',
+        'sales_time', 'fee', 'fee_type', 'percent_discount'
     ];
 
     protected $dates = ['deleted_at'];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\Users\User', 'author', 'id');
+        return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
+    }
+
+    public function userVay(){
+        return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
     }
 
     public function service()
     {
-        return $this->belongsTo('App\Models\Services\Service', 'service_id');
+        return $this->belongsTo('App\Models\Services\Service', 'service_code');
     }
+
 
     public function city()
     {
         $city = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
-        if( $this->city_id ){
+        if ($this->city_id) {
             $data = getLocation($this->city_id);
             return $data ? (object)$data : $city;
         }
@@ -49,7 +54,7 @@ class TransactionHistory extends Model
     public function district()
     {
         $district = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
-        if( $this->district_id ){
+        if ($this->district_id) {
             $data = !empty($this->city_id) ? getLocation($this->district_id, $this->city_id) : getLocation($this->district_id);
             return $data ? (object)$data : $district;
         }
@@ -59,7 +64,7 @@ class TransactionHistory extends Model
     public function ward()
     {
         $ward = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
-        if( $this->ward_id ){
+        if ($this->ward_id) {
             $data = ($this->city_id) ? getLocation($this->ward_id, $this->city_id) : getLocation($this->ward_id);
             return $data ? (object)$data : $ward;
         }
@@ -72,7 +77,7 @@ class TransactionHistory extends Model
             1 => 'Chờ nhận',
             2 => 'Đã nhận',
             3 => 'Đang vay',
-            4 => 'Đã hoàn tất',
+            4 => 'Đã tất toán',
             5 => 'Đã hủy'
         );
 

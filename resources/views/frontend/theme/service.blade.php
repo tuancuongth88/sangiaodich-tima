@@ -9,7 +9,7 @@
                 <div class="swiper-wrapper">
                     @foreach($list_service as $value)
                     <div class="tm-feature__item swiper-slide text-center">
-                        <a href="/services/{{ $value->id }}">
+                        <a href="/dang-ky-vay/{{ $value->slug }}">
                             <div class="tm-feature__thumb mb-2 mx-auto">
                                 <img src="{{ $value->image_url }}"
                                      style="width:88px"/>

@@ -164,6 +164,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        App\Providers\ListsEloquent::class,
     ],
 
     /*
@@ -216,6 +217,7 @@ return [
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
         'Common'       => Custom\Services\Common::class,
+        'PermissionCommon' => Custom\Services\PermissionCommon::class,
     ],
 
 ];

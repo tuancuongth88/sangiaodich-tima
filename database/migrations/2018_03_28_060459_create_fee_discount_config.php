@@ -17,13 +17,11 @@ class CreateFeeDiscountConfig extends Migration
         Schema::create('fee_discount_config', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('service_id')->nullable();
-            $table->string('service_code',256)->nullable();
-            $table->string('discount_percent',256)->nullable();
-            $table->integer('validate_time')->nullable();
-            $table->string('expried_time',256)->nullable();
-            $table->string('created_by',256)->nullable();
-            $table->string('created_time',256)->nullable();
-            $table->string('status',256)->nullable();
+            $table->string('discount_percent', 256)->nullable();
+            $table->dateTime('validate_time')->nullable();
+            $table->dateTime('expire_time')->nullable();
+            $table->string('created_by', 256)->nullable();
+            $table->string('status', 256)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
