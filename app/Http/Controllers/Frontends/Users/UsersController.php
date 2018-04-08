@@ -82,8 +82,8 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getProfileForm(){
-        return view('frontend.users.profile');
+    public function getProfileForm($user){
+        return $this->repository->getProfile($user);
     }
 
     /*
@@ -101,6 +101,32 @@ class UsersController extends Controller
 
     /*
     |--------------------------------------------------------------------------
+    | SAVE LIST SERVICE.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveService($user){
+        return $this->repository->postSaveService($user);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST LOCATION.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveLocation($user){
+        return $this->repository->postSaveLocation($user);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | LOGOUT.
     |--------------------------------------------------------------------------
     | @params 
@@ -112,4 +138,5 @@ class UsersController extends Controller
         Auth::logout();
         return redirect()->route('frontend.user.login')->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
     }
+
 }
