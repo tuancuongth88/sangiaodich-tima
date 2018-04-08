@@ -20,7 +20,7 @@ class UserRegister
      *
      * @return void
      */
-    public function __construct(Object $user)
+    public function __construct($user)
     {
         $this->user = $user;
     }

@@ -387,12 +387,9 @@ function convertFeeDiscount($service_id)
     $expire_time = $obj_feeDiscount['expire_time'];
     $discount_percent = $obj_feeDiscount['discount_percent'];
 
-    $is_discount = false;
     $today = date("Y-m-d H:i:s");
-    if (($validate_time <= $today) &&
-        ($today <= $expire_time)) {
+    if (($validate_time <= $today) && ($today <= $expire_time)) {
         $fee = ($discount_percent * $fee_service) / 100;
-        $is_discount = true;
     } else {
         $fee = $fee_service;
     }

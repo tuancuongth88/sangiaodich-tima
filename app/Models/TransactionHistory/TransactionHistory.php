@@ -2,9 +2,6 @@
 
 namespace App\Models\TransactionHistory;
 
-use App\Models\FeeDiscountConfig\FeeDiscountConfig;
-use App\Models\FeeService\FeeService;
-use App\Models\Services\Services;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
