@@ -16,9 +16,9 @@ class CreateRelationsTable extends Migration
         Schema::create('relations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('source_table', 125)->nullable();
-            $table->integer('source_id')->nullable();
+            $table->string('source_id')->nullable();
             $table->string('target_table', 125)->nullable();
-            $table->integer('target_id')->nullable();
+            $table->string('target_id')->nullable();
             $table->longText('data')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->softDeletes();
