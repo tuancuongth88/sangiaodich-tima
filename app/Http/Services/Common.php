@@ -1,6 +1,7 @@
 <?php namespace Custom\Services;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Services\Service as ServiceModel;
+use App\Models\Relation as RelationModel;
 
 class Common {
 
@@ -92,7 +93,24 @@ class Common {
     | @author: tantan
     */
     public static function getServicesOfUser($uid){
-        $services = ServiceModel::lists('service_name', 'id');
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'services')->lists('target_id');
+        return $services;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET DISTRICT LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service Models
+    | @author: tantan
+    */
+    public static function getDistrictsOfUser($uid){
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'locations')->lists('target_id');
         return $services;
     }
 
