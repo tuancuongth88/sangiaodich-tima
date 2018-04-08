@@ -190,7 +190,8 @@ class UsersRepository extends Repository {
      */
     public function getProfile(){
         if( Auth::user()->type == \PermissionCommon::CHO_VAY ){
-            return view('frontend.users.profile_cho_vay');
+            $servicesOfUser = \Common::getServicesOfUser(Auth::user()->id);
+            return view('frontend.users.profile_cho_vay')->with(compact('servicesOfUser'));
         }
         if( Auth::user()->type == \PermissionCommon::VAY ){
             return view('frontend.users.profile_vay');

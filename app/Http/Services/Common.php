@@ -83,4 +83,17 @@ class Common {
         return $services;
     }
 
+    /*
+    |----------------------------------------------------------
+    | GET SERVICE LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service Models
+    | @author: tantan
+    */
+    public static function getServicesOfUser($uid){
+        $services = ServiceModel::lists('service_name', 'id');
+        return $services;
+    }
+
 }
