@@ -2,9 +2,6 @@
 
 namespace App\Models\TransactionHistory;
 
-use App\Models\FeeDiscountConfig\FeeDiscountConfig;
-use App\Models\FeeService\FeeService;
-use App\Models\Services\Services;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -40,7 +37,7 @@ class TransactionHistory extends Model
 
     public function service()
     {
-        return $this->belongsTo('App\Models\Services\Services', 'service_code');
+        return $this->belongsTo('App\Models\Services\Service', 'service_code');
     }
 
 

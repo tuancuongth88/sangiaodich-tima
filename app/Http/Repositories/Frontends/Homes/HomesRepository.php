@@ -9,6 +9,7 @@ use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class HomesRepository extends Repository
@@ -36,19 +37,18 @@ class HomesRepository extends Repository
         $total_reg_borrow = User::where('type', VAY)->count();
         $total_reg_loan = User::where('type', CHO_VAY)->count();
 
-        $open_time = strtotime("00:00");
-        $close_time = strtotime("23:59");
         $total_bill_day = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)
-                                            ->where('created_at', '>=', $open_time)
-                                            ->where('created_at', '<=', $close_time)
+                                            ->where('created_at', DB::raw('CURDATE()'))
                                             ->count();
+        $total_bill_system = TransactionHistory::count();
         return view('home', ['data' => $data,
                 'totalmoney' => $totalMoney,
                 'list_service' => $listService,
                 'list_transaction' => $listTransactionNews,
                 'total_reg_borrow' => $total_reg_borrow,
                 'total_reg_loan' => $total_reg_loan,
-                'total_bill_on_day' => $total_bill_day,]
+                'total_bill_on_day' => $total_bill_day,
+                'total_bill_system' => $total_bill_system]
         );
     }
 
