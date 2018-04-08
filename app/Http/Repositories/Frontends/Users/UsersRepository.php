@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Events\UserRegister;
 use Validator;
 
 class UsersRepository extends Repository {
@@ -108,10 +109,11 @@ class UsersRepository extends Repository {
         $otp = session('OTP');
         $oldInput = session('input');
 
-        if( $codeConfirm == $otp ){
-            ///////// Accept your code, save new user to database
-            $oldInput['password'] = Hash::make($oldInput['password']);
-            $this->model->create($oldInput);
+        if( trim($codeConfirm) == $otp ){
+            $user = $this->model->create($oldInput);
+
+            ////////// Khai bao event, thong bao cho cac Listener biet
+            event(new UserRegister($user));
         } else{
             ///////// Deny your code
             return redirect()->back()->with('errorOTP', 1);

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Repositories\Frontends\Users\UsersRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -23,6 +24,7 @@ class UsersController extends Controller
             $this->request->session()->keep(['input', 'OTP']);
             $this->request->session()->flash('sendOTP', false);
         }
+        $array = ['test' => 'test22'];
     	return view('frontend.users.register');
     }
 
