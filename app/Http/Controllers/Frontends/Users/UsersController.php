@@ -83,7 +83,7 @@ class UsersController extends Controller
     | @Author : tantan
      */
     public function getProfileForm(){
-        return view('frontend.users.profile');
+        return $this->repository->getProfile();
     }
 
     /*
@@ -112,4 +112,5 @@ class UsersController extends Controller
         Auth::logout();
         return redirect()->route('frontend.user.login')->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
     }
+
 }

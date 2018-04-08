@@ -164,6 +164,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+        App\Providers\ListsEloquent::class,
     ],
 
     /*

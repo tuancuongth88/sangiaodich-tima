@@ -11,15 +11,10 @@
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 // Auth::routes();
-
 Route::get('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@getLogin'])->name('login');
 Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthController@postLogin']);
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
-Route::get('user/activation/{token}', 'Auth\RegisterController@activateUser')->name('user.activate');
 //route need permission
 // Route::group(['prefix' => 'administrator', 'middleware' => 'authenticate'], function () {
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
@@ -59,13 +54,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');
     Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
 });
+/////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
+ 
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// START FRONTEND ///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
+Route::get('/', function () {
+    return view('welcome');
+});
 Route::resource('home', 'Frontends\Homes\HomeController');
 
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
-
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
 Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
@@ -75,8 +77,13 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
-
-// Route for User Member
+/*
+|-------------------------------------------
+| ROUTE FOR USER IN FRONTEND
+|-------------------------------------------
+| @options register, login, edit profile
+| @author tantan
+*/
 Route::group(['prefix' => 'user'], function(){
     Route::get('/', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.register')->middleware('guest');
 
@@ -88,22 +95,32 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', 'Frontends\Users\usersController@logout')->name('frontend.user.logout')->middleware('auth');
     Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
 
+    /*
+    |-------------------------------------------
+    | EDIT PROFILE INFO OF AN USER
+    |-------------------------------------------
+    | @params user_id
+    | @method GET POST
+    | @author tantan
+    */
     Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
     Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
 });
 
-// Route dang ky vay
+/*
+|-------------------------------------------
+| DANG KY VAY
+|-------------------------------------------
+| @options get list of service, dang ky vay
+| @author tantan
+*/
 Route::group(['prefix' => 'dang-ky-vay'], function(){
     Route::get('/', 'Frontends\Services\ServicesController@index')->name('services.site.list');
     Route::get('/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@registerForm')->name('services.site.form');
     Route::post('/register/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@postRegisterForm')->name('services.site.register');
 });
 
-
 // Route for all ajax
 Route::group(['prefix' => 'ajax'], function () {
     Route::post('/get-district-by-city', 'AjaxController@getDistrictByCity');
 });
-
-
-

@@ -181,6 +181,25 @@ class UsersRepository extends Repository {
 
     /*
     |--------------------------------------------------------------------------
+    | GET PROFILE FORM.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return response
+    | @method GET
+    | @Author : tantan
+     */
+    public function getProfile(){
+        if( Auth::user()->type == \PermissionCommon::CHO_VAY ){
+            return view('frontend.users.profile_cho_vay');
+        }
+        if( Auth::user()->type == \PermissionCommon::VAY ){
+            return view('frontend.users.profile_vay');
+        }
+        return view('frontend.users.profile');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | CREATE OPT STRING.
     |--------------------------------------------------------------------------
     | @params 

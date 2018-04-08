@@ -40,7 +40,7 @@ class TransactionHistory extends Model
 
     public function service()
     {
-        return $this->belongsTo('App\Models\Services\Services', 'service_code');
+        return $this->belongsTo('App\Models\Services\Service', 'service_code');
     }
 
 

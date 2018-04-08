@@ -1,5 +1,6 @@
 <?php namespace Custom\Services;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Services\Service as ServiceModel;
 
 class Common {
 
@@ -67,6 +68,19 @@ class Common {
     public static function getDisplayNameUser(){
         $user = Auth::user();
         return $user->fullname ?? $user->phone ?? $user->username;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET ALL SERVICE LIST
+    |----------------------------------------------------------
+    | @params
+    | @return array an be provice for select option
+    | @author: tantan
+    */
+    public static function getListServices(){
+        $services = ServiceModel::lists('service_name', 'id');
+        return $services;
     }
 
 }
