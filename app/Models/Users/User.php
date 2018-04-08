@@ -32,6 +32,8 @@ class User extends Authenticatable {
         'district_id',
         'ward_id',
         'type',
+        'sex',
+        'amount'
     ];
 
     /**
