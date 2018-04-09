@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
- 
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// START FRONTEND ///////////////////////////////////////////
@@ -77,6 +77,7 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
+
 /*
 |-------------------------------------------
 | ROUTE FOR USER IN FRONTEND
@@ -84,13 +85,13 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 | @options register, login, edit profile
 | @author tantan
 */
-Route::group(['prefix' => 'user'], function(){
+Route::group(['prefix' => 'user'], function () {
     Route::get('/', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.register')->middleware('guest');
 
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
     Route::post('/register', 'Frontends\Users\UsersController@postRegisterForm')->name('frontend.user.store');
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
-    
+
     Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login')->middleware('guest');
     Route::get('/logout', 'Frontends\Users\usersController@logout')->name('frontend.user.logout')->middleware('auth');
     Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
@@ -106,11 +107,16 @@ Route::group(['prefix' => 'user'], function(){
     Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
     Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
 
+
     //  Save list sercice to an user
     Route::post('/{user}/edit/save-services', 'Frontends\Users\UsersController@postSaveService')->name('frontend.user.save_service')->middleware('owner');
-    
+
     //  Save list district to an user
     Route::post('/{user}/edit/save-locations', 'Frontends\Users\UsersController@postSaveLocation')->name('frontend.user.save_location')->middleware('owner');
+
+    Route::get('/{user}/userinfo', 'Frontends\Users\UsersController@getUserInFoForm')->name('frontend.user.userinfo');
+
+    Route::post('/update-info-lender', 'Frontends\Users\UsersController@updateUserInfoLender');
 });
 
 /*
@@ -120,7 +126,9 @@ Route::group(['prefix' => 'user'], function(){
 | @options get list of service, dang ky vay
 | @author tantan
 */
-Route::group(['prefix' => 'dang-ky-vay'], function(){
+Route::group(['prefix' => 'dang-ky-vay'], function () {
+
+
     Route::get('/', 'Frontends\Services\ServicesController@index')->name('services.site.list');
     Route::get('/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@registerForm')->name('services.site.form');
     Route::post('/register/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@postRegisterForm')->name('services.site.register');
@@ -129,4 +137,6 @@ Route::group(['prefix' => 'dang-ky-vay'], function(){
 // Route for all ajax
 Route::group(['prefix' => 'ajax'], function () {
     Route::post('/get-district-by-city', 'AjaxController@getDistrictByCity');
+    Route::post('/get-ward-by-district', 'AjaxController@getWardByDistrict');
 });
+
