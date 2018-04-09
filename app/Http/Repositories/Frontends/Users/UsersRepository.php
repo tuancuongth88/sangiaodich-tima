@@ -238,10 +238,12 @@ class UsersRepository extends Repository
         //check user
         $where = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
         $user_data = $this->user::where($where)->get()->toArray();
-dd($user_data);
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
         if ($user_data) {
-            return view('frontend.users.userinfo', ['data' => $user_data]);
+            $id = (int)$params['id'];
+            unset($params['id']);
+            unset($params['phone']);
+            $this->user::where('id', '=', $id)->update($params);
         }
     }
 }

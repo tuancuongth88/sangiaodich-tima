@@ -174,7 +174,7 @@
                                 <label for="txtAddress" class="col-xl-2 col-sm-4 col-form-label text-sm-right">Địa
                                     chỉ:</label>
                                 <div class="col-xl-10 col-sm-7">
-                                    <input type="text" class="form-control" id="txtAddress" placeholder="" value="">
+                                    <input type="text" class="form-control" id="txtAddress" placeholder="" value="{{$data['address']}}">
                                 </div>
                             </div>
                         </div>
