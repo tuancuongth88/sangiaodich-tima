@@ -146,9 +146,9 @@ class UsersController extends Controller
    | @method Post
    | @Author : phuonglv
  */
-    public function updateUserInfoLender()
+    public function updateUserInfo()
     {
         $params = $this->request->all();
-        return $this->repository->updateUserInfoLender($params);
+        return $this->repository->updateUserInfo($params);
     }
 }

@@ -74,7 +74,7 @@
                 </div>
             </div>
             <input type="hidden" id="hddUserID" value="{{$data['id']}}">
-            <input type="hidden" id="hddCityID" value="1">
+            <input type="hidden" id="hddCityID" value="{{$data['city_id']}}">
             <input type="hidden" id="hddCityName" value="Hà Nội">
             <div class="accinfo-2">
                 <div class="row mb-3">
@@ -125,7 +125,7 @@
                                     {{ Form::select(
                                     'city_id',
                                      ['' => 'Chọn thành phố...']+getCityList(),
-                                      null,
+                                      $data['city_id'],
                                        ['class' => 'selectpicker form-control input-lg',
                                         'id' => "cbCity",
                                          'required']
@@ -143,8 +143,8 @@
                                 <div class="col-xl-8 col-sm-7">
                                     {{ Form::select(
                                     'district_id',
-                                    ['' => 'Chọn quận huyện ...'],
-                                     null,
+                                    ['' => 'Chọn quận huyện ...']+getDistrictList($data['city_id']),
+                                     $data['district_id'],
                                       ['class' => 'selectpicker form-control input-lg',
                                       'id' => "cbDistrict", 'required']
                                       ) }}
@@ -158,8 +158,8 @@
                                 <div class="col-xl-8 col-sm-7">
                                     {{ Form::select(
                                     'district_id',
-                                    ['' => 'Chọn phường xã...'],
-                                     null,
+                                    ['' => 'Chọn phường xã...']+getWardList($data['district_id']),
+                                      $data['ward_id'],
                                       ['class' => 'selectpicker form-control input-lg',
                                       'id' => "cbWard", 'required']
                                       ) }}
@@ -270,12 +270,10 @@
                 </h2>
                 <hr class="mb-3">
                 <div class="districtDiv form-group row">
-                    <div class="col-sm-3"><label class="custom-control fs-13 mr-5"> <input value="16"
-                                                                                           name="DistrictSpices"
-                                                                                           type="checkbox"
-                                                                                           class="custom-control-input"
-                                                                                           checked="checked" "=""
-                            onclick="SelectDistrict(16,1,1)"><span class="custom-control-indicator"></span><span
+                    <div class="col-sm-3"><label class="custom-control fs-13 mr-5">
+                            <input value="16" name="DistrictSpices" type="checkbox" class="custom-control-input"
+                                   checked="checked" "="" onclick="SelectDistrict(16,1,1)">
+                            <span class="custom-control-indicator"></span><span
                                     class="custom-control-description" style="font-size: 17px">  Sóc Sơn</span></label>
                     </div>
                     <div class="col-sm-3"><label class="custom-control fs-13 mr-5"> <input value="17"
