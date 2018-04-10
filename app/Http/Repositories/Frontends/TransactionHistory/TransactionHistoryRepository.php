@@ -21,15 +21,15 @@ class TransactionHistoryRepository extends Repository
     private $perpages;
     private $current;
 
-    const USER_ID = 'user_id';
-    const CITY_ID = 'city_id';
-    const DISTRICT_ID = 'district_id';
-    const WARD_ID = 'ward_id';
-    const AMOUNT = 'amount';
-    const AMOUNT_DAY = 'amount_day';
-    const PAYMENT_DAY = 'payment_day';
-    const STATUS = 'status';
-    const AGREE_TERM = 'agree_term';
+    const USER_ID       = 'user_id';
+    const CITY_ID       = 'city_id';
+    const DISTRICT_ID   = 'district_id';
+    const WARD_ID       = 'ward_id';
+    const AMOUNT        = 'amount';
+    const AMOUNT_DAY    = 'amount_day';
+    const PAYMENT_DAY   = 'payment_day';
+    const STATUS        = 'status';
+    const AGREE_TERM    = 'agree_term';
 
     function __construct(
         TransactionHistory $transactionHistory,
@@ -308,8 +308,27 @@ class TransactionHistoryRepository extends Repository
         $paymentDay = strtotime('+'.$unitDay);
         $input['amount_day'] = round(($paymentDay - time())/(60 * 60 * 24));
         $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
-        $input['service_code'] = $service->id;
+        $input['service_id'] = $service->id;
+
+        $input['fee'] = $service->fee;
+        $input['percent_discount'] = $service->discount;
+        $input['fee_type'] = ( $input['fee'] > 0 && $input['percent_discount'] < 100 ) ? ONE : ZERO ;
+
         $this->model->create($input);
-        return redirect()->back()->with('status', true)->with('message', 'Đăng ký thành công!')->with('redirect', true);
+        return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
+    }
+
+    /*
+    |---------------------------------------
+    | San giao dich
+    |---------------------------------------
+    | @params
+    | @method GET
+    | @return Response
+    | @author cuongnt
+    */
+    public function getListTransaction(){
+
+        return view('frontend.transactionhistory.list_transaction');
     }
 }

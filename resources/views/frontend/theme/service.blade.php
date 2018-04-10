@@ -11,7 +11,7 @@
                     <div class="tm-feature__item swiper-slide text-center">
                         <a href="/dang-ky-vay/{{ $value->slug }}">
                             <div class="tm-feature__thumb mb-2 mx-auto">
-                                <img src="{{ $value->image_url }}"
+                                <img src="{{ $value->icon_url }}"
                                      style="width:88px"/>
                             </div>
                         </a>

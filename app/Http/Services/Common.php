@@ -1,5 +1,7 @@
 <?php namespace Custom\Services;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Services\Service as ServiceModel;
+use App\Models\Relation as RelationModel;
 
 class Common {
 
@@ -67,6 +69,49 @@ class Common {
     public static function getDisplayNameUser(){
         $user = Auth::user();
         return $user->fullname ?? $user->phone ?? $user->username;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET ALL SERVICE LIST
+    |----------------------------------------------------------
+    | @params
+    | @return array an be provice for select option
+    | @author: tantan
+    */
+    public static function getListServices(){
+        $services = ServiceModel::lists('service_name', 'id');
+        return $services;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET SERVICE LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of service id
+    | @author: tantan
+    */
+    public static function getServicesOfUser($uid){
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'services')->distinct()->lists('target_id');
+        return $services;
+    }
+
+    /*
+    |----------------------------------------------------------
+    | GET DISTRICT LIST OF AN USER
+    |----------------------------------------------------------
+    | @params
+    | @return array of location id
+    | @author: tantan
+    */
+    public static function getDistrictsOfUser($uid){
+        $services = RelationModel::where('source_table', 'users')
+            ->where('source_id', $uid)
+            ->where('target_table', 'locations')->distinct()->lists('target_id');
+        return $services;
     }
 
 }

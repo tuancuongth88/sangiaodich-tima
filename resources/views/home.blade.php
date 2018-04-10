@@ -89,9 +89,9 @@
 
                                         <div class="tm-table__col tm-table__col--3">
                                             <div class="tm-table__item-td">
-                                                {{ getLocation($listTransaction->district_id)['name'] }}
+                                                {{ isset($listTransaction->district_id) ? getLocation($listTransaction->district_id)['name'] : "" }}
                                                 <hr class="my-0">
-                                                {{ getLocation($listTransaction->city_id)['name'] }}
+                                                {{ isset($listTransaction->city_id) ? getLocation($listTransaction->city_id)['name'] : "" }}
                                             </div>
                                         </div>
 
@@ -100,7 +100,7 @@
                                             <div class="tm-table__item-td">
                                                 <span class="text-primary">{{ number_format($listTransaction->amount) }} VNĐ</span>
                                                 <hr class="my-0">
-                                                {{ $listTransaction->service->service_name }}
+                                                {{  isset($listTransaction->service) ? $listTransaction->service->service_name : "" }}
                                             </div>
                                         </div>
 
