@@ -10,10 +10,10 @@ class TransactionHistory extends Model
 {
     use SoftDeletes;
 
-    const STATUS_APPROVE = 4;
     const STATUS_WAIT = 1;
     const STATUS_RECEIVED = 2;
     const STATUS_BORROWING = 3;
+    const STATUS_APPROVE = 4;
     const STATUS_CANCEL = 5;
 
     protected $table = 'transaction_history';
@@ -74,11 +74,11 @@ class TransactionHistory extends Model
     //1 ch
     public $status_transactionhistory =
         array(
-            1 => 'Chờ nhận',
-            2 => 'Đã nhận',
-            3 => 'Đang vay',
-            4 => 'Đã tất toán',
-            5 => 'Đã hủy'
+            STATUS_WAIT => 'Chờ nhận',
+            STATUS_RECEIVED => 'Đã nhận',
+            STATUS_BORROWING => 'Đang vay',
+            STATUS_APPROVE => 'Đã tất toán',
+            STATUS_CANCEL => 'Đã hủy'
         );
 
 
