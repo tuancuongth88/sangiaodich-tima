@@ -1,5 +1,6 @@
 <?php namespace App\Http\Repositories\Frontends\Users;
 
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\Users\User;
@@ -220,10 +221,11 @@ class UsersRepository extends Repository
     {
         $user_data = $this->user::where('id', '=', $user_id)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
+        $listJob = $this->user->listJob;
 
         if ($user_data) {
             $user_type = $user_data['type'];
-            return view('frontend.users.userinfoloan', ['data' => $user_data,'user_type'=>$user_type]);
+            return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
             //return view('frontend.users.userinfo', ['data' => $user_data]);
         }
 
@@ -248,6 +250,12 @@ class UsersRepository extends Repository
             $id = (int)$params['id'];
             unset($params['id']);
             unset($params['phone']);
+            $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
+            if (!$date) {
+                $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+            }
+            $date = $date->format('Y-m-d');
+            $params['birthday'] = $date;
             $this->user::where('id', '=', $id)->update($params);
         }
     }

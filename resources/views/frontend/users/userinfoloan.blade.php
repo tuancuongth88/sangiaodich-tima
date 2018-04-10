@@ -108,8 +108,9 @@
                                     Ngày sinh
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="text" class="form-control datepicker" data-date-format="dd/mm/yyyy"
-                                           id="txtBirthDay" placeholder="" value="{{$data['birthday']}}">
+                                    <input type="text" class="form-control datepicker" data-date-format="dd-mm-yyyy"
+                                           id="txtBirthDay" placeholder=""
+                                           value="{{$data['birthday']}}">
                                 </div>
                             </div>
                         </div>
@@ -118,11 +119,11 @@
                     <div class="row col-xl-12">
                         <div class="col-xl-6">
                             <div class="form-group row">
-                                <label for="slGender" class="col-sm-4 col-form-label text-sm-right">
+                                <label for="slSex" class="col-sm-4 col-form-label text-sm-right">
                                     Giới tính
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <select class="form-control" id="slGender">
+                                    <select class="form-control" id="slSex">
                                         <option value="0" {{($data['sex']==0) ? 'selected':''}}>Nam</option>
                                         <option value="1" {{($data['sex']==1) ? 'selected':''}} >Nữ</option>
                                         <option value="2" {{($data['sex']==2) ? 'selected':''}} >Khác</option>
@@ -135,7 +136,9 @@
                             <div class="form-group row">
                                 <label for="txtEmail" class="col-sm-4 col-form-label text-sm-right">Email</label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="text" class="form-control" id="txtEmail" placeholder="">
+                                    <input type="text" class="form-control" id="txtEmail" placeholder=""
+                                           value="{{ $data['email'] }}"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -201,7 +204,8 @@
                                     Địa chỉ nơi ở
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="text" class="form-control" id="txtAddress" placeholder="" value="{{$data['address']}}">
+                                    <input type="text" class="form-control" id="txtAddress" placeholder=""
+                                           value="{{$data['address']}}">
                                 </div>
                             </div>
                         </div>
@@ -213,14 +217,12 @@
                                 <label for="slJob" class="col-sm-4 col-form-label text-sm-right">Nghề nghiệp</label>
                                 <div class="col-xl-8 col-sm-7">
                                     <select class="form-control" id="slJob">
-                                        <option value=""></option>
-                                        <option value="30"> Nhân viên văn phòng</option>
-                                        <option value="24"> Nhân viên nhà nước</option>
-                                        <option value="26"> Kinh doanh tự do</option>
-                                        <option value="32"> Công nhân nhà máy</option>
-                                        <option value="33"> Doanh nghiệp tư nhân</option>
-                                        <option value="31"> Hộ kinh doanh cá thể</option>
-                                        <option value="29"> Ngành nghề khác</option>
+                                        @foreach ($listJob as $key_j=>$val_j)
+                                            <option {{($data['job'] == $key_j)? 'selected':'' }}
+                                                    value="{{ $key_j }}">
+                                                {{ $val_j }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

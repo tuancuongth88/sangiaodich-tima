@@ -737,13 +737,13 @@ $('#btnUpdateInfoLoaner').click(function (e) {
     formData.append('phone', $('#txtPhone').val());
     formData.append('card_number', $('#txtCardNumber').val());
     formData.append('birthday', $('#txtBirthDay').val());
-    formData.append('sex', $('#slGender').val());
+    formData.append('sex', $('#slSex').val());
     formData.append('email', $('#txtEmail').val());
     formData.append('city_id', $('#cbCity').val());
     formData.append('district_id', $('#cbDistrict').val());
     formData.append('ward_id', $('#cbWard').val());
     formData.append('address', $('#txtAddress').val());
-    formData.append('job', $('#txtJob').val());
+    formData.append('job', $('#slJob').val());
     formData.append('company_name', $('#txtCompanyName').val());
     formData.append('company_address', $('#txtCompanyAddress').val());
     formData.append('company_phone', $('#txtCompanyPhone').val());
