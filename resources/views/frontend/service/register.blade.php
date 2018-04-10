@@ -93,7 +93,7 @@ foreach ($dayConfig as $key => $value) {
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), 'bac-kan', ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
                                     <span class="error text-primary">{{ $errors->first('city') }}</span>
                                 </div>
 

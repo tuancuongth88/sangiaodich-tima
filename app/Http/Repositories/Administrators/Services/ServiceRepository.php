@@ -45,6 +45,8 @@ class ServiceRepository extends Repository {
     // field of user table.
     const ID          = 'id';
     const NAME        = 'service_name';
+    const FEE         = 'fee';
+    const DISCOUNT    = 'discount';
     const ICON_URL    = 'icon_url';
     const IMAGE_URL   = 'image_url';
     const DAY_DETAIL   = 'day_detail';
@@ -61,6 +63,8 @@ class ServiceRepository extends Repository {
     protected function getInputFieldStore() {
         return $this->request->only(
             self::NAME,
+            self::FEE,
+            self::DISCOUNT,
             self::ICON_URL,
             self::DAY_DETAIL,
             self::AMOUNT_DETAIL,
@@ -79,6 +83,8 @@ class ServiceRepository extends Repository {
     protected function getInputFieldUpdate() {
         return $this->request->only(
             self::NAME,
+            self::FEE,
+            self::DISCOUNT,
             self::ICON_URL,
             self::IMAGE_URL,
             self::DAY_DETAIL,
@@ -128,8 +134,8 @@ class ServiceRepository extends Repository {
                 $data['icon_url'] = IMAGESERVICE . $filename;
             }
             $data['status'] = 1;
-            $service               = $this->model->create($data);
-            return redirect()->route('service.index')->with('status', 'Thêm mới thành công!');
+            $service = $this->model->create($data);
+            return redirect()->route('service.index')->with('status', true)->with('message', 'Thêm mới thành công!');
         } catch (\Exception $e) {
             return $this->response->json(false, '', $this->getErrorMessages($e));
         }

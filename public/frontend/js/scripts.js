@@ -17,9 +17,8 @@ function ShowStaticsForInviteLoanNew() {
 }
 
 
-function ShowListNewsInHomePage()
-{
-    if (isMobile==0) {
+function ShowListNewsInHomePage() {
+    if (isMobile == 0) {
         $.ajax({
             type: "POST",
             // url: "/Home/NewsInHomePage",
@@ -27,9 +26,8 @@ function ShowListNewsInHomePage()
             $('#topnewsinhomepage').html(data);
         });
     }
-    
-}
 
+}
 
 
 function GetTopNewsInListPage() {
@@ -43,26 +41,25 @@ function GetTopNewsInListPage() {
 
 
 function ShowListLoanLatest() {
-	 
-		$.ajax({
-			type: "POST",
-			// url: "/Home/ListLoanLatest",
-		}).done(function (data) {
-			$('#ListLoanLatest').replaceWith(data);
-			// Đơn vay mới nhất
-			var tm_table_swiper = new Swiper('.tm-table-swiper', {
-				loop: true,
-				slidesPerView: 7,
-				direction: 'vertical',
-				// centeredSlides: true,
-				autoplay: 3500,
-				autoplayDisableOnInteraction: false
-			});
-		});
-	
+
+    $.ajax({
+        type: "POST",
+        // url: "/Home/ListLoanLatest",
+    }).done(function (data) {
+        $('#ListLoanLatest').replaceWith(data);
+        // Đơn vay mới nhất
+        var tm_table_swiper = new Swiper('.tm-table-swiper', {
+            loop: true,
+            slidesPerView: 7,
+            direction: 'vertical',
+            // centeredSlides: true,
+            autoplay: 3500,
+            autoplayDisableOnInteraction: false
+        });
+    });
+
 }
 
- 
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -97,10 +94,10 @@ function getCookie(cname) {
 //Luu cookie UrlSourceTima_V2
 var utm_source = getParameterByName('utm_source');
 var referrer = document.referrer;
-if (referrer.indexOf(".google.") > -1) 
+if (referrer.indexOf(".google.") > -1)
     referrer = "google";
 else
- referrer = document.referrer.split("/")[2];
+    referrer = document.referrer.split("/")[2];
 (function () {
     if (getCookie('UrlSourceTima_V2') == '') {
         if (utm_source == "") {
@@ -108,10 +105,9 @@ else
         } else {
             setCookie('UrlSourceTima_V2', utm_source, 30);
         }
-        
+
     }
 })();
-
 
 
 $(document).ready(function () {
@@ -120,6 +116,7 @@ $(document).ready(function () {
     initProduct();
     initCity();
     initDistrict();
+    UpdateInfoLender();
     // $("#cbCity,#cbDistrict,#cbPrice,#cbProduct").on("select2:select", function (b) {
     //     $('#currentPage').val(1);
     //     page_click(0);
@@ -142,6 +139,7 @@ $('#cbStatus').select2({
     theme: "bootstrap",
     placeholder: 'Tất cả trạng thái...',
 });
+
 function initPrice() {
     $("#cbPrice").select2({
         theme: "bootstrap",
@@ -166,7 +164,7 @@ function initProduct() {
         theme: "bootstrap",
         placeholder: 'Chọn Gói Sản Phẩm...',
         //disabled: isProductTypeSelected() ? void 0 : !0,
-        disabled:0,
+        disabled: 0,
         // ajax: {
         //     url: '/Home/AutocompleteProduct/',
         //     dataType: "json",
@@ -189,40 +187,3 @@ function initProduct() {
         // }
     });
 }
-
-// var SortType = -1;
-// var SortBy = -1;
-//
-// function page_click(value) {
-//     var currentPage = parseInt($('#currentPage').val());
-//     //var ProductTypeID = parseInt($('#cbProductType').val());
-//     var cbPrice = parseInt($('#cbPrice').val());
-//
-//     var ProductID = parseInt($('#cbProduct').val());
-//     var CityID = parseInt($('#cbCity').val());
-//     var DistrictID = parseInt($('#cbDistrict').val());
-//     var totalPage = parseInt($("#totalPage").val());
-//     var numberItem = $("#numberItem").val();
-//
-//     currentPage = isNaN(currentPage) ? 1 : currentPage;
-//     currentPage = currentPage + value;
-//
-//     if (currentPage < 1 || currentPage > totalPage) return;
-//
-//     //ProductTypeID = isNaN(ProductTypeID) ? 0 : ProductTypeID;
-//
-//
-//
-//     ProductID = isNaN(ProductID) ? 0 : ProductID;
-//     CityID = isNaN(CityID) ? 0 : CityID;
-//     DistrictID = isNaN(DistrictID) ? 0 : DistrictID;
-//
-//     $.ajax({
-//         type: "POST",
-//         url: "/Lender/ShowAllLoanNew",
-//         data: { CurrentPage: currentPage, cbPrice: cbPrice, ProductID: ProductID, CityID: CityID, DistrictID: DistrictID, Top: 20, SortType: SortType, SortBy:SortBy }
-//     }).done(function (data) {
-//         $('#divLoanAllNew').html(data);
-//     });
-//
-// }

@@ -180,18 +180,17 @@ function VndText($amount, string $unit = "đồng chẵn")
 | @return string
 | @author tantan
 |*/
-function VndTextSummary($amount) : string
+function VndTextSummary($amount): string
 {
-    if( $amount < 1000000 ){
+    if ($amount < 1000000) {
         return '';
     }
-    $amount = $amount/1000000;
-    if( $amount < 1000 ){
-        return $amount.'tr';
-    }
-    else{
-        $amount = $amount/1000;
-        return $amount.'tỷ';
+    $amount = $amount / 1000000;
+    if ($amount < 1000) {
+        return $amount . 'tr';
+    } else {
+        $amount = $amount / 1000;
+        return $amount . 'tỷ';
     }
 }
 
@@ -302,6 +301,29 @@ function getDistrictList(string $city = null)
     return $_return;
 }
 
+/*
+|--------------------------------------------------------------------------
+| GET LIST OF WARD.
+|--------------------------------------------------------------------------
+| @return list of location
+| @Author : phuonglv
+ */
+function getWardList(string $district = null)
+{
+    $_return = [];
+    $locationTree = getLocationList();
+    foreach ($locationTree as $value) {
+        if ($value['depth'] == 2) {
+            if ($district == null) {
+                $_return[$value['tid']] = $value['name'];
+            } else if ($value['parent1'] == $district) {
+                $_return[$value['tid']] = $value['name'];
+            }
+        }
+    }
+    return $_return;
+}
+
 
 function substrPhone($phone)
 {
@@ -313,8 +335,8 @@ function minusDay($endDay, $startDay)
 {
     $ngay_ket_thuc = strtotime($endDay);
     $ngay_bat_dau = strtotime($startDay);
-    $kq = abs($ngay_ket_thuc - $ngay_bat_dau) ;
-    return (floor($kq / (60*60*24)));
+    $kq = abs($ngay_ket_thuc - $ngay_bat_dau);
+    return (floor($kq / (60 * 60 * 24)));
 
 }
 

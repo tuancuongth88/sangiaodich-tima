@@ -7,7 +7,9 @@
     $("#cbCity").on("change", function (b) {
         isCitySelected() ? $("#cbDistrict").prop("disabled", !1) : $("#cbDistrict").prop("disabled", !0);
         $("#cbDistrict").val(null).trigger("change");
-        $("#cbDistrict").select2("destroy");
+        if ($('#cbDistrict').data('select2')) {
+            $("#cbDistrict").select2("destroy");
+        }
         initDistrict();
     });
 }
@@ -29,7 +31,7 @@ function initDistrict() {
                     city_id: $("#cbCity").val(),
                 };
             },
-            error: function(error){
+            error: function (error) {
                 console.log(error);
             },
             processResults: function (data) {
@@ -42,10 +44,12 @@ function initDistrict() {
         }
     });
 
-    $("#cbDistrict").on("change", function(b) {
+    $("#cbDistrict").on("change", function (b) {
         IsDistrictSelected() ? $("#cbWard").prop("disabled", !1) : $("#cbWard").prop("disabled", !0);
         $("#cbWard").val(null).trigger("change");
-        $("#cbWard").select2("destroy");
+        if ($('#cbWard').data('select2')) {
+            $("#cbWard").select2("destroy");
+        }
         initWard();
     });
 }
@@ -55,26 +59,29 @@ function initWard() {
         theme: "bootstrap",
         placeholder: 'Chọn Phường/Xã...',
         disabled: IsDistrictSelected() ? void 0 : !0,
-        // ajax: {
-        //     url: '/Ward/Autocomplete/',
-        //     dataType: "json",
-        //     data: function (b) {
-        //         return {
-        //             district_id: $("#cbDistrict").val(),
-        //             term: ''
-        //         };
-        //     },
-        //     processResults: function (b, c) {
-        //         return {
-        //             results: $.map(b.collection, function (b) {
-        //                 return {
-        //                     text: b.Name,
-        //                     id: b.ID,
-        //                 };
-        //             })
-        //         };
-        //     }
-        // }
+        ajax: {
+            url: '/ajax/get-ward-by-district',
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            // dataType: "json",
+            data: function (b) {
+                return {
+                    district_id: $("#cbDistrict").val(),
+                };
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            processResults: function (data) {
+                var results = {results: []};
+                $.each(data, function (key, value) {
+                    results.results.push({id: key, text: value});
+                });
+                return results;
+            }
+        }
     });
 }
 
@@ -239,7 +246,7 @@ function initSlider(producttype) {
             max: 100,
             step: 10,
             value: 30,
-            ticks: [10, 20, 30, 40, 50, 60, 70,  80, 90],
+            ticks: [10, 20, 30, 40, 50, 60, 70, 80, 90],
             ticks_positions: [0, 12, 25, 37, 50, 62, 75, 87, 100],
             ticks_labels: ["10", "20", "30", "40", "50", "60", "70", "80", "90"],
             tooltip: "always",
@@ -335,9 +342,9 @@ function initSlider(producttype) {
             max: 3E6,
             step: 1E6,
             value: 3E6,
-            ticks: [1E6 ,  2E6 , 3E6],
-            ticks_positions: [0,  50,  100],
-            ticks_labels: ["1tr", "2tr",  "3tr"],
+            ticks: [1E6, 2E6, 3E6],
+            ticks_positions: [0, 50, 100],
+            ticks_labels: ["1tr", "2tr", "3tr"],
             tooltip: "always",
             formatter: function (b) {
                 $('.spanAmount').text(b.toLocaleString("en"));
@@ -353,8 +360,8 @@ function initSlider(producttype) {
             max: 30,
             step: 10,
             value: 30,
-            ticks: [10 , 20 , 30],
-            ticks_positions: [0, 50 , 100],
+            ticks: [10, 20, 30],
+            ticks_positions: [0, 50, 100],
             ticks_labels: ["10", "20", "30"],
             tooltip: "always",
             formatter: function (b) {
@@ -488,7 +495,7 @@ function initSlider3() {
         max: 1000E6,
         step: 100E6,
         value: 500E6,
-        ticks: [100E6, 200E6,300E6, 400E6, 500E6,600E6,700E6,800E6,900E6,1000E6],
+        ticks: [100E6, 200E6, 300E6, 400E6, 500E6, 600E6, 700E6, 800E6, 900E6, 1000E6],
         ticks_positions: [0, 11, 22, 33, 44, 55, 66, 77, 88, 100],
         ticks_labels: ["100tr", "200tr", "300tr", "400tr", "500tr", "600tr", "700tr", "800tr", "900tr", "1tỷ"],
         tooltip: "always",
@@ -659,6 +666,7 @@ function NotyA(sText, typeMes, iTime) {
         modal: false
     });
 }
+
 function DisplayError(sText) {
     NotyA(sText, 'error', 2500);
 }
@@ -675,20 +683,48 @@ function Confirm(strText, callback) {
         timeout: 2000,
         modal: true,
         buttons: [
-				{
-				    addClass: 'btn btn-primary', text: 'Đồng ý', onClick: function ($noty) {
-				        $noty.close();
-				        if (callback && typeof callback == 'function') {
-				            callback();
-				        }
-				    }
-				}, {
-				    addClass: 'btn btn-danger', text: 'Thoát', onClick: function ($noty) {
-				        $noty.close();
-				    }
-				}
+            {
+                addClass: 'btn btn-primary', text: 'Đồng ý', onClick: function ($noty) {
+                    $noty.close();
+                    if (callback && typeof callback == 'function') {
+                        callback();
+                    }
+                }
+            }, {
+                addClass: 'btn btn-danger', text: 'Thoát', onClick: function ($noty) {
+                    $noty.close();
+                }
+            }
         ]
     });
 
     return false;
 }
+
+
+$('#btnUpdateInfoLender').click(function (e) {
+    var formData = new FormData();
+    formData.append('id', $('#hddUserID').val());
+    formData.append('fullname', $('#txtFullName').val());
+    formData.append('phone', $('#txtPhone').val());
+    formData.append('sex', $('#slGender').val());
+    formData.append('city_id', $('#cbCity').val());
+    formData.append('district_id', $('#cbDistrict').val());
+    formData.append('ward_id', $('#cbWard').val());
+    formData.append('address', $('#txtAddress').val());
+
+    $.ajax({
+        type: "POST",
+        url: '/user/update-info-lender',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        processData: false, // NEEDED, DON'T OMIT THIS
+        success: function (data) {
+            alert(data);
+        }
+    });
+    e.preventDefault();
+});

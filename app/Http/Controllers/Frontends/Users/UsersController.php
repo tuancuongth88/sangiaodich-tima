@@ -10,7 +10,8 @@ class UsersController extends Controller
 {
     private $repository;
 
-    public function __construct(UsersRepository $repository, Request $request) {
+    public function __construct(UsersRepository $repository, Request $request)
+    {
         $this->repository = $repository;
         $this->request = $request;
     }
@@ -18,20 +19,22 @@ class UsersController extends Controller
     /**
      * Get register form
      */
-    public function getRegisterForm(){
+    public function getRegisterForm()
+    {
         // If OTP has been sent, we keep session live 1 time.
-        if( session('sendOTP') ){
+        if (session('sendOTP')) {
             $this->request->session()->keep(['input', 'OTP']);
             $this->request->session()->flash('sendOTP', false);
         }
-        $array = ['test' => 'test22'];
-    	return view('frontend.users.register');
+
+        return view('frontend.users.register');
     }
 
     /**
      * Process request from register form
      */
-    public function postRegisterForm(Request $request){
+    public function postRegisterForm(Request $request)
+    {
         return $this->repository->storeUser();
     }
 
@@ -43,7 +46,8 @@ class UsersController extends Controller
     | @return Response
     | @Author : tantan
      */
-    public function validateOTP(Request $request){
+    public function validateOTP(Request $request)
+    {
         return $this->repository->validateOTP();
     }
 
@@ -56,7 +60,8 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getloginForm(){
+    public function getloginForm()
+    {
         return view('frontend.users.login');
     }
 
@@ -69,7 +74,8 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postloginForm(){
+    public function postloginForm()
+    {
         return $this->repository->doLogin();
     }
 
@@ -82,8 +88,8 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getProfileForm(){
-        return view('frontend.users.profile');
+    public function getProfileForm($user){
+        return $this->repository->getProfile($user);
     }
 
     /*
@@ -95,8 +101,35 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postProfileForm(){
+    public function postProfileForm()
+    {
         return $this->repository->saveProfile();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST SERVICE.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveService($user){
+        return $this->repository->postSaveService($user);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SAVE LIST LOCATION.
+    |--------------------------------------------------------------------------
+    | @params 
+    | @return Response
+    | @method POST
+    | @Author : tantan
+     */
+    public function postSaveLocation($user){
+        return $this->repository->postSaveLocation($user);
     }
 
     /*
@@ -108,8 +141,40 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        return redirect()->route('frontend.user.login')->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
+        return redirect()->route('frontend.user.login')
+            ->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
     }
+
+    /*
+       |--------------------------------------------------------------------------
+       | User InFo.
+       |--------------------------------------------------------------------------
+       | @params
+       | @return Response
+       | @method GET
+       | @Author : phuonglv
+     */
+    public function getUserInFoForm($user_id)
+    {
+        return $this->repository->getUser($user_id);
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | User InFo.
+   |--------------------------------------------------------------------------
+   | @params
+   | @return Response
+   | @method Post
+   | @Author : phuonglv
+ */
+    public function updateUserInfoLender()
+    {
+        $params = $this->request->all();
+        return $this->repository->updateUserInfoLender($params);
+    }
+
 }

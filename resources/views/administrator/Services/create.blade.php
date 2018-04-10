@@ -47,18 +47,42 @@
                                 @csrf
                                 <div class="form-group m-form__group">
                                     <label for="name">Tên danh mục dịch vụ</label>
-                                    <input type="text" class="form-control m-input" id="service_name" placeholder="Tên dịch vụ" name="service_name">
+                                    <input type="text" class="form-control m-input" id="service_name" placeholder="Tên dịch vụ" name="service_name" required>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group m-form__group">
+                                            <label>Giá dịch vụ</label>
+                                            <div class="input-group">
+                                                {{ Form::number('fee', '', ['class' => 'form-control m-input', 'placeholder' => 'Giá dịch vụ', 'min' => 0]) }}
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">VNĐ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group m-form__group">
+                                            <label>Giảm giá</label>
+                                            <div class="input-group">
+                                                {{ Form::number('discount', '', ['class' => 'form-control m-input', 'placeholder' => 'Giảm giá', 'min' => 0, 'max' => 100]) }}
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group m-form__group">
                                     <label for="day_detail">Khoảng thời gian</label>
-                                    {{ Form::text('day_detail', Common::SERVICE_DAY_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '1weeks, 10days, 1months, 1years']) }}
-                                    <p><i>Mỗi mốc thời gian ngăn cách bằng dấu phẩy ","  Chỉ sử dụng 1 đơn vị duy nhất cho mỗi ô nhập này. Các đơn vị khả dụng: days, weeks, months, years.</i>
+                                    {{ Form::text('day_detail', Common::SERVICE_DAY_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '1weeks, 10days, 1months, 1years', 'required']) }}
+                                    <p><i>Mỗi mốc thời gian ngăn cách bằng dấu phẩy ","  Chỉ sử dụng <b>1 đơn vị duy nhất.</b> Các đơn vị khả dụng: days, weeks, months, years.</i>
                                         <br>VD: 10days, 20days, 30days
                                     </p>
                                 </div>
                                 <div class="form-group m-form__group">
                                     <label for="amount_detail">Khoảng tiền cho vay</label>
-                                    {{ Form::text('amount_detail', Common::SERVICE_AMOUNT_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '5, 10, 15, 20']) }}
+                                    {{ Form::text('amount_detail', Common::SERVICE_AMOUNT_DETAIL, ['class' => 'form-control m-input', 'placeholder' => '5, 10, 15, 20', 'required']) }}
                                     <p><i>Mỗi đơn vị (x 1.000.000) ngăn cách bằng dấu phẩy "," 1 triệu <=> 1 ; 1 tỷ <=> 1000</i>
                                         <br>VD: 100, 200, 500, 1000, 10000 <=> 100tr, 200tr, 500tr, 1tỷ, 10tỷ
                                     </p>
