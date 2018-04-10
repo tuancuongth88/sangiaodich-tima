@@ -18,6 +18,8 @@ class UsersRepository extends Repository
 {
 
     protected $user;
+    protected $request;
+    protected $auth;
 
     function __construct(ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 2, $current = 1)
     {
@@ -205,6 +207,7 @@ class UsersRepository extends Repository
     public function getProfile($user)
     {
         $data = $this->model::find($user);
+        $listJob = $this->user->listJob;
         if ($data == null) {
             return abort(404);
         }
@@ -213,9 +216,9 @@ class UsersRepository extends Repository
                 ->with(compact('data'));
         }
         if (Auth::user()->type == \PermissionCommon::VAY) {
-            return view('frontend.users.profile_vay');
+            return view('frontend.users.profile_vay', ['data' => $data, 'listJob' => $listJob]);
         }
-        return view('frontend.users.profile');
+        return view('frontend.users.profile', ['data' => $data, 'listJob' => $listJob]);
     }
 
     /*
@@ -290,8 +293,8 @@ class UsersRepository extends Repository
 
         if ($user_data) {
             $user_type = $user_data['type'];
-            return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
-            //return view('frontend.users.userinfo', ['data' => $user_data]);
+            //return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
+            return view('frontend.users.userinfo', ['data' => $user_data]);
         }
 
     }
@@ -315,13 +318,44 @@ class UsersRepository extends Repository
             $id = (int)$params['id'];
             unset($params['id']);
             unset($params['phone']);
-            $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
-            if (!$date) {
-                $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+            unset($params['_token']);
+            if (isset($params['birthday'])) {
+                $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+                }
+                $date = $date->format('Y-m-d');
+                $params['birthday'] = $date;
             }
-            $date = $date->format('Y-m-d');
-            $params['birthday'] = $date;
             $this->user::where('id', '=', $id)->update($params);
+            return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');
+        }
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | Upload avatar
+   |--------------------------------------------------------------------------
+   | @params
+   | @return response
+   | @method POST
+   | @Author : phuonglv
+    */
+    public function updateAvatar()
+    {
+
+        //check user
+        $id = $this->auth->user()->id;
+        if ($this->request->hasFile('uploadAvatar')) {
+            $file = $this->request->uploadAvatar;
+            $destinationPath = public_path() . IMAGENEWS;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            $data['avatar'] = IMAGENEWS . $filename;
+        }
+        if (isset($data['avatar'])) {
+            $this->user::where('id', '=', $id)->update($data);
+            return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');
         }
     }
 }
