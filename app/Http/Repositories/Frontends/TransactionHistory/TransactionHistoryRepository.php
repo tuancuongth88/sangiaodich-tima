@@ -21,15 +21,15 @@ class TransactionHistoryRepository extends Repository
     private $perpages;
     private $current;
 
-    const USER_ID = 'user_id';
-    const CITY_ID = 'city_id';
-    const DISTRICT_ID = 'district_id';
-    const WARD_ID = 'ward_id';
-    const AMOUNT = 'amount';
-    const AMOUNT_DAY = 'amount_day';
-    const PAYMENT_DAY = 'payment_day';
-    const STATUS = 'status';
-    const AGREE_TERM = 'agree_term';
+    const USER_ID       = 'user_id';
+    const CITY_ID       = 'city_id';
+    const DISTRICT_ID   = 'district_id';
+    const WARD_ID       = 'ward_id';
+    const AMOUNT        = 'amount';
+    const AMOUNT_DAY    = 'amount_day';
+    const PAYMENT_DAY   = 'payment_day';
+    const STATUS        = 'status';
+    const AGREE_TERM    = 'agree_term';
 
     function __construct(
         TransactionHistory $transactionHistory,
@@ -311,5 +311,19 @@ class TransactionHistoryRepository extends Repository
         $input['service_code'] = $service->id;
         $this->model->create($input);
         return redirect()->back()->with('status', true)->with('message', 'Đăng ký thành công!')->with('redirect', true);
+    }
+
+    /*
+    |---------------------------------------
+    | San giao dich
+    |---------------------------------------
+    | @params
+    | @method GET
+    | @return Response
+    | @author cuongnt
+    */
+    public function getListTransaction(){
+
+        return view('frontend.transactionhistory.list_transaction');
     }
 }

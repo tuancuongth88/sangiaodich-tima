@@ -16,5 +16,4 @@ class AjaxController extends Controller
         }
         return response()->json('Something wrong!', 400);
     }
-
 }

@@ -396,3 +396,15 @@ function convertFeeDiscount($service_id)
     return ['fee' => number_format($fee), 'fee_service' => number_format($fee_service), 'discount_percent' => $discount_percent];
 
 }
+
+/*
+|--------------------------------------------------------------------------
+| Check user type
+|--------------------------------------------------------------------------
+| @return type
+| @Author : cuongnt
+ */
+
+function isUser(){
+    dd(Auth::user()->type);
+}

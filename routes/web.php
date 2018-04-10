@@ -106,4 +106,8 @@ Route::group(['prefix' => 'ajax'], function () {
 });
 
 
+Route::group(['prefix' => 'san-giao-dich'], function (){
+   Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index');
+});
+
 
