@@ -72,6 +72,19 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    public static $rules = [
+        'card_number' => 'number',
+        'company_phone' => 'number',
+        'phone' => 'number'
+    ];
+
+    public static $messages = [
+        'card_number' => ':attribute Bạn phải nhập kiểu số.',
+        'company_phone' => ':attribute Bạn phải nhập kiểu số.',
+        'phone' => ':attribute Bạn phải nhập kiểu số.'
+    ];
+
     protected $hidden = [
         'password', 'remember_token',
     ];
