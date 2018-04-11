@@ -702,64 +702,91 @@ function Confirm(strText, callback) {
 }
 
 
-$('#btnUpdateInfoLender').click(function (e) {
-    var formData = new FormData();
-    formData.append('id', $('#hddUserID').val());
-    formData.append('fullname', $('#txtFullName').val());
-    formData.append('phone', $('#txtPhone').val());
-    formData.append('sex', $('#slGender').val());
-    formData.append('city_id', $('#cbCity').val());
-    formData.append('district_id', $('#cbDistrict').val());
-    formData.append('ward_id', $('#cbWard').val());
-    formData.append('address', $('#txtAddress').val());
+function CallUploadFile() {
+    $("#uploadAvatar").click();
+}
 
+
+function UploadImg(typeId) {
+    $("#hddTypeImg").val(typeId);
+    $("#uploadImg").click();
+}
+
+$("#uploadImg").change(function () {
+    var typeImg = parseInt($("#hddTypeImg").val());
+    var formData = new FormData();
+    var totalFiles = document.getElementById("uploadImg").files.length;
+    for (var i = 0; i < totalFiles; i++) {
+        var file = document.getElementById("uploadImg").files[i];
+        formData.append("uploadImg", file);
+        formData.append("typeImg", typeImg);
+    }
     $.ajax({
         type: "POST",
-        url: '/user/update-user-info-lender',
+        url: '/user/uploadimage',
         data: formData,
+        dataType: 'json',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-        processData: false, // NEEDED, DON'T OMIT THIS
-        success: function (data) {
-            alert(data);
+        contentType: false,
+        processData: false,
+    }).done(function (data) {
+        if (data) {
+            DisplayPhotoitem(typeImg, data.Result);
         }
     });
-    e.preventDefault();
 });
 
+function DisplayPhotoitem(typeImg, pathImg) {
 
-$('#btnUpdateInfoLoaner').click(function (e) {
+    if (typeImg === 1) {
+        $("#divImgCardNumber").append(
+            '<div class="uploadct-item__img mr-5"> ' +
+            '<img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
+
+    } else if (typeImg === 2) {
+        $("#divImgLocation").append(
+            '<div class="uploadct-item__img mr-5">' +
+            ' <img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
+
+    } else if (typeImg === 3) {
+        $("#divImgContractAndSalary").append(
+            '<div class="uploadct-item__img mr-5">' +
+            ' <img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
+    }
+}
+
+$("#uploadAvatar").change(function () {
     var formData = new FormData();
-    formData.append('id', $('#hddUserID').val());
-    formData.append('fullname', $('#txtFullName').val());
-    formData.append('phone', $('#txtPhone').val());
-    formData.append('card_number', $('#txtCardNumber').val());
-    formData.append('birthday', $('#txtBirthDay').val());
-    formData.append('sex', $('#slSex').val());
-    formData.append('email', $('#txtEmail').val());
-    formData.append('city_id', $('#cbCity').val());
-    formData.append('district_id', $('#cbDistrict').val());
-    formData.append('ward_id', $('#cbWard').val());
-    formData.append('address', $('#txtAddress').val());
-    formData.append('job', $('#slJob').val());
-    formData.append('company_name', $('#txtCompanyName').val());
-    formData.append('company_address', $('#txtCompanyAddress').val());
-    formData.append('company_phone', $('#txtCompanyPhone').val());
-
+    var totalFiles = document.getElementById("uploadAvatar").files.length;
+    for (var i = 0; i < totalFiles; i++) {
+        var file = document.getElementById("uploadAvatar").files[i];
+        formData.append("uploadAvatar", file);
+    }
     $.ajax({
         type: "POST",
-        url: '/user/update-user-info-loaner',
+        url: '/user/uploadavatar',
         data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-        processData: false, // NEEDED, DON'T OMIT THIS
         success: function (data) {
-            alert(data);
+            if (data) {
+                $("#imgAvatar").attr("src", data.Result);
+                //DisplaySuccess('Ảnh đại diện của bạn đã cập nhật xong');
+            } else {
+                DisplayError('Ảnh đại diện của bạn chưa cập nhật được lên hệ thống');
+            }
         }
     });
-    e.preventDefault();
 });

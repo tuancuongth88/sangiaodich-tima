@@ -61,7 +61,10 @@ class User extends Authenticatable
         'company_name',
         'company_phone',
         'company_address',
-        'card_number'
+        'card_number',
+        'personal_records',
+        'profile_residence',
+        'income_records'
     ];
 
     /**

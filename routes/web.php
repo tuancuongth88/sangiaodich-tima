@@ -114,10 +114,9 @@ Route::group(['prefix' => 'user'], function () {
     //  Save list district to an user
     Route::post('/{user}/edit/save-locations', 'Frontends\Users\UsersController@postSaveLocation')->name('frontend.user.save_location')->middleware('owner');
 
-    Route::get('/{user}/userinfo', 'Frontends\Users\UsersController@getUserInFoForm')->name('frontend.user.userinfo');
-
-    Route::post('/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo');
-    Route::post('/update-user-info-loaner', 'Frontends\Users\UsersController@updateUserInfo');
+    Route::post('/{user}/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo')->name('frontend.user.update-user-info-lender')->middleware('owner');
+    Route::post('/uploadavatar', 'Frontends\Users\UsersController@uploadAvatar');
+    Route::post('/uploadimage', 'Frontends\Users\UsersController@uploadimgprofile');
 });
 
 /*

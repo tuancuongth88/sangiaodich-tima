@@ -88,7 +88,8 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getProfileForm($user){
+    public function getProfileForm($user)
+    {
         return $this->repository->getProfile($user);
     }
 
@@ -115,7 +116,8 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postSaveService($user){
+    public function postSaveService($user)
+    {
         return $this->repository->postSaveService($user);
     }
 
@@ -128,7 +130,8 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postSaveLocation($user){
+    public function postSaveLocation($user)
+    {
         return $this->repository->postSaveLocation($user);
     }
 
@@ -175,6 +178,34 @@ class UsersController extends Controller
     {
         $params = $this->request->all();
         return $this->repository->updateUserInfo($params);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+   | User InFo.
+   |--------------------------------------------------------------------------
+   | @params
+   | @return Response
+   | @method Post
+   | @Author : phuonglv
+ */
+    public function uploadAvatar()
+    {
+        return $this->repository->updateAvatar();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+   | User InFo.
+   |--------------------------------------------------------------------------
+   | @params
+   | @return Response
+   | @method Post
+   | @Author : phuonglv
+ */
+    public function uploadimgprofile()
+    {
+        return $this->repository->uploadImgProfile();
     }
 
 }
