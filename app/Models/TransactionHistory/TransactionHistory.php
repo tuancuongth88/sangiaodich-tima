@@ -74,11 +74,11 @@ class TransactionHistory extends Model
     //1 ch
     public $status_transactionhistory =
         array(
-            STATUS_WAIT => 'Chờ nhận',
-            STATUS_RECEIVED => 'Đã nhận',
-            STATUS_BORROWING => 'Đang vay',
-            STATUS_APPROVE => 'Đã tất toán',
-            STATUS_CANCEL => 'Đã hủy'
+            self::STATUS_WAIT => 'Chờ nhận',
+            self::STATUS_RECEIVED => 'Đã nhận',
+            self::STATUS_BORROWING => 'Đang vay',
+            self::STATUS_APPROVE => 'Đã tất toán',
+            self::STATUS_CANCEL => 'Đã hủy'
         );
 
 

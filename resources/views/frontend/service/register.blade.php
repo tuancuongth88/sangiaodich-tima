@@ -18,30 +18,10 @@ foreach ($dayConfig as $key => $value) {
     $dayPositions[] = (count($dayConfig)-1 > 0) ? $key*(100/(count($dayConfig)-1)) : 100;
 }
 ?>
-@if( count($amountConfig) > 1 && count($dayConfig) > 1 )
-    @section('js_footer')
-    <script type="text/javascript">
-        $('#application_amount').slider({
-            value: {{ $amountConfig[1]['number'] }},
-            formatter: function (b) {
-                $('.spanAmount').text(b.toLocaleString("en"));
-            }
-        });
-
-        $('#application_term').slider({
-            value: {{ $dayConfig[1]['number'] }},
-            formatter: function (b) {
-                $('#payDate').text(moment().add( b, '{{ $dayConfig[0]['unit'] }}' ).format("DD.MM.YYYY"));
-                $('#spanTerm').text(b);
-                //_countCalcValues(producttype);
-            }
-        });
-    </script>
-    @stop
-@endif
 
 @section('content')
 {{ Form::open(['route' => ['services.site.register', $data->slug], 'method' => 'POST']) }}
+    {{ Form::hidden('service_id', $data->id) }}
     <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('frontend/images/bg-hk.jpg') }}');">
         <div class="container d-flex flex-column align-items-end px-0">
             <div class="w-100 w-xl-66 relative px-3">
@@ -85,20 +65,20 @@ foreach ($dayConfig as $key => $value) {
                             </div>
                             <div class="col-md-4 d-flex flex-column">
                                 <div class="form-group mb-2">
-                                    <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="" id="" value="{{ $user->fullname }}">
+                                    <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="" id="" value="{{ $user->fullname }}" {{ ($user->id != null) ? 'disabled' : '' }}>
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="" name="" value="{{ $user->phone }}">
+                                    <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="" name="" value="{{ $user->phone }}" {{ ($user->id != null) ? 'disabled' : '' }}>
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), 'bac-kan', ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), $user->city_id, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
                                     <span class="error text-primary">{{ $errors->first('city') }}</span>
                                 </div>
 
                                 <div class="form-group mb-2">
-                                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                                    {{ Form::select('district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), $user->district_id, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
                                     <span class="error text-primary">{{ $errors->first('district') }}</span>
                                 </div>
 
@@ -141,3 +121,25 @@ foreach ($dayConfig as $key => $value) {
     </div>
 </form>
 @stop
+
+@if( count($amountConfig) > 1 && count($dayConfig) > 1 )
+    @section('js_footer')
+    <script type="text/javascript">
+        $('#application_amount').slider({
+            value: {{ $amountConfig[1]['number'] }},
+            formatter: function (b) {
+                $('.spanAmount').text(b.toLocaleString("en"));
+            }
+        });
+
+        $('#application_term').slider({
+            value: {{ $dayConfig[1]['number'] }},
+            formatter: function (b) {
+                $('#payDate').text(moment().add( b, '{{ $dayConfig[0]['unit'] }}' ).format("DD.MM.YYYY"));
+                $('#spanTerm').text(b);
+                //_countCalcValues(producttype);
+            }
+        });
+    </script>
+    @stop
+@endif

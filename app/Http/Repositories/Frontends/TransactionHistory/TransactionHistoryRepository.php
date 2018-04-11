@@ -268,9 +268,6 @@ class TransactionHistoryRepository extends Repository
             abort(404);
         }
         $user = \Auth::user();
-        if( $user == null ){
-            $user = new $this->user();
-        }
         return view('frontend.service.register')->with(compact('user', 'data'));
     }
 
@@ -291,7 +288,7 @@ class TransactionHistoryRepository extends Repository
         }
 
         $user = \Auth::user();
-        $input = $this->getInputFieldStore();
+        $input = $this->request->all();
         $validator = $this->validator($input);
         if ($validator->fails()) {
             return redirect()
@@ -303,13 +300,13 @@ class TransactionHistoryRepository extends Repository
         $service = $this->services->findBySlug($slug);
         $amountConfig = $service->amount_config();
         $dayConfig = $service->day_config();
+        $input['status'] = $this->model::STATUS_WAIT;
         $input['user_id'] = $user->id;
         $unitDay = $input['amount_day'].$dayConfig[0]['unit'];
         $paymentDay = strtotime('+'.$unitDay);
         $input['amount_day'] = round(($paymentDay - time())/(60 * 60 * 24));
         $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
         $input['service_id'] = $service->id;
-
         $input['fee'] = $service->fee;
         $input['percent_discount'] = $service->discount;
         $input['fee_type'] = ( $input['fee'] > 0 && $input['percent_discount'] < 100 ) ? ONE : ZERO ;
