@@ -21,15 +21,15 @@ class TransactionHistoryRepository extends Repository
     private $perpages;
     private $current;
 
-    const USER_ID       = 'user_id';
-    const CITY_ID       = 'city_id';
-    const DISTRICT_ID   = 'district_id';
-    const WARD_ID       = 'ward_id';
-    const AMOUNT        = 'amount';
-    const AMOUNT_DAY    = 'amount_day';
-    const PAYMENT_DAY   = 'payment_day';
-    const STATUS        = 'status';
-    const AGREE_TERM    = 'agree_term';
+    const USER_ID = 'user_id';
+    const CITY_ID = 'city_id';
+    const DISTRICT_ID = 'district_id';
+    const WARD_ID = 'ward_id';
+    const AMOUNT = 'amount';
+    const AMOUNT_DAY = 'amount_day';
+    const PAYMENT_DAY = 'payment_day';
+    const STATUS = 'status';
+    const AGREE_TERM = 'agree_term';
 
     function __construct(
         TransactionHistory $transactionHistory,
@@ -38,7 +38,7 @@ class TransactionHistoryRepository extends Repository
         Request $request,
         AuthService $auth,
         User $user,
-        $perpages = 2,
+        $perpages = 20,
         $current = 1
     )
     {
@@ -79,17 +79,18 @@ class TransactionHistoryRepository extends Repository
     | @return mix \Validator
     | @Author : tantan
      */
-    public function validator(array $array){
+    public function validator(array $array)
+    {
         $messages = [
-            'required'       => 'Vui lòng nhập :attribute',
-            self::CITY_ID.'.required'       => 'Vui lòng chọn thành phố',
-            self::DISTRICT_ID.'.required'   => 'Vui lòng chọn quận/huyện',
-            self::AGREE_TERM.'.required'    => 'Bạn phải đồng ký với điều khoản của chúng tôi',
+            'required' => 'Vui lòng nhập :attribute',
+            self::CITY_ID . '.required' => 'Vui lòng chọn thành phố',
+            self::DISTRICT_ID . '.required' => 'Vui lòng chọn quận/huyện',
+            self::AGREE_TERM . '.required' => 'Bạn phải đồng ký với điều khoản của chúng tôi',
         ];
         return Validator::make($array, [
-            self::CITY_ID      => 'required',
-            self::DISTRICT_ID         => 'required',
-            self::AGREE_TERM      => 'required',
+            self::CITY_ID => 'required',
+            self::DISTRICT_ID => 'required',
+            self::AGREE_TERM => 'required',
         ], $messages);
     }
 
@@ -196,10 +197,10 @@ class TransactionHistoryRepository extends Repository
         $listData = $newsModel->paginate($this->perpages);
 
         //status
-        $count_tran_wait_consultant = $this->model::where('status', '=', 1)->get()->count();
-        $count_tran_wait_receive = $this->model::where('status', '=', 2)->get()->count();
-        $count_tran_is_borrowing = $this->model::where('status', '=', 3)->get()->count();
-        $sum_amount_tran_is_borrowing = $this->model::where('status', '=', 3)->sum('amount');
+        $count_tran_wait_consultant = $this->model::where('status', 1)->get()->count();
+        $count_tran_wait_receive = $this->model::where('status', 2)->get()->count();
+        $count_tran_is_borrowing = $this->model::where('status',  3)->get()->count();
+        $sum_amount_tran_is_borrowing = $this->model::where('status', 3)->sum('amount');
         $list_services = $this->services->get()->toArray();
 
         $page = $this->request->input('page');
@@ -262,13 +263,14 @@ class TransactionHistoryRepository extends Repository
     | @return view
     | @author tantan
     */
-    public function getDetailForm($slug){
+    public function getDetailForm($slug)
+    {
         $data = $this->services->findBySlug($slug);
-        if( $data == null ){
+        if ($data == null) {
             abort(404);
         }
         $user = \Auth::user();
-        if( $user == null ){
+        if ($user == null) {
             $user = new $this->user();
         }
         return view('frontend.service.register')->with(compact('user', 'data'));
@@ -283,9 +285,10 @@ class TransactionHistoryRepository extends Repository
     | @return Response
     | @author tantan
     */
-    public function postDetailForm($slug){
-        if( !\Auth::check() ){
-            return redirect(route('frontend.user.register', ['destination' => '/dang-ky-vay/'.$slug ]))
+    public function postDetailForm($slug)
+    {
+        if (!\Auth::check()) {
+            return redirect(route('frontend.user.register', ['destination' => '/dang-ky-vay/' . $slug]))
                 ->with('status', true)
                 ->withMessage('Bạn phải đăng ký để tiếp tục!');
         }
@@ -304,15 +307,15 @@ class TransactionHistoryRepository extends Repository
         $amountConfig = $service->amount_config();
         $dayConfig = $service->day_config();
         $input['user_id'] = $user->id;
-        $unitDay = $input['amount_day'].$dayConfig[0]['unit'];
-        $paymentDay = strtotime('+'.$unitDay);
-        $input['amount_day'] = round(($paymentDay - time())/(60 * 60 * 24));
+        $unitDay = $input['amount_day'] . $dayConfig[0]['unit'];
+        $paymentDay = strtotime('+' . $unitDay);
+        $input['amount_day'] = round(($paymentDay - time()) / (60 * 60 * 24));
         $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
         $input['service_id'] = $service->id;
 
         $input['fee'] = $service->fee;
         $input['percent_discount'] = $service->discount;
-        $input['fee_type'] = ( $input['fee'] > 0 && $input['percent_discount'] < 100 ) ? ONE : ZERO ;
+        $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? ONE : ZERO;
 
         $this->model->create($input);
         return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
@@ -327,8 +330,19 @@ class TransactionHistoryRepository extends Repository
     | @return Response
     | @author cuongnt
     */
-    public function getListTransaction(){
-
-        return view('frontend.transactionhistory.list_transaction');
+    public function getListTransaction()
+    {
+        $listService = Service::all();
+        $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
+        $total_reg_borrow = User::where('type', VAY)->count();
+        $total_reg_loan = User::where('type', CHO_VAY)->count();
+        $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->orderBy('id', 'desc')->paginate($this->perpages);
+        return view('frontend.transactionhistory.list_transaction', [
+            'data' => $listTransactionNews,
+            'list_service' => $listService,
+            'totalmoney' => $totalMoney,
+            'total_reg_borrow' => $total_reg_borrow,
+            'total_reg_loan' => $total_reg_loan,
+        ]);
     }
 }

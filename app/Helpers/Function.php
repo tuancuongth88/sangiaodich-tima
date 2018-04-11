@@ -428,5 +428,5 @@ function convertFeeDiscount($service_id)
  */
 
 function isUser(){
-    dd(Auth::user()->type);
+
 }

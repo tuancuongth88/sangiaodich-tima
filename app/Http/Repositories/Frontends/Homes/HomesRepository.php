@@ -20,7 +20,7 @@ class HomesRepository extends Repository
     protected $perpage;
     protected $curent;
 
-    public function __construct(ResponseService $response, Request $request, AuthService $auth, $perpages = 20, $current = 1) {
+    public function __construct(ResponseService $response, Request $request, AuthService $auth, $perpages = 200, $current = 1) {
         $this->response = $response;
         $this->request = $request;
         $this->auth = $auth;
@@ -33,7 +33,7 @@ class HomesRepository extends Repository
         $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
         $listService = Service::all();
 //        $total
-        $listTransactionNews = TransactionHistory::orderBy('id', 'desc')->paginate($this->perpage);
+        $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->orderBy('id', 'desc')->paginate($this->perpage);
         $total_reg_borrow = User::where('type', VAY)->count();
         $total_reg_loan = User::where('type', CHO_VAY)->count();
 
