@@ -310,7 +310,11 @@
                     </div>
 
                     <div class="uploadct-item__body" id="divImgCardNumber">
-
+                        @if($data['personal_records'])
+                            <div class="uploadct-item__img mr-5">
+                                <img class="img-fluid" src="{{$data['personal_records']}}" alt="">
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -334,6 +338,11 @@
                     </div>
 
                     <div class="uploadct-item__body" id="divImgLocation">
+                        @if($data['personal_records'])
+                            <div class="uploadct-item__img mr-5">
+                                <img class="img-fluid" src="{{$data['profile_residence']}}" alt="">
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -357,6 +366,11 @@
                     </div>
 
                     <div class="uploadct-item__body" id="divImgContractAndSalary">
+                        @if($data['income_records'])
+                            <div class="uploadct-item__img mr-5">
+                                <img class="img-fluid" src="{{$data['income_records']}}" alt="">
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

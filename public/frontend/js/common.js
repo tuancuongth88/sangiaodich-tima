@@ -723,18 +723,17 @@ $("#uploadImg").change(function () {
     }
     $.ajax({
         type: "POST",
-        url: '/user/uploadimg',
+        url: '/user/uploadimage',
         data: formData,
         dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         contentType: false,
         processData: false,
     }).done(function (data) {
-        if (data.Error === 0) {
-            if (data.lstData.Files.length > 0) {
-                $.each(data.lstData.Files, function (index, value) {
-                    DisplayPhotoitem(typeImg, data.lstData.Files[index].UrlImage);
-                });
-            }
+        if (data) {
+            DisplayPhotoitem(typeImg, data.Result);
         }
     });
 });
@@ -782,16 +781,12 @@ $("#uploadAvatar").change(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
-            console.log(data);
             if (data) {
                 $("#imgAvatar").attr("src", data.Result);
                 //DisplaySuccess('Ảnh đại diện của bạn đã cập nhật xong');
             } else {
                 DisplayError('Ảnh đại diện của bạn chưa cập nhật được lên hệ thống');
             }
-        },
-        error: function (data) {
-            DisplayError('Ảnh đại diện của bạn chưa cập nhật được lên hệ thống');
         }
     });
 });

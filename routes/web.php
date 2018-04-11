@@ -116,6 +116,7 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::post('/{user}/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo')->name('frontend.user.update-user-info-lender')->middleware('owner');
     Route::post('/uploadavatar', 'Frontends\Users\UsersController@uploadAvatar');
+    Route::post('/uploadimage', 'Frontends\Users\UsersController@uploadimgprofile');
 });
 
 /*

@@ -346,6 +346,7 @@ class UsersRepository extends Repository
 
         //check user
         $id = $this->auth->user()->id;
+        $obj_user = $this->user::where('id', $id)->get()->toArray();
         if ($this->request->hasFile('uploadAvatar')) {
             $file = $this->request->uploadAvatar;
             $destinationPath = public_path() . IMAGEUSER;
@@ -355,6 +356,9 @@ class UsersRepository extends Repository
         }
         if (isset($data['avatar'])) {
             $this->user::where('id', '=', $id)->update($data);
+            if (isset($obj_user[0]) && isset($obj_user[0]['avatar'])) {
+                unlink(public_path() . $obj_user[0]['avatar']);
+            }
             return response()->json(array('success' => true, 'Result' => $data['avatar']));
         }
     }
@@ -373,17 +377,32 @@ class UsersRepository extends Repository
 
         //check user
         $id = $this->auth->user()->id;
+        $typeImg = $this->request->typeImg;
+        $typeImg_str = 'personal_records';
+        $data = array();
+        $obj_user = $this->user::where('id', $id)->get()->toArray();
+
         if ($this->request->hasFile('uploadImg')) {
-            $typeImg = $this->request->typeImg;
             $file = $this->request->uploadImg;
-            $destinationPath = public_path() . IMAGEUSER . '/' . $id;
+            $path_user = IMAGEUSER . $id . '/';
+            $destinationPath = public_path() . $path_user;
             $filename = time() . '_' . $file->getClientOriginalName();
             $uploadSuccess = $file->move($destinationPath, $filename);
-            $data['avatar'] = IMAGEUSER . $filename;
+            if ($typeImg == PERSONAL_RECORDS) {
+
+            } elseif ($typeImg == PROFILE_RESIDENCE) {
+                $typeImg_str = 'profile_residence';
+            } elseif ($typeImg == INCOME_RECORDS) {
+                $typeImg_str = 'income_records';
+            }
+            $data[$typeImg_str] = $path_user . $filename;
         }
-        if (isset($data['avatar'])) {
-            $this->user::where('id', '=', $id)->update($data);
-            return response()->json(array('success' => true, 'Result' => $data['avatar']));
+        if (!empty($data)) {
+            $this->user::where('id', $id)->update($data);
+            if (isset($obj_user[0]) && isset($obj_user[0][$typeImg_str])) {
+                unlink(public_path() . $obj_user[0][$typeImg_str]);
+            }
+            return response()->json(array('success' => true, 'Result' => $path_user . $filename, 'typeImg' => $typeImg));
         }
     }
 }
