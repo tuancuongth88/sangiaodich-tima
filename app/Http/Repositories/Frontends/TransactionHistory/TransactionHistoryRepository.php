@@ -314,8 +314,40 @@ class TransactionHistoryRepository extends Repository
         $input['percent_discount'] = $service->discount;
         $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
 
-        $this->model->create($input);
-        return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
+        $transaction = $this->model->create($input);
+        if( $transaction->id != null ){
+            return redirect()->route('transaction.site.updateform', [$slug, $transaction]);
+        }
+        return redirect()->back()->with('error', true)->with('message', 'Có lỗi xảy ra! Đơn vay chưa được khỏi tạo. Vui lòng thử lại!');
+    }
+
+    /*
+    |---------------------------------------
+    | GET UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method GET
+    | @return responsive
+    | @author tantan
+     */
+    public function transactionUpdateForm($service, $transaction) {
+        $form = \Common::getFormOfService($service);
+        return view('frontend.transactionhistory.update_info')->with(compact('service', 'transaction', 'form'));
+    }
+
+    /*
+    |---------------------------------------
+    | SAVE UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method POST
+    | @return responsive
+    | @author tantan
+     */
+    public function postTransactionUpdateForm($service, $tranId) {
+        $input = $this->request->all();
+        dd($input);
+        return redirect()->route('frontends.manager.transaction')->with('status', true)->with('message', 'Lưu thông tin đơn vay thành công!');
     }
 
     /*

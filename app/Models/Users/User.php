@@ -14,6 +14,15 @@ class User extends Authenticatable
     use Notifiable,
         SoftDeletes;
 
+    const NAM = 1;
+    const NU = 2;
+
+    public $genderList =
+    array(
+        self::NAM   => 'Nam',
+        self::NU    => 'Nữ',
+    );
+    
     /**
      * The event map for the model.
      *

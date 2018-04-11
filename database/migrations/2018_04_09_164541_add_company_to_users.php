@@ -32,6 +32,8 @@ class AddCompanyToUsers extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['job','company_name', 'company_phone', 'company_address', 'card_number', 'personal_records', 'profile_residence', 'income_records']);
+        });
     }
 }

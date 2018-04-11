@@ -41,6 +41,6 @@ class CreateTransactionHistoryLog extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('transaction_history_log');
     }
 }

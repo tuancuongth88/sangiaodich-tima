@@ -61,4 +61,30 @@ class TransactionHistoryController extends Controller {
     public function postRegisterForm($service) {
         return $this->repository->postDetailForm($service);
     }
+
+    /*
+    |---------------------------------------
+    | GET UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method GET
+    | @return responsive
+    | @author tantan
+     */
+    public function transactionUpdateForm($service, $transaction) {
+        return $this->repository->transactionUpdateForm($service, $transaction);
+    }
+
+    /*
+    |---------------------------------------
+    | SAVE UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method POST
+    | @return responsive
+    | @author tantan
+     */
+    public function postTransactionUpdateForm($service, $transaction) {
+        return $this->repository->postTransactionUpdateForm($service, $transaction);
+    }
 }
