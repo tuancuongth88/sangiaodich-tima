@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Users;
+
 use App\Models\Relation as RelationModel;
 
 use Hash;
@@ -8,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable {
+class User extends Authenticatable
+{
     use Notifiable,
         SoftDeletes;
 
@@ -54,7 +56,12 @@ class User extends Authenticatable {
         'ward_id',
         'type',
         'sex',
-        'amount'
+        'amount',
+        'job',
+        'company_name',
+        'company_phone',
+        'company_address',
+        'card_number'
     ];
 
     /**
@@ -66,11 +73,13 @@ class User extends Authenticatable {
         'password', 'remember_token',
     ];
 
-    public function setPassWordAttribute($value) {
+    public function setPassWordAttribute($value)
+    {
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function setBirthdayAttribute($value) {
+    public function setBirthdayAttribute($value)
+    {
         $this->attributes['birthday'] = \Carbon\Carbon::parse($value);
     }
 
@@ -80,19 +89,23 @@ class User extends Authenticatable {
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeActive($query) {
+    public function scopeActive($query)
+    {
         return $query->where('active', 1);
     }
 
-    public function token() {
+    public function token()
+    {
         return $this->hasMany('App\Models\Users\UserToken', 'user_id');
     }
 
-    public function getBirthdayAttribute($value) {
+    public function getBirthdayAttribute($value)
+    {
         return date('d-m-Y', strtotime($value));
     }
 
-    public function scopeSearch($query, $search = '', $field = '') {
+    public function scopeSearch($query, $search = '', $field = '')
+    {
         if (empty($field)) {
             $fields = array('fullname', 'email', 'phone');
         } else {
@@ -120,13 +133,32 @@ class User extends Authenticatable {
 
     /*
     |----------------------------------------------------------
+    | List Job
+    |----------------------------------------------------------
+    | @params
+    | @return array
+    | @author: Phuonglv
+    */
+    public $listJob = array(
+        1 => 'Nhân viên văn phòng',
+        2 => 'Nhân viên nhà nước',
+        3 => 'Kinh doanh tự do',
+        4 => 'Công nhân nhà máy',
+        5 => 'Doanh nghiệp tư nhân',
+        6 => 'Hộ kinh doanh cá thể',
+        7 => 'Ngành nghề khác'
+    );
+
+    /*
+    |----------------------------------------------------------
     | GET SERVICE LIST OF AN USER
     |----------------------------------------------------------
     | @params
     | @return array of service id
     | @author: tantan
     */
-    public function services() : array{
+    public function services(): array
+    {
         $list = \Common::getServicesOfUser($this->id);
         return $list;
     }
@@ -139,9 +171,10 @@ class User extends Authenticatable {
     | @return array of location id
     | @author: tantan
     */
-    public function locations() : array{
+    public function locations(): array
+    {
         $list = \Common::getDistrictsOfUser($this->id);
-        if( !empty($this->district_id) && !in_array($this->district_id, $list) ){
+        if (!empty($this->district_id) && !in_array($this->district_id, $list)) {
             $list[] = $this->district_id;
         }
         return $list;
@@ -155,8 +188,9 @@ class User extends Authenticatable {
     | @return array of service id
     | @author: tantan
     */
-    public function saveServices(array $services = []){
-        RelationModel::where('source_table' , 'users')
+    public function saveServices(array $services = [])
+    {
+        RelationModel::where('source_table', 'users')
             ->where('source_id', $this->id)
             ->where('target_table', 'services')
             ->forceDelete();
@@ -180,8 +214,9 @@ class User extends Authenticatable {
     | @return array of location id
     | @author: tantan
     */
-    public function saveLocations(array $locations = []){
-        RelationModel::where('source_table' , 'users')
+    public function saveLocations(array $locations = [])
+    {
+        RelationModel::where('source_table', 'users')
             ->where('source_id', $this->id)
             ->where('target_table', 'locations')
             ->forceDelete();

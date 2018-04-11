@@ -1,5 +1,6 @@
 <?php namespace App\Http\Repositories\Frontends\Users;
 
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\Users\User;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Events\UserRegister;
+use function PHPSTORM_META\type;
 use Validator;
 
 class UsersRepository extends Repository
@@ -284,9 +286,14 @@ class UsersRepository extends Repository
     {
         $user_data = $this->user::where('id', '=', $user_id)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
+        $listJob = $this->user->listJob;
+
         if ($user_data) {
-            return view('frontend.users.userinfo', ['data' => $user_data]);
+            $user_type = $user_data['type'];
+            return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
+            //return view('frontend.users.userinfo', ['data' => $user_data]);
         }
+
     }
 
     /*
@@ -298,15 +305,23 @@ class UsersRepository extends Repository
    | @method POST
    | @Author : phuonglv
     */
-    public function updateUserInfoLender($params)
+    public function updateUserInfo($params)
     {
         //check user
         $where = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
         $user_data = $this->user::where($where)->get()->toArray();
-        dd($user_data);
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
         if ($user_data) {
-            return view('frontend.users.userinfo', ['data' => $user_data]);
+            $id = (int)$params['id'];
+            unset($params['id']);
+            unset($params['phone']);
+            $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
+            if (!$date) {
+                $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+            }
+            $date = $date->format('Y-m-d');
+            $params['birthday'] = $date;
+            $this->user::where('id', '=', $id)->update($params);
         }
     }
 }

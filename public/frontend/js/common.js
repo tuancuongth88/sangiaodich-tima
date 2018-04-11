@@ -715,7 +715,42 @@ $('#btnUpdateInfoLender').click(function (e) {
 
     $.ajax({
         type: "POST",
-        url: '/user/update-info-lender',
+        url: '/user/update-user-info-lender',
+        data: formData,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+        processData: false, // NEEDED, DON'T OMIT THIS
+        success: function (data) {
+            alert(data);
+        }
+    });
+    e.preventDefault();
+});
+
+
+$('#btnUpdateInfoLoaner').click(function (e) {
+    var formData = new FormData();
+    formData.append('id', $('#hddUserID').val());
+    formData.append('fullname', $('#txtFullName').val());
+    formData.append('phone', $('#txtPhone').val());
+    formData.append('card_number', $('#txtCardNumber').val());
+    formData.append('birthday', $('#txtBirthDay').val());
+    formData.append('sex', $('#slSex').val());
+    formData.append('email', $('#txtEmail').val());
+    formData.append('city_id', $('#cbCity').val());
+    formData.append('district_id', $('#cbDistrict').val());
+    formData.append('ward_id', $('#cbWard').val());
+    formData.append('address', $('#txtAddress').val());
+    formData.append('job', $('#slJob').val());
+    formData.append('company_name', $('#txtCompanyName').val());
+    formData.append('company_address', $('#txtCompanyAddress').val());
+    formData.append('company_phone', $('#txtCompanyPhone').val());
+
+    $.ajax({
+        type: "POST",
+        url: '/user/update-user-info-loaner',
         data: formData,
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -116,7 +116,8 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::get('/{user}/userinfo', 'Frontends\Users\UsersController@getUserInFoForm')->name('frontend.user.userinfo');
 
-    Route::post('/update-info-lender', 'Frontends\Users\UsersController@updateUserInfoLender');
+    Route::post('/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo');
+    Route::post('/update-user-info-loaner', 'Frontends\Users\UsersController@updateUserInfo');
 });
 
 /*
