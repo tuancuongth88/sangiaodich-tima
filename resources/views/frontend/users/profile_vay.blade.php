@@ -12,15 +12,15 @@
                      title="Đổi ảnh đại diện khác">
                 <input type="file" name="uploadAvatar" id="uploadAvatar" multiple="" style="display: none;"
                        accept="image/*">
-                <input type="hidden" id="hddImgDomain" value="http://rs.tima.vn/staticFile">
+                <input type="hidden" id="hddImgDomain" value="">
                 <input type="hidden" id="UserID" value="643463">
                 <div class="profilecard__body media-body align-self-center">
                     <p class="fs-13 text-gray-light mb-0">
                         <span>Thông tin tài khoản</span>
                         <span style="position: absolute; right: 68px;margin-top:-7px" class="hidden-xs-down">
                             <a class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm"
-                               href="http://tima.vn/Borrower/ListLoan/">
-                                Quản lý đơn vay
+                               href="{{action('Frontends\TransactionHistory\TransactionHistoryController@index')}}">
+                                Lịch sử đơn vay
                             </a>
                         </span>
                     </p>

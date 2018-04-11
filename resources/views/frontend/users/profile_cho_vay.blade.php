@@ -19,12 +19,8 @@
                         <span>Thông tin tài khoản</span>
                         <span style="position: absolute; right: 68px;margin-top:-7px" class="hidden-xs-down">
                            <a class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm"
-                              href="http://tima.vn/Lender/ListLoan/">
+                              href="{{action('Frontends\TransactionHistory\TransactionHistoryController@index')}}">
                            Quản lý đơn vay
-                           </a>
-                           <a href="http://tima.vn/nap-tien.html"
-                              class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm">
-                           <i class="fa fa-usd" aria-hidden="true"></i> Nạp tiền
                            </a>
                            </span>
                     </p>
@@ -46,9 +42,9 @@
                                 <label class="col-sm-4 fs-13">Số dư<span style="margin-left: 8px">:</span></label>
                                 <label class="col-sm-4 fs-13">
                                     <b>
-                                        <a href="http://tima.vn/lich-su-giao-dich.html"
+                                        <a href="#"
                                            class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm">
-                                            9,000
+                                            {{number_format($data['amount'])}}
                                         </a>
                                     </b>
                                 </label>
