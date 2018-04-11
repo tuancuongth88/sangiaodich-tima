@@ -5,42 +5,34 @@ namespace App\Http\Controllers\Frontends\TransactionHistory;
 use App\Http\Controllers\Controller;
 use App\Http\Repositories\Frontends\TransactionHistory\TransactionHistoryRepository;
 
-class TransactionHistoryController extends Controller
-{
+class TransactionHistoryController extends Controller {
 
     private $repository;
 
-    function __construct(TransactionHistoryRepository $repository)
-    {
+    function __construct(TransactionHistoryRepository $repository) {
         $this->repository = $repository;
     }
 
-    public function index()
-    {
+    public function index() {
         return $this->repository->index();
     }
 
-    public function getTranByProduct()
-    {
+    public function getTranByProduct() {
         return $this->repository->getTranByProduct();
     }
 
-    public function searchTranByPhoneAndIdCard()
-    {
+    public function searchTranByPhoneAndIdCard() {
         return $this->repository->searchTranByPhoneAndIdCard();
     }
 
-    public function manage()
-    {
+    public function manage() {
         return $this->repository->manageTran();
     }
 
-    public function m_search()
-    {
+    public function m_search() {
         return $this->repository->getManageBysServiceAndStatus();
     }
-    public function updatestatus()
-    {
+    public function updatestatus() {
         return $this->repository->updateStatus();
     }
 
@@ -52,8 +44,8 @@ class TransactionHistoryController extends Controller
     | @method GET
     | @return view
     | @author tantan
-    */
-    public function registerForm($service){
+     */
+    public function registerForm($service) {
         return $this->repository->getDetailForm($service);
     }
 
@@ -65,8 +57,8 @@ class TransactionHistoryController extends Controller
     | @method POST
     | @return responsive
     | @author tantan
-    */
-    public function postRegisterForm($service){
+     */
+    public function postRegisterForm($service) {
         return $this->repository->postDetailForm($service);
     }
 }

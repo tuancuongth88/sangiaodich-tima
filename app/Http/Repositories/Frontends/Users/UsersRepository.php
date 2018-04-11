@@ -18,6 +18,8 @@ class UsersRepository extends Repository
 {
 
     protected $user;
+    protected $request;
+    protected $auth;
 
     function __construct(ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 2, $current = 1)
     {
@@ -205,6 +207,7 @@ class UsersRepository extends Repository
     public function getProfile($user)
     {
         $data = $this->model::find($user);
+        $listJob = $this->user->listJob;
         if ($data == null) {
             return abort(404);
         }
@@ -213,9 +216,9 @@ class UsersRepository extends Repository
                 ->with(compact('data'));
         }
         if (Auth::user()->type == \PermissionCommon::VAY) {
-            return view('frontend.users.profile_vay');
+            return view('frontend.users.profile_vay', ['data' => $data, 'listJob' => $listJob]);
         }
-        return view('frontend.users.profile');
+        return view('frontend.users.profile', ['data' => $data, 'listJob' => $listJob]);
     }
 
     /*
@@ -290,8 +293,8 @@ class UsersRepository extends Repository
 
         if ($user_data) {
             $user_type = $user_data['type'];
-            return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
-            //return view('frontend.users.userinfo', ['data' => $user_data]);
+            //return view('frontend.users.userinfoloan', ['data' => $user_data, 'listJob' => $listJob, 'user_type' => $user_type]);
+            return view('frontend.users.userinfo', ['data' => $user_data]);
         }
 
     }
@@ -315,13 +318,91 @@ class UsersRepository extends Repository
             $id = (int)$params['id'];
             unset($params['id']);
             unset($params['phone']);
-            $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
-            if (!$date) {
-                $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+            unset($params['_token']);
+            if (isset($params['birthday'])) {
+                $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
+                if (!$date) {
+                    $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
+                }
+                $date = $date->format('Y-m-d');
+                $params['birthday'] = $date;
             }
-            $date = $date->format('Y-m-d');
-            $params['birthday'] = $date;
             $this->user::where('id', '=', $id)->update($params);
+            return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');
+        }
+    }
+
+    /*
+   |--------------------------------------------------------------------------
+   | Upload avatar
+   |--------------------------------------------------------------------------
+   | @params
+   | @return response
+   | @method POST
+   | @Author : phuonglv
+    */
+    public function updateAvatar()
+    {
+
+        //check user
+        $id = $this->auth->user()->id;
+        $obj_user = $this->user::where('id', $id)->get()->toArray();
+        if ($this->request->hasFile('uploadAvatar')) {
+            $file = $this->request->uploadAvatar;
+            $destinationPath = public_path() . IMAGEUSER;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            $data['avatar'] = IMAGEUSER . $filename;
+        }
+        if (isset($data['avatar'])) {
+            $this->user::where('id', '=', $id)->update($data);
+            if (isset($obj_user[0]) && isset($obj_user[0]['avatar'])) {
+                unlink(public_path() . $obj_user[0]['avatar']);
+            }
+            return response()->json(array('success' => true, 'Result' => $data['avatar']));
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload image user profile
+    |--------------------------------------------------------------------------
+    | @params
+    | @return response
+    | @method POST
+    | @Author : phuonglv
+     */
+    public function uploadImgProfile()
+    {
+
+        //check user
+        $id = $this->auth->user()->id;
+        $typeImg = $this->request->typeImg;
+        $typeImg_str = 'personal_records';
+        $data = array();
+        $obj_user = $this->user::where('id', $id)->get()->toArray();
+
+        if ($this->request->hasFile('uploadImg')) {
+            $file = $this->request->uploadImg;
+            $path_user = IMAGEUSER . $id . '/';
+            $destinationPath = public_path() . $path_user;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            if ($typeImg == PERSONAL_RECORDS) {
+
+            } elseif ($typeImg == PROFILE_RESIDENCE) {
+                $typeImg_str = 'profile_residence';
+            } elseif ($typeImg == INCOME_RECORDS) {
+                $typeImg_str = 'income_records';
+            }
+            $data[$typeImg_str] = $path_user . $filename;
+        }
+        if (!empty($data)) {
+            $this->user::where('id', $id)->update($data);
+            if (isset($obj_user[0]) && isset($obj_user[0][$typeImg_str])) {
+                unlink(public_path() . $obj_user[0][$typeImg_str]);
+            }
+            return response()->json(array('success' => true, 'Result' => $path_user . $filename, 'typeImg' => $typeImg));
         }
     }
 }

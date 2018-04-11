@@ -5,85 +5,76 @@ namespace App\Models\TransactionHistory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class TransactionHistory extends Model
-{
+class TransactionHistory extends Model {
     use SoftDeletes;
 
-    const STATUS_WAIT = 1;
-    const STATUS_RECEIVED = 2;
+    const STATUS_WAIT      = 1;
+    const STATUS_RECEIVED  = 2;
     const STATUS_BORROWING = 3;
-    const STATUS_APPROVE = 4;
-    const STATUS_CANCEL = 5;
+    const STATUS_APPROVE   = 4;
+    const STATUS_CANCEL    = 5;
 
-    protected $table = 'transaction_history';
+    protected $table      = 'transaction_history';
     protected $primaryKey = 'id';
 
     public $fillable = [
-        'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id', 'district_id,amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id', 'telesales_time', 'sales_id',
-        'sales_time', 'fee', 'fee_type', 'percent_discount'
+        'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id',
+        'district_id', 'amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id',
+        'telesales_time', 'sales_id', 'sales_time', 'fee', 'fee_type', 'percent_discount',
     ];
 
     protected $dates = ['deleted_at'];
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
     }
 
-    public function userVay(){
+    public function userVay() {
         return $this->belongsTo('App\Models\Users\User', 'user_id', 'id');
     }
 
-    public function service()
-    {
+    public function service() {
         return $this->belongsTo('App\Models\Services\Service', 'service_code');
     }
 
-
-    public function city()
-    {
+    public function city() {
         $city = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
         if ($this->city_id) {
             $data = getLocation($this->city_id);
-            return $data ? (object)$data : $city;
+            return $data ? (object) $data : $city;
         }
-        return (object)$city;
+        return (object) $city;
     }
 
-    public function district()
-    {
+    public function district() {
         $district = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
         if ($this->district_id) {
             $data = !empty($this->city_id) ? getLocation($this->district_id, $this->city_id) : getLocation($this->district_id);
-            return $data ? (object)$data : $district;
+            return $data ? (object) $data : $district;
         }
-        return (object)$district;
+        return (object) $district;
     }
 
-    public function ward()
-    {
+    public function ward() {
         $ward = ['name' => null, 'depth' => null, 'tid' => null, 'parent1' => null, 'parent2' => null];
         if ($this->ward_id) {
             $data = ($this->city_id) ? getLocation($this->ward_id, $this->city_id) : getLocation($this->ward_id);
-            return $data ? (object)$data : $ward;
+            return $data ? (object) $data : $ward;
         }
-        return (object)$ward;
+        return (object) $ward;
     }
 
     //1 ch
     public $status_transactionhistory =
-        array(
-            self::STATUS_WAIT => 'Chờ nhận',
-            self::STATUS_RECEIVED => 'Đã nhận',
-            self::STATUS_BORROWING => 'Đang vay',
-            self::STATUS_APPROVE => 'Đã tất toán',
-            self::STATUS_CANCEL => 'Đã hủy'
-        );
+    array(
+        self::STATUS_WAIT      => 'Chờ nhận',
+        self::STATUS_RECEIVED  => 'Đã nhận',
+        self::STATUS_BORROWING => 'Đang vay',
+        self::STATUS_APPROVE   => 'Đã tất toán',
+        self::STATUS_CANCEL    => 'Đã hủy',
+    );
 
-
-    public function scopeSearch($query, $search = '', $field = '')
-    {
+    public function scopeSearch($query, $search = '', $field = '') {
         if (empty($field)) {
             $fields = array('question');
         } else {
@@ -108,8 +99,7 @@ class TransactionHistory extends Model
         });
     }
 
-    public function scopePagination($query, $itemPerPages, $currentPage)
-    {
+    public function scopePagination($query, $itemPerPages, $currentPage) {
         return $query->take($itemPerPages)->skip($itemPerPages * ($currentPage - 1));
     }
 

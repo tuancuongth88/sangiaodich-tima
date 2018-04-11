@@ -71,7 +71,7 @@ Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
 Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
-Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage');
+Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
@@ -114,10 +114,9 @@ Route::group(['prefix' => 'user'], function () {
     //  Save list district to an user
     Route::post('/{user}/edit/save-locations', 'Frontends\Users\UsersController@postSaveLocation')->name('frontend.user.save_location')->middleware('owner');
 
-    Route::get('/{user}/userinfo', 'Frontends\Users\UsersController@getUserInFoForm')->name('frontend.user.userinfo');
-
-    Route::post('/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo');
-    Route::post('/update-user-info-loaner', 'Frontends\Users\UsersController@updateUserInfo');
+    Route::post('/{user}/update-user-info-lender', 'Frontends\Users\UsersController@updateUserInfo')->name('frontend.user.update-user-info-lender')->middleware('owner');
+    Route::post('/uploadavatar', 'Frontends\Users\UsersController@uploadAvatar');
+    Route::post('/uploadimage', 'Frontends\Users\UsersController@uploadimgprofile');
 });
 
 /*

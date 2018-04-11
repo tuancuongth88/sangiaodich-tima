@@ -27,3 +27,10 @@ define('NU', 1);
  */
 define('UNACTIVE', 0);
 define('ACTIVED', 1);
+
+/**
+ * Loai UPLOAD CHỨNG TỪ
+ */
+define('PERSONAL_RECORDS', 1);
+define('PROFILE_RESIDENCE', 2);
+define('INCOME_RECORDS', 3);

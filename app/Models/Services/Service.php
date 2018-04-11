@@ -19,8 +19,13 @@ class Service extends Model
     const UNACCEPT = 0;
     const ACCEPTED = 1;
     const DRAFT = 2;
+    
     const ONE = 1;
     const ZERO = 0;
+
+    // tyoe fee
+    const MIENPHI = 1;
+    const COPHI   = 2;
 
     protected $table = 'services';
     protected $primaryKey = 'id';
@@ -97,5 +102,11 @@ class Service extends Model
             $_return[] = ['number' => $value, 'text' => VndTextSummary($value)];
         }
         return $_return;
+    }
+
+    public static function list_type_service(){
+        return [self::MIENPHI => 'Miễn phí',
+                self::COPHI   => 'Có phí'
+                ];
     }
 }
