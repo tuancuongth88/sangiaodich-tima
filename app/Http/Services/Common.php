@@ -114,4 +114,20 @@ class Common {
         return $services;
     }
 
+    /*
+    |----------------------------------------------------------
+    | GET FORM BY SERVICE CODE
+    |----------------------------------------------------------
+    | @params
+    | @return array of form infomation
+    | @author: tantan
+    */
+    public static function getFormOfService($service_code){
+        return [
+            'vay-tra-gop-theo-ngay' => [
+
+            ]
+        ];
+    }
+
 }

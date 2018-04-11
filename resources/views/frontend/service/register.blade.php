@@ -21,7 +21,6 @@ foreach ($dayConfig as $key => $value) {
 
 @section('content')
 {{ Form::open(['route' => ['services.site.register', $data->slug], 'method' => 'POST']) }}
-    {{ Form::hidden('service_id', $data->id) }}
     <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('frontend/images/bg-hk.jpg') }}');">
         <div class="container d-flex flex-column align-items-end px-0">
             <div class="w-100 w-xl-66 relative px-3">

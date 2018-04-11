@@ -19,6 +19,7 @@ class Service extends Model
     const UNACCEPT = 0;
     const ACCEPTED = 1;
     const DRAFT = 2;
+    
     const ONE = 1;
     const ZERO = 0;
 

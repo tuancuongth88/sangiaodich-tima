@@ -309,10 +309,10 @@ class TransactionHistoryRepository extends Repository
         $paymentDay = strtotime('+' . $unitDay);
         $input['amount_day'] = round(($paymentDay - time()) / (60 * 60 * 24));
         $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
-        $input['service_id'] = $service->id;
+        $input['service_code'] = $service->id;
         $input['fee'] = $service->fee;
         $input['percent_discount'] = $service->discount;
-        $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? ONE : ZERO;
+        $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
 
         $this->model->create($input);
         return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
