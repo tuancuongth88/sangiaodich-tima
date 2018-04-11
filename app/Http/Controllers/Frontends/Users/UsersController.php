@@ -194,4 +194,18 @@ class UsersController extends Controller
         return $this->repository->updateAvatar();
     }
 
+    /*
+    |--------------------------------------------------------------------------
+   | User InFo.
+   |--------------------------------------------------------------------------
+   | @params
+   | @return Response
+   | @method Post
+   | @Author : phuonglv
+ */
+    public function uploadimgprofile()
+    {
+        return $this->repository->uploadImgProfile();
+    }
+
 }

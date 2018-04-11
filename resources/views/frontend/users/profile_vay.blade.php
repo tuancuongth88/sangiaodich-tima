@@ -7,7 +7,7 @@
         <div class="tm-account bg-white p-md-5 pt-md-4 p-3">
             <div class="profilecard media bg-gray-lighter p-sm-4 p-3" style="margin-bottom: 50px;">
                 <img class="profilecard__img wf-80 wf-md-126 mr-md-5 mr-3" style="cursor: pointer;"
-                     src="{{asset('frontend/images/avatar-default-2.svg')}}"
+                     src="{{ ($data['avatar']!='') ? $data['avatar']:asset('frontend/images/avatar-default-2.svg')}}"
                      alt="avatar-san-tai-chinh-Thanh Lam" id="imgAvatar" onclick="CallUploadFile()"
                      title="Đổi ảnh đại diện khác">
                 <input type="file" name="uploadAvatar" id="uploadAvatar" multiple="" style="display: none;"
@@ -72,7 +72,7 @@
                                     Họ &amp;Tên</label>
                                 <div class="col-xl-8 col-sm-7">
                                     <input type="text" class="form-control" id="txtFullName" placeholder=""
-                                         name="fullname"  value="{{$data['fullname']}}">
+                                           name="fullname" value="{{$data['fullname']}}">
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
                                     <input type="tel" class="form-control" id="txtPhone" placeholder=""
-                                          name="phone" readonly value="{{$data['phone']}}">
+                                           name="phone" readonly value="{{$data['phone']}}">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                        class="col-sm-4 col-form-label text-sm-right">CMND</label>
                                 <div class="col-xl-8 col-sm-7">
                                     <input type="text" class="form-control" id="txtCardNumber" placeholder=""
-                                          name="card_number" value="{{$data['card_number']}}">
+                                           name="card_number" value="{{$data['card_number']}}">
                                 </div>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
                                     <input type="text" class="form-control" id="txtAddress" placeholder=""
-                                          name="address" value="{{$data['address']}}">
+                                           name="address" value="{{$data['address']}}">
                                 </div>
                             </div>
                         </div>

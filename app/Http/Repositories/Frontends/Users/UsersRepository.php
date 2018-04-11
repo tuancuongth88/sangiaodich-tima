@@ -348,14 +348,42 @@ class UsersRepository extends Repository
         $id = $this->auth->user()->id;
         if ($this->request->hasFile('uploadAvatar')) {
             $file = $this->request->uploadAvatar;
-            $destinationPath = public_path() . IMAGENEWS;
+            $destinationPath = public_path() . IMAGEUSER;
             $filename = time() . '_' . $file->getClientOriginalName();
             $uploadSuccess = $file->move($destinationPath, $filename);
-            $data['avatar'] = IMAGENEWS . $filename;
+            $data['avatar'] = IMAGEUSER . $filename;
         }
         if (isset($data['avatar'])) {
             $this->user::where('id', '=', $id)->update($data);
-            return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');
+            return response()->json(array('success' => true, 'Result' => $data['avatar']));
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload image user profile
+    |--------------------------------------------------------------------------
+    | @params
+    | @return response
+    | @method POST
+    | @Author : phuonglv
+     */
+    public function uploadImgProfile()
+    {
+
+        //check user
+        $id = $this->auth->user()->id;
+        if ($this->request->hasFile('uploadImg')) {
+            $typeImg = $this->request->typeImg;
+            $file = $this->request->uploadImg;
+            $destinationPath = public_path() . IMAGEUSER . '/' . $id;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            $data['avatar'] = IMAGEUSER . $filename;
+        }
+        if (isset($data['avatar'])) {
+            $this->user::where('id', '=', $id)->update($data);
+            return response()->json(array('success' => true, 'Result' => $data['avatar']));
         }
     }
 }

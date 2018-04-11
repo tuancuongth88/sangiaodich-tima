@@ -742,13 +742,25 @@ $("#uploadImg").change(function () {
 function DisplayPhotoitem(typeImg, pathImg) {
 
     if (typeImg === 1) {
-        $("#divImgCardNumber").append('<div class="uploadct-item__img mr-5"> <img class="img-fluid" src="' + pathImg + '" alt=""> </div>');
+        $("#divImgCardNumber").append(
+            '<div class="uploadct-item__img mr-5"> ' +
+            '<img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
 
     } else if (typeImg === 2) {
-        $("#divImgLocation").append('<div class="uploadct-item__img mr-5"> <img class="img-fluid" src="' + pathImg + '" alt=""> </div>');
+        $("#divImgLocation").append(
+            '<div class="uploadct-item__img mr-5">' +
+            ' <img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
 
     } else if (typeImg === 3) {
-        $("#divImgContractAndSalary").append('<div class="uploadct-item__img mr-5"> <img class="img-fluid" src="' + pathImg + '" alt=""> </div>');
+        $("#divImgContractAndSalary").append(
+            '<div class="uploadct-item__img mr-5">' +
+            ' <img class="img-fluid" src="' + pathImg + '" alt="">' +
+            ' </div>'
+        );
     }
 }
 
@@ -770,10 +782,10 @@ $("#uploadAvatar").change(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
-            if (data.Result > 0) {
-                var strImg = $("#hddImgDomain").val() + data.Img;
-                $("#imgAvatar").attr("src", strImg);
-                DisplaySuccess('Ảnh đại diện của bạn đã cập nhật xong');
+            console.log(data);
+            if (data) {
+                $("#imgAvatar").attr("src", data.Result);
+                //DisplaySuccess('Ảnh đại diện của bạn đã cập nhật xong');
             } else {
                 DisplayError('Ảnh đại diện của bạn chưa cập nhật được lên hệ thống');
             }
