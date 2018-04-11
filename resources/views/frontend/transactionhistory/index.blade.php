@@ -256,7 +256,6 @@
                                                     @if($data_val['status']==1)
                                                         <button type="button"
                                                                 class="btn btn-outline-danger btn-sm updatestatus"
-                                                                data-toggle="modal" data-target="#myModal"
                                                                 title="Hủy đơn vay"
                                                                 onclick="showModal(4, '', '{{$data_val['id']}}', '5,000,000' )">
                                                             Hủy
