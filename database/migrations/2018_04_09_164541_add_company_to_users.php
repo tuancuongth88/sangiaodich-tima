@@ -19,6 +19,9 @@ class AddCompanyToUsers extends Migration
             $table->integer('company_phone')->after('company_name')->nullable();
             $table->string('company_address', 256)->after('company_phone')->nullable();
             $table->integer('card_number')->after('phone')->nullable();
+            $table->string('personal_records', 256)->after('company_phone')->nullable();
+            $table->string('profile_residence', 256)->after('company_phone')->nullable();
+            $table->string('income_records', 256)->after('company_phone')->nullable();
         });
     }
 
