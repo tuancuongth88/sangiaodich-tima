@@ -220,7 +220,7 @@ $date = strtotime($value->created_at);
                                                 11,000 ₫
                                             </span>
                                             <hr class="my-0">
-                                            <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">22,000 ₫ </span>
+                                            <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">{{ $value->fee }} ₫ </span>
                                             <span style="font-size:12px;color:black;margin-left:5px;">-50%</span>
                                         </div>
                                     </div>
