@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\FeeDiscountConfig\FeeDiscountConfig;
-use App\Models\FeeService\FeeService;
 
 function safestrtotime($s)
 {
@@ -377,46 +375,6 @@ function convertAmount($amount)
         $result = $amount / 1000000000;
         return $result . ' Tỷ';
     }
-}
-
-/*
-|--------------------------------------------------------------------------
-| convert amount
-|--------------------------------------------------------------------------
-| @return list of location
-| @Author : cuongnt
- */
-function convertFeeDiscount($service_id)
-{
-
-    $obj_feeService = null;
-    $obj_feeDiscount = null;
-    $feeService = FeeService::where('service_id', '=', $service_id)->get()->toArray();
-    if (isset($feeService[0]) && !empty($feeService[0])) {
-        $obj_feeService = $feeService[0];
-    }
-
-    $feeDiscount = FeeDiscountConfig::where('service_id', '=', $service_id)->get()->toArray();
-    if (isset($feeDiscount[0]) && !empty($feeDiscount[0])) {
-        $obj_feeDiscount = $feeDiscount[0];
-    }
-    if (!$obj_feeService || !$obj_feeDiscount) {
-        return ['fee' => 0, 'fee_service' => 0, 'discount_percent' => 0];
-    }
-
-    $fee_service = $obj_feeService['fee'];
-    $validate_time = $obj_feeDiscount['validate_time'];
-    $expire_time = $obj_feeDiscount['expire_time'];
-    $discount_percent = $obj_feeDiscount['discount_percent'];
-
-    $today = date("Y-m-d H:i:s");
-    if (($validate_time <= $today) && ($today <= $expire_time)) {
-        $fee = ($discount_percent * $fee_service) / 100;
-    } else {
-        $fee = $fee_service;
-    }
-    return ['fee' => number_format($fee), 'fee_service' => number_format($fee_service), 'discount_percent' => $discount_percent];
-
 }
 
 /*

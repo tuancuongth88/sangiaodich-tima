@@ -19,8 +19,8 @@
                         <span>Thông tin tài khoản</span>
                         <span style="position: absolute; right: 68px;margin-top:-7px" class="hidden-xs-down">
                             <a class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm"
-                               href="http://tima.vn/Borrower/ListLoan/">
-                                Quản lý đơn vay
+                               href="{{action('Frontends\TransactionHistory\TransactionHistoryController@index')}}">
+                                Lịch sử đơn vay
                             </a>
                         </span>
                     </p>

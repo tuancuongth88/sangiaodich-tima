@@ -256,7 +256,6 @@
                                                     @if($data_val['status']==1)
                                                         <button type="button"
                                                                 class="btn btn-outline-danger btn-sm updatestatus"
-                                                                data-toggle="modal" data-target="#myModal"
                                                                 title="Hủy đơn vay"
                                                                 onclick="showModal(4, '', '{{$data_val['id']}}', '5,000,000' )">
                                                             Hủy
@@ -389,7 +388,6 @@
 
     <script>
         function showModal(typeId, name, loanCreditId, totalMoney) {
-
             $.ajax(
                 {
                     url: "lich-su-don-vay/updatestatus" + "?loanCreditId=" + loanCreditId + "&status=" + 5,
@@ -397,8 +395,7 @@
                     datatype: "html"
                 })
                 .done(function (data) {
-
-                    //todo
+                    location.reload();
                 })
                 .fail(function (jqXHR, ajaxOptions, thrownError) {
                     alert('No response from server');

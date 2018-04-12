@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers\Frontends\Users;
 
-use Illuminate\Http\Request;
-use App\Http\Repositories\Frontends\Users\UsersRepository;
-use Illuminate\Support\Facades\Auth;
 use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\Frontends\Users\UsersRepository;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -55,7 +55,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | GET LOGIN FORM.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method GET
     | @Author : tantan
@@ -69,7 +69,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | POST LOGIN FORM.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
@@ -83,7 +83,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | GET PROFILE FORM.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method GET
     | @Author : tantan
@@ -97,7 +97,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | POST LOGIN FORM.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
@@ -111,7 +111,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | SAVE LIST SERVICE.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
@@ -125,7 +125,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | SAVE LIST LOCATION.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
@@ -139,7 +139,7 @@ class UsersController extends Controller
     |--------------------------------------------------------------------------
     | LOGOUT.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method GET
     | @Author : tantan
@@ -152,13 +152,13 @@ class UsersController extends Controller
     }
 
     /*
-       |--------------------------------------------------------------------------
-       | User InFo.
-       |--------------------------------------------------------------------------
-       | @params
-       | @return Response
-       | @method GET
-       | @Author : phuonglv
+    |--------------------------------------------------------------------------
+    | User InFo.
+    |--------------------------------------------------------------------------
+    | @params
+    | @return Response
+    | @method GET
+    | @Author : phuonglv
      */
     public function getUserInFoForm($user_id)
     {
@@ -166,18 +166,56 @@ class UsersController extends Controller
     }
 
     /*
-   |--------------------------------------------------------------------------
-   | User InFo.
-   |--------------------------------------------------------------------------
-   | @params
-   | @return Response
-   | @method Post
-   | @Author : phuonglv
- */
+    |--------------------------------------------------------------------------
+    | User InFo.
+    |--------------------------------------------------------------------------
+    | @params
+    | @return Response
+    | @method Post
+    | @Author : phuonglv
+     */
+
     public function updateUserInfo()
     {
-        $params = $this->request->all();
-        return $this->repository->updateUserInfo($params);
+        return $this->repository->updateUserInfo();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | User InFo.
+    |--------------------------------------------------------------------------
+    | @params
+    | @return Response
+    | @method Post
+    | @Author : phuonglv
+     */
+    public function uploadAvatar()
+    {
+        return $this->repository->updateAvatar();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | User InFo.
+    |--------------------------------------------------------------------------
+    | @params
+    | @return Response
+    | @method Post
+    | @Author : phuonglv
+     */
+    public function uploadimgprofile()
+    {
+        return $this->repository->uploadImgProfile();
+    }
+
+    public function getPurchase()
+    {
+        return $this->repository->getPurchase();
+    }
+
+    public function postPurchase()
+    {
+        return $this->repository->postPurchase();
     }
 
     /*

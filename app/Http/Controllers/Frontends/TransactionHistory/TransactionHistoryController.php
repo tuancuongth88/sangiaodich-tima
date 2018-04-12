@@ -62,6 +62,10 @@ class TransactionHistoryController extends Controller {
         return $this->repository->postDetailForm($service);
     }
 
+    public function putStatusTransaction($id) {
+        return $this->repository->putStatusTransaction($id);
+    }
+
     /*
     |---------------------------------------
     | GET UPDATE FORM AFTER SEND A TRANSACTION
