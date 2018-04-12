@@ -388,7 +388,6 @@
 
     <script>
         function showModal(typeId, name, loanCreditId, totalMoney) {
-
             $.ajax(
                 {
                     url: "lich-su-don-vay/updatestatus" + "?loanCreditId=" + loanCreditId + "&status=" + 5,
@@ -396,8 +395,7 @@
                     datatype: "html"
                 })
                 .done(function (data) {
-
-                    //todo
+                    location.reload();
                 })
                 .fail(function (jqXHR, ajaxOptions, thrownError) {
                     alert('No response from server');

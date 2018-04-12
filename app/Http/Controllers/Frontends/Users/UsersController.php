@@ -176,8 +176,7 @@ class UsersController extends Controller
  */
     public function updateUserInfo()
     {
-        $params = $this->request->all();
-        return $this->repository->updateUserInfo($params);
+        return $this->repository->updateUserInfo();
     }
 
     /*

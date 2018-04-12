@@ -74,15 +74,14 @@ class User extends Authenticatable
      */
 
     public static $rules = [
-        'card_number' => 'number',
-        'company_phone' => 'number',
-        'phone' => 'number'
+        'fullname' => 'required',
+        'card_number' => 'required|regex:[0-9]',
+        'company_phone' => 'regex:[0-9]',
     ];
 
     public static $messages = [
-        'card_number' => ':attribute Bạn phải nhập kiểu số.',
-        'company_phone' => ':attribute Bạn phải nhập kiểu số.',
-        'phone' => ':attribute Bạn phải nhập kiểu số.'
+        'card_number' => ':attribute Số điện thoại phải có 10 hoặc 11 số.',
+        'company_phone' => ':attribute Số điện thoại phải có 10 hoặc 11 số.'
     ];
 
     protected $hidden = [
