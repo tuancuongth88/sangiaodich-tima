@@ -61,4 +61,9 @@ class TransactionHistoryController extends Controller {
     public function postRegisterForm($service) {
         return $this->repository->postDetailForm($service);
     }
+
+    public function putStatusTransaction($id) {
+        return $this->repository->putStatusTransaction($id);
+    }
+
 }
