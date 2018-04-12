@@ -221,37 +221,39 @@
                 {{ Form::close() }}
             </div>
 
-            <div class="tm-dtcv bg-white p-3 px-md-5 pb-md-5 pt-md-4" id="editDistrictSpice">
-                <h2 class="text-uppercase fs-16 fw-6 mb-0" id="idDistrictShowSpice">
-                    Các quận huyện bạn nhận hồ sơ
-                </h2>
+            @if( $data->city_id != '' )
+                <div class="tm-dtcv bg-white p-3 px-md-5 pb-md-5 pt-md-4" id="editDistrictSpice">
+                    <h2 class="text-uppercase fs-16 fw-6 mb-0" id="idDistrictShowSpice">
+                        Các quận huyện bạn nhận hồ sơ
+                    </h2>
 
-                <hr class="mb-3">
-                {{ Form::open(['route' => ['frontend.user.save_location', $data->id], 'method' => 'POST']) }}
-                @csrf
-                <div class="districtDiv form-group row">
-                    @foreach( getLocationTree($data->city_id) as $key => $value )
-                        <div class="col-sm-3">
-                            <label class="custom-control fs-13 mr-5">
-                                <input value="{{ $value['tid'] }}" name="districts[]"
-                                       {{ in_array($value['tid'], $data->locations()) ? 'checked' : '' }} type="checkbox"
-                                       class="custom-control-input">
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description"
-                                      style="font-size: 17px">{{ $value['name'] }}</span>
-                            </label>
+                    <hr class="mb-3">
+                    {{ Form::open(['route' => ['frontend.user.save_location', $data->id], 'method' => 'POST']) }}
+                        @csrf
+                        <div class="districtDiv form-group row">
+                            @foreach( getLocationTree($data->city_id) as $key => $value )
+                                <div class="col-sm-3">
+                                    <label class="custom-control fs-13 mr-5">
+                                        <input value="{{ $value['tid'] }}" name="districts[]"
+                                               {{ in_array($value['tid'], $data->locations()) ? 'checked' : '' }} type="checkbox"
+                                               class="custom-control-input">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description"
+                                              style="font-size: 17px">{{ $value['name'] }}</span>
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                        <div class="form-group">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" onclick="UpdateDistrictSpices()">CẬP NHẬT TỈNH
+                                    THÀNH
+                                </button>
+                            </div>
+                        </div>
+                    {{ Form::close() }}
                 </div>
-                <div class="form-group">
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary" onclick="UpdateDistrictSpices()">CẬP NHẬT TỈNH
-                            THÀNH
-                        </button>
-                    </div>
-                </div>
-                {{ Form::close() }}
-            </div>
+            @endif
 
         </div>
     </div>
