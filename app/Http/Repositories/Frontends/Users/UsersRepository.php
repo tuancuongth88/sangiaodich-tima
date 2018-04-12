@@ -313,8 +313,6 @@ class UsersRepository extends Repository {
                 $date               = $date->format('Y-m-d');
                 $params['birthday'] = $date;
             }
-            $date               = $date->format('Y-m-d');
-            $params['birthday'] = $date;
             $this->user::where('id', '=', $id)->update($params);
             return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');
         }
