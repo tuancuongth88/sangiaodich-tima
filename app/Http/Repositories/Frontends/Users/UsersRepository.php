@@ -1,41 +1,40 @@
 <?php namespace App\Http\Repositories\Frontends\Users;
 
-use DateTime;
-use Illuminate\Support\Facades\Hash;
+use App\Events\UserRegister;
 use App\Http\Repositories\Administrators\Repository;
+use App\Models\Users\AccountLog;
 use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
-use App\Events\UserRegister;
+use DateTime;
 use function PHPSTORM_META\type;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class UsersRepository extends Repository
-{
+class UsersRepository extends Repository {
 
     protected $user;
 
-    function __construct(ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 2, $current = 1)
-    {
-        $this->model = $user;
+    function __construct(ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 2, $current = 1) {
+        $this->model    = $user;
         $this->response = $response;
-        $this->request = $request;
-        $this->auth = $auth;
-        $this->user = $user;
+        $this->request  = $request;
+        $this->auth     = $auth;
+        $this->user     = $user;
     }
 
     // field of user table.
-    const ID = 'id';
+    const ID       = 'id';
     const FULLNAME = 'fullname';
-    const PHONE = 'phone';
+    const PHONE    = 'phone';
     const USERNAME = 'username';
-    const EMAIL = 'email';
+    const EMAIL    = 'email';
     const PASSWORD = 'password';
-    const TYPE = 'type';
+    const TYPE     = 'type';
 
     /*
     |--------------------------------------------------------------------------
@@ -45,15 +44,14 @@ class UsersRepository extends Repository
     | @return mix \Validator
     | @Author : tantan
      */
-    public function loginValidator(array $array)
-    {
+    public function loginValidator(array $array) {
         $messages = [
-            'required' => 'Vui lòng nhập :attribute',
+            'required'                   => 'Vui lòng nhập :attribute',
             self::PASSWORD . '.required' => 'Vui lòng nhập mật khẩu.',
-            self::PHONE . '.required' => 'Vui lòng nhập số điện thoại.',
+            self::PHONE . '.required'    => 'Vui lòng nhập số điện thoại.',
         ];
         return Validator::make($array, [
-            self::PHONE => 'required',
+            self::PHONE    => 'required',
             self::PASSWORD => 'required',
         ], $messages);
     }
@@ -66,19 +64,18 @@ class UsersRepository extends Repository
     | @return mix \Validator
     | @Author : tantan
      */
-    public function validator(array $array)
-    {
+    public function validator(array $array) {
         $messages = [
-            'required' => 'Vui lòng nhập :attribute',
-            self::FULLNAME . '.required' => 'Vui lòng nhập họ tên',
-            self::FULLNAME . '.max' => 'Họ tên không quá 255 ký tự.',
-            self::PASSWORD . '.min' => 'Mật khẩu phải có tối thiểu 6 ký tự.',
+            'required'                      => 'Vui lòng nhập :attribute',
+            self::FULLNAME . '.required'    => 'Vui lòng nhập họ tên',
+            self::FULLNAME . '.max'         => 'Họ tên không quá 255 ký tự.',
+            self::PASSWORD . '.min'         => 'Mật khẩu phải có tối thiểu 6 ký tự.',
             self::PHONE . '.digits_between' => 'Số điện thoại phải có 10 hoặc 11 số.',
-            self::PHONE . '.unique' => 'Số điện thoại đã được sử dụng.',
+            self::PHONE . '.unique'         => 'Số điện thoại đã được sử dụng.',
         ];
         return Validator::make($array, [
             self::FULLNAME => 'required|max:255',
-            self::PHONE => 'required|digits_between:10,11|unique:users,phone',
+            self::PHONE    => 'required|digits_between:10,11|unique:users,phone',
             self::PASSWORD => 'required|min:6',
         ], $messages);
     }
@@ -91,9 +88,8 @@ class UsersRepository extends Repository
     | @return mix response
     | @Author : tantan
      */
-    public function storeUser()
-    {
-        $input = $this->request->all();
+    public function storeUser() {
+        $input     = $this->request->all();
         $validator = $this->validator($input);
         if ($validator->fails()) {
             return redirect()
@@ -115,11 +111,10 @@ class UsersRepository extends Repository
     | @return Response
     | @Author : tantan
      */
-    public function validateOTP()
-    {
+    public function validateOTP() {
         $codeConfirm = $this->request->get('txtCodeConfirm');
-        $otp = session('OTP');
-        $oldInput = session('input');
+        $otp         = session('OTP');
+        $oldInput    = session('input');
 
         if (trim($codeConfirm) == $otp) {
             $user = $this->model->create($oldInput);
@@ -145,8 +140,7 @@ class UsersRepository extends Repository
     | @return mix response with Flashed Session Data
     | @Author : tantan
      */
-    public function sendOTP($input)
-    {
+    public function sendOTP($input) {
         $OTP = $this->createOTP($input['phone']);
         return redirect()->back()->with(['input' => $input, 'OTP' => $OTP, 'sendOTP' => true]);
     }
@@ -159,8 +153,7 @@ class UsersRepository extends Repository
     | @return random string
     | @Author : tantan
      */
-    public function createOTP($phone)
-    {
+    public function createOTP($phone) {
         return 1234;
     }
 
@@ -168,14 +161,13 @@ class UsersRepository extends Repository
     |--------------------------------------------------------------------------
     | CREATE OPT STRING.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return response
     | @method POST
     | @Author : tantan
      */
-    public function doLogin()
-    {
-        $input = $this->request->all();
+    public function doLogin() {
+        $input     = $this->request->all();
         $validator = $this->loginValidator($input);
         if ($validator->fails()) {
             return redirect()
@@ -197,13 +189,12 @@ class UsersRepository extends Repository
     |--------------------------------------------------------------------------
     | GET PROFILE FORM.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return response
     | @method GET
     | @Author : tantan
      */
-    public function getProfile($user)
-    {
+    public function getProfile($user) {
         $data = $this->model::find($user);
         if ($data == null) {
             return abort(404);
@@ -222,13 +213,12 @@ class UsersRepository extends Repository
     |--------------------------------------------------------------------------
     | CREATE OPT STRING.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return response
     | @method POST
     | @Author : tantan
      */
-    public function saveProfile()
-    {
+    public function saveProfile() {
         $input = $this->request->all();
         dd($input);
     }
@@ -237,15 +227,14 @@ class UsersRepository extends Repository
     |--------------------------------------------------------------------------
     | SAVE LIST SERVICE.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
      */
-    public function postSaveService($user)
-    {
+    public function postSaveService($user) {
         $input = $this->request->get('servies');
-        $data = $this->model->find($user);
+        $data  = $this->model->find($user);
         if ($data == null) {
             return abort(404);
         }
@@ -257,15 +246,14 @@ class UsersRepository extends Repository
     |--------------------------------------------------------------------------
     | SAVE LIST LOCATION.
     |--------------------------------------------------------------------------
-    | @params 
+    | @params
     | @return Response
     | @method POST
     | @Author : tantan
      */
-    public function postSaveLocation($user)
-    {
+    public function postSaveLocation($user) {
         $input = $this->request->get('districts');
-        $data = $this->model->find($user);
+        $data  = $this->model->find($user);
         if ($data == null) {
             return abort(404);
         }
@@ -281,12 +269,11 @@ class UsersRepository extends Repository
     | @return response
     | @method POST
     | @Author : phuonglv
-    */
-    public function getUser($user_id)
-    {
+     */
+    public function getUser($user_id) {
         $user_data = $this->user::where('id', '=', $user_id)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
-        $listJob = $this->user->listJob;
+        $listJob   = $this->user->listJob;
 
         if ($user_data) {
             $user_type = $user_data['type'];
@@ -297,31 +284,49 @@ class UsersRepository extends Repository
     }
 
     /*
-   |--------------------------------------------------------------------------
-   | CREATE OPT STRING.
-   |--------------------------------------------------------------------------
-   | @params
-   | @return response
-   | @method POST
-   | @Author : phuonglv
-    */
-    public function updateUserInfo($params)
-    {
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING.
+    |--------------------------------------------------------------------------
+    | @params
+    | @return response
+    | @method POST
+    | @Author : phuonglv
+     */
+    public function updateUserInfo($params) {
         //check user
-        $where = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
+        $where     = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
         $user_data = $this->user::where($where)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
         if ($user_data) {
-            $id = (int)$params['id'];
+            $id = (int) $params['id'];
             unset($params['id']);
             unset($params['phone']);
             $date = DateTime::createFromFormat('d/m/Y', $params['birthday']);
             if (!$date) {
                 $date = DateTime::createFromFormat('d-m-Y', $params['birthday']);
             }
-            $date = $date->format('Y-m-d');
+            $date               = $date->format('Y-m-d');
             $params['birthday'] = $date;
             $this->user::where('id', '=', $id)->update($params);
         }
+    }
+
+    public function getPurchase() {
+        return view('frontend.users.purchase');
+    }
+
+    public function postPurchase() {
+        $amount = (int) $this->request->input('amount');
+        if ($amount <= 0) {
+            dd('Bạn vui lòng kiểm tra lại số tiền nạp');
+        }
+        $user = $this->model->find($this->auth->user()->id);
+        $user->amount += $amount;
+        $user->save();
+        //store log
+        $dataLog['amount']  = $amount;
+        $dataLog['user_id'] = $user->id;
+        AccountLog::create($dataLog);
+        return redirect()->back();
     }
 }

@@ -56,7 +56,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// START FRONTEND ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,15 +76,16 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
-
 /*
 |-------------------------------------------
 | ROUTE FOR USER IN FRONTEND
 |-------------------------------------------
 | @options register, login, edit profile
 | @author tantan
-*/
+ */
 Route::group(['prefix' => 'user'], function () {
+    Route::get('/purchase', 'Frontends\Users\UsersController@getPurchase');
+    Route::post('/purchase', 'Frontends\Users\UsersController@postPurchase');
     Route::get('/', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.register')->middleware('guest');
 
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
@@ -103,10 +103,9 @@ Route::group(['prefix' => 'user'], function () {
     | @params user_id
     | @method GET POST
     | @author tantan
-    */
+     */
     Route::get('/{user}/edit', 'Frontends\Users\UsersController@getProfileForm')->name('frontend.user.edit')->middleware('owner');
     Route::post('/{user}/edit', 'Frontends\Users\UsersController@postProfileForm')->name('frontend.user.doedit')->middleware('owner');
-
 
     //  Save list sercice to an user
     Route::post('/{user}/edit/save-services', 'Frontends\Users\UsersController@postSaveService')->name('frontend.user.save_service')->middleware('owner');
@@ -126,9 +125,8 @@ Route::group(['prefix' => 'user'], function () {
 |-------------------------------------------
 | @options get list of service, dang ky vay
 | @author tantan
-*/
+ */
 Route::group(['prefix' => 'dang-ky-vay'], function () {
-
 
     Route::get('/', 'Frontends\Services\ServicesController@index')->name('services.site.list');
     Route::get('/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@registerForm')->name('services.site.form');
@@ -141,8 +139,7 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::post('/get-ward-by-district', 'AjaxController@getWardByDistrict');
 });
 
-
-Route::group(['prefix' => 'san-giao-dich'], function (){
-   Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index');
+Route::group(['prefix' => 'san-giao-dich'], function () {
+    Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index');
+    Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });
-

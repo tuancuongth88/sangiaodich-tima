@@ -191,7 +191,7 @@
                                     <div class="text-nowrap">
                                         <span class="text-primary">{{ number_format($value->amount) }} Triệu - {{ $value->amount_day }} Ngày</span>
                                         <hr class="my-0">
-                                       {{ $value->service->service_name }}
+                                       {{-- {{ $value->service->service_name }} --}}
                                     </div>
                                 </div>
                             </td>
@@ -201,8 +201,8 @@
                                 <div class="td-inner d-flex justify-content-center h-100">
                                     <ul class="list-h-1 align-self-start mt-3">
                                         <?php
-                                        $date = strtotime($value->created_at);
-                                        ?>
+$date = strtotime($value->created_at);
+?>
                                         <li class="list-h-1__item text-primary">
                                             {{ date('H:i:s', $date) }}
                                         </li>
@@ -231,10 +231,12 @@
                                      class="td-inner d-flex flex-column align-items-center text-center btnbuy">
                                     <ul class="list-h-1 align-self-start mt-3">
                                         <li class="list-h-1__item">
-                                            <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                                    data-toggle="modal" data-target="#myModal" title="Nhận đơn"><i
+                                            {{ Form::open(array('method'=>'PUT', 'action' => array('Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction', $value->id), 'style' => 'display: inline-block;')) }}
+                                            <button type="submit" class="btn btn-outline-success btn-sm mr-2"
+                                                    onclick="return confirm('Bạn muốn nhận đơn này?');" title="Nhận đơn"><i
                                                         class="fa fa-shopping-cart" aria-hidden="true"></i> Nhận đơn
                                             </button>
+                                            {{ Form::close() }}
                                         </li>
                                     </ul>
                                 </div>
@@ -253,21 +255,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="modal-content" style="width: 110%">
-            <div class="modal-header">
-
-                <h6 class="modal-title" id="title">Bạn vui lòng đăng nhập tài khoản cho vay để mua đơn.</h6>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="btnAccept">Đồng ý</button>
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Hủy</button>
-
-            </div>
-        </div>
     </div>
-
     @include('frontend.common.mohinh')
     @include('frontend.common.tongdai')
     @include('frontend.common.service')

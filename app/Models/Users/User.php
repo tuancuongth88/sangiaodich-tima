@@ -3,14 +3,12 @@
 namespace App\Models\Users;
 
 use App\Models\Relation as RelationModel;
-
 use Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use Notifiable,
         SoftDeletes;
 
@@ -61,7 +59,7 @@ class User extends Authenticatable
         'company_name',
         'company_phone',
         'company_address',
-        'card_number'
+        'card_number',
     ];
 
     /**
@@ -73,13 +71,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function setPassWordAttribute($value)
-    {
+    public function setPassWordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function setBirthdayAttribute($value)
-    {
+    public function setBirthdayAttribute($value) {
         $this->attributes['birthday'] = \Carbon\Carbon::parse($value);
     }
 
@@ -89,23 +85,19 @@ class User extends Authenticatable
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeActive($query)
-    {
+    public function scopeActive($query) {
         return $query->where('active', 1);
     }
 
-    public function token()
-    {
+    public function token() {
         return $this->hasMany('App\Models\Users\UserToken', 'user_id');
     }
 
-    public function getBirthdayAttribute($value)
-    {
+    public function getBirthdayAttribute($value) {
         return date('d-m-Y', strtotime($value));
     }
 
-    public function scopeSearch($query, $search = '', $field = '')
-    {
+    public function scopeSearch($query, $search = '', $field = '') {
         if (empty($field)) {
             $fields = array('fullname', 'email', 'phone');
         } else {
@@ -138,7 +130,7 @@ class User extends Authenticatable
     | @params
     | @return array
     | @author: Phuonglv
-    */
+     */
     public $listJob = array(
         1 => 'Nhân viên văn phòng',
         2 => 'Nhân viên nhà nước',
@@ -146,7 +138,7 @@ class User extends Authenticatable
         4 => 'Công nhân nhà máy',
         5 => 'Doanh nghiệp tư nhân',
         6 => 'Hộ kinh doanh cá thể',
-        7 => 'Ngành nghề khác'
+        7 => 'Ngành nghề khác',
     );
 
     /*
@@ -156,7 +148,7 @@ class User extends Authenticatable
     | @params
     | @return array of service id
     | @author: tantan
-    */
+     */
     public function services(): array
     {
         $list = \Common::getServicesOfUser($this->id);
@@ -170,7 +162,7 @@ class User extends Authenticatable
     | @params
     | @return array of location id
     | @author: tantan
-    */
+     */
     public function locations(): array
     {
         $list = \Common::getDistrictsOfUser($this->id);
@@ -187,9 +179,8 @@ class User extends Authenticatable
     | @params
     | @return array of service id
     | @author: tantan
-    */
-    public function saveServices(array $services = [])
-    {
+     */
+    public function saveServices(array $services = []) {
         RelationModel::where('source_table', 'users')
             ->where('source_id', $this->id)
             ->where('target_table', 'services')
@@ -198,9 +189,9 @@ class User extends Authenticatable
         foreach ($services as $value) {
             $_return[] = RelationModel::create([
                 'source_table' => 'users',
-                'source_id' => $this->id,
+                'source_id'    => $this->id,
                 'target_table' => 'services',
-                'target_id' => $value,
+                'target_id'    => $value,
             ])->target_id;
         }
         return $_return;
@@ -213,9 +204,8 @@ class User extends Authenticatable
     | @params
     | @return array of location id
     | @author: tantan
-    */
-    public function saveLocations(array $locations = [])
-    {
+     */
+    public function saveLocations(array $locations = []) {
         RelationModel::where('source_table', 'users')
             ->where('source_id', $this->id)
             ->where('target_table', 'locations')
@@ -224,9 +214,9 @@ class User extends Authenticatable
         foreach ($locations as $value) {
             $_return[] = RelationModel::create([
                 'source_table' => 'users',
-                'source_id' => $this->id,
+                'source_id'    => $this->id,
                 'target_table' => 'locations',
-                'target_id' => $value,
+                'target_id'    => $value,
             ])->target_id;
         }
         return $_return;
