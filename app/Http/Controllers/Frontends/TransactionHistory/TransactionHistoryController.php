@@ -35,6 +35,9 @@ class TransactionHistoryController extends Controller {
     public function updatestatus() {
         return $this->repository->updateStatus();
     }
+    public function updateStatusTranLog() {
+        return $this->repository->updateStatusTranLog();
+    }
 
     /*
     |---------------------------------------

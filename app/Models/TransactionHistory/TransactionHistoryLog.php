@@ -39,4 +39,17 @@ class TransactionHistoryLog extends Model {
 
     protected $dates = ['deleted_at'];
 
+    public function userReceiver() {
+        return $this->belongsTo('App\Models\Users\User', 'receiver', 'id');
+    }
+
+    public function userCreated() {
+        return $this->belongsTo('App\Models\Users\User', 'created_by', 'id');
+    }
+
+    public function service() {
+        return $this->belongsTo('App\Models\Services\Service', 'service_code');
+    }
+
+
 }

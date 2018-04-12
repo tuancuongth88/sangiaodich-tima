@@ -176,7 +176,7 @@
                                     <div class="td-inner d-flex justify-content-center h-100">
                                         <ul class="list-h-1 align-self-start mt-3">
                                             <li class="list-h-1__item">
-                                                HĐ-{{$data_val['id']}}
+                                                HĐ-{{$data_val['transaction_id']}}
                                             </li>
                                         </ul>
                                     </div>
@@ -186,10 +186,10 @@
                                         <div class="icon-male-circle wf-38 d-flex align-self-center mr-3 hidden-xs-down"></div>
                                         <div class="media-body align-self-center text-ellipsis">
                                             <div class="tm-table__para fw-6 line-height-heading mb-1">
-                                                {{ $data_val->user->fullname }}
+                                                {{ $data_val->userCreated->fullname }}
                                             </div>
                                             <div class="text-gray-lighter">
-                                                {{substrPhone($data_val->user->phone)}}
+                                                {{substrPhone($data_val->userCreated->phone)}}
                                             </div>
                                         </div>
                                     </div>
@@ -235,20 +235,14 @@
                                             @if($data_val['status']==1)
                                                 <div class="text-nowrap">
                                                 <span class="text-primary">
-                                                   {{
-                                                   convertFeeDiscount($data_val['service_code'])['fee']
-                                                   }} đ
+                                                    {{number_format($data_val['fee'])}} đ
                                                 </span>
                                                     <hr class="my-0">
                                                     <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">
-                                                {{
-                                                   convertFeeDiscount($data_val['service_code'])['fee_service']
-                                                   }} đ
+
                                             </span>
                                                     <span style="font-size:12px;color:black;margin-left:5px;">
-                                                -{{
-                                                   convertFeeDiscount($data_val['service_code'])['discount_percent']
-                                                   }}%
+                                                    {{$data_val['percent_discount']}} %
                                             </span>
                                                 </div>
                                             @else

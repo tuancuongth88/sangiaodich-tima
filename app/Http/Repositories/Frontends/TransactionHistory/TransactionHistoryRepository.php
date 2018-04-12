@@ -10,9 +10,11 @@ use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Validator;
 
-class TransactionHistoryRepository extends Repository {
+class TransactionHistoryRepository extends Repository
+{
 
     private $model;
+    protected $model_log;
     private $services;
     private $user;
     private $response;
@@ -21,23 +23,23 @@ class TransactionHistoryRepository extends Repository {
     private $perpages;
     private $current;
 
-    const USER_ID     = 'user_id';
-    const CITY_ID     = 'city_id';
+    const USER_ID = 'user_id';
+    const CITY_ID = 'city_id';
     const DISTRICT_ID = 'district_id';
-    const WARD_ID     = 'ward_id';
-    const AMOUNT      = 'amount';
-    const AMOUNT_DAY  = 'amount_day';
+    const WARD_ID = 'ward_id';
+    const AMOUNT = 'amount';
+    const AMOUNT_DAY = 'amount_day';
     const PAYMENT_DAY = 'payment_day';
-    const STATUS      = 'status';
-    const AGREE_TERM  = 'agree_term';
+    const STATUS = 'status';
+    const AGREE_TERM = 'agree_term';
 
     const FEE_SEARCH_LOAN_HISTORY_DEFAULT = 2000;
     const FEE_SEARCH_LOAN_HISTORY_SUCCESS = 10000;
 
 
-
     function __construct(
         TransactionHistory $transactionHistory,
+        TransactionHistoryLog $transactionHistoryLog,
         Service $services,
         ResponseService $response,
         Request $request,
@@ -45,15 +47,17 @@ class TransactionHistoryRepository extends Repository {
         User $user,
         $perpages = 20,
         $current = 1
-    ) {
-        $this->model    = $transactionHistory;
+    )
+    {
+        $this->model = $transactionHistory;
+        $this->model_log = $transactionHistoryLog;
         $this->services = $services;
         $this->response = $response;
-        $this->request  = $request;
-        $this->auth     = $auth;
-        $this->user     = $user;
+        $this->request = $request;
+        $this->auth = $auth;
+        $this->user = $user;
         $this->perpages = $perpages;
-        $this->current  = $current;
+        $this->current = $current;
     }
 
     /*
@@ -64,7 +68,8 @@ class TransactionHistoryRepository extends Repository {
     | @return field before validator and store.
     | @Author : tantan
      */
-    protected function getInputFieldStore() {
+    protected function getInputFieldStore()
+    {
         return $this->request->only(
             self::CITY_ID,
             self::DISTRICT_ID,
@@ -82,21 +87,23 @@ class TransactionHistoryRepository extends Repository {
     | @return mix \Validator
     | @Author : tantan
      */
-    public function validator(array $array) {
+    public function validator(array $array)
+    {
         $messages = [
-            'required'                      => 'Vui lòng nhập :attribute',
-            self::CITY_ID . '.required'     => 'Vui lòng chọn thành phố',
+            'required' => 'Vui lòng nhập :attribute',
+            self::CITY_ID . '.required' => 'Vui lòng chọn thành phố',
             self::DISTRICT_ID . '.required' => 'Vui lòng chọn quận/huyện',
-            self::AGREE_TERM . '.required'  => 'Bạn phải đồng ký với điều khoản của chúng tôi',
+            self::AGREE_TERM . '.required' => 'Bạn phải đồng ký với điều khoản của chúng tôi',
         ];
         return Validator::make($array, [
-            self::CITY_ID     => 'required',
+            self::CITY_ID => 'required',
             self::DISTRICT_ID => 'required',
-            self::AGREE_TERM  => 'required',
+            self::AGREE_TERM => 'required',
         ], $messages);
     }
 
-    public function getLatest() {
+    public function getLatest()
+    {
         return $this->model->approve()->orderBy(self::ID, 'desc')->take(5)->get();
     }
 
@@ -132,12 +139,12 @@ class TransactionHistoryRepository extends Repository {
         return view(
             'frontend.transactionhistory.index',
             [
-                'data'              => $listData,
-                'services'          => $list_services,
-                'list_status'       => $status_tranhistory,
-                'count_all_tran'    => $count_all_tran,
+                'data' => $listData,
+                'services' => $list_services,
+                'list_status' => $status_tranhistory,
+                'count_all_tran' => $count_all_tran,
                 'count_tran_cancel' => $count_tran_cancel,
-                'count_tran_wait'   => $count_tran_wait,
+                'count_tran_wait' => $count_tran_wait,
             ]
         );
     }
@@ -163,7 +170,7 @@ class TransactionHistoryRepository extends Repository {
             $where_cloud[] = ['service_code', '=', $product];
             $is_search = true;
         }
-        if ((int) $status > 0) {
+        if ((int)$status > 0) {
             $where_cloud[] = ['status', '=', $status];
             $is_search = true;
         }
@@ -188,7 +195,14 @@ class TransactionHistoryRepository extends Repository {
         */
     public function searchTranByPhoneAndIdCard()
     {
+        $s_mobile = trim($this->request->input('phone'));
+        $cardnumber = trim($this->request->input('cardnumber'));
         $current_user_id = $this->auth->user()->id;
+
+        if ($s_mobile == '' && $cardnumber == '') {
+            return view('frontend.transactionhistory.s_index');
+        }
+
         $user_current = $this->user::where('id', $current_user_id)->get()->toArray();
         $user_current_amount = $user_current[0]['amount'];
         if (!$user_current_amount) {
@@ -196,8 +210,6 @@ class TransactionHistoryRepository extends Repository {
         }
 
 
-        $s_mobile = trim($this->request->input('phone'));
-        $cardnumber = trim($this->request->input('cardnumber'));
         $status_tranhistory = $this->model->status_transactionhistory;
 
         $user_search = $this->user::where('phone', $s_mobile)
@@ -256,20 +268,29 @@ class TransactionHistoryRepository extends Repository {
         $this->user::where('id', $id)->update(['amount' => $amount]);
     }
 
-
+    /*
+       |--------------------------------------------------------------------------
+       | Quản lý các đơn vay của người mua
+       |--------------------------------------------------------------------------
+       |
+       | @return object
+       | @Author : phuonglv
+        */
     public function manageTran()
     {
+        $id = $this->auth->user()->id;
+
         $status_tranhistory = $this->model->status_transactionhistory;
-        $newsModel          = $this->model->orderBy(self::ID, 'DESC');
-        $listData           = $newsModel->paginate($this->perpages);
+        $modelLog = $this->model_log::where('receiver', $id)->orderBy(self::ID, 'DESC');
+        $listData = $modelLog->paginate($this->perpages);
 
         //status
-        $count_tran_wait_consultant = $this->model::where('status', 1)->get()->count();
-        $count_tran_wait_receive = $this->model::where('status', 2)->get()->count();
-        $count_tran_is_borrowing = $this->model::where('status', 3)->get()->count();
+        $count_tran_wait_consultant = $this->model_log::where([['status', TRAN_STATUS_WAIT], ['receiver', $id]])->get()->count();
+        $count_tran_wait_receive = $this->model_log::where([['status', TRAN_STATUS_RECEIVED], ['receiver', $id]])->get()->count();
+        $count_tran_is_borrowing = $this->model_log::where([['status', TRAN_STATUS_BORROWING], ['receiver', $id]])->get()->count();
 
-        $sum_amount_tran_is_borrowing = $this->model::where('status', 3)->sum('amount');
-        $list_services                = $this->services->get()->toArray();
+        $sum_amount_tran_is_borrowing = $this->model_log::where([['status', TRAN_STATUS_BORROWING], ['receiver', $id]])->sum('amount');
+        $list_services = $this->services->get()->toArray();
 
         $page = $this->request->input('page');
         if ($page) {
@@ -280,35 +301,34 @@ class TransactionHistoryRepository extends Repository {
         return view(
             'frontend.transactionhistory.manage',
             [
-                'data'                         => $listData,
-                'services'                     => $list_services,
-                'list_status'                  => $status_tranhistory,
-                'count_tran_wait_consultant'   => $count_tran_wait_consultant,
-                'count_tran_wait_receive'      => $count_tran_wait_receive,
-                'count_tran_is_borrowing'      => $count_tran_is_borrowing,
+                'data' => $listData,
+                'services' => $list_services,
+                'list_status' => $status_tranhistory,
+                'count_tran_wait_consultant' => $count_tran_wait_consultant,
+                'count_tran_wait_receive' => $count_tran_wait_receive,
+                'count_tran_is_borrowing' => $count_tran_is_borrowing,
                 'sum_amount_tran_is_borrowing' => $sum_amount_tran_is_borrowing,
             ]
         );
     }
 
-    public function getManageBysServiceAndStatus() {
-        $product            = $this->request->input('product');
-        $status             = $this->request->input('status');
+    public function getManageBysServiceAndStatus()
+    {
+        $id = $this->auth->user()->id;
+
+        $product = $this->request->input('product');
+        $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
 
-        $where_cloud = array();
-        if ((int) $product > 0) {
+        $where_cloud[] = ['receiver','=', $id];
+        if ((int)$product > 0) {
             $where_cloud[] = ['service_code', '=', $product];
         }
-        if ((int) $status > 0) {
+        if ((int)$status > 0) {
             $where_cloud[] = ['status', '=', $status];
         }
+        $data = $this->model_log::where($where_cloud)->paginate($this->perpages);
 
-        if (!empty($where_cloud)) {
-            $data = $this->model::where($where_cloud)->paginate($this->perpages);
-        } else {
-            $data = $this->model->paginate($this->perpages);
-        }
         $html = view('frontend.transactionhistory.m_search', ['data' => $data, 'list_status' => $status_tranhistory])->render();
         return response()->json(array('success' => true, 'html' => $html, 'pagination' => $data->links()->toHtml()));
 
@@ -325,9 +345,38 @@ class TransactionHistoryRepository extends Repository {
        */
     public function updateStatus()
     {
+        $id = $this->auth->user()->id;
         $loanCreditId = $this->request->input('loanCreditId');
         $status = $this->request->input('status');
         $this->model::where('id', '=', $loanCreditId)->update(['status' => $status]);
+    }
+
+    /*
+       |---------------------------------------
+       | Update status to table Log
+       |---------------------------------------
+       | @params
+       | @method GET
+       | @return Response
+       | @author phuonglv
+      */
+    public function updateStatusTranLog()
+    {
+        $id = $this->auth->user()->id;
+        $loanCreditId = $this->request->input('loanCreditId');
+        $status = $this->request->input('status');
+
+        $obj_log = $this->model_log::where([['id', $loanCreditId], ['receiver', $id]])->get()->toArray();
+        $obj_log = isset($obj_log[0]) ? $obj_log[0] : null;
+        if (!empty($obj_log)) {
+            $transaction_id = $obj_log['transaction_id'];
+            if ($status == TRAN_STATUS_CANCEL) {
+                $this->model::where('id', $transaction_id)->update(['status' => TRAN_STATUS_WAIT]);
+            } else {
+                $this->model::where('id', $transaction_id)->update(['status' => $status]);
+            }
+            $this->model_log::where('id', $loanCreditId)->update(['status' => $status]);
+        }
     }
 
     /*
@@ -339,7 +388,8 @@ class TransactionHistoryRepository extends Repository {
     | @return view
     | @author tantan
      */
-    public function getDetailForm($slug) {
+    public function getDetailForm($slug)
+    {
         $data = $this->services->findBySlug($slug);
         if ($data == null) {
             abort(404);
@@ -357,14 +407,15 @@ class TransactionHistoryRepository extends Repository {
     | @return Response
     | @author tantan
      */
-    public function postDetailForm($slug) {
+    public function postDetailForm($slug)
+    {
         if (!\Auth::check()) {
             return redirect(route('frontend.user.register', ['destination' => '/dang-ky-vay/' . $slug]))
                 ->with('status', true)
                 ->withMessage('Bạn phải đăng ký để tiếp tục!');
         }
 
-        $user  = \Auth::user();
+        $user = \Auth::user();
         $input = $this->request->all();
 
         $validator = $this->validator($input);
@@ -375,19 +426,19 @@ class TransactionHistoryRepository extends Repository {
                 ->withInput($input);
         }
 
-        $service                   = $this->services->findBySlug($slug);
-        $amountConfig              = $service->amount_config();
-        $dayConfig                 = $service->day_config();
-        $input['status']           = $this->model::STATUS_WAIT;
-        $input['user_id']          = $user->id;
-        $unitDay                   = $input['amount_day'] . $dayConfig[0]['unit'];
-        $paymentDay                = strtotime('+' . $unitDay);
-        $input['amount_day']       = round(($paymentDay - time()) / (60 * 60 * 24));
-        $input['payment_day']      = date('Y-m-d H:i', $paymentDay);
-        $input['service_code']     = $service->id;
-        $input['fee']              = $service->fee;
+        $service = $this->services->findBySlug($slug);
+        $amountConfig = $service->amount_config();
+        $dayConfig = $service->day_config();
+        $input['status'] = $this->model::STATUS_WAIT;
+        $input['user_id'] = $user->id;
+        $unitDay = $input['amount_day'] . $dayConfig[0]['unit'];
+        $paymentDay = strtotime('+' . $unitDay);
+        $input['amount_day'] = round(($paymentDay - time()) / (60 * 60 * 24));
+        $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
+        $input['service_code'] = $service->id;
+        $input['fee'] = $service->fee;
         $input['percent_discount'] = $service->discount;
-        $input['fee_type']         = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
+        $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
         $this->model->create($input);
         return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
     }
@@ -401,22 +452,24 @@ class TransactionHistoryRepository extends Repository {
     | @return Response
     | @author cuongnt
      */
-    public function getListTransaction() {
-        $listService         = Service::all();
-        $totalMoney          = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
-        $total_reg_borrow    = User::where('type', VAY)->count();
-        $total_reg_loan      = User::where('type', CHO_VAY)->count();
+    public function getListTransaction()
+    {
+        $listService = Service::all();
+        $totalMoney = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
+        $total_reg_borrow = User::where('type', VAY)->count();
+        $total_reg_loan = User::where('type', CHO_VAY)->count();
         $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->orderBy('id', 'desc')->paginate($this->perpages);
         return view('frontend.transactionhistory.list_transaction', [
-            'data'             => $listTransactionNews,
-            'list_service'     => $listService,
-            'totalmoney'       => $totalMoney,
+            'data' => $listTransactionNews,
+            'list_service' => $listService,
+            'totalmoney' => $totalMoney,
             'total_reg_borrow' => $total_reg_borrow,
-            'total_reg_loan'   => $total_reg_loan,
+            'total_reg_loan' => $total_reg_loan,
         ]);
     }
 
-    public function putStatusTransaction($id) {
+    public function putStatusTransaction($id)
+    {
         $obj = $this->model->find($id);
         if (!$obj) {
             dd('Không tồn tại giao dịch này');
@@ -427,22 +480,22 @@ class TransactionHistoryRepository extends Repository {
         $obj->status = $this->model::STATUS_RECEIVED;
         if ($obj->fee) {
             $user = $this->user->find($this->auth->user()->id);
-            if ($user->fee <= (int) $obj->fee) {
+            if ($user->fee <= (int)$obj->fee) {
                 dd('Bạn không đủ tiền để nhận giao dịch này');
             }
-            $user->amount -= (int) $obj->fee;
+            $user->amount -= (int)$obj->fee;
             $user->save();
         }
         $obj->save();
         //store log
         $dataLog['transaction_id'] = $obj->id;
-        $dataLog['service_code']   = $obj->service_code;
-        $dataLog['created_by']     = $this->auth->user()->id;
-        $dataLog['city_id']        = $obj->city_id;
-        $dataLog['district_id']    = $obj->district_id;
-        $dataLog['ward_id']        = $obj->ward_id;
-        $dataLog['amount']         = $obj->amount;
-        $dataLog['amount_day']     = $obj->amount_day;
+        $dataLog['service_code'] = $obj->service_code;
+        $dataLog['created_by'] = $this->auth->user()->id;
+        $dataLog['city_id'] = $obj->city_id;
+        $dataLog['district_id'] = $obj->district_id;
+        $dataLog['ward_id'] = $obj->ward_id;
+        $dataLog['amount'] = $obj->amount;
+        $dataLog['amount_day'] = $obj->amount_day;
         TransactionHistoryLog::create($dataLog);
         return redirect()->action('Frontends\TransactionHistory\ListTransactionController@index');
     }
