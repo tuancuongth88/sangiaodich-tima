@@ -70,8 +70,10 @@ class Common {
     | @return string
     | @author: tantan
     */
-    public static function getDisplayNameUser(){
-        $user = Auth::user();
+    public static function getDisplayNameUser($user = null){
+        if ($user == null){
+            $user = Auth::user();
+        }
         return $user->fullname ?? $user->phone ?? $user->username;
     }
 

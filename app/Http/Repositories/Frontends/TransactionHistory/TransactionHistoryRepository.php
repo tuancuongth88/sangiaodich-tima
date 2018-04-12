@@ -346,8 +346,25 @@ class TransactionHistoryRepository extends Repository
      */
     public function postTransactionUpdateForm($service, $tranId) {
         $input = $this->request->all();
-        dd($input);
-        return redirect()->route('frontends.manager.transaction')->with('status', true)->with('message', 'Lưu thông tin đơn vay thành công!');
+        $transaction = $this->model->findOrFail($tranId);
+        if( !empty($input['user']) ){
+            ///// Lay thong tin user dang don vay
+            $thisUser = $transaction->user();
+            if( $thisUser ){
+                /// if this filed not empty and user already update before
+                /// we will be ignore them
+                foreach ($input['user'] as $field => $value) {
+                    if( $value != '' && $thisUser->$field != '' ){
+                        unset($input['user'][$field]);
+                    }
+                }
+                $thisUser->update($input['user']);
+            }
+        }
+        if( !empty($input['transaction']) ){
+            $transaction->update($input['transaction']);
+        }
+        return redirect()->route('frontends.manager.transaction')->with('status', true)->with('message', 'Cảm ơn '. \Common::getDisplayNameUser($thisUser) .'! Thông tin đơn '.$service->service_name.' của bạn đã được lưu thành công!');
     }
 
     /*

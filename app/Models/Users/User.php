@@ -16,6 +16,8 @@ class User extends Authenticatable
 
     const NAM = 1;
     const NU = 2;
+    const UN_ACTIVE = 0;
+    const ACTIVE = 1;
 
     public $genderList =
     array(
@@ -73,7 +75,8 @@ class User extends Authenticatable
         'card_number',
         'personal_records',
         'profile_residence',
-        'income_records'
+        'income_source',
+        'income',
     ];
 
     /**
@@ -103,7 +106,7 @@ class User extends Authenticatable
      */
     public function scopeActive($query)
     {
-        return $query->where('active', 1);
+        return $query->where('active', self::ACTIVE);
     }
 
     public function token()

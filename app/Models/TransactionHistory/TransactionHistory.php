@@ -21,6 +21,10 @@ class TransactionHistory extends Model {
         'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id',
         'district_id', 'amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id',
         'telesales_time', 'sales_id', 'sales_time', 'fee', 'fee_type', 'percent_discount',
+        
+        'car_brand', 'car_name', 'car_model', 'car_country', 'estate_name', 'mortgage',
+        'mortgage_brand', 'mortgage_year', 'mortgage_note', 'electric_bill', 'moto_brand',
+        'moto_name', 'moto_model'
     ];
 
     protected $dates = ['deleted_at'];

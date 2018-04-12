@@ -26,7 +26,7 @@
 
                                 @foreach($form as $name => $value)
                                     <div class="form-group row col-md-12">
-                                        <label for="txtCardNumber" class="col-md-2 col-form-label text-sm-right mr-5">{{ $value['label'] }}</label>
+                                        <label class="col-md-2 col-form-label text-sm-right mr-5">{{ $value['label'] }}</label>
                                         @if( $value['type'] == 'select' )
                                             {{ Form::select($name, ['' => '-- Chọn --']+$value['data'], (!empty($value['value']) ? $value['value'] : ''), ['class' => 'col-md-9 select optional form-control input-lg valDropdownlist fs-14']) }}
                                         @elseif( $value['type'] == 'radio' )
