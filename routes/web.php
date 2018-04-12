@@ -70,7 +70,7 @@ Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
 Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard');
-Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager');
+Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager.transaction');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
@@ -126,10 +126,13 @@ Route::group(['prefix' => 'user'], function () {
 | @author tantan
  */
 Route::group(['prefix' => 'dang-ky-vay'], function () {
-
     Route::get('/', 'Frontends\Services\ServicesController@index')->name('services.site.list');
     Route::get('/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@registerForm')->name('services.site.form');
     Route::post('/register/{service}', 'Frontends\TransactionHistory\TransactionHistoryController@postRegisterForm')->name('services.site.register');
+
+    /// bo sung thong tin cho don vay
+    Route::get('/{service}/transaction/{transaction}', 'Frontends\TransactionHistory\TransactionHistoryController@transactionUpdateForm')->name('transaction.site.updateform');
+    Route::post('/{service}/transaction/{transaction}', 'Frontends\TransactionHistory\TransactionHistoryController@postTransactionUpdateForm')->name('transaction.site.post_updateform');
 });
 
 // Route for all ajax

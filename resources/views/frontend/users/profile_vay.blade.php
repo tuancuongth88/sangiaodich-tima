@@ -12,7 +12,7 @@
                      title="Đổi ảnh đại diện khác">
                 <input type="file" name="uploadAvatar" id="uploadAvatar" multiple="" style="display: none;"
                        accept="image/*">
-                <input type="hidden" id="hddImgDomain" value="">
+                <input type="hidden" id="hddImgDomain" value="http://rs.tima.vn/staticFile">
                 <input type="hidden" id="UserID" value="643463">
                 <div class="profilecard__body media-body align-self-center">
                     <p class="fs-13 text-gray-light mb-0">
@@ -43,6 +43,13 @@
 
                         <div class="col-xl-6">
                             <div class="profilecard__progress">
+                                <p class="mb-0 text-gray-light fs-13">Mức độ hoàn thành hồ sơ</p>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar" role="progressbar" style="width: 57%;"
+                                         aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
+                                        <span class="progress-tooltip">57%</span>
+                                    </div>
+                                </div>
                                 <p class="mb-0 text-gray-light fs-13">
                                     Bạn vui lòng cập nhật đầy đủ thông tin để đơn vay của bạn được duyệt nhanh hơn.
                                 </p>
@@ -88,7 +95,7 @@
                                 <label for="txtCardNumber"
                                        class="col-sm-4 col-form-label text-sm-right">CMND</label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="number" class="form-control" id="txtCardNumber" placeholder=""
+                                    <input type="text" class="form-control" id="txtCardNumber" placeholder=""
                                            name="card_number" value="{{$data['card_number']}}">
                                 </div>
                             </div>
@@ -252,7 +259,7 @@
                                     ĐT công ty
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="number" class="form-control" maxlength="11" id="txtCompanyPhone" placeholder=""
+                                    <input type="text" class="form-control" id="txtCompanyPhone" placeholder=""
                                            name="company_phone"
                                            value="{{$data['company_phone']}}">
                                 </div>

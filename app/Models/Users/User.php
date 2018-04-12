@@ -12,6 +12,17 @@ class User extends Authenticatable {
     use Notifiable,
         SoftDeletes;
 
+    const NAM = 1;
+    const NU = 2;
+    const UN_ACTIVE = 0;
+    const ACTIVE = 1;
+
+    public $genderList =
+    array(
+        self::NAM   => 'Nam',
+        self::NU    => 'Nữ',
+    );
+    
     /**
      * The event map for the model.
      *
@@ -62,7 +73,8 @@ class User extends Authenticatable {
         'card_number',
         'personal_records',
         'profile_residence',
-        'income_records',
+        'income_source',
+        'income',
     ];
 
     /**
@@ -100,8 +112,9 @@ class User extends Authenticatable {
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeActive($query) {
-        return $query->where('active', 1);
+    public function scopeActive($query)
+    {
+        return $query->where('active', self::ACTIVE);
     }
 
     public function token() {

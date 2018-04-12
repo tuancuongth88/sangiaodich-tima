@@ -213,8 +213,9 @@ class UsersRepository extends Repository {
     | @method GET
     | @Author : tantan
      */
-    public function getProfile($user) {
-        $data    = $this->model::find($user);
+    public function getProfile($user)
+    {
+        $data = $this->model::find($user);
         $listJob = $this->user->listJob;
         if ($data == null) {
             return abort(404);
@@ -343,6 +344,7 @@ class UsersRepository extends Repository {
     }
 
     /*
+<<<<<<< HEAD
     |--------------------------------------------------------------------------
     | Upload avatar
     |--------------------------------------------------------------------------
@@ -362,6 +364,28 @@ class UsersRepository extends Repository {
             $filename        = time() . '_' . $file->getClientOriginalName();
             $uploadSuccess   = $file->move($destinationPath, $filename);
             $data['avatar']  = IMAGEUSER . $filename;
+=======
+   |--------------------------------------------------------------------------
+   | Upload avatar
+   |--------------------------------------------------------------------------
+   | @params
+   | @return response
+   | @method POST
+   | @Author : phuonglv
+    */
+    public function updateAvatar()
+    {
+
+        //check user
+        $id = $this->auth->user()->id;
+        $obj_user = $this->user::where('id', $id)->get()->toArray();
+        if ($this->request->hasFile('uploadAvatar')) {
+            $file = $this->request->uploadAvatar;
+            $destinationPath = public_path() . IMAGEUSER;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $uploadSuccess = $file->move($destinationPath, $filename);
+            $data['avatar'] = IMAGEUSER . $filename;
+>>>>>>> tantan_service
         }
         if (isset($data['avatar'])) {
             $this->user::where('id', '=', $id)->update($data);

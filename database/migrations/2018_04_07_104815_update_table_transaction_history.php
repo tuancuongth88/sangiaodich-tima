@@ -27,6 +27,8 @@ class UpdateTableTransactionHistory extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('transaction_history', function (Blueprint $table) {
+            $table->dropColumn('status');
+        });
     }
 }

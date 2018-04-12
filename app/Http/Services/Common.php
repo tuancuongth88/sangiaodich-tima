@@ -1,14 +1,18 @@
 <?php namespace Custom\Services;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Services\Service as ServiceModel;
+use App\Models\Users\User as UserModel;
 use App\Models\Relation as RelationModel;
 
 class Common {
 
     private $currentUser;
+    private $userModel;
 
-    public function __construct(Auth $auth){
+
+    public function __construct(Auth $auth, UserModel $userModel){
         $this->currentUser = Auth::user();
+        $this->userModel = $userModel;
     }
 
 	const SERVICE_DAY_DETAIL = "10days, 20days, 30days, 40days, 50days, 60days, 70days, 80days, 90days";
@@ -66,8 +70,10 @@ class Common {
     | @return string
     | @author: tantan
     */
-    public static function getDisplayNameUser(){
-        $user = Auth::user();
+    public static function getDisplayNameUser($user = null){
+        if ($user == null){
+            $user = Auth::user();
+        }
         return $user->fullname ?? $user->phone ?? $user->username;
     }
 
@@ -122,12 +128,128 @@ class Common {
     | @return array of form infomation
     | @author: tantan
     */
-    public static function getFormOfService($service_code){
-        return [
-            'vay-tra-gop-theo-ngay' => [
-
+    public static function getFormOfService($service_slug, $user = null){
+        if( $user == null ){
+            $user = Auth::user();
+        }
+        $defaultFields = [
+            'user[card_number]' => [
+                'type' => 'text',
+                'label' => 'CMT',
+                'value' => $user->card_number,
+            ],
+            'user[birthday]' => [
+                'type' => 'date',
+                'label' => 'Ngày sinh',
+                'value' => $user->birthday,
+            ],
+            'user[sex]' => [
+                'type' => 'radio',
+                'data' => [userModel::NAM => 'Nam', userModel::NU => 'Nữ'],
+                'label' => 'Giới tính',
+                'value' => $user->sex,
             ]
         ];
+        $defaultFields2 = [
+            'user[company_name]' => [
+                'type' => 'text',
+                'label' => 'Tên công ty',
+                'value' => $user->company_name,
+            ],
+            'user[income]' => [
+                'type' => 'text',
+                'label' => 'Thu nhập',
+                'value' => $user->income,
+            ],
+            'user[job]' => [
+                'type' => 'select',
+                'data' => [],
+                'label' => 'Nghề nghiệp',
+                'value' => $user->job,
+            ],
+        ];
+
+        $forms = [
+
+            'vay-tra-gop-theo-ngay' => $defaultFields + $defaultFields2,
+
+            'vay-tin-chap-theo-luong' => $defaultFields + $defaultFields2,
+
+            'vay-theo-so-ho-khau' => $defaultFields + $defaultFields2,
+
+            'vay-theo-hoa-don-dien-nuoc' => $defaultFields + [
+                'transaction[electric_bill]' => [
+                    'type' => 'text',
+                    'label' => 'Tiền điện tháng gần nhất',
+                ],
+            ],
+
+            'vay-theo-dang-ky-xe-o-to' => $defaultFields + [
+                'transaction[car_name]' => [
+                    'type' => 'text',
+                    'label' => 'Tên xe',
+                ],
+                'transaction[car_brand]' => [
+                    'type' => 'select',
+                    'data' => [],
+                    'label' => 'Đời xe',
+                ],
+                'transaction[car_country]' => [
+                    'type' => 'select',
+                    'data' => [],
+                    'label' => 'Xuất xứ',
+                ],
+            ],
+
+            'vay-theo-dang-ky-xe-may' => $defaultFields + $defaultFields2,
+
+            'vay-mua-oto-tra-gop' => $defaultFields + $defaultFields2,
+
+            'vay-mua-nha-tra-gop' => $defaultFields + [
+                'transaction[estate_name]' => [
+                    'type' => 'select',
+                    'data' => [],
+                    'label' => 'Sản phẩm bất động sản cần vay',
+                ],
+                'user[income]' => [
+                    'type' => 'text',
+                    'label' => 'Thu nhập',
+                    'value' => $user->income,
+                ],
+                'user[income_source]' => [
+                    'type' => 'select',
+                    'data' => [],
+                    'label' => 'Nguồn thu nhập',
+                    'value' => $user->income_source,
+                ],
+            ], 
+
+            'vay-cam-co-tai-san' => $defaultFields + [
+                'transaction[mortgage]' => [
+                    'type' => 'select',
+                    'data' => [],
+                    'label' => 'Loại tài sản thế chấp',
+                ],
+                'transaction[mortgage_brand]' => [
+                    'type' => 'text',
+                    'label' => 'Thương hiệu',
+                ],
+                'transaction[mortgage_year]' => [
+                    'type' => 'text',
+                    'data' => [],
+                    'label' => 'Năm sản xuất',
+                ],
+                'transaction[mortgage_note]' => [
+                    'type' => 'text',
+                    'label' => 'Mô tả',
+                ],
+            ], 
+
+        ];
+        if( isset($forms[$service_slug]) ){
+            return $forms[$service_slug];
+        }
+        return $defaultFields + $defaultFields2;
     }
 
 }

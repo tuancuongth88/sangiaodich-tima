@@ -34,8 +34,6 @@ class TransactionHistoryRepository extends Repository {
     const FEE_SEARCH_LOAN_HISTORY_DEFAULT = 2000;
     const FEE_SEARCH_LOAN_HISTORY_SUCCESS = 10000;
 
-
-
     function __construct(
         TransactionHistory $transactionHistory,
         Service $services,
@@ -82,17 +80,18 @@ class TransactionHistoryRepository extends Repository {
     | @return mix \Validator
     | @Author : tantan
      */
-    public function validator(array $array) {
+    public function validator(array $array)
+    {
         $messages = [
-            'required'                      => 'Vui lòng nhập :attribute',
-            self::CITY_ID . '.required'     => 'Vui lòng chọn thành phố',
+            'required' => 'Vui lòng nhập :attribute',
+            self::CITY_ID . '.required' => 'Vui lòng chọn thành phố',
             self::DISTRICT_ID . '.required' => 'Vui lòng chọn quận/huyện',
-            self::AGREE_TERM . '.required'  => 'Bạn phải đồng ký với điều khoản của chúng tôi',
+            self::AGREE_TERM . '.required' => 'Bạn phải đồng ký với điều khoản của chúng tôi',
         ];
         return Validator::make($array, [
-            self::CITY_ID     => 'required',
+            self::CITY_ID => 'required',
             self::DISTRICT_ID => 'required',
-            self::AGREE_TERM  => 'required',
+            self::AGREE_TERM => 'required',
         ], $messages);
     }
 
@@ -266,10 +265,9 @@ class TransactionHistoryRepository extends Repository {
         //status
         $count_tran_wait_consultant = $this->model::where('status', 1)->get()->count();
         $count_tran_wait_receive = $this->model::where('status', 2)->get()->count();
-        $count_tran_is_borrowing = $this->model::where('status', 3)->get()->count();
-
+        $count_tran_is_borrowing = $this->model::where('status',  3)->get()->count();
         $sum_amount_tran_is_borrowing = $this->model::where('status', 3)->sum('amount');
-        $list_services                = $this->services->get()->toArray();
+        $list_services = $this->services->get()->toArray();
 
         $page = $this->request->input('page');
         if ($page) {
@@ -356,8 +354,9 @@ class TransactionHistoryRepository extends Repository {
     | @method POST
     | @return Response
     | @author tantan
-     */
-    public function postDetailForm($slug) {
+    */
+    public function postDetailForm($slug)
+    {
         if (!\Auth::check()) {
             return redirect(route('frontend.user.register', ['destination' => '/dang-ky-vay/' . $slug]))
                 ->with('status', true)
@@ -375,21 +374,71 @@ class TransactionHistoryRepository extends Repository {
                 ->withInput($input);
         }
 
-        $service                   = $this->services->findBySlug($slug);
-        $amountConfig              = $service->amount_config();
-        $dayConfig                 = $service->day_config();
-        $input['status']           = $this->model::STATUS_WAIT;
-        $input['user_id']          = $user->id;
-        $unitDay                   = $input['amount_day'] . $dayConfig[0]['unit'];
-        $paymentDay                = strtotime('+' . $unitDay);
-        $input['amount_day']       = round(($paymentDay - time()) / (60 * 60 * 24));
-        $input['payment_day']      = date('Y-m-d H:i', $paymentDay);
-        $input['service_code']     = $service->id;
-        $input['fee']              = $service->fee;
+        $service = $this->services->findBySlug($slug);
+        $amountConfig = $service->amount_config();
+        $dayConfig = $service->day_config();
+        $input['status'] = $this->model::STATUS_WAIT;
+        $input['user_id'] = $user->id;
+        $unitDay = $input['amount_day'] . $dayConfig[0]['unit'];
+        $paymentDay = strtotime('+' . $unitDay);
+        $input['amount_day'] = round(($paymentDay - time()) / (60 * 60 * 24));
+        $input['payment_day'] = date('Y-m-d H:i', $paymentDay);
+        $input['service_code'] = $service->id;
+        $input['fee'] = $service->fee;
         $input['percent_discount'] = $service->discount;
-        $input['fee_type']         = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
-        $this->model->create($input);
-        return redirect()->back()->with('status', true)->with('message', 'Đăng ký vay thành công!');
+        $input['fee_type'] = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
+
+        $transaction = $this->model->create($input);
+        if( $transaction->id != null ){
+            return redirect()->route('transaction.site.updateform', [$slug, $transaction]);
+        }
+        return redirect()->back()->with('error', true)->with('message', 'Có lỗi xảy ra! Đơn vay chưa được khỏi tạo. Vui lòng thử lại!');
+    }
+
+    /*
+    |---------------------------------------
+    | GET UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method GET
+    | @return responsive
+    | @author tantan
+     */
+    public function transactionUpdateForm($service, $transaction) {
+        $form = \Common::getFormOfService($service);
+        return view('frontend.transactionhistory.update_info')->with(compact('service', 'transaction', 'form'));
+    }
+
+    /*
+    |---------------------------------------
+    | SAVE UPDATE FORM AFTER SEND A TRANSACTION
+    |---------------------------------------
+    | @params
+    | @method POST
+    | @return responsive
+    | @author tantan
+     */
+    public function postTransactionUpdateForm($service, $tranId) {
+        $input = $this->request->all();
+        $transaction = $this->model->findOrFail($tranId);
+        if( !empty($input['user']) ){
+            ///// Lay thong tin user dang don vay
+            $thisUser = $transaction->user();
+            if( $thisUser ){
+                /// if this filed not empty and user already update before
+                /// we will be ignore them
+                foreach ($input['user'] as $field => $value) {
+                    if( $value != '' && $thisUser->$field != '' ){
+                        unset($input['user'][$field]);
+                    }
+                }
+                $thisUser->update($input['user']);
+            }
+        }
+        if( !empty($input['transaction']) ){
+            $transaction->update($input['transaction']);
+        }
+        return redirect()->route('frontends.manager.transaction')->with('status', true)->with('message', 'Cảm ơn '. \Common::getDisplayNameUser($thisUser) .'! Thông tin đơn '.$service->service_name.' của bạn đã được lưu thành công!');
     }
 
     /*

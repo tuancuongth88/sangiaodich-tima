@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TransactionHistory extends Model {
     use SoftDeletes;
 
+    const STATUS_WAIT      = 1;
+    const STATUS_RECEIVED  = 2;
+    const STATUS_BORROWING = 3;
+    const STATUS_APPROVE   = 4;
+    const STATUS_CANCEL    = 5;
+
     protected $table      = 'transaction_history';
     protected $primaryKey = 'id';
 
@@ -15,6 +21,10 @@ class TransactionHistory extends Model {
         'trans_id', 'service_code', 'customer_name', 'customer_mobile', 'user_id', 'city_id', 'ward_id',
         'district_id', 'amount', 'amount_day', 'payment_day', 'status', 'created_time', 'telesales_id',
         'telesales_time', 'sales_id', 'sales_time', 'fee', 'fee_type', 'percent_discount',
+        
+        'car_brand', 'car_name', 'car_model', 'car_country', 'estate_name', 'mortgage',
+        'mortgage_brand', 'mortgage_year', 'mortgage_note', 'electric_bill', 'moto_brand',
+        'moto_name', 'moto_model'
     ];
 
     protected $dates = ['deleted_at'];
@@ -61,11 +71,11 @@ class TransactionHistory extends Model {
     //1 ch
     public $status_transactionhistory =
     array(
-        TRAN_STATUS_WAIT      => 'Chờ nhận',
-        TRAN_STATUS_RECEIVED  => 'Đã nhận',
-        TRAN_STATUS_BORROWING => 'Đang vay',
-        TRAN_STATUS_APPROVE   => 'Đã tất toán',
-        TRAN_STATUS_CANCEL    => 'Đã hủy',
+        self::STATUS_WAIT      => 'Chờ nhận',
+        self::STATUS_RECEIVED  => 'Đã nhận',
+        self::STATUS_BORROWING => 'Đang vay',
+        self::STATUS_APPROVE   => 'Đã tất toán',
+        self::STATUS_CANCEL    => 'Đã hủy',
     );
 
     public function scopeSearch($query, $search = '', $field = '') {
