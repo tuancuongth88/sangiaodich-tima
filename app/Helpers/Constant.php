@@ -34,3 +34,15 @@ define('ACTIVED', 1);
 define('PERSONAL_RECORDS', 1);
 define('PROFILE_RESIDENCE', 2);
 define('INCOME_RECORDS', 3);
+
+
+/**
+ * Status Transaction History
+ *
+ */
+define('TRAN_STATUS_WAIT', 1);
+define('TRAN_STATUS_RECEIVED', 2);
+define('TRAN_STATUS_BORROWING', 3);
+define('TRAN_STATUS_APPROVE', 4);
+define('TRAN_STATUS_CANCEL', 5);
+

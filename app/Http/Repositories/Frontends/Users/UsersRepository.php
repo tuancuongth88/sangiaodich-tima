@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+
 use Validator;
 
 class UsersRepository extends Repository {
@@ -20,6 +21,7 @@ class UsersRepository extends Repository {
     protected $user;
     protected $request;
     protected $auth;
+    protected $model;
 
     function __construct(ResponseService $response, Request $request, AuthService $auth, User $user, $companyId = 0, $perpages = 2, $current = 1) {
         $this->model    = $user;
@@ -37,6 +39,21 @@ class UsersRepository extends Repository {
     const EMAIL    = 'email';
     const PASSWORD = 'password';
     const TYPE     = 'type';
+    const COMPANY_PHONE = 'company_phone';
+
+    /*
+   |--------------------------------------------------------------------------
+   | VALIDATOR
+   |--------------------------------------------------------------------------
+   | @params array[requestAll]
+   | @return boolean
+   | @Author : phuonglv
+    */
+
+    public function validatorProfile(array $array)
+    {
+        return Validator::make($array, $this->model::$rules, $this->model::$messages);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -287,6 +304,7 @@ class UsersRepository extends Repository {
     }
 
     /*
+<<<<<<< HEAD
     |--------------------------------------------------------------------------
     | CREATE OPT STRING.
     |--------------------------------------------------------------------------
@@ -295,9 +313,12 @@ class UsersRepository extends Repository {
     | @method POST
     | @Author : phuonglv
      */
-    public function updateUserInfo($params) {
+
+    public function updateUserInfo()
+    {
         //check user
-        $where     = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
+        $params = $this->request->all();
+        $where = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
         $user_data = $this->user::where($where)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
         if ($user_data) {
@@ -312,6 +333,9 @@ class UsersRepository extends Repository {
                 }
                 $date               = $date->format('Y-m-d');
                 $params['birthday'] = $date;
+            }
+            if (isset($params['company_phone'])) {
+                $this->validatorProfile($params);
             }
             $this->user::where('id', '=', $id)->update($params);
             return redirect()->back()->with('status', true)->with('message', 'Cập nhật thành công');

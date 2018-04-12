@@ -8,12 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TransactionHistory extends Model {
     use SoftDeletes;
 
-    const STATUS_WAIT      = 1;
-    const STATUS_RECEIVED  = 2;
-    const STATUS_BORROWING = 3;
-    const STATUS_APPROVE   = 4;
-    const STATUS_CANCEL    = 5;
-
     protected $table      = 'transaction_history';
     protected $primaryKey = 'id';
 
@@ -67,11 +61,11 @@ class TransactionHistory extends Model {
     //1 ch
     public $status_transactionhistory =
     array(
-        self::STATUS_WAIT      => 'Chờ nhận',
-        self::STATUS_RECEIVED  => 'Đã nhận',
-        self::STATUS_BORROWING => 'Đang vay',
-        self::STATUS_APPROVE   => 'Đã tất toán',
-        self::STATUS_CANCEL    => 'Đã hủy',
+        TRAN_STATUS_WAIT      => 'Chờ nhận',
+        TRAN_STATUS_RECEIVED  => 'Đã nhận',
+        TRAN_STATUS_BORROWING => 'Đang vay',
+        TRAN_STATUS_APPROVE   => 'Đã tất toán',
+        TRAN_STATUS_CANCEL    => 'Đã hủy',
     );
 
     public function scopeSearch($query, $search = '', $field = '') {

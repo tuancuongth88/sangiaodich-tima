@@ -88,7 +88,7 @@
                                 <label for="txtCardNumber"
                                        class="col-sm-4 col-form-label text-sm-right">CMND</label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="text" class="form-control" id="txtCardNumber" placeholder=""
+                                    <input type="number" class="form-control" id="txtCardNumber" placeholder=""
                                            name="card_number" value="{{$data['card_number']}}">
                                 </div>
                             </div>
@@ -252,7 +252,7 @@
                                     ĐT công ty
                                 </label>
                                 <div class="col-xl-8 col-sm-7">
-                                    <input type="text" class="form-control" id="txtCompanyPhone" placeholder=""
+                                    <input type="number" class="form-control" maxlength="11" id="txtCompanyPhone" placeholder=""
                                            name="company_phone"
                                            value="{{$data['company_phone']}}">
                                 </div>
