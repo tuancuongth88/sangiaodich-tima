@@ -252,4 +252,18 @@ class Common {
         return $defaultFields + $defaultFields2;
     }
 
+    /*
+    |--------------------------------------------
+    | CHECK NULL AND GET OBJECT
+    |--------------------------------------------
+    | @params object, method, default value return if null
+    | @author tantan
+    |*/
+    public static function getObject($obj, $method, $default = null){
+        if( $obj != null && $obj->method != null ){
+            return $obj->method;
+        }
+        return $default;
+    }
+
 }
