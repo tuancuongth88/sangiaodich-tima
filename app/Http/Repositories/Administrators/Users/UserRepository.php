@@ -2,15 +2,14 @@
 
 namespace App\Http\Repositories\Administrators\Users;
 use App\Http\Repositories\Administrators\Repository;
-
 use App\Http\Services\ActivationService;
+use App\Models\Users\AccountLog;
 use App\Models\Users\User;
 use App\Models\Users\UserType;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Hash;
 use Illuminate\Http\Request;
-
 use JWTAuth;
 use PhpSpec\Exception\Exception;
 use Validator;
@@ -21,7 +20,6 @@ use Validator;
 class UserRepository extends Repository {
 
     private $request;
-
 
     protected $auth;
 
@@ -54,24 +52,24 @@ class UserRepository extends Repository {
     const SEARCH_INPUT     = 'search';
 
     // field of user table.
-    const ID            = 'id';
-    const FULLNAME      = 'fullname';
-    const USERNAME      = 'username';
-    const EMAIL         = 'email';
-    const PHONE         = 'phone';
-    const CREATE_BY     = 'create_by';
-    const UPDATED_BY    = 'updated_by';
-    const AVATAR        = 'avatar';
-    const BIRTHDAY      = 'birthday';
-    const GENDER        = 'gender';
-    const ADDRESS       = 'address';
-    const ACTIVE        = 'active';
-    const PASSWORD      = 'password';
-    const CURRENT       = 'current';
-    const DELETED       = 'deleted';
-    const ITEMS         = 'items';
-    const TYPE          = 'type';
-    const IDENTITY      = 'identity';
+    const ID         = 'id';
+    const FULLNAME   = 'fullname';
+    const USERNAME   = 'username';
+    const EMAIL      = 'email';
+    const PHONE      = 'phone';
+    const CREATE_BY  = 'create_by';
+    const UPDATED_BY = 'updated_by';
+    const AVATAR     = 'avatar';
+    const BIRTHDAY   = 'birthday';
+    const GENDER     = 'gender';
+    const ADDRESS    = 'address';
+    const ACTIVE     = 'active';
+    const PASSWORD   = 'password';
+    const CURRENT    = 'current';
+    const DELETED    = 'deleted';
+    const ITEMS      = 'items';
+    const TYPE       = 'type';
+    const IDENTITY   = 'identity';
 
     const MODULE_NAME = 'USER';
     const MODULE      = 'modules';
@@ -111,7 +109,7 @@ class UserRepository extends Repository {
             self::AVATAR,
             self::IDENTITY,
         ];
-        $array = $this->request->only($fieldInput);
+        $array     = $this->request->only($fieldInput);
         $validator = $this->validator($array);
         if ($validator->fails()) {
             return redirect()
@@ -165,11 +163,11 @@ class UserRepository extends Repository {
             ], $messages);
         }
         return Validator::make($array, [
-            self::EMAIL         => 'required|email|max:255',
-            self::FULLNAME      => 'required|max:60',
-            self::GENDER        => 'required',
-            self::BIRTHDAY      => 'date|date_format:"d-m-Y"',
-            self::PASSWORD      => 'required|confirmed',
+            self::EMAIL    => 'required|email|max:255',
+            self::FULLNAME => 'required|max:60',
+            self::GENDER   => 'required',
+            self::BIRTHDAY => 'date|date_format:"d-m-Y"',
+            self::PASSWORD => 'required|confirmed',
         ], $messages);
     }
 
@@ -318,6 +316,31 @@ class UserRepository extends Repository {
         $user = $this->user->find($id)->toArray();
         return view('administrator.users.edit', ['user' => $user]);
         // return view('administrator.users.info', ['data' => $data, 'user' => $user]);
+    }
+
+    public function getPurchase() {
+        return view('administrator.users.purchase');
+    }
+
+    public function postPurchase() {
+        if (!\Auth::check()) {
+            dd('Vui lòng đăng nhập');
+        }
+        $amount = (int) $this->request->input('amount');
+        if ($amount <= 0) {
+            dd('Bạn vui lòng kiểm tra lại số tiền nạp');
+        }
+        $user = $this->user->where('email', $this->request->input('email'))->first();
+        if (!$user) {
+            dd('Không tồn tại tài khoản này');
+        }
+        $user->amount += $amount;
+        $user->save();
+        //store log
+        $dataLog['amount']  = $amount;
+        $dataLog['user_id'] = $user->id;
+        AccountLog::create($dataLog);
+        return redirect()->back();
     }
 
 }

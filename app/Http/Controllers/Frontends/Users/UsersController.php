@@ -6,21 +6,18 @@ use App\Http\Repositories\Frontends\Users\UsersRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller
-{
+class UsersController extends Controller {
     private $repository;
 
-    public function __construct(UsersRepository $repository, Request $request)
-    {
+    public function __construct(UsersRepository $repository, Request $request) {
         $this->repository = $repository;
-        $this->request = $request;
+        $this->request    = $request;
     }
 
     /**
      * Get register form
      */
-    public function getRegisterForm()
-    {
+    public function getRegisterForm() {
         // If OTP has been sent, we keep session live 1 time.
         if (session('sendOTP')) {
             $this->request->session()->keep(['input', 'OTP']);
@@ -33,8 +30,7 @@ class UsersController extends Controller
     /**
      * Process request from register form
      */
-    public function postRegisterForm(Request $request)
-    {
+    public function postRegisterForm(Request $request) {
         return $this->repository->storeUser();
     }
 
@@ -46,8 +42,7 @@ class UsersController extends Controller
     | @return Response
     | @Author : tantan
      */
-    public function validateOTP(Request $request)
-    {
+    public function validateOTP(Request $request) {
         return $this->repository->validateOTP();
     }
 
@@ -60,8 +55,7 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getloginForm()
-    {
+    public function getloginForm() {
         return view('frontend.users.login');
     }
 
@@ -74,8 +68,7 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postloginForm()
-    {
+    public function postloginForm() {
         return $this->repository->doLogin();
     }
 
@@ -88,8 +81,7 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function getProfileForm($user)
-    {
+    public function getProfileForm($user) {
         return $this->repository->getProfile($user);
     }
 
@@ -102,8 +94,7 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postProfileForm()
-    {
+    public function postProfileForm() {
         return $this->repository->saveProfile();
     }
 
@@ -116,8 +107,7 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postSaveService($user)
-    {
+    public function postSaveService($user) {
         return $this->repository->postSaveService($user);
     }
 
@@ -130,8 +120,7 @@ class UsersController extends Controller
     | @method POST
     | @Author : tantan
      */
-    public function postSaveLocation($user)
-    {
+    public function postSaveLocation($user) {
         return $this->repository->postSaveLocation($user);
     }
 
@@ -144,8 +133,7 @@ class UsersController extends Controller
     | @method GET
     | @Author : tantan
      */
-    public function logout()
-    {
+    public function logout() {
         Auth::logout();
         return redirect()->route('frontend.user.login')
             ->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
@@ -160,8 +148,7 @@ class UsersController extends Controller
     | @method GET
     | @Author : phuonglv
      */
-    public function getUserInFoForm($user_id)
-    {
+    public function getUserInFoForm($user_id) {
         return $this->repository->getUser($user_id);
     }
 
@@ -175,8 +162,7 @@ class UsersController extends Controller
     | @Author : phuonglv
      */
 
-    public function updateUserInfo()
-    {
+    public function updateUserInfo() {
         return $this->repository->updateUserInfo();
     }
 
@@ -189,8 +175,7 @@ class UsersController extends Controller
     | @method Post
     | @Author : phuonglv
      */
-    public function uploadAvatar()
-    {
+    public function uploadAvatar() {
         return $this->repository->updateAvatar();
     }
 
@@ -203,19 +188,16 @@ class UsersController extends Controller
     | @method Post
     | @Author : phuonglv
      */
-    public function uploadimgprofile()
-    {
+    public function uploadimgprofile() {
         return $this->repository->uploadImgProfile();
     }
 
-    public function getPurchase()
-    {
-        return $this->repository->getPurchase();
-    }
+    // public function getPurchase() {
+    //     return $this->repository->getPurchase();
+    // }
 
-    public function postPurchase()
-    {
-        return $this->repository->postPurchase();
-    }
+    // public function postPurchase() {
+    //     return $this->repository->postPurchase();
+    // }
 
 }

@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('contact/search', 'Administrators\Contact\ContactController@getSearch');
     Route::resource('/contact', 'Administrators\Contact\ContactController');
     //user route
+    Route::get('/purchase', 'Administrators\Users\UserController@getPurchase');
+    Route::post('/purchase', 'Administrators\Users\UserController@postPurchase');
     Route::get('/user/search', 'Administrators\Users\UserController@getSearch');
     Route::get('/user/search-data', 'Administrators\Users\UserController@getSearchData');
     Route::resource('/user', 'Administrators\Users\UserController');
@@ -84,8 +86,8 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 | @author tantan
  */
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/purchase', 'Frontends\Users\UsersController@getPurchase');
-    Route::post('/purchase', 'Frontends\Users\UsersController@postPurchase');
+    // Route::get('/purchase', 'Frontends\Users\UsersController@getPurchase');
+    // Route::post('/purchase', 'Frontends\Users\UsersController@postPurchase');
     Route::get('/', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.register')->middleware('guest');
 
     Route::get('/register', 'Frontends\Users\UsersController@getRegisterForm')->name('frontend.user.register')->middleware('guest');
@@ -142,6 +144,7 @@ Route::group(['prefix' => 'ajax'], function () {
 });
 
 Route::group(['prefix' => 'san-giao-dich'], function () {
+    Route::get('/table-vay', 'Frontends\TransactionHistory\ListTransactionController@getTable');
     Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index');
     Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });

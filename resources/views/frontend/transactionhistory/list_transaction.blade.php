@@ -84,20 +84,20 @@
 
             <div class="row gutter-2 gutter-lg-3 mb-4">
                 <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
-                    {{ Form::select('service_code', [0 => 'Tất cả']+App\Models\Services\Service::list_type_service(), null, ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbPrice']) }}
+                    {{ Form::select('fee_type', [0 => 'Tất cả']+App\Models\Services\Service::list_type_service(), Request::input('fee_type'), ['class' => 'selectpicker form-control input-lg', 'id' => 'cbPrice']) }}
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
-                    {{ Form::select('service_code', $list_service->pluck('service_name', 'id'), null, ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbProduct']) }}
+                    {{ Form::select('service_code', $list_service->pluck('service_name', 'id'), Request::input('service_code'), ['class' => 'selectpicker form-control input-lg', 'id' => 'cbProduct']) }}
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-3 mb-sm-0">
-                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), Request::input('city_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
 
                 </div>
 
                 <div class="col-md-3 col-sm-6">
-                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), null, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), Request::input('district_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
 
                 </div>
             </div>
@@ -396,11 +396,11 @@ $date = strtotime($value->created_at);
                                     <div class="text-nowrap">
                                         <div class="text-nowrap">
                                             <span class="text-primary">
-                                                11,000 ₫
+                                                {{ $value->fee - ($value->fee * $value->percent_discount / 100) }} ₫
                                             </span>
                                             <hr class="my-0">
-                                            <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">22,000 ₫ </span>
-                                            <span style="font-size:12px;color:black;margin-left:5px;">-50%</span>
+                                            <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">{{ $value->fee }} ₫ </span>
+                                            <span style="font-size:12px;color:black;margin-left:5px;">-{{ $value->percent_discount }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -438,4 +438,29 @@ $date = strtotime($value->created_at);
     @include('frontend.common.mohinh')
     @include('frontend.common.tongdai')
     @include('frontend.common.service')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('body').on('change', '#cbPrice', function() {
+            getData();
+        });
+        $('body').on('change', '#cbProduct', function() {
+            getData();
+        });
+        $('body').on('change', '#cbDistrict', function() {
+            getData();
+        });
+        $('body').on('change', '#cbCity', function() {
+            getData();
+        });
+
+        function getData() {
+            var url = window.location.pathname;
+            var fee_type = $('#cbPrice').val();
+            var service_code = $('#cbProduct').val();
+            var city_id = $('#cbCity').val();
+            var district_id = $('#cbDistrict').val();
+            window.location.href = url + '?fee_type='+ fee_type + '&service_code=' + service_code + '&city_id=' + city_id + '&district_id=' + district_id;
+        }
+    });
+</script>
 @stop
