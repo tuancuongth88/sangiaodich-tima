@@ -117,6 +117,9 @@ class TransactionHistoryRepository extends Repository
          */
     public function index()
     {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
@@ -158,6 +161,10 @@ class TransactionHistoryRepository extends Repository
         */
     public function getTranByProduct()
     {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+
         $id = $this->auth->user()->id;
         $product = $this->request->input('product');
         $status = $this->request->input('status');
@@ -194,6 +201,9 @@ class TransactionHistoryRepository extends Repository
         */
     public function searchTranByPhoneAndIdCard()
     {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
         $s_mobile = trim($this->request->input('phone'));
         $cardnumber = trim($this->request->input('cardnumber'));
         $current_user_id = $this->auth->user()->id;
@@ -277,6 +287,9 @@ class TransactionHistoryRepository extends Repository
         */
     public function manageTran()
     {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
