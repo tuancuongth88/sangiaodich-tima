@@ -110,7 +110,12 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function index() {
+    public function index()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
@@ -150,10 +155,15 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function getTranByProduct() {
-        $id                 = $this->auth->user()->id;
-        $product            = $this->request->input('product');
-        $status             = $this->request->input('status');
+    public function getTranByProduct()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+
+        $id = $this->auth->user()->id;
+        $product = $this->request->input('product');
+        $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
 
         $where_cloud[] = ['id', $id];
@@ -185,9 +195,13 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function searchTranByPhoneAndIdCard() {
-        $s_mobile        = trim($this->request->input('phone'));
-        $cardnumber      = trim($this->request->input('cardnumber'));
+    public function searchTranByPhoneAndIdCard()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+        $s_mobile = trim($this->request->input('phone'));
+        $cardnumber = trim($this->request->input('cardnumber'));
         $current_user_id = $this->auth->user()->id;
 
         if ($s_mobile == '' && $cardnumber == '') {
@@ -263,7 +277,12 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function manageTran() {
+
+    public function manageTran()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
