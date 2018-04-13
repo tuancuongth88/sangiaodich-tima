@@ -4,6 +4,7 @@ use App\Http\Repositories\Administrators\Repository;
 use App\Models\Services\Service;
 use App\Models\TransactionHistory\TransactionHistory;
 use App\Models\TransactionHistory\TransactionHistoryLog;
+use App\Models\Users\AccountLog;
 use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
@@ -315,11 +316,24 @@ class TransactionHistoryRepository extends Repository {
     | @author cuongnt
      */
     public function getListTransaction() {
-        $listService         = Service::all();
-        $totalMoney          = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
-        $total_reg_borrow    = User::where('type', VAY)->count();
-        $total_reg_loan      = User::where('type', CHO_VAY)->count();
-        $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->orderBy('id', 'desc')->paginate($this->perpages);
+        $listService      = Service::all();
+        $totalMoney       = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
+        $total_reg_borrow = User::where('type', VAY)->count();
+        $total_reg_loan   = User::where('type', CHO_VAY)->count();
+        $input            = $this->request->all();
+        if (isset($input['fee_type']) && $input['fee_type'] == '0') {
+            unset($input['fee_type']);
+        }
+        if (isset($input['service_code']) && ($input['service_code'] == '0' || !$input['service_code'])) {
+            unset($input['service_code']);
+        }
+        if (!isset($input['city_id'])) {
+            unset($input['city_id']);
+        }
+        if (!isset($input['district_id'])) {
+            unset($input['district_id']);
+        }
+        $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->where($input)->orderBy('id', 'desc')->paginate($this->perpages);
         return view('frontend.transactionhistory.list_transaction', [
             'data'             => $listTransactionNews,
             'list_service'     => $listService,
@@ -330,6 +344,9 @@ class TransactionHistoryRepository extends Repository {
     }
 
     public function putStatusTransaction($id) {
+        if (!\Auth::check()) {
+            dd('Vui lòng đăng nhập');
+        }
         $obj = $this->model->find($id);
         if (!$obj) {
             dd('Không tồn tại giao dịch này');
@@ -340,23 +357,33 @@ class TransactionHistoryRepository extends Repository {
         $obj->status = $this->model::STATUS_RECEIVED;
         if ($obj->fee) {
             $user = $this->user->find($this->auth->user()->id);
-            if ($user->fee <= (int) $obj->fee) {
+            if ($user->amount <= (int) $obj->fee) {
                 dd('Bạn không đủ tiền để nhận giao dịch này');
             }
             $user->amount -= (int) $obj->fee;
             $user->save();
+            //store log
+            $accountLog['amount']  = -(int) $obj->fee;
+            $accountLog['user_id'] = $user->id;
+            AccountLog::create($accountLog);
         }
         $obj->save();
         //store log
-        $dataLog['transaction_id'] = $obj->id;
-        $dataLog['service_code']   = $obj->service_code;
-        $dataLog['created_by']     = $this->auth->user()->id;
-        $dataLog['city_id']        = $obj->city_id;
-        $dataLog['district_id']    = $obj->district_id;
-        $dataLog['ward_id']        = $obj->ward_id;
-        $dataLog['amount']         = $obj->amount;
-        $dataLog['amount_day']     = $obj->amount_day;
+        $dataLog['transaction_id']   = $obj->id;
+        $dataLog['service_code']     = $obj->service_code;
+        $dataLog['created_by']       = $obj->created_by;
+        $dataLog['receiver']         = $this->auth->user()->id;
+        $dataLog['city_id']          = $obj->city_id;
+        $dataLog['district_id']      = $obj->district_id;
+        $dataLog['ward_id']          = $obj->ward_id;
+        $dataLog['amount']           = $obj->amount;
+        $dataLog['amount_day']       = $obj->amount_day;
+        $dataLog['status']           = $obj->status;
+        $dataLog['fee']              = $obj->fee;
+        $dataLog['fee_type']         = $obj->fee_type;
+        $dataLog['percent_discount'] = $obj->percent_discount;
         TransactionHistoryLog::create($dataLog);
         return redirect()->action('Frontends\TransactionHistory\ListTransactionController@index');
     }
+
 }

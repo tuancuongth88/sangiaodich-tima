@@ -166,12 +166,12 @@ class UsersController extends Controller {
         return $this->repository->updateUserInfo($params);
     }
 
-    public function getPurchase() {
-        return $this->repository->getPurchase();
-    }
+    // public function getPurchase() {
+    //     return $this->repository->getPurchase();
+    // }
 
-    public function postPurchase() {
-        return $this->repository->postPurchase();
-    }
+    // public function postPurchase() {
+    //     return $this->repository->postPurchase();
+    // }
 
 }

@@ -311,22 +311,25 @@ class UsersRepository extends Repository {
         }
     }
 
-    public function getPurchase() {
-        return view('frontend.users.purchase');
-    }
+    // public function getPurchase() {
+    //     return view('frontend.users.purchase');
+    // }
 
-    public function postPurchase() {
-        $amount = (int) $this->request->input('amount');
-        if ($amount <= 0) {
-            dd('Bạn vui lòng kiểm tra lại số tiền nạp');
-        }
-        $user = $this->model->find($this->auth->user()->id);
-        $user->amount += $amount;
-        $user->save();
-        //store log
-        $dataLog['amount']  = $amount;
-        $dataLog['user_id'] = $user->id;
-        AccountLog::create($dataLog);
-        return redirect()->back();
-    }
+    // public function postPurchase() {
+    //     if (!Auth::check()) {
+    //         dd('Vui lòng đăng nhập');
+    //     }
+    //     $amount = (int) $this->request->input('amount');
+    //     if ($amount <= 0) {
+    //         dd('Bạn vui lòng kiểm tra lại số tiền nạp');
+    //     }
+    //     $user = $this->model->find($this->auth->user()->id);
+    //     $user->amount += $amount;
+    //     $user->save();
+    //     //store log
+    //     $dataLog['amount']  = $amount;
+    //     $dataLog['user_id'] = $user->id;
+    //     AccountLog::create($dataLog);
+    //     return redirect()->back();
+    // }
 }
