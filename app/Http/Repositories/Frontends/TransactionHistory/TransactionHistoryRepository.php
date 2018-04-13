@@ -163,7 +163,7 @@ class TransactionHistoryRepository extends Repository
         $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
 
-        $where_cloud = ['id', $id];
+        $where_cloud[] = ['id', $id];
         $is_search = false;
         if ((int)$product > 0) {
             $where_cloud[] = ['service_code', '=', $product];
