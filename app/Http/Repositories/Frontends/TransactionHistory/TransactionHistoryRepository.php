@@ -523,6 +523,7 @@ class TransactionHistoryRepository extends Repository {
         if (!isset($input['district_id'])) {
             unset($input['district_id']);
         }
+        // dd($input);
         $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->where($input)->orderBy('id', 'desc')->paginate($this->perpages);
         return view('frontend.transactionhistory.list_transaction', [
             'data'             => $listTransactionNews,
@@ -546,14 +547,15 @@ class TransactionHistoryRepository extends Repository {
         }
         $obj->status = $this->model::STATUS_RECEIVED;
         if ($obj->fee) {
+            $fee = $this->getFeeTransaction($obj);
             $user = $this->user->find($this->auth->user()->id);
-            if ($user->amount <= (int) $obj->fee) {
+            if ($user->amount < $fee) {
                 return redirect()->back()->with('message', 'Bạn không đủ tiền để nhận giao dịch này');
             }
-            $user->amount -= (int) $obj->fee;
+            $user->amount -= $fee;
             $user->save();
             //store log
-            $accountLog['amount']  = -(int) $obj->fee;
+            $accountLog['amount']  = -$fee;
             $accountLog['user_id'] = $user->id;
             AccountLog::create($accountLog);
         }
@@ -562,7 +564,7 @@ class TransactionHistoryRepository extends Repository {
 
         $dataLog['transaction_id']   = $obj->id;
         $dataLog['service_code']     = $obj->service_code;
-        $dataLog['created_by']       = $obj->created_by;
+        $dataLog['created_by']       = $obj->user_id;
         $dataLog['receiver']         = $this->auth->user()->id;
         $dataLog['city_id']          = $obj->city_id;
         $dataLog['district_id']      = $obj->district_id;
@@ -575,6 +577,10 @@ class TransactionHistoryRepository extends Repository {
         $dataLog['percent_discount'] = $obj->percent_discount;
         TransactionHistoryLog::create($dataLog);
         return redirect()->action('Frontends\TransactionHistory\ListTransactionController@index');
+    }
+
+    public function getFeeTransaction($obj){
+        return ((int) $obj->fee * (int)$obj->percent_discount) / 100;
     }
 
 }

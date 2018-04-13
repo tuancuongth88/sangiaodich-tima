@@ -186,10 +186,10 @@
                                         <div class="icon-male-circle wf-38 d-flex align-self-center mr-3 hidden-xs-down"></div>
                                         <div class="media-body align-self-center text-ellipsis">
                                             <div class="tm-table__para fw-6 line-height-heading mb-1">
-                                                {{ $data_val->userCreated->fullname }}
+                                                {{ isset($data_val->userCreated->fullname) ? $data_val->userCreated->fullname : '' }}
                                             </div>
                                             <div class="text-gray-lighter">
-                                                {{substrPhone($data_val->userCreated->phone)}}
+                                                {{ substrPhone($data_val->userCreated->phone)}}
                                             </div>
                                         </div>
                                     </div>

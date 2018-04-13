@@ -103,7 +103,7 @@
                                 <a class="nav-link" href="{{ route('services.site.list') }}">Cần một khoản vay</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Sàn giao dịch</a>
+                                <a class="nav-link" href="{{ route('frontend.listtransaction.site') }}">Sàn giao dịch</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.user.register') }}">Về tima</a>
@@ -118,7 +118,7 @@
                         @auth
                             @if( Auth::user()->type == \PermissionCommon::CHO_VAY )
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('frontend.user.register') }}">Sàn giao dịch</a>
+                                    <a class="nav-link" href="{{ route('frontend.listtransaction.site') }}">Sàn giao dịch</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@manage') }}">Quản lý đơn vay</a>

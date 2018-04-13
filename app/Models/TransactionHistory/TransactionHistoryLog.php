@@ -23,7 +23,7 @@ class TransactionHistoryLog extends Model {
         'user_id',
         'city_id',
         'ward_id',
-        'district_id,amount',
+        'district_id',
         'amount_day',
         'payment_day',
         'status',

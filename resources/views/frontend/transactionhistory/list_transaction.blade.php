@@ -62,7 +62,7 @@
                 <div class="d-flex align-items-center justify-content-center w-100 bg-white border border-gray p-3 p-md-5">
                     @if(Auth::check())
                         <a class="btn btn-primary text-uppercase text-white fs-16 fs-lg-20"
-                           href="{{ route('frontends.manager') }}">
+                           href="{{ route('frontends.manager.transaction') }}">
                             Quản lý đơn vay
                         </a>
                     @else
@@ -76,32 +76,6 @@
         </div>
 
         <div class="tm-dtcv bg-white border border-gray p-3 px-md-5 pb-md-5 pt-md-4">
-            <h2 class="text-uppercase fs-16 fw-6 mb-0">
-                Danh sách đơn xin vay mới trên toàn hệ thống
-            </h2>
-
-            <hr class="mb-3">
-
-            <div class="row gutter-2 gutter-lg-3 mb-4">
-                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
-                    {{ Form::select('fee_type', [0 => 'Tất cả']+App\Models\Services\Service::list_type_service(), Request::input('fee_type'), ['class' => 'selectpicker form-control input-lg', 'id' => 'cbPrice']) }}
-                </div>
-
-                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
-                    {{ Form::select('service_code', $list_service->pluck('service_name', 'id'), Request::input('service_code'), ['class' => 'selectpicker form-control input-lg', 'id' => 'cbProduct']) }}
-                </div>
-
-                <div class="col-md-3 col-sm-6 mb-3 mb-sm-0">
-                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), Request::input('city_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
-
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), Request::input('district_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
-
-                </div>
-            </div>
-
             <div id="divLoanAllNew">
                 <style>
                     .addtocart:hover {
@@ -241,7 +215,7 @@
                                     <div class="text-nowrap">
                                         <span class="text-primary">{{ number_format($value->amount) }} Triệu - {{ $value->amount_day }} Ngày</span>
                                         <hr class="my-0">
-                                       {{-- {{ $value->service->service_name }} --}}
+                                        {{ $value->service->service_name }} 
                                     </div>
                                 </div>
                             </td>
@@ -251,8 +225,8 @@
                                 <div class="td-inner d-flex justify-content-center h-100">
                                     <ul class="list-h-1 align-self-start mt-3">
                                         <?php
-$date = strtotime($value->created_at);
-?>
+                                            $date = strtotime($value->created_at);
+                                        ?>
                                         <li class="list-h-1__item text-primary">
                                             {{ date('H:i:s', $date) }}
                                         </li>
