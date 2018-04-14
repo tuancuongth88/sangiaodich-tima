@@ -94,4 +94,17 @@ class TransactionHistoryController extends Controller {
     public function postTransactionUpdateForm($service, $transaction) {
         return $this->repository->postTransactionUpdateForm($service, $transaction);
     }
+
+    /*
+   |---------------------------------------
+   | get List Lender By LoanID
+   |---------------------------------------
+   | @params
+   | @method POST
+   | @return responsive
+   | @author phuonglv
+    */
+    public function getListLenderByLoanID(){
+        return $this->repository->getListLenderByLoanID();
+    }
 }
