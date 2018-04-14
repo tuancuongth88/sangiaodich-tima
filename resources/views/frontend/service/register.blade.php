@@ -66,20 +66,20 @@ foreach ($dayConfig as $key => $value) {
                                 </div>
                                 <div class="col-md-4 d-flex flex-column">
                                     <div class="form-group mb-2">
-                                        <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="" id="" value="{{ $user->fullname }}" {{ ($user->id != null) ? 'disabled' : '' }}>
+                                        <input class="form-control fs-14" type="text" placeholder="Họ và tên" name="" id="" value="{{ \Common::getObject($user, 'fullname') }}" {{ ($user != null) ? 'disabled' : '' }}>
                                     </div>
 
                                     <div class="form-group mb-2">
-                                        <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="" name="" value="{{ $user->phone }}" {{ ($user->id != null) ? 'disabled' : '' }}>
+                                        <input class="form-control fs-14" type="tel" placeholder="Số điện thoại" id="" name="" value="{{ \Common::getObject($user, 'phone') }}" {{ ($user != null) ? 'disabled' : '' }}>
                                     </div>
 
                                     <div class="form-group mb-2">
-                                        {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), $user->city_id, ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                                        {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(), \Common::getObject($user, 'city_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
                                         <span class="error text-primary">{{ $errors->first('city') }}</span>
                                     </div>
 
                                     <div class="form-group mb-2">
-                                        {{ Form::select('district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), $user->district_id, ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                                        {{ Form::select('district_id', ['' => 'Chọn quận huyện ...']+getDistrictList(), \Common::getObject($user, 'district_id'), ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
                                         <span class="error text-primary">{{ $errors->first('district') }}</span>
                                     </div>
 

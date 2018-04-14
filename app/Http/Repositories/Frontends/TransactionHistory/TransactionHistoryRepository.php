@@ -110,7 +110,12 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function index() {
+    public function index()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
@@ -150,10 +155,15 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function getTranByProduct() {
-        $id                 = $this->auth->user()->id;
-        $product            = $this->request->input('product');
-        $status             = $this->request->input('status');
+    public function getTranByProduct()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+
+        $id = $this->auth->user()->id;
+        $product = $this->request->input('product');
+        $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
 
         $where_cloud[] = ['id', $id];
@@ -185,9 +195,13 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function searchTranByPhoneAndIdCard() {
-        $s_mobile        = trim($this->request->input('phone'));
-        $cardnumber      = trim($this->request->input('cardnumber'));
+    public function searchTranByPhoneAndIdCard()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+        $s_mobile = trim($this->request->input('phone'));
+        $cardnumber = trim($this->request->input('cardnumber'));
         $current_user_id = $this->auth->user()->id;
 
         if ($s_mobile == '' && $cardnumber == '') {
@@ -263,7 +277,12 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function manageTran() {
+
+    public function manageTran()
+    {
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
@@ -504,6 +523,7 @@ class TransactionHistoryRepository extends Repository {
         if (!isset($input['district_id'])) {
             unset($input['district_id']);
         }
+        // dd($input);
         $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->where($input)->orderBy('id', 'desc')->paginate($this->perpages);
         return view('frontend.transactionhistory.list_transaction', [
             'data'             => $listTransactionNews,
@@ -527,14 +547,15 @@ class TransactionHistoryRepository extends Repository {
         }
         $obj->status = $this->model::STATUS_RECEIVED;
         if ($obj->fee) {
+            $fee = $this->getFeeTransaction($obj);
             $user = $this->user->find($this->auth->user()->id);
-            if ($user->amount <= (int) $obj->fee) {
+            if ($user->amount < $fee) {
                 return redirect()->back()->with('message', 'Bạn không đủ tiền để nhận giao dịch này');
             }
-            $user->amount -= (int) $obj->fee;
+            $user->amount -= $fee;
             $user->save();
             //store log
-            $accountLog['amount']  = -(int) $obj->fee;
+            $accountLog['amount']  = -$fee;
             $accountLog['user_id'] = $user->id;
             AccountLog::create($accountLog);
         }
@@ -543,7 +564,7 @@ class TransactionHistoryRepository extends Repository {
 
         $dataLog['transaction_id']   = $obj->id;
         $dataLog['service_code']     = $obj->service_code;
-        $dataLog['created_by']       = $obj->created_by;
+        $dataLog['created_by']       = $obj->user_id;
         $dataLog['receiver']         = $this->auth->user()->id;
         $dataLog['city_id']          = $obj->city_id;
         $dataLog['district_id']      = $obj->district_id;
@@ -556,6 +577,10 @@ class TransactionHistoryRepository extends Repository {
         $dataLog['percent_discount'] = $obj->percent_discount;
         TransactionHistoryLog::create($dataLog);
         return redirect()->action('Frontends\TransactionHistory\ListTransactionController@index');
+    }
+
+    public function getFeeTransaction($obj){
+        return ((int) $obj->fee * (int)$obj->percent_discount) / 100;
     }
 
 }
