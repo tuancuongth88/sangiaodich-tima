@@ -224,23 +224,23 @@ class TransactionHistoryRepository extends Repository {
             $data_ck = $this->model::where('user_id', $user_search['id'])->get()->toArray();
             if (!empty($data_ck) && count($data_ck) > 0) {
                 if ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_SUCCESS) {
-                    $this->updateUserAmount($current_user_id, ($user_current_amount - self::FEE_SEARCH_LOAN_HISTORY_SUCCESS));
+                    $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_SUCCESS);
                     $data = $this->model::where('user_id', $user_search['id'])->paginate();
                 } elseif ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                    $this->updateUserAmount($current_user_id, ($user_current_amount - self::FEE_SEARCH_LOAN_HISTORY_DEFAULT));
+                    $this->updateUserAmount($current_user_id, $user_current_amount,  self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
                     return response()->json(array('success' => true, 'html' => 'Số dư của bạn không đủ'));
                 } else {
                     return response()->json(array('success' => true, 'html' => 'Số dư của bạn không đủ'));
                 }
             } else {
                 if ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                    $this->updateUserAmount($current_user_id, ($user_current_amount - self::FEE_SEARCH_LOAN_HISTORY_DEFAULT));
+                    $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
                 }
                 return response()->json(array('success' => true, 'html' => 'Tìm kiếm không tồn tại'));
             }
         } else {
             if ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                $this->updateUserAmount($current_user_id, ($user_current_amount - self::FEE_SEARCH_LOAN_HISTORY_DEFAULT));
+                $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
             }
             return response()->json(array('success' => true, 'html' => 'Tìm kiếm không tồn tại'));
         }
@@ -265,8 +265,15 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function updateUserAmount($id, $amount) {
-        $this->user::where('id', $id)->update(['amount' => $amount]);
+    public function updateUserAmount($id, $amount,$deducted) {
+        //store log
+        if(!\Auth::check()){
+            return redirect('user/login');
+        }
+        $accountLog['amount']  = -(int) $deducted;
+        $accountLog['user_id'] = $id;
+        AccountLog::create($accountLog);
+        $this->user::where('id', $id)->update(['amount' => ($amount - $deducted)]);
     }
 
     /*
@@ -295,7 +302,7 @@ class TransactionHistoryRepository extends Repository {
         $count_tran_wait_receive    = $this->model_log::where([['status', TRAN_STATUS_RECEIVED], ['receiver', $id]])->get()->count();
         $count_tran_is_borrowing    = $this->model_log::where([['status', TRAN_STATUS_BORROWING], ['receiver', $id]])->get()->count();
 
-        $sum_amount_tran_is_borrowing = $this->model_log::where([['status', TRAN_STATUS_BORROWING], ['receiver', $id]])->sum('amount');
+        $sum_amount_tran_is_borrowing = $this->model_log::where([['status', TRAN_STATUS_APPROVE], ['receiver', $id]])->sum('amount');
 
         $list_services = $this->services->get()->toArray();
 
@@ -314,7 +321,7 @@ class TransactionHistoryRepository extends Repository {
                 'count_tran_wait_consultant'   => $count_tran_wait_consultant,
                 'count_tran_wait_receive'      => $count_tran_wait_receive,
                 'count_tran_is_borrowing'      => $count_tran_is_borrowing,
-                'sum_amount_tran_is_borrowing' => $sum_amount_tran_is_borrowing,
+                'sum_amount_tran_is_borrowing' => number_format($sum_amount_tran_is_borrowing),
             ]
         );
     }
@@ -382,6 +389,26 @@ class TransactionHistoryRepository extends Repository {
             $this->model_log::where('id', $loanCreditId)->update(['status' => $status]);
         }
     }
+    /*
+       |---------------------------------------
+       | Get all lender in tran log
+       |---------------------------------------
+       | @params
+       | @method GET
+       | @return Response
+       | @author phuonglv
+        */
+    public function getListLenderByLoanID() {
+
+        $loanCreditId = $this->request->input('loanCreditId');
+        $obj_log = $this->model_log::where([['transaction_id', $loanCreditId]])->get();
+
+        $status_tranhistory = $this->model->status_transactionhistory;
+
+        $html = view('frontend.transactionhistory.listlender', ['data' => $obj_log, 'list_status' => $status_tranhistory])->render();
+        return response()->json(array('success' => true, 'html' => $html));
+    }
+
 
     /*
     |---------------------------------------

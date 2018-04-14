@@ -263,14 +263,23 @@
                                                 @if($data_val['status']==1)
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
                                                             data-toggle="modal" data-target="#myModal" title="Nhận đơn"
-                                                            onclick="update('','','{{$data_val['id']}}',2)"
+                                                            onclick="showModal(
+                                                                    1,
+                                                                    '{{$data_val->userCreated->fullname}}'
+                                                                    ,'{{$data_val['id']}}'
+                                                                    ,{{TRAN_STATUS_RECEIVED}})"
                                                     >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Nhận đơn
                                                     </button>
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                                            data-target="#myModal" title="Hủy đơn"
-                                                            onclick="update('','','{{$data_val['id']}}',5)"
+                                                            data-toggle="modal"
+                                                            data-target="#myModalCancelLoanCredit" title="Hủy đơn"
+                                                            onclick="showModal(
+                                                                    2,
+                                                                    '{{$data_val->userCreated->fullname}}'
+                                                                    ,'{{$data_val['id']}}'
+                                                                    ,{{TRAN_STATUS_CANCEL}})"
                                                     >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Hủy
@@ -279,14 +288,24 @@
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
                                                             data-toggle="modal" data-target="#myModal"
                                                             title="Đồng ý giải ngân"
-                                                            onclick="update('','','{{$data_val['id']}}',3)"
+                                                            onclick="showModal(
+                                                                    3,
+                                                                    '{{$data_val->userCreated->fullname}}'
+                                                                    ,'{{$data_val['id']}}'
+                                                                    ,{{TRAN_STATUS_BORROWING}})"
                                                     >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Giải ngân
                                                     </button>
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
-                                                            data-target="#myModal" title="Từ chối giải ngân"
-                                                            onclick="update('','','{{$data_val['id']}}',5)"
+                                                            data-toggle="modal"
+                                                            data-target="#myModalCancelLoanCredit"
+                                                            title="Từ chối giải ngân"
+                                                            onclick="showModal(
+                                                                    4,
+                                                                    '{{$data_val->userCreated->fullname}}'
+                                                                    ,'{{$data_val['id']}}'
+                                                                    ,{{TRAN_STATUS_CANCEL}})"
                                                     >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Hủy
@@ -295,7 +314,11 @@
                                                     <button type="button" class="btn btn-outline-success btn-sm mr-2"
                                                             data-toggle="modal" data-target="#myModal"
                                                             title="Tất toán"
-                                                            onclick="update('','','{{$data_val['id']}}',4)"
+                                                            onclick="showModal(
+                                                                    5,
+                                                                    '{{$data_val->userCreated->fullname}}'
+                                                                    ,'{{$data_val['id']}}'
+                                                                    ,{{TRAN_STATUS_APPROVE}})"
                                                     >
                                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                         Tất toán
@@ -416,3 +439,4 @@
         }
     </script>
 @stop
+@extends('frontend.transactionhistory.sectionloan')

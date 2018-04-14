@@ -75,6 +75,7 @@ Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionH
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager.transaction');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
+Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
