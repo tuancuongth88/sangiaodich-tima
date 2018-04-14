@@ -44,8 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('contact/search', 'Administrators\Contact\ContactController@getSearch');
     Route::resource('/contact', 'Administrators\Contact\ContactController');
     //user route
-    Route::get('/purchase', 'Administrators\Users\UserController@getPurchase');
-    Route::post('/purchase', 'Administrators\Users\UserController@postPurchase');
+    Route::get('/user/purchase/{id}', 'Administrators\Users\UserController@getPurchase');
+    Route::post('/user/purchase', 'Administrators\Users\UserController@postPurchase');
     Route::get('/user/search', 'Administrators\Users\UserController@getSearch');
     Route::get('/user/search-data', 'Administrators\Users\UserController@getSearchData');
     Route::resource('/user', 'Administrators\Users\UserController');

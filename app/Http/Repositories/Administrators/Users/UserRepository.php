@@ -318,8 +318,8 @@ class UserRepository extends Repository {
         // return view('administrator.users.info', ['data' => $data, 'user' => $user]);
     }
 
-    public function getPurchase() {
-        return view('administrator.users.purchase');
+    public function getPurchase($id) {
+        return view('administrator.users.purchase', compact('id'));
     }
 
     public function postPurchase() {
@@ -330,7 +330,7 @@ class UserRepository extends Repository {
         if ($amount <= 0) {
             dd('Bạn vui lòng kiểm tra lại số tiền nạp');
         }
-        $user = $this->user->where('email', $this->request->input('email'))->first();
+        $user = $this->user->find($this->request->input('user_id'));
         if (!$user) {
             dd('Không tồn tại tài khoản này');
         }
@@ -340,7 +340,7 @@ class UserRepository extends Repository {
         $dataLog['amount']  = $amount;
         $dataLog['user_id'] = $user->id;
         AccountLog::create($dataLog);
-        return redirect()->back();
+        return redirect()->action('Administrators\Users\UserController@index')->with('message', 'Nạp tiền thành công');
     }
 
 }

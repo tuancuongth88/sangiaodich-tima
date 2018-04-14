@@ -47,7 +47,7 @@
                             <div class="form-group m-form__group row">
                                 <div class="col-lg-4">
                                     <label>
-                                        Nhập tên tài khoản:
+                                        Tài khoản:
                                     </label>
                                     <div class="input-group m-input-group m-input-group--square">
                                         <div class="input-group-prepend">
@@ -55,11 +55,9 @@
                                                     <i class="la la-user"></i>
                                                 </span>
                                         </div>
-                                        <input type="email" class="form-control m-input" placeholder="Email" name="email">
+                                        <input type="email" class="form-control m-input" placeholder="Email" name="email" disabled value="{{ \App\Models\Users\User::find($id)->email }}">
                                     </div>
-                                    <span class="m-form__help">
-                                        Nhập email tài khoản
-                                    </span>
+                                    <input type="hidden" name="user_id" value="{{ \App\Models\Users\User::find($id)->id }}">
                                 </div>
                                 <div class="col-lg-4">
                                     <label class="">
