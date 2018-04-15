@@ -468,7 +468,7 @@ class TransactionHistoryRepository extends Repository {
         $service                   = $this->services->findBySlug($slug);
         $amountConfig              = $service->amount_config();
         $dayConfig                 = $service->day_config();
-        $input['status']           = $this->model::STATUS_WAIT;
+        $input['status']           = $this->model::STATUS_WAIT_APPROVE;
         $input['user_id']          = $user->id;
         $unitDay                   = $input['amount_day'] . $dayConfig[0]['unit'];
         $paymentDay                = strtotime('+' . $unitDay);
