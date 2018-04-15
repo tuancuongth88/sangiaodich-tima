@@ -134,7 +134,7 @@ class UsersController extends Controller {
     | @Author : tantan
      */
     public function logout() {
-        Auth::logout();
+        Auth::guard('user')->logout();
         return redirect()->route('frontend.user.login')
             ->with('status', true)->with('message', 'Bạn đã đăng xuất khỏi hệ thống. Xin chào và hẹn gặp lại!');
     }

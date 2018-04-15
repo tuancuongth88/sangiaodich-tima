@@ -38,44 +38,27 @@ class AuthService {
                 ->withErrors($validator)
                 ->withInput($data);
         } else {
-            $user = $this->model->where('email', $this->request->input('email'))->first();
-            if (!$user) {
-                return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Không tồn tại tài khoản này!');
-            }
-            if ($user->active == 0) {
-                $this->activationService->sendActivationMail($user);
-                // auth()->logout();
-                return redirect()->back()->with('error', true)->with('message', 'Bạn cần xác thực tài khoản, chúng tôi đã gửi mã xác thực vào email của bạn, hãy kiểm tra và làm theo hướng dẫn.');
+            // $user = $this->model->where('email', $this->request->input('email'))->first();
+            // if (!$user) {
+            //     return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Không tồn tại tài khoản này!');
+            // }
+            // if ($user->active == 0) {
+            //     $this->activationService->sendActivationMail($user);
+            //     // auth()->logout();
+            //     return redirect()->back()->with('error', true)->with('message', 'Bạn cần xác thực tài khoản, chúng tôi đã gửi mã xác thực vào email của bạn, hãy kiểm tra và làm theo hướng dẫn.');
+            // } else {
+            if (Auth::guard('admin')->attempt(['email' => $this->request->input('email'), 'password' => $this->request->input('password')])) {
+                return redirect()->action('Administrators\Systems\DashboardController@index');
             } else {
-                if (Auth::attempt(['email' => $this->request->input('email'), 'password' => $this->request->input('password')])) {
-                    return redirect()->action('Administrators\Systems\DashboardController@index');
-                } else {
-                    return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
-                }
-                // dd(123);
-                // if (Hash::check($this->request->input('password'), $user->password)) {
-                //     $currentTime = time();
-                //     $expire      = $currentTime + 864000;
-                //     $data        = [
-                //         'token'      => md5(uniqid($user->email, true)) . $currentTime,
-                //         'expire'     => $expire,
-                //         'user_id'    => $user->id,
-                //         'company_id' => $user->company_id,
-                //     ];
-                //     $userToken = UserToken::on();
-                //     $userToken->where('user_id', $user->id)->delete();
-                //     $userToken->insert($data);
-                //     $user->token = $data['token'];
-                //     $this->request->session()->put('user', $user);
-                //     return redirect()->action('Administrators\Systems\DashboardController@index');
-                // }
+                return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
             }
+            // }
         }
-        return redirect()->action('Administrators\Authenticate\AuthController@getLogin');
+        return redirect()->back();
     }
 
     public function logout() {
-        Auth::logout();
+        Auth::guard('admin')->logout();
         // UserToken::where('token', $token)->delete();
         return self::redirectLogin();
     }
@@ -89,17 +72,19 @@ class AuthService {
     private function validator(array $array) {
         $messages = [
             'required' => ':attribute không được để trống.',
-            'max'      => ':attribute không quá 6 ký tự.',
+            'email' => 'Không phải là E-Mail.',
+            'min'      => ':attribute ít nhất 6 ký tự.',
+            'email.exists' => 'Tài khoản hoặc mật khẩu không đúng.',
         ];
         return Validator::make($array, [
-            'email'    => 'required',
+            'email'    => 'required|email',
             'password' => 'required|min:6',
         ], $messages);
     }
 
     public static function user() {
         // if ($user = session('user')) {
-        if ($user = Auth::user()) {
+        if ($user = Auth::guard('admin')->user()) {
             return $user;
         }
         return self::redirectLogin();

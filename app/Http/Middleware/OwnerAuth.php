@@ -18,7 +18,7 @@ class OwnerAuth
         if( !Auth::check() ){
             return abort(403, 'Bạn không đủ phân quyền để truy cập.');
         }
-        $curUser = Auth::user();
+        $curUser = Auth::guard('user')->user();
         $uid = $request->user;
         if( $curUser->id != $uid ){
             return abort(403, 'Bạn không đủ phân quyền để truy cập.');
