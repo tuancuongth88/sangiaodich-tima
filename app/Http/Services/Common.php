@@ -164,7 +164,15 @@ class Common {
             ],
             'user[job]' => [
                 'type' => 'select',
-                'data' => User::listJob,
+                'data' => [
+                    1 => 'Nhân viên văn phòng',
+                    2 => 'Nhân viên nhà nước',
+                    3 => 'Kinh doanh tự do',
+                    4 => 'Công nhân nhà máy',
+                    5 => 'Doanh nghiệp tư nhân',
+                    6 => 'Hộ kinh doanh cá thể',
+                    7 => 'Ngành nghề khác'
+                ],
                 'label' => 'Nghề nghiệp',
                 'value' => $user->job,
             ],
@@ -262,7 +270,7 @@ class Common {
     |*/
     public static function getObject($obj, $method, $default = null){
         if( $obj != null && $obj->$method != null ){
-            return $obj->method;
+            return $obj->$method;
         }
         return $default;
     }
