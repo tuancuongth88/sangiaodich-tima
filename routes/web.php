@@ -149,3 +149,5 @@ Route::group(['prefix' => 'san-giao-dich'], function () {
     Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index')->name('frontend.listtransaction.site');
     Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });
+
+Route::get('/faq/question', 'Frontends\Faqs\FaqCategoryController@getQuestion');
