@@ -17,6 +17,10 @@ class News extends Model
     const ONE = 1;
     const ZERO = 0;
 
+    const NEWS = 1;
+    const ABOUT = 2;
+
+
     protected $table = 'news';
     protected $primaryKey = 'id';
 
@@ -50,6 +54,11 @@ class News extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public static $typeNews = [
+        self::NEWS => 'Tin tức',
+        self::ABOUT
+    ];
 
     public function setSendAtAttribute($value)
     {

@@ -55,16 +55,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Manage location, city, district
     Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');
     Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
+
+    // transaction list, approve, reject
+    Route::get('/list_transaction', 'Administrators\TransactionHistory\TransactionHistoryController@index')->name('admin.transaction.list');
+    Route::put('/list_transaction/approve/{id}', 'Administrators\TransactionHistory\TransactionHistoryController@approve')->name('admin.transaction.approve');
+    Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// START FRONTEND ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::resource('home', 'Frontends\Homes\HomeController');
+
+Route::resource('/', 'Frontends\Homes\HomeController');
 
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');

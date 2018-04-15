@@ -67,8 +67,8 @@
                         <a class="topbar-list__link" href="/Home/InstallApp/"><i class="icon-mobile"></i></a>
                     </li>
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:18006919">
-                            <i class="icon-phone-gray mr-1"></i><strong>1800.6919</strong>
+                        <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:{{ HOTLINE }}">
+                            <i class="icon-phone-gray mr-1"></i><strong>{{ HOTLINE }}</strong>
                         </a>
                     </li>
                 </ul>
@@ -86,10 +86,10 @@
                 <a class="navbar-brand header__logo py-0" href="/">
                     <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Tima">
                 </a>
-                <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:18006919">
+                <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:{{ HOTLINE }}">
                     <i class="header__call-icon align-self-center icon-phone-lg d-flex mr-2"></i>
                     <div class="media-body align-self-center">
-                        <div class="header__call-number">1800 6919</div>
+                        <div class="header__call-number">{{ HOTLINE }}</div>
                         <div class="header__call-time">07:30 - 18:30, Thứ Hai - CN</div>
                     </div>
                 </a>

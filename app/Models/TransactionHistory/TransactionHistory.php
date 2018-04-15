@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TransactionHistory extends Model {
     use SoftDeletes;
 
+    const STATUS_WAIT_APPROVE      = 0;
     const STATUS_WAIT      = 1;
     const STATUS_RECEIVED  = 2;
     const STATUS_BORROWING = 3;
