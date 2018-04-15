@@ -2,7 +2,7 @@
 @section('title',' tin')
 
 @section('content')
-<div class="m-grid__item m-grid__item--fluid m-wrapper">
+<div class="m-grid__item m-grid__item--fluid m-wrapper" xmlns="http://www.w3.org/1999/html">
     <!-- BEGIN: Subheader -->
     <div class="m-subheader">
         <div class="d-flex align-items-center">
@@ -113,10 +113,9 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label class="col-form-label">
-                                        Người đăng
+                                        Host
                                     </label>
-                                    <select class="form-control m-select2" id="author" name="author">
-                                    </select>
+                                    <input type="checkbox" name="is_hot"/>
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
@@ -146,15 +145,10 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label>
-                                        Bình luận
+                                        Độ ưu tiên
                                     </label>
                                     <div class="col-3">
-                                        <span class="m-switch m-switch--icon m-switch--success">
-                                            <label>
-                                                <input type="checkbox"  name="is_comment" value="1">
-                                                <span></span>
-                                            </label>
-                                        </span>
+                                        <input type="number"   name="position" value="">
                                     </div>
                                 </div>
                             </div>
