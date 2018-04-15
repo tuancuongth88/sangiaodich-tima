@@ -116,12 +116,13 @@ class TransactionHistoryRepository extends Repository {
             return redirect('user/login');
         }
         if (\Auth::user()->type != \PermissionCommon::VAY) {
-            return redirect('/home');
+            return redirect('/');
         }
 
         $id = $this->auth->user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
+        $status_tranhistory[0] = 'Chờ tư vấn';
         $newsModel          = $this->model::where('user_id', $id)->orderBy(self::ID, 'DESC');
         $listData           = $newsModel->paginate($this->perpages);
         $count_all_tran     = $newsModel->count();
@@ -168,6 +169,7 @@ class TransactionHistoryRepository extends Repository {
         $product = $this->request->input('product');
         $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
+        $status_tranhistory[0] = 'Chờ tư vấn';
 
         $where_cloud[] = ['id', $id];
         $is_search     = false;
@@ -204,7 +206,7 @@ class TransactionHistoryRepository extends Repository {
             return redirect('user/login');
         }
         if (\Auth::user()->type != \PermissionCommon::CHO_VAY) {
-            return redirect('/home');
+            return redirect('/');
         }
 
         $s_mobile = trim($this->request->input('phone'));
@@ -298,7 +300,7 @@ class TransactionHistoryRepository extends Repository {
             return redirect('user/login');
         }
         if (\Auth::user()->type != \PermissionCommon::CHO_VAY) {
-            return redirect('/home');
+            return redirect('/');
         }
         $id = $this->auth->user()->id;
 
