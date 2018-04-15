@@ -46,3 +46,5 @@ define('TRAN_STATUS_BORROWING', 3);
 define('TRAN_STATUS_APPROVE', 4);
 define('TRAN_STATUS_CANCEL', 5);
 
+
+define('HOTLINE', '1800.6919');

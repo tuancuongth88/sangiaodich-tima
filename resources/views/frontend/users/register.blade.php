@@ -41,7 +41,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                {{ Form::text('phone', null, ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'placeholder' => 'Số điện thoại', 'required', 'autocomplete' => "off"]) }}
+                                                {{ Form::number('phone', null, ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'maxlength ' => '11', 'placeholder' => 'Số điện thoại', 'required', 'autocomplete' => "off"]) }}
                                                 <span class="error">{{ $errors->first('phone') }}</span>
                                             </div>
 

@@ -73,6 +73,9 @@
                                 {{ $value['phone'] }}
                             </td>
                             <td>
+                                <a href="{{ action('Administrators\Users\UserController@getPurchase', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
+                                    <i class="fa fa-money"></i>
+                                </a>
                                 <a href="{{ action('Administrators\Users\UserController@edit', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
                                     <i class="fa fa-pencil"></i>
                                 </a>

@@ -44,8 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('contact/search', 'Administrators\Contact\ContactController@getSearch');
     Route::resource('/contact', 'Administrators\Contact\ContactController');
     //user route
-    Route::get('/purchase', 'Administrators\Users\UserController@getPurchase');
-    Route::post('/purchase', 'Administrators\Users\UserController@postPurchase');
+    Route::get('/user/purchase/{id}', 'Administrators\Users\UserController@getPurchase');
+    Route::post('/user/purchase', 'Administrators\Users\UserController@postPurchase');
     Route::get('/user/search', 'Administrators\Users\UserController@getSearch');
     Route::get('/user/search-data', 'Administrators\Users\UserController@getSearchData');
     Route::resource('/user', 'Administrators\Users\UserController');
@@ -55,16 +55,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Manage location, city, district
     Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');
     Route::post('/location', 'Administrators\Systems\DashboardController@postLocation');
+
+    // transaction list, approve, reject
+    Route::get('/list_transaction', 'Administrators\TransactionHistory\TransactionHistoryController@index')->name('admin.transaction.list');
+    Route::put('/list_transaction/approve/{id}', 'Administrators\TransactionHistory\TransactionHistoryController@approve')->name('admin.transaction.approve');
+    Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////// START FRONTEND ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::resource('home', 'Frontends\Homes\HomeController');
+
+Route::resource('/', 'Frontends\Homes\HomeController');
 
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
@@ -75,6 +78,7 @@ Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionH
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager.transaction');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
+Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 
@@ -145,6 +149,8 @@ Route::group(['prefix' => 'ajax'], function () {
 
 Route::group(['prefix' => 'san-giao-dich'], function () {
     Route::get('/table-vay', 'Frontends\TransactionHistory\ListTransactionController@getTable');
-    Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index');
+    Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index')->name('frontend.listtransaction.site');
     Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });
+
+Route::get('/faq/question', 'Frontends\Faqs\FaqCategoryController@getQuestion');

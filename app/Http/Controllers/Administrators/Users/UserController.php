@@ -55,8 +55,8 @@ class UserController extends Controller {
         return $this->repository->edit($id);
     }
 
-    public function getPurchase() {
-        return $this->repository->getPurchase();
+    public function getPurchase($id) {
+        return $this->repository->getPurchase($id);
     }
 
     public function postPurchase() {

@@ -175,96 +175,115 @@
                                 </th>
                             </tr>
                             @foreach ($data as $key_data=>$data_val)
-                                <tr>
-                                    <td class="h-100 hidden-xs-down">
+                                <tr style="cursor:pointer" class="">
+                                    <td class="h-100 hidden-xs-down link-hover-undertext" data-toggle="modal"
+                                        href="#modal-ds-nguoi-cho-vay" onclick="ShowListLender({{$data_val['id']}})">
                                         <div class="td-inner d-flex justify-content-center h-100">
-                                            <ul class="list-h-1 align-self-start mt-3">
+                                            <ul class="list-h-1 align-self-start mb-0">
                                                 <li class="list-h-1__item">
                                                     {{$key_data +1}}
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="td-inner media">
-                                            <div class="media-body align-self-center text-ellipsis">
-                                                <div class="tm-table__para fw-6 line-height-heading mb-1">
-                                                    HD-{{$data_val['id']}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="hidden-xs-down">
-                                        <div class="td-inner d-flex justify-content-center text-center">
-                                            <div class="text-nowrap">
-                                                {{$data_val['created_at']}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="hidden-xs-down">
-                                        <div class="td-inner d-flex justify-content-center text-center">
-                                            <div class="text-nowrap">
-                                                {{$data_val->service->service_name}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="h-100 hidden-xs-down">
+                                    <td class="h-100 hidden-xs-down link-hover-undertext" data-toggle="modal"
+                                        href="#modal-ds-nguoi-cho-vay" onclick="ShowListLender({{$data_val['id']}})">
                                         <div class="td-inner d-flex justify-content-center h-100">
-                                            <ul class="list-h-1 align-self-start mt-3">
-                                                <li class="list-h-1__item text-primary">
+                                            <ul class="list-h-1 align-self-start mb-0">
+                                                <li class="list-h-1__item">
+                                                    HD-{{$data_val['id']}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+
+                                    <td class="h-100 link-hover-undertext" data-toggle="modal"
+                                        href="#modal-ds-nguoi-cho-vay" onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner d-flex justify-content-center h-100">
+                                            <ul class="list-h-1 align-self-start mb-0">
+                                                <li class="list-h-1__item">
                                                     {{$data_val['created_at']}}
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div class="td-inner media d-flex justify-content-center text-center">
-                                            <div class="text-nowrap">
-                                                <div class="text-nowrap">
-                                                    {{number_format($data_val['amount'])}} VND
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="td-inner media d-flex justify-content-center text-center">
-                                            <div class="text-nowrap">
-                                                <div class="text-nowrap">
-                                                    {{$data_val['fee']}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="td-inner media d-flex justify-content-center text-center">
-                                            <div class="text-nowrap">
-                                                <div class="text-nowrap">
-                                                    <span class="badge badge-danger align-self-center">
-                                                        {{isset($list_status[$data_val['status']])?
-                                                        $list_status[$data_val['status']]:'Đã hủy'
-                                                        }}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="">
-                                        <div id="277548"
-                                             class="td-inner d-flex flex-column align-items-center text-center btnbuy">
-                                            <ul class="list-h-1 align-self-start mt-3">
+                                    <td class="hidden-xs-down link-hover-undertext" data-toggle="modal"
+                                        href="#modal-ds-nguoi-cho-vay" onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner d-flex justify-content-center h-100">
+                                            <ul class="list-h-1 align-self-start mb-0">
                                                 <li class="list-h-1__item">
-                                                    @if($data_val['status']==1)
-                                                        <button type="button"
-                                                                class="btn btn-outline-danger btn-sm updatestatus"
-                                                                title="Hủy đơn vay"
-                                                                onclick="showModal(4, '', '{{$data_val['id']}}', '5,000,000' )">
-                                                            Hủy
-                                                        </button>
-                                                    @else
-                                                        &nbsp;&nbsp;
-                                                    @endif
+                                                    {{$data_val->service->service_name}}
                                                 </li>
                                             </ul>
+                                        </div>
+
+                                    </td>
+
+                                    <td class="hidden-xs-down link-hover-undertext" data-toggle="modal"
+                                        href="#modal-ds-nguoi-cho-vay" onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner d-flex justify-content-center h-100">
+                                            <ul class="list-h-1 align-self-start mb-0">
+                                                <li class="list-h-1__item">
+                                                    {{minusDaycount($data_val['payment_day'],$data_val['created_at'])}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+
+                                    <td class="link-hover-undertext" data-toggle="modal" href="#modal-ds-nguoi-cho-vay"
+                                        onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner d-flex justify-content-center h-100">
+                                            <ul class="list-h-1 align-self-start mb-0">
+                                                <li class="list-h-1__item">
+                                                    {{number_format($data_val['amount'])}} VND
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td class="link-hover-undertext" data-toggle="modal" href="#modal-ds-nguoi-cho-vay"
+                                        onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner d-flex justify-content-center h-100">
+                                            <ul class="list-h-1 align-self-start mb-0">
+                                                <li class="list-h-1__item">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+
+                                    <td data-toggle="modal" href="#modal-ds-nguoi-cho-vay"
+                                        onclick="ShowListLender({{$data_val['id']}})">
+                                        <div class="td-inner media d-flex justify-content-center">
+                                            <span class="badge badge-danger align-self-center">
+                                                {{isset($list_status[$data_val['status']])?
+                                                        $list_status[$data_val['status']]:'Đã hủy'
+                                                         }}
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="h-100">
+                                            <div class="td-inner d-flex justify-content-center h-100">
+                                                <ul class="list-h-1 align-self-start mt-3">
+                                                    <li class="list-h-1__item">
+                                                        @if($data_val['status']==1)
+                                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                                                data-toggle="modal" data-target="#myModal"
+                                                                title="Hủy đơn vay"
+                                                                onclick="showModal(
+                                                                        4,
+                                                                        '{{$data_val->user->fullname}}',
+                                                                        '{{$data_val['id']}}',
+                                                                        '{{number_format($data_val['amount'])}}'
+                                                                        )">
+                                                            Hủy
+                                                        </button>
+                                                        @else
+                                                            &nbsp;&nbsp;
+                                                        @endif
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
@@ -282,28 +301,6 @@
 
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="myModal" class="modal fade" role="dialog" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content" style="width:110%">
-                <div class="modal-header">
-
-                    <h6 class="modal-title" id="title"></h6>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"
-                            id="btnLoanerAccept" onclick="LoanerCancelLoanCredit(289730);">Đồng ý
-                    </button>
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Hủy</button>
-
-                </div>
-            </div>
-
         </div>
     </div>
 
@@ -386,23 +383,7 @@
         });
     </script>
 
-    <script>
-        function showModal(typeId, name, loanCreditId, totalMoney) {
-            $.ajax(
-                {
-                    url: "lich-su-don-vay/updatestatus" + "?loanCreditId=" + loanCreditId + "&status=" + 5,
-                    type: "get",
-                    datatype: "html"
-                })
-                .done(function (data) {
-                    location.reload();
-                })
-                .fail(function (jqXHR, ajaxOptions, thrownError) {
-                    alert('No response from server');
-                });
-            return false;
-        }
 
-
-    </script>
 @stop
+
+@extends('frontend.transactionhistory.sectionlender')

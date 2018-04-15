@@ -1,4 +1,5 @@
 <?php namespace Custom\Services;
+use App\Models\Users\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Services\Service as ServiceModel;
 use App\Models\Users\User as UserModel;
@@ -163,7 +164,15 @@ class Common {
             ],
             'user[job]' => [
                 'type' => 'select',
-                'data' => [],
+                'data' => [
+                    1 => 'Nhân viên văn phòng',
+                    2 => 'Nhân viên nhà nước',
+                    3 => 'Kinh doanh tự do',
+                    4 => 'Công nhân nhà máy',
+                    5 => 'Doanh nghiệp tư nhân',
+                    6 => 'Hộ kinh doanh cá thể',
+                    7 => 'Ngành nghề khác'
+                ],
                 'label' => 'Nghề nghiệp',
                 'value' => self::getObject($user, 'job'),
             ],
