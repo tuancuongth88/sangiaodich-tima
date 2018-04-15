@@ -208,7 +208,7 @@
                                         <div class="text-nowrap">
                                             <span class="text-primary">
                                                 {{convertAmount($data_val['amount'])}}
-                                                {{minusDaycount($data_val['payment_day'],$data_val['created_at'])}}
+                                                {{$data_val['amount_day'] }}
                                                 - Ngày
                                             </span>
                                             <hr class="my-0">

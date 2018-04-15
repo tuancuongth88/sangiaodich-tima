@@ -115,6 +115,9 @@ class TransactionHistoryRepository extends Repository {
         if(!\Auth::check()){
             return redirect('user/login');
         }
+        if (\Auth::user()->type != \PermissionCommon::VAY) {
+            return redirect('/home');
+        }
 
         $id = $this->auth->user()->id;
 
@@ -200,6 +203,10 @@ class TransactionHistoryRepository extends Repository {
         if(!\Auth::check()){
             return redirect('user/login');
         }
+        if (\Auth::user()->type != \PermissionCommon::CHO_VAY) {
+            return redirect('/home');
+        }
+
         $s_mobile = trim($this->request->input('phone'));
         $cardnumber = trim($this->request->input('cardnumber'));
         $current_user_id = $this->auth->user()->id;
@@ -289,6 +296,9 @@ class TransactionHistoryRepository extends Repository {
     {
         if(!\Auth::check()){
             return redirect('user/login');
+        }
+        if (\Auth::user()->type != \PermissionCommon::CHO_VAY) {
+            return redirect('/home');
         }
         $id = $this->auth->user()->id;
 
