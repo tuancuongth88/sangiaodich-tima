@@ -41,7 +41,7 @@ class AuthController extends Controller {
 
     public function getLogin() {
         // if (AuthService::isLogged()) {
-        if (Auth::check()) {
+        if (Auth::guard('admin')->check()) {
             return redirect()->action('Administrators\Systems\DashboardController@index');
         }
         return AuthService::redirectLogin();
