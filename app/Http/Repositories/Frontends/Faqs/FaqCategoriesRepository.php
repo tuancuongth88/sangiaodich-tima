@@ -54,6 +54,7 @@ class FaqCategoriesRepository extends Repository {
             ->with('faqs')
             ->get();
         $listService = Service::all();
+        $data = null;
         if (!$listData->isEmpty()) {
             foreach ($listData as $key => $value) {
                 $data[$key]       = new \stdClass();

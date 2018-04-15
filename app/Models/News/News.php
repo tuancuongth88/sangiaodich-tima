@@ -16,6 +16,10 @@ class News extends Model {
     const ONE      = 1;
     const ZERO     = 0;
 
+    const TYPE_NEWS = 1;
+    const TYPE_ABOUT = 2;
+    const TYPE_NOTIFICATION = 3;
+
     protected $table      = 'news';
     protected $primaryKey = 'id';
 
