@@ -136,36 +136,36 @@ class Common {
             'user[card_number]' => [
                 'type' => 'text',
                 'label' => 'CMT',
-                'value' => $user->card_number,
+                'value' => self::getObject($user, 'card_number'),
             ],
             'user[birthday]' => [
                 'type' => 'date',
                 'label' => 'Ngày sinh',
-                'value' => $user->birthday,
+                'value' => self::getObject($user, 'birthday'),
             ],
             'user[sex]' => [
                 'type' => 'radio',
                 'data' => [userModel::NAM => 'Nam', userModel::NU => 'Nữ'],
                 'label' => 'Giới tính',
-                'value' => $user->sex,
+                'value' => self::getObject($user, 'sex'),
             ]
         ];
         $defaultFields2 = [
             'user[company_name]' => [
                 'type' => 'text',
                 'label' => 'Tên công ty',
-                'value' => $user->company_name,
+                'value' => self::getObject($user, 'company_name'),
             ],
             'user[income]' => [
                 'type' => 'text',
                 'label' => 'Thu nhập',
-                'value' => $user->income,
+                'value' => self::getObject($user, 'income'),
             ],
             'user[job]' => [
                 'type' => 'select',
                 'data' => [],
                 'label' => 'Nghề nghiệp',
-                'value' => $user->job,
+                'value' => self::getObject($user, 'job'),
             ],
         ];
 
@@ -214,13 +214,13 @@ class Common {
                 'user[income]' => [
                     'type' => 'text',
                     'label' => 'Thu nhập',
-                    'value' => $user->income,
+                    'value' => self::getObject($user, 'income'),
                 ],
                 'user[income_source]' => [
                     'type' => 'select',
                     'data' => [],
                     'label' => 'Nguồn thu nhập',
-                    'value' => $user->income_source,
+                    'value' => self::getObject($user, 'income_source'),
                 ],
             ], 
 
@@ -260,8 +260,8 @@ class Common {
     | @author tantan
     |*/
     public static function getObject($obj, $method, $default = null){
-        if( $obj != null && $obj->method != null ){
-            return $obj->method;
+        if( $obj != null && $obj->$method != null ){
+            return $obj->$method;
         }
         return $default;
     }

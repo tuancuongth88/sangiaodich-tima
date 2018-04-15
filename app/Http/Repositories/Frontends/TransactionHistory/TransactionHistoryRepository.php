@@ -462,7 +462,7 @@ class TransactionHistoryRepository extends Repository {
                 /// if this filed not empty and user already update before
                 /// we will be ignore them
                 foreach ($input['user'] as $field => $value) {
-                    if ($value != '' && $thisUser->$field != '') {
+                    if ($value != '' && \Common::getObject($thisUser, 'field') != null) {
                         unset($input['user'][$field]);
                     }
                 }
