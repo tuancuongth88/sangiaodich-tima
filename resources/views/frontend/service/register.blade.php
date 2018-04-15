@@ -31,7 +31,6 @@ foreach ($dayConfig as $key => $value) {
                         <div class="p-lg-5 p-3">
                             <div class="row">
                                 <div class="col-md-8 mb-3 mb-md-0">
-
                                     @if( count($amountConfig) > 1 && count($dayConfig) > 1 )
                                         <div class="text-gray mb-3">
                                             <div>Tôi cần vay <span class="text-gray-dark spanAmount">10,000,000</span> VNĐ</div>

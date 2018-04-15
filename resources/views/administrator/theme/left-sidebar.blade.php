@@ -211,5 +211,13 @@
                 </span>
             </a>
         </li>
+        <li class="m-menu__item">
+            <a href="{{ route('admin.transaction.list') }}" class="m-menu__link">
+                <i class="m-menu__link-icon flaticon-layers"></i>
+                <span class="m-menu__link-text">
+                    Quản lý hợp đồng
+                </span>
+            </a>
+        </li>
     </ul>
 </div>

@@ -1,4 +1,5 @@
 <?php namespace Custom\Services;
+use App\Models\Users\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Services\Service as ServiceModel;
 use App\Models\Users\User as UserModel;
@@ -163,7 +164,7 @@ class Common {
             ],
             'user[job]' => [
                 'type' => 'select',
-                'data' => [],
+                'data' => User::listJob,
                 'label' => 'Nghề nghiệp',
                 'value' => $user->job,
             ],
@@ -260,7 +261,7 @@ class Common {
     | @author tantan
     |*/
     public static function getObject($obj, $method, $default = null){
-        if( $obj != null && $obj->method != null ){
+        if( $obj != null && $obj->$method != null ){
             return $obj->method;
         }
         return $default;
