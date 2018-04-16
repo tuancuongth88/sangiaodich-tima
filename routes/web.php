@@ -60,6 +60,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/list_transaction', 'Administrators\TransactionHistory\TransactionHistoryController@index')->name('admin.transaction.list');
     Route::put('/list_transaction/approve/{id}', 'Administrators\TransactionHistory\TransactionHistoryController@approve')->name('admin.transaction.approve');
     Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
+    // about us
+    Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
@@ -68,7 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::resource('/', 'Frontends\Homes\HomeController');
-
+Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
@@ -81,6 +83,7 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
 
 /*
 |-------------------------------------------

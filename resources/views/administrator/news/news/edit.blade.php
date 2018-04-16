@@ -113,13 +113,9 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label class="col-form-label">
-                                        Người đăng
+                                        Host
                                     </label>
-                                    <select class="form-control m-select2" id="author" name="author">
-                                        @if ($data->author)
-                                            <option value="{{ $data->author }}">{{ $author->fullname }}</option>
-                                        @endif
-                                    </select>
+                                    <input type="checkbox" name="is_hot"  {{ $data->is_hot == 1 ? 'checked':'' }} />
                                 </div>
                             </div>
                             <div class="form-group m-form__group row">
@@ -149,15 +145,10 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label>
-                                        Bình luận
+                                        Độ ưu tiên
                                     </label>
                                     <div class="col-3">
-                                        <span class="m-switch m-switch--icon m-switch--success">
-                                            <label>
-                                                <input type="checkbox" {{ ($data->is_comment == ONE) ? print 'checked="checked"' : '' }}  name="is_comment" value="1">
-                                                <span></span>
-                                            </label>
-                                        </span>
+                                        <input type="number"   name="position" value="{{ $data->position }}">
                                     </div>
                                 </div>
                             </div>
