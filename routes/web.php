@@ -70,7 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::resource('/', 'Frontends\Homes\HomeController');
-
+Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
 Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
@@ -83,6 +83,7 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
 
 /*
 |-------------------------------------------
