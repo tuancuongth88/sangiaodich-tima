@@ -17,7 +17,7 @@ Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthControlle
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
 //route need permission
 // Route::group(['prefix' => 'administrator', 'middleware' => 'authenticate'], function () {
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     //system route
     Route::resource('/', 'Administrators\Systems\DashboardController');
 
@@ -62,6 +62,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
     // about us
     Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
+
+    Route::resource('/pages', 'Administrators\Pages\PageController');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 

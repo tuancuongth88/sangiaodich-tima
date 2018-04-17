@@ -28,6 +28,7 @@ foreach ($dayConfig as $key => $value) {
                 <div class="w-100 w-xl-66 relative px-3">
 
                     <div class="tm-cv__body bg-white fs-14">
+                        @if( !session('success') )
                         <div class="p-lg-5 p-3">
                             <div class="row">
                                 <div class="col-md-8 mb-3 mb-md-0">
@@ -113,6 +114,20 @@ foreach ($dayConfig as $key => $value) {
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <div class="fs-13" id="formSucessNewPass" style="">
+                            <div class="px-5 py-3">
+                                <div class="text-center" style="margin:30px 0px 25px 0px;">
+                                    <img src="{{ asset('frontend/images/thanhcong.png') }}" class="radius_logo" id="imgSucces">
+                                </div>
+
+                                <h3 class="mb-3 mb-md-4 fs-16 text-center" id="TitleResetPassword">Chúc mừng bạn đã đăng ký đơn vay thành công!</h3>
+                                <p class="text-center" id="ContentResetPassword">Chúng tôi sẽ liên lạc lại với bạn để xác nhận thông tin đăng ký.</p>
+
+                                <a class="btn btn-lg btn-block btn-primary text-uppercase fs-13 rounded mt-5" href="{{ route('lich-su-don-vay.index') }}">Quản lý đơn vay</a>
+                            </div>
+                        </div>
+                        @endif
                     </div>
 
                 </div>

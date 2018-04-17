@@ -4,7 +4,8 @@
 @section('content')
     <div class="main-page">
         <div class="container py-5">
-            <!-- THỐNG KÊ --->
+            
+            <!-- THỐNG KÊ -->
             <div class="row mb-5">
                 <div class="col-xl-9 mb-3 mb-xl-0">
                     <div class="bg-white border border-gray p-3 px-md-5 pb-md-5 pt-md-4">
@@ -61,13 +62,14 @@
                 <div class="col-xl-3 d-flex">
                     <div class="d-flex align-items-center justify-content-center w-100 bg-white border border-gray p-3 p-md-5">
                         <a class="btn btn-primary text-uppercase text-white fs-16 fs-lg-20"
-                           href="http://tima.vn/Borrower/">
+                           href="{{ route('services.site.list') }}">
                             Đăng ký vay ngay
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- DANH SÁCH ĐƠN VAY-->
+
+            <!-- DANH SÁCH ĐƠN VAY -->
             <div class="tm-dtcv bg-white border border-gray p-3 px-md-5 pb-md-5 pt-md-4">
                 <h2 class="text-uppercase fs-16 fw-6 mb-0">
                     Danh sách đơn vay được chuyển đến bạn

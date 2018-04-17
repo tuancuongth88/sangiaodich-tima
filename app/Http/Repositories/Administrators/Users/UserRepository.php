@@ -122,7 +122,7 @@ class UserRepository extends Repository {
             return redirect()->back()->withInput($array)->with('error', true)->with('message', 'Email đã đăng ký!');
         }
         $data                  = $array;
-        $data[self::CREATE_BY] = $this->auth->user()->id;
+        $data[self::CREATE_BY] = \Auth::user()->id;
         $data[self::EMAIL]     = strtolower($array[self::EMAIL]);
         $data[self::ACTIVE]    = self::ZERO;
         $data['avatar']        = '';

@@ -49,7 +49,9 @@ class AuthService {
             // } else {
             if (Auth::guard('admin')->attempt(['email' => $this->request->input('email'), 'password' => $this->request->input('password')])) {
                 return redirect()->action('Administrators\Systems\DashboardController@index');
-            } else {
+            } else if (Auth::guard('admin')->attempt(['username' => $this->request->input('email'), 'password' => $this->request->input('password')])) {
+                return redirect()->action('Administrators\Systems\DashboardController@index');
+            } else { 
                 return redirect()->back()->withInput($data)->with('error', true)->with('message', 'Tài khoản hoặc mật khẩu không đúng!');
             }
             // }
@@ -72,12 +74,10 @@ class AuthService {
     private function validator(array $array) {
         $messages = [
             'required' => ':attribute không được để trống.',
-            'email' => 'Không phải là E-Mail.',
             'min'      => ':attribute ít nhất 6 ký tự.',
-            'email.exists' => 'Tài khoản hoặc mật khẩu không đúng.',
         ];
         return Validator::make($array, [
-            'email'    => 'required|email',
+            'email'    => 'required',
             'password' => 'required|min:6',
         ], $messages);
     }
