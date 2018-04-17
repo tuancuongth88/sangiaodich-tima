@@ -108,6 +108,9 @@ class NewsRepository extends Repository
     const AUTHOR = 'author';
     const CREATED_BY = 'created_by';
     const UPDATED_BY = 'updated_by';
+    const IS_HOT = 'is_hot';
+    const POSITION = 'position';
+    const TYPE = 'type';
 
     /*
     |--------------------------------------------------------------------------
@@ -131,7 +134,10 @@ class NewsRepository extends Repository
             self::DESCRIPTION_META,
             self::KEYWORD_META,
             self::SEND_AT,
-            self::AUTHOR
+            self::AUTHOR,
+            self::IS_HOT,
+            self::POSITION,
+             self::TYPE
         );
     }
 
@@ -157,7 +163,10 @@ class NewsRepository extends Repository
             self::DESCRIPTION_META,
             self::KEYWORD_META,
             self::SEND_AT,
-            self::AUTHOR
+            self::AUTHOR,
+            self::IS_HOT,
+            self::POSITION,
+            self::TYPE
         );
     }
 
@@ -191,6 +200,8 @@ class NewsRepository extends Repository
             $data['image_url'] = IMAGENEWS . $filename;
         }
         $data['created_by'] = $this->auth->user()->id;
+        $data['is_hot'] = ($this->request->is_hot == 'on') ? 1 : 0;
+        $data['type'] = News::TYPE_NEWS;
         $obj = $this->model->create($data);
         if ($obj) {
             foreach ($listTag as $value) {
@@ -237,6 +248,8 @@ class NewsRepository extends Repository
             $data['image_url'] = IMAGENEWS . $filename;
         }
         $data[self::UPDATED_BY] = $this->auth->user()->id;
+        $data['is_hot'] = ($this->request->is_hot == 'on') ? 1 : 0;
+        $data['type'] = News::TYPE_NEWS;
         $obj = $this->model->find($id)->update($data);
         if (!$obj) {
             $listTag = explode(',', $this->request->input('tags'));

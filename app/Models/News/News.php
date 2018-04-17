@@ -46,7 +46,6 @@ class News extends Model {
 
     public static $rules = [
         'title'       => 'required',
-        'author'      => 'required',
         'category_id' => 'required',
     ];
 

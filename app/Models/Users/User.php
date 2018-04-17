@@ -5,10 +5,11 @@ namespace App\Models\Users;
 use App\Models\Relation as RelationModel;
 use Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authentical;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends Authenticatable {
+class User extends Authentical implements Authenticatable {
     use Notifiable,
         SoftDeletes;
 
