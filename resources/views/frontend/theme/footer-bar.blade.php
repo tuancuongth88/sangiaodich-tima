@@ -83,8 +83,8 @@
 
                             <div class="pl-xl-7">
                                 <p>
-                                    Số 275, Nguyễn Trãi, Thanh Xuân, Hà Nội <br/>
-                                    Giấy CN ĐKDN số 0107333139 được cấp bởi Sở Kế hoạch và Đầu tư TP. Hà Nội
+                                    Số nhà 14, ngõ 331 Nguyễn Khang, Phường Yên Hoà, Quận Cầu Giấy, Thành phố Hà Nội<br/>
+                                    Giấy CN ĐKDN số 0107980457 được cấp bởi Sở Kế hoạch và Đầu tư TP. Hà Nội
                                 </p>
                                 <p class="mb-0">
                                     © 2015 Bản quyền thuộc về Lending
@@ -99,21 +99,21 @@
                                 Tải ứng dụng Lending
                             </h3>
 
-                            <div class="d-flex flex-row flex-md-column">
-                                <div class="mb-3 mr-3 mr-md-0">
-                                    <a target="_blank" class="gomobile__link"
-                                       href="#">
-                                        <img class="img-responsive" src="{{ asset('frontend/images/appstore.png') }}" alt="">
-                                    </a>
-                                </div>
+                            {{--<div class="d-flex flex-row flex-md-column">--}}
+                                {{--<div class="mb-3 mr-3 mr-md-0">--}}
+                                    {{--<a target="_blank" class="gomobile__link"--}}
+                                       {{--href="#">--}}
+                                        {{--<img class="img-responsive" src="{{ asset('frontend/images/appstore.png') }}" alt="">--}}
+                                    {{--</a>--}}
+                                {{--</div>--}}
 
-                                <div>
-                                    <a target="_blank" class="gomobile__link"
-                                       href="#">
-                                        <img class="img-responsive" src="{{ asset('frontend/images/googleplay.png') }}" alt="">
-                                    </a>
-                                </div>
-                            </div>
+                                {{--<div>--}}
+                                    {{--<a target="_blank" class="gomobile__link"--}}
+                                       {{--href="#">--}}
+                                        {{--<img class="img-responsive" src="{{ asset('frontend/images/googleplay.png') }}" alt="">--}}
+                                    {{--</a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>

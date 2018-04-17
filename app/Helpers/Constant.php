@@ -16,6 +16,10 @@ define('NO_IMG', '/frontend/images/nophoto.png');
 define('VAY', 0);
 define('CHO_VAY', 1);
 
+//type user
+define('NGUOIVAY', 6);
+define('NGUOICHOVAY', 7);
+
 /**
  * Gioi tinh
  */
