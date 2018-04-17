@@ -1,7 +1,7 @@
 <div class="tm-card bg-white py-5 mb-md-2">
     <div class="container of-hidden">
         <h2 class="tm-card__heading text-center mb-6">
-            Mô hình hoạt động sàn <span class="hidden-sm-down">Tima</span>
+            Mô hình hoạt động sàn <span class="hidden-sm-down">Lending</span>
         </h2>
 
         <div class="tm-card__body tm-steps">

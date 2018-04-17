@@ -123,7 +123,7 @@
 
                 <div class="col-md-5 d-flex flex-column align-items-center py-6">
                     <h2 class="tm-card__heading text-center text-primary mb-4">
-                        <span class="text-gray-dark h2 fw-3">Vì sao nên chọn Tima ?</span>
+                        <span class="text-gray-dark h2 fw-3">Vì sao nên chọn Lending ?</span>
                     </h2>
 
                     <div class="tm-card__body tm-steps2">

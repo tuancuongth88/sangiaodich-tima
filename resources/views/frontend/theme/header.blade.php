@@ -84,7 +84,7 @@
                 </button>
 
                 <a class="navbar-brand header__logo py-0" href="/">
-                    <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Tima">
+                    <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Lending">
                 </a>
                 <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:{{ HOTLINE }}">
                     <i class="header__call-icon align-self-center icon-phone-lg d-flex mr-2"></i>
@@ -106,7 +106,7 @@
                                 <a class="nav-link" href="{{ route('frontend.listtransaction.site') }}">Sàn giao dịch</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Về tima</a>
+                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Về Lending</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.user.register') }}">Tin tức</a>

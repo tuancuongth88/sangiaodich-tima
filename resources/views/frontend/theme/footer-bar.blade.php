@@ -13,7 +13,7 @@
                     </li>
 
                     <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/Home/About/">Về Tima</a>
+                        <a class="footer-nav__link" href="/Home/About/">Về Lending</a>
                     </li>
 
                     <li class="footer-nav__item hidden-sm-down">
@@ -58,7 +58,7 @@
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-email-1 d-flex"></i>
                                 </div>
-                                support@tima.vn
+                                support@lending.vn
                             </a>
                         </div>
 
@@ -68,7 +68,7 @@
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-facebook-circle d-flex"></i>
                                 </div>
-                                tima.vn
+                                Lending.vn
                             </a>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                     <div class="d-flex flex-column flex-md-row">
                         <div class="footer__copyright text-lg-right mb-5 mb-md-0">
                             <h3 class="mb-3 mb-md-4 fs-16">
-                                Công ty cổ phần tập đoàn Tima
+                                Công ty cổ phần tập đoàn Lending
                             </h3>
 
                             <div class="pl-xl-7">
@@ -87,7 +87,7 @@
                                     Giấy CN ĐKDN số 0107333139 được cấp bởi Sở Kế hoạch và Đầu tư TP. Hà Nội
                                 </p>
                                 <p class="mb-0">
-                                    © 2015 Bản quyền thuộc về Tima
+                                    © 2015 Bản quyền thuộc về Lending
                                 </p>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
 
                         <div class="gomobile">
                             <h3 class="mb-3 mb-md-5 fs-14 text-gray">
-                                Tải ứng dụng Tima
+                                Tải ứng dụng Lending
                             </h3>
 
                             <div class="d-flex flex-row flex-md-column">

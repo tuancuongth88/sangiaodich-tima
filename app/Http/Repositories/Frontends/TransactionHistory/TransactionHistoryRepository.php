@@ -119,7 +119,7 @@ class TransactionHistoryRepository extends Repository {
             return redirect('/');
         }
 
-        $id = $this->auth->user()->id;
+        $id = \Auth::user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
         $status_tranhistory[0] = 'Chờ tư vấn';
@@ -165,13 +165,13 @@ class TransactionHistoryRepository extends Repository {
             return redirect('user/login');
         }
 
-        $id = $this->auth->user()->id;
+        $id = $id = \Auth::user()->id;
         $product = $this->request->input('product');
         $status = $this->request->input('status');
         $status_tranhistory = $this->model->status_transactionhistory;
         $status_tranhistory[0] = 'Chờ tư vấn';
 
-        $where_cloud[] = ['id', $id];
+        $where_cloud[] = ['user_id', $id];
         $is_search     = false;
         if ((int) $product > 0) {
             $where_cloud[] = ['service_code', '=', $product];
@@ -211,7 +211,7 @@ class TransactionHistoryRepository extends Repository {
 
         $s_mobile = trim($this->request->input('phone'));
         $cardnumber = trim($this->request->input('cardnumber'));
-        $current_user_id = $this->auth->user()->id;
+        $current_user_id = $id = \Auth::user()->id;
 
         if ($s_mobile == '' && $cardnumber == '') {
             return view('frontend.transactionhistory.s_index');
@@ -302,7 +302,7 @@ class TransactionHistoryRepository extends Repository {
         if (\Auth::user()->type != \PermissionCommon::CHO_VAY) {
             return redirect('/');
         }
-        $id = $this->auth->user()->id;
+        $id = $id = \Auth::user()->id;
 
         $status_tranhistory = $this->model->status_transactionhistory;
         $modelLog           = $this->model_log::where('receiver', $id)->orderBy(self::ID, 'DESC');
@@ -339,7 +339,7 @@ class TransactionHistoryRepository extends Repository {
     }
 
     public function getManageBysServiceAndStatus() {
-        $id = $this->auth->user()->id;
+        $id = $id = \Auth::user()->id;
 
         $product            = $this->request->input('product');
         $status             = $this->request->input('status');
@@ -369,7 +369,7 @@ class TransactionHistoryRepository extends Repository {
     | @author phuonglv
      */
     public function updateStatus() {
-        $id           = $this->auth->user()->id;
+        $id           = $id = \Auth::user()->id;
         $loanCreditId = $this->request->input('loanCreditId');
         $status       = $this->request->input('status');
         $this->model::where('id', '=', $loanCreditId)->update(['status' => $status]);
@@ -385,7 +385,7 @@ class TransactionHistoryRepository extends Repository {
     | @author phuonglv
      */
     public function updateStatusTranLog() {
-        $id           = $this->auth->user()->id;
+        $id           = $id = \Auth::user()->id;
         $loanCreditId = $this->request->input('loanCreditId');
         $status       = $this->request->input('status');
 
@@ -587,7 +587,7 @@ class TransactionHistoryRepository extends Repository {
         $obj->status = $this->model::STATUS_RECEIVED;
         if ($obj->fee) {
             $fee = $this->getFeeTransaction($obj);
-            $user = $this->user->find($this->auth->user()->id);
+            $user = $this->user->find($id = \Auth::user()->id);
             if ($user->amount < $fee) {
                 return redirect()->back()->with('message', 'Bạn không đủ tiền để nhận giao dịch này');
             }
@@ -604,7 +604,7 @@ class TransactionHistoryRepository extends Repository {
         $dataLog['transaction_id']   = $obj->id;
         $dataLog['service_code']     = $obj->service_code;
         $dataLog['created_by']       = $obj->user_id;
-        $dataLog['receiver']         = $this->auth->user()->id;
+        $dataLog['receiver']         = $id = \Auth::user()->id;
         $dataLog['city_id']          = $obj->city_id;
         $dataLog['district_id']      = $obj->district_id;
         $dataLog['ward_id']          = $obj->ward_id;
