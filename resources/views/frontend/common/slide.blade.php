@@ -9,10 +9,10 @@
             <div class="container">
                 <div class="main-slider__content text-center w-100 w-md-100 mx-auto">
                     <h1 class="main-slider__heading">
-                        Tima - sàn kết nối tài chính lớn nhất Việt nam
+                        Lending - sàn kết nối tài chính lớn nhất Việt nam
                     </h1>
                     <p class="main-slider__lead mb-0">
-                        Hàng ngày Tima xử lý kết nối hàng nghìn đơn vay đến hàng nghìn nhà đầu tư cho vay
+                        Hàng ngày Lending xử lý kết nối hàng nghìn đơn vay đến hàng nghìn nhà đầu tư cho vay
                     </p>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @extends('frontend.app')
-@section('title','DASHBOARD ADMINISTRATOR')
+@section('title','Lending - Vay tiền ngay')
 
 @section('content')
 

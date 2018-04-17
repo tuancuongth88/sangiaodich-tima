@@ -52,7 +52,7 @@ foreach ($dayConfig as $key => $value) {
                                     @endif
 
                                     <p class="text-gray mb-0 fs-12">
-                                        Tima tư vấn gói vay theo sổ hộ khẩu, khoản vay đến 50 triệu. Kỳ hạn vay 90
+                                        Lending tư vấn gói vay theo sổ hộ khẩu, khoản vay đến 50 triệu. Kỳ hạn vay 90
                                         ngày. Kỳ thanh toán 10, 15 hoặc 30 ngày. Chi tiết liên hệ
                                         <a class="text-gray" href="tel:18006919">1800 6919</a>
                                     </p>

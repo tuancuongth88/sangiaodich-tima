@@ -28,8 +28,8 @@
         <div class="row">
             <ul id="submenu">
                 <li class="active"><a href="/news">Tin tài chính</a></li>
-                <li class=""><a href="/news/tin-tima">Tin Tima</a></li>
-                <li class=""><a href="/news/video-tima">Video Tima</a></li>
+                <li class=""><a href="/news/tin-tima">Tin Lending</a></li>
+                <li class=""><a href="/news/video-tima">Video Lending</a></li>
             </ul>
         </div>
         <div class="row">
@@ -205,7 +205,7 @@
                                 <div class="media-body">
                                     <h3 class="news__title fw-4 fs-14 mb-0">
                                         <a target="_blank" rel="nofollow" href="http://vietnamnet.vn/vn/kinh-doanh/ra-mat-san-ket-noi-tai-chinh-tima-419421.html">
-                                            Ra mắt sàn kết nối tài chính Tima
+                                            Ra mắt sàn kết nối tài chính Lending
                                         </a>
                                     </h3>
                                 </div>
@@ -290,7 +290,7 @@
                                 <div class="media-body">
                                     <h3 class="news__title fw-4 fs-14 mb-0">
                                         <a target="_blank" rel="nofollow" href="http://ictnews.vn/khoi-nghiep/fintech/gan-700-trieu-usd-da-duoc-ket-noi-thanh-cong-qua-san-tai-chinh-tima-162573.ict">
-                                            Gần 700 triệu USD đã được kết nối thành công qua sàn tài chính Tima
+                                            Gần 700 triệu USD đã được kết nối thành công qua sàn tài chính Lending
                                         </a>
                                     </h3>
                                 </div>
@@ -379,7 +379,7 @@
                                 <div class="media-body">
                                     <h3 class="news__title fw-4 fs-14 mb-0">
                                         <a target="_blank" rel="nofollow" href="http://vneconomictimes.com:8081/article/business/more-than-500mn-in-loans-provided-via-tima-financial">
-                                            More than $500mn in loans provided via Tima Financial
+                                            More than $500mn in loans provided via Lending Financial
                                         </a>
                                     </h3>
                                 </div>
@@ -434,7 +434,7 @@
                                 <div class="media-body">
                                     <h3 class="news__title fw-4 fs-14 mb-0">
                                         <a target="_blank" rel="nofollow" href="https://www.dealstreetasia.com/stories/vietnams-p2p-platform-tima-grabs-7-digit-funding-from-singapore-fund-60867/">
-                                            Vietnam: P2P lending startup Tima gets funding from Singapore investor
+                                            Vietnam: P2P lending startup Lending gets funding from Singapore investor
                                         </a>
                                     </h3>
                                 </div>
