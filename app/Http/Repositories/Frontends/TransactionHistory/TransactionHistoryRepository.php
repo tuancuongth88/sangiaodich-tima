@@ -171,7 +171,7 @@ class TransactionHistoryRepository extends Repository {
         $status_tranhistory = $this->model->status_transactionhistory;
         $status_tranhistory[0] = 'Chờ tư vấn';
 
-        $where_cloud[] = ['id', $id];
+        $where_cloud[] = ['user_id', $id];
         $is_search     = false;
         if ((int) $product > 0) {
             $where_cloud[] = ['service_code', '=', $product];
