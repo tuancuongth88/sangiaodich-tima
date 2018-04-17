@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-6">
-                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList($input['city_id']),
+                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+  isset($input['city_id']) ? getDistrictList($input['city_id']): getDistrictList(),
                      isset($input['district_id'])? $input['district_id']:null,
                       ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
 
