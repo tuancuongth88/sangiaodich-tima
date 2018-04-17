@@ -482,7 +482,8 @@ class TransactionHistoryRepository extends Repository {
         $input['fee_type']         = ($input['fee'] > 0 && $input['percent_discount'] < 100) ? $this->services::COPHI : $this->services::MIENPHI;
         $transaction               = $this->model->create($input);
         if ($transaction->id != null) {
-            return redirect()->route('transaction.site.updateform', [$slug, $transaction]);
+            // return redirect()->route('transaction.site.updateform', [$slug, $transaction]);
+            return redirect()->back()->with('success', true);
         }
         return redirect()->back()->with('error', true)->with('message', 'Có lỗi xảy ra! Đơn vay chưa được khỏi tạo. Vui lòng thử lại!');
     }
@@ -512,15 +513,16 @@ class TransactionHistoryRepository extends Repository {
      */
     public function postTransactionUpdateForm($service, $tranId) {
         $input       = $this->request->all();
+        $service = \App\Models\Services\Service::findBySlug($service);
         $transaction = $this->model->findOrFail($tranId);
         if (!empty($input['user'])) {
             ///// Lay thong tin user dang don vay
-            $thisUser = $transaction->user();
+            $thisUser = $transaction->user;
             if ($thisUser) {
                 /// if this filed not empty and user already update before
                 /// we will be ignore them
                 foreach ($input['user'] as $field => $value) {
-                    if ($value != '' && \Common::getObject($thisUser, 'field') != null) {
+                    if ($value != '' && \Common::getObject($thisUser, $field) != null) {
                         unset($input['user'][$field]);
                     }
                 }

@@ -269,10 +269,10 @@ class Common {
     | @author tantan
     |*/
     public static function getObject($obj, $method, $default = null){
-        if( $obj == null ){
+        if( !($obj) ){
             return $default;
         }
-        if( $obj->$method == null ){
+        if( !($obj->$method) ){
             return $default;
         }
         return $obj->$method;
