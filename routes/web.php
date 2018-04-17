@@ -17,7 +17,7 @@ Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthControlle
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
 //route need permission
 // Route::group(['prefix' => 'administrator', 'middleware' => 'authenticate'], function () {
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     //system route
     Route::resource('/', 'Administrators\Systems\DashboardController');
 
