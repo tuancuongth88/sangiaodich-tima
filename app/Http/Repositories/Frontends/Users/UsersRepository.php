@@ -362,7 +362,7 @@ class UsersRepository extends Repository {
     public function updateAvatar() {
 
         //check user
-        $id       = $this->auth->user()->id;
+        $id       = \Auth::user()->id;
         $obj_user = $this->user::where('id', $id)->get()->toArray();
         if ($this->request->hasFile('uploadAvatar')) {
             $file            = $this->request->uploadAvatar;
@@ -392,7 +392,7 @@ class UsersRepository extends Repository {
     public function uploadImgProfile() {
 
         //check user
-        $id          = $this->auth->user()->id;
+        $id          = \Auth::user()->id;
         $typeImg     = $this->request->typeImg;
         $typeImg_str = 'personal_records';
         $data        = array();
