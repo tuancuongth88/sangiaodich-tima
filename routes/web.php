@@ -62,6 +62,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
     // about us
     Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
+
+    Route::resource('/pages', 'Administrators\Pages\PageController');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
