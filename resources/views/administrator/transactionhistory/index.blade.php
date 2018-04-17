@@ -19,6 +19,34 @@
                     </ul>
                 </div>
             </div>
+            <div class="row gutter-2 gutter-lg-3 mb-4">
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                    {{ Form::select('service_code',
+                     [0 => 'Tất cả']+App\Models\Services\Service::list_type_service(),
+                      isset($input['fee_type'])? $input['fee_type']:null,
+                       ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbPrice']) }}
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                    {{ Form::select('service_code',
+                     $list_service->pluck('service_name', 'id'),
+                       isset($input['service_code'])? $input['service_code']:null,
+                       ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbProduct']) }}
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-3 mb-sm-0">
+                    {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(),
+                     isset($input['city_id'])? $input['city_id']:null,
+                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+getDistrictList($input['city_id']),
+                     isset($input['district_id'])? $input['district_id']:null,
+                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+
+                </div>
+            </div>
         </div>
         <!-- END: Subheader -->
         <div class="m-content">
@@ -87,10 +115,12 @@
                                     </button>
                                     {{ Form::close() }}
                                     {{ Form::open(array('method'=>'PUT', 'route' => array('admin.transaction.reject', $value->id), 'style' => 'display: inline-block;')) }}
-                                    <button onclick="return confirm('Bạn có chắc chắn muốn hủy giao dịch này?');" class="btn btn-danger ">
+                                    <button onclick="return confirm('Bạn có chắc chắn muốn hủy giao dịch này?');"
+                                            class="btn btn-danger ">
                                         Hủy
                                     </button>
-                                    <a href="{{ action('Administrators\News\NewsController@show', $value->id) }}" class="btn btn-accent ">
+                                    <a href="{{ action('Administrators\News\NewsController@show', $value->id) }}"
+                                       class="btn btn-accent ">
                                         Chi tiết
                                     </a>
                                     {{ Form::close() }}
@@ -106,4 +136,31 @@
             <!--end::Section-->
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('body').on('change', '#cbPrice', function () {
+                getData();
+            });
+            $('body').on('change', '#cbProduct', function () {
+                getData();
+            });
+            $('body').on('change', '#cbDistrict', function () {
+                getData();
+            });
+            $('body').on('change', '#cbCity', function () {
+                getData();
+            });
+
+            function getData() {
+                var url = window.location.pathname;
+                var fee_type = $('#cbPrice').val();
+                var service_code = $('#cbProduct').val();
+                var city_id = $('#cbCity').val();
+                var district_id = $('#cbDistrict').val();
+                window.location.href = url + '?fee_type=' + fee_type + '&service_code=' + service_code + '&city_id=' + city_id + '&district_id=' + district_id;
+            }
+        });
+    </script>
 @stop
