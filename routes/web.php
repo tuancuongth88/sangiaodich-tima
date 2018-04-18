@@ -87,7 +87,7 @@ Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
 Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
 
-Route::get('/page/{slug}', 'Frontends\Pages\PageController@show');
+Route::get('/page/{slug}', 'Frontends\Pages\PageController@show')->name('frontend.page.show');
 
 /*
 |-------------------------------------------

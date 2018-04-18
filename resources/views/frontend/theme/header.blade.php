@@ -106,7 +106,7 @@
                                 <a class="nav-link" href="{{ route('frontend.listtransaction.site') }}">Sàn giao dịch</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Về Lending</a>
+                                <a class="nav-link" href="{{ route('frontend.page.show', 'about-us') }}">Về Lending</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.user.register') }}">Tin tức</a>
