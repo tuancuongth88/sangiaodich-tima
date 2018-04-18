@@ -19,9 +19,9 @@ class PageController extends Controller
 
     	$viewName = 'frontend.pages.page';
     	$machineName = $data['machine_name'] ?? str_slug($data['title'], '_');
-    	if (\View::exists('frontend.pages.page_'.$machineName)) {
+    	if ( \View::exists('frontend.pages.page_'.$machineName) ) {
             $viewName .= '_'.$machineName;
         }
-    	return view('frontend.pages.page')->with(compact('data'));
+    	return view($viewName)->with(compact('data'));
     }
 }
