@@ -43,6 +43,8 @@
                             <th>STT</th>
                             <th>Tiêu đề</th>
                             <th>Nội dung</th>
+                            <th>Sửa lần cuối</th>
+                            <th>Ngày tạo</th>
                             <th>Tùy chọn</th>
                         </tr>
                     </thead>
@@ -50,8 +52,10 @@
                         @foreach($data as $key => $value)
                         <tr>
                             <th scope="row">{{ $key + 1 }}</th>
-                            <td>{{ $value['title'] }}</td>
-                            <td>{{ str_limit(html_entity_decode($value->body), 200, '...') }}</td>
+                            <td><a target="_blank" href="{{ action('Frontends\Pages\PageController@show', $value->slug) }}">{{ $value['title'] }}</a></td>
+                            <td>{{ str_limit($value['summary'], 200, '...') }}</td>
+                            <td>{{ $value['updated_at'] }}</td>
+                            <td>{{ $value['created_at'] }}</td>
                             <td>
                                 <a href="{{ route('pages.edit', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
                                     <i class="fa fa-pencil"></i>

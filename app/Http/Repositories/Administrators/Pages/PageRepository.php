@@ -6,6 +6,8 @@ use App\Models\Page;
 use App\Services\ResponseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class PageRepository extends Repository
@@ -62,7 +64,44 @@ class PageRepository extends Repository
     | @author tantan
      */
     public function storePage($request, $id = null){
-        $input = $request->only(['title', 'body']);
+        $input = $request->except(['created_at']);
+
+        if( empty($input['slug']) ){
+            $input['slug'] = SlugService::createSlug(\App\Models\Page::class, 'slug', $input['title']);
+        }
+        else{
+            $input['slug'] = str_slug($input['slug'], '-');
+        }
+
+        if( !empty($input['machine_name']) ){
+            $input['machine_name'] = str_slug($input['machine_name'], '_');
+        }
+        else{
+            $input['machine_name'] = SlugService::createSlug(\App\Models\Page::class, 'machine_name', $input['title'], ['separator' => '_']);
+        }
+
+        $messages = [
+            'required'                   => 'Vui lòng nhập :attribute',
+            'slug.unique' => 'Đường dẫn bị trùng.',
+            'machine_name.unique' => 'Machine name bị trùng.',
+        ];
+        $validator = Validator::make($input, [
+            'title'    => 'required',
+            'body' => 'required',
+            'slug' => ($id == null) ? 'unique:pages,slug' : Rule::unique('pages')->ignore($id, 'id'),
+            'machine_name' => ($id == null) ? 'unique:pages,machine_name' : Rule::unique('pages')->ignore($id, 'id'),
+        ], $messages);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput($input);
+        }
+
+        $input['author'] = \Auth::guard('admin')->user()->id;
+
+
         if( $id == null ){
             $this->model->create($input);
         } else{
