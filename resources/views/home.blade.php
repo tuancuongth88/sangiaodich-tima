@@ -38,7 +38,7 @@
                 </p>
 
                 <div class="d-flex align-items-center">
-                    <div class="incremental-counter d-flex mr-10px mr-lg-3" data-value="{{ $totalmoney }}"></div>
+                    <div class="incremental-counter d-flex mr-10px mr-lg-3" data-value="{{ $totalmoney / 1000000 }}"></div>
                     <span class="text-uppercase font-secondary">Triệu</span>
                 </div>
             </div>
