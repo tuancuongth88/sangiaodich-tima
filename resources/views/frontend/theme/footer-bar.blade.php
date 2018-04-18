@@ -49,7 +49,7 @@
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-phone-sm d-flex"></i>
                                 </div>
-                                <strong class="fs-20 text-primary">1800.6919</strong>
+                                <strong class="fs-20 text-primary">{{ HOTLINE }}</strong>
                             </a>
                         </div>
 
@@ -92,7 +92,7 @@
                             </div>
                         </div>
 
-                        <div class="divider-v mx-6 hidden-sm-down"></div>
+                        {{--<div class="divider-v mx-6 hidden-sm-down"></div>--}}
 
                         <div class="gomobile">
                             {{--<h3 class="mb-3 mb-md-5 fs-14 text-gray">--}}

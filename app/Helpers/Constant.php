@@ -51,4 +51,4 @@ define('TRAN_STATUS_APPROVE', 4);
 define('TRAN_STATUS_CANCEL', 5);
 
 
-define('HOTLINE', '0912345885');
+define('HOTLINE', '');
