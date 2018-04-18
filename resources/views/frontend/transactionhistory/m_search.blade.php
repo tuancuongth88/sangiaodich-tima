@@ -26,7 +26,7 @@
                         {{ $data_val->userCreated->fullname }}
                     </div>
                     <div class="text-gray-lighter">
-                        {{substrPhone($data_val->userCreated->phone)}}
+                        {{ substrPhone($data_val->userCreated->phone,$data_val['status'])}}
                     </div>
                 </div>
             </div>

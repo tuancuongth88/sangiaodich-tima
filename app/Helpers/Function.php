@@ -322,10 +322,19 @@ function getWardList(string $district = null)
     return $_return;
 }
 
-
-function substrPhone($phone)
+/*
+|--------------------------------------------------------------------------
+| Sub string phone
+|--------------------------------------------------------------------------
+| @return phone
+| @Author : phuonglv
+ */
+function substrPhone($phone, $status = null)
 {
-    return substr($phone, 0, 3) . "*****" . substr($phone, -3);
+    if (in_array($status, [TRAN_STATUS_WAIT, TRAN_STATUS_CANCEL])) {
+        return substr($phone, 0, 3) . "*****" . substr($phone, -3);
+    }
+    return $phone;
 }
 
 
@@ -385,6 +394,7 @@ function convertAmount($amount)
 | @Author : cuongnt
  */
 
-function isUser(){
+function isUser()
+{
 
 }
