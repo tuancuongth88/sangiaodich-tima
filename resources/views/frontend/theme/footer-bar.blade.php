@@ -78,7 +78,7 @@
                     <div class="d-flex flex-column flex-md-row">
                         <div class="footer__copyright text-lg-right mb-5 mb-md-0">
                             <h3 class="mb-3 mb-md-4 fs-16">
-                                Công ty cổ phần tập đoàn Lending
+                                Công ty cổ phần Lending
                             </h3>
 
                             <div class="pl-xl-7">
@@ -95,9 +95,9 @@
                         <div class="divider-v mx-6 hidden-sm-down"></div>
 
                         <div class="gomobile">
-                            <h3 class="mb-3 mb-md-5 fs-14 text-gray">
-                                Tải ứng dụng Lending
-                            </h3>
+                            {{--<h3 class="mb-3 mb-md-5 fs-14 text-gray">--}}
+                                {{--Tải ứng dụng Lending--}}
+                            {{--</h3>--}}
 
                             {{--<div class="d-flex flex-row flex-md-column">--}}
                                 {{--<div class="mb-3 mr-3 mr-md-0">--}}
