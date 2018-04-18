@@ -6,21 +6,21 @@
                         <a class="footer-nav__link" href="/">Trang chủ</a>
                     </li>
                     <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/Borrower/">Cần vay</a>
+                        <a class="footer-nav__link" href="/">Cần vay</a>
                     </li>
                     <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/Lender/">Cho vay</a>
+                        <a class="footer-nav__link" href="/">Cho vay</a>
                     </li>
 
                     <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/Home/About/">Về Lending</a>
+                        <a class="footer-nav__link" href="/">Về Lending</a>
                     </li>
 
                     <li class="footer-nav__item hidden-sm-down">
-                        <a class="footer-nav__link" href="/Home/Notification/">Thông báo</a>
+                        <a class="footer-nav__link" href="/">Thông báo</a>
                     </li>
                     <li class="footer-nav__item hidden-sm-down">
-                        <a class="footer-nav__link" href="/huong-dan-giao-dich-tren-san-tima.html">Hỗ trợ</a>
+                        <a class="footer-nav__link" href="/">Hỗ trợ</a>
                     </li>
 
                 </ul>
@@ -36,7 +36,7 @@
 
                     <div class="f-contact row">
                         <div class="col-6 mb-3 mb-md-4">
-                            <a class="d-flex align-items-center" href="/Home/Support/">
+                            <a class="d-flex align-items-center" href="/">
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-faq-black d-flex"></i>
                                 </div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="col-6 mb-3 mb-md-4">
-                            <a class="d-flex align-items-center text-primary" href="tel:18006919">
+                            <a class="d-flex align-items-center text-primary" href="tel:{{ HOTLINE }}">
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-phone-sm d-flex"></i>
                                 </div>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div class="col-6">
-                            <a class="d-flex align-items-center" href="mailto:support@tima.vn">
+                            <a class="d-flex align-items-center" href="mailto:support@lending.vn">
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-email-1 d-flex"></i>
                                 </div>
