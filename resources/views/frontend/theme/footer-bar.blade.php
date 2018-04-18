@@ -78,7 +78,7 @@
                     <div class="d-flex flex-column flex-md-row">
                         <div class="footer__copyright text-lg-right mb-5 mb-md-0">
                             <h3 class="mb-3 mb-md-4 fs-16">
-                                Công ty cổ phần Lending
+                                CÔNG TY CỔ PHẦN DỊCH VỤ ĐÁNH GIÁ DỮ LIỆU TRỰC TUYẾN
                             </h3>
 
                             <div class="pl-xl-7">
