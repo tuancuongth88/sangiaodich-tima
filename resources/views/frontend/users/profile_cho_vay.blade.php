@@ -44,7 +44,7 @@
                                     <b>
                                         <a href="http://tima.vn/lich-su-giao-dich.html"
                                            class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm">
-                                            9,000
+                                            {{ number_format($data->amount) }}
                                         </a>
                                     </b>
                                 </label>
@@ -54,13 +54,6 @@
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="profilecard__progress">
-                                <p class="mb-0 text-gray-light fs-13">Mức độ hoàn thành hồ sơ</p>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 86%;"
-                                         aria-valuenow="86" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="progress-tooltip">86%</span>
-                                    </div>
-                                </div>
                                 <p class="mb-0 text-gray-light fs-13">
                                     Bạn vui lòng cập nhật đầy đủ hồ sơ để khách hàng có thể kết nối được với bạn.
                                 </p>
