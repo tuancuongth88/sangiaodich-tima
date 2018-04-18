@@ -72,9 +72,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::resource('/', 'Frontends\Homes\HomeController');
-Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
-Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
+
+Route::get('/tin-tuc', 'Frontends\News\NewsController@getNewsByCategory')->name('category.detail');
+Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail')->name('news.detail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
@@ -159,4 +160,5 @@ Route::group(['prefix' => 'san-giao-dich'], function () {
     Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });
 
-Route::get('/faq/question', 'Frontends\Faqs\FaqCategoryController@getQuestion');
+Route::get('/hoi-dap', 'Frontends\Faqs\FaqCategoryController@getQuestion')->name('question.show');
+Route::get('/huong-dan', 'Frontends\Faqs\FaqCategoryController@getListGuide')->name('guide.show');

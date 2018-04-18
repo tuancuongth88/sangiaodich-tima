@@ -47,21 +47,31 @@ class FaqCategoriesRepository extends Repository {
     }
 
     public function getQuestion() {
+        $categoryId = ($this->request->has('id')) ? $this->request->input('id') : 1;
         //1 = hoi dap
-        $listData = $this->model
+        $listCategory = $this->model
             ->where('type', 1)
         // ->orderBy(self::ID, 'desc')
             ->with('faqs')
             ->get();
+        $list_service = Service::all();
+        $listData     = $this->faq->where('category_id', $categoryId)->get();
+        return view('frontend.faqs.list', compact('list_service', 'listCategory', 'listData'));
+    }
+
+    public function getListGuide() {
+        $faqId    = ($this->request->has('id')) ? $this->request->input('id') : 1;
+        $category = $this->model
+            ->where('type', 2)
+            ->orderBy(self::ID, 'desc')
+            ->first();
+        //2 = huong dan
+        $listData = $this->faq
+            ->where('category_id', $category->id)
+            ->orderBy(self::ID, 'desc')
+            ->get();
         $listService = Service::all();
-        $data = null;
-        if (!$listData->isEmpty()) {
-            foreach ($listData as $key => $value) {
-                $data[$key]       = new \stdClass();
-                $data[$key]       = $value;
-                $data[$key]->list = $this->faq->where('category_id', $value->id)->get();
-            }
-        }
-        return view('frontend.faqs.list', ['data' => $data, 'list_service' => $listService]);
+        $data        = $this->faq->find($faqId);
+        return view('frontend.faqs.guide', ['listData' => $listData, 'list_service' => $listService, 'data' => $data]);
     }
 }

@@ -109,7 +109,7 @@
                                 <a class="nav-link" href="{{ route('frontend.user.register') }}">Về Lending</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Tin tức</a>
+                                <a class="nav-link" href="{{ route('category.detail') }}">Tin tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.user.login') }}">Đăng nhập</a>

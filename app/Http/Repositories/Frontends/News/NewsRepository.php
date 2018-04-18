@@ -29,13 +29,10 @@ class NewsRepository extends Repository {
         return $this->model->approve()->orderBy(self::ID, 'desc')->take(5)->get();
     }
 
-    public function getNewsByCategory($categorySlug) {
-        $category   = $this->category->slug($categorySlug)->first();
-        $categoryId = 1;
-        if ($category) {
-            $categoryId = $category->id;
-        }
-        $listData = $this->model
+    public function getNewsByCategory() {
+        // $category   = $this->category->slug($categorySlug)->first();
+        $categoryId = ($this->request->has('id')) ? $this->request->input('id') : 1;
+        $listData   = $this->model
             ->category($categoryId)
             ->approve()
             ->orderBy(self::ID, 'desc')
@@ -50,7 +47,8 @@ class NewsRepository extends Repository {
             ->orderBy(self::ID, 'desc')->take(3)->get();
         $listFaqCategory = \App\Models\Faqs\FaqCategories::where('type', 1)
             ->orderBy(self::ID, 'desc')->take(5)->get();
-        return view('frontend.news.list', ['data' => $listData, 'latest' => $listLatest, 'list_service' => $listService, 'listHot' => $listHot, 'listFaqCategory' => $listFaqCategory]);
+        $listCategory = $this->category->all();
+        return view('frontend.news.list', ['data' => $listData, 'latest' => $listLatest, 'list_service' => $listService, 'listHot' => $listHot, 'listFaqCategory' => $listFaqCategory, 'listCategory' => $listCategory]);
     }
 
     public function getDetail($slug) {

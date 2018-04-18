@@ -16,4 +16,8 @@ class FaqCategoryController extends Controller {
         return $this->repository->getQuestion();
     }
 
+    public function getListGuide() {
+        return $this->repository->getListGuide();
+    }
+
 }
