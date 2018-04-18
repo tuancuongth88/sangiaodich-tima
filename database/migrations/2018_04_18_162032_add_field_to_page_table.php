@@ -14,7 +14,6 @@ class AddFieldToPageTable extends Migration
     public function up() {
         Schema::table('pages', function (Blueprint $table) {
             $table->longText('summary')->nullable();
-            $table->integer('author')->nullable();
             $table->string('machine_name')->nullable()->unique();
         });
     }
@@ -26,7 +25,7 @@ class AddFieldToPageTable extends Migration
      */
     public function down() {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropColumn(['machine_name', 'summary', 'author']);
+            $table->dropColumn(['machine_name', 'summary']);
         });
     }
 }
