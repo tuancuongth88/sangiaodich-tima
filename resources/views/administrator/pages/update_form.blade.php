@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    {{ Form::open(['route' => ($data->id) ? ['pages.update', $data->id] : 'pages.store', 'method' => ($data->id) ? 'PUT' : 'POST', 'class' => 'm-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed', 'files' => true ]) }}
+                    {{ Form::open(['route' => ($data == null) ? 'pages.store' : ['pages.update', $data->id], 'method' => ($data == null) ? 'POST' : 'PUT', 'class' => 'm-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed', 'files' => true ]) }}
                         @csrf
                         <div class="m-portlet__body">
                             <div class="form-group m-form__group">
