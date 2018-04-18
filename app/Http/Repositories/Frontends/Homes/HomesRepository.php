@@ -38,7 +38,7 @@ class HomesRepository extends Repository
         $total_reg_loan = User::where('type', NGUOICHOVAY)->count();
 
         $total_bill_day = TransactionHistory::where('status','<>' ,TransactionHistory::STATUS_WAIT_APPROVE)
-                                            ->whereRaw('Date(created_at)', DB::raw('CURDATE()'))
+                                            ->whereRaw('Date(created_at) = CURDATE()')
                                             ->count();
         $total_bill_system = TransactionHistory::count();
         return view('home', ['data' => $data,
