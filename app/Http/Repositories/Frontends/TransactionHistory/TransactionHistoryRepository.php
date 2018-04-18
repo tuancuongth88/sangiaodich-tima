@@ -549,8 +549,8 @@ class TransactionHistoryRepository extends Repository {
     public function getListTransaction() {
         $listService      = Service::all();
         $totalMoney       = TransactionHistory::where('status', TransactionHistory::STATUS_APPROVE)->sum('amount');
-        $total_reg_borrow = User::where('type', VAY)->count();
-        $total_reg_loan   = User::where('type', CHO_VAY)->count();
+        $total_reg_borrow = User::where('type', NGUOIVAY)->count();
+        $total_reg_loan   = User::where('type', NGUOICHOVAY)->count();
         $input            = $this->request->all();
         if (isset($input['fee_type']) && $input['fee_type'] == '0') {
             unset($input['fee_type']);

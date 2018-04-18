@@ -1,0 +1,869 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"json_de",
+				"json_decode"
+			],
+			[
+				"find",
+				"findOrFail"
+			],
+			[
+				"this",
+				"thisUser"
+			],
+			[
+				"thi",
+				"thisUser"
+			],
+			[
+				"ser",
+				"service_slug"
+			],
+			[
+				"Servc",
+				"ServiceModel"
+			],
+			[
+				"AMOUNT",
+				"AMOUNT_DAY"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"aut",
+				"auth"
+			],
+			[
+				"dat",
+				"data"
+			],
+			[
+				"am",
+				"amount"
+			],
+			[
+				"_e",
+				"_exp"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"for",
+				"foreach\tPHP: foreach {value} statement"
+			],
+			[
+				"loca",
+				"locationTree"
+			],
+			[
+				"lo",
+				"locationText"
+			],
+			[
+				"re",
+				"required\tAttr"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"pointer",
+				"pointerDown"
+			],
+			[
+				"remov",
+				"remove\t.remove()"
+			],
+			[
+				"canvas",
+				"canvasOrder"
+			],
+			[
+				"object",
+				"objectTmp"
+			],
+			[
+				"draw",
+				"drawType"
+			],
+			[
+				"remove",
+				"removeClass\t.removeClass()"
+			],
+			[
+				"opt",
+				"option\tTag"
+			],
+			[
+				"prop",
+				"prop\t.prop() - single"
+			],
+			[
+				"tar",
+				"targetId"
+			],
+			[
+				"com",
+				"comments"
+			],
+			[
+				"t",
+				"td\tTag"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"pro",
+				"prop\t.prop() - single"
+			],
+			[
+				"text",
+				"text-transform"
+			],
+			[
+				"i",
+				"i\tTag"
+			],
+			[
+				"form",
+				"form-group"
+			],
+			[
+				"di",
+				"div\tTag"
+			],
+			[
+				"prin",
+				"print_r"
+			],
+			[
+				"clas",
+				"class_exists"
+			],
+			[
+				"sut",
+				"studentId"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"sta",
+				"static"
+			],
+			[
+				"strto",
+				"strtotime"
+			],
+			[
+				"str",
+				"strtotime"
+			],
+			[
+				"end",
+				"endDate"
+			],
+			[
+				"co",
+				"color"
+			],
+			[
+				"labe",
+				"label\tTag"
+			],
+			[
+				"con",
+				"config"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"well",
+				"well-sm"
+			],
+			[
+				"attr",
+				"attr\t.attr() - single"
+			],
+			[
+				"json",
+				"json_decode"
+			],
+			[
+				"strt",
+				"strtolower"
+			],
+			[
+				"json_",
+				"json_encode"
+			],
+			[
+				"js",
+				"json_decode"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/F/Drupal-Vagrant/drupal/web/sites/default/settings.php",
+			"settings":
+			{
+				"buffer_size": 26557,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"pac",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 596.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/TanTan/AppData/Roaming/Sublime Text 3/Packages/Xdebug Client/Xdebug.sublime-settings",
+		"/C/Users/TanTan/AppData/Roaming/Sublime Text 3/Packages/User/Xdebug.sublime-settings",
+		"/F/Homestead/Homestead.yaml",
+		"/F/Xampp/htdocs/company/app/services/HocmaiOAuth2.php",
+		"/F/Xampp/htdocs/company/app/helpers/Constant.php",
+		"/F/Xampp/htdocs/company/app/models/Subject.php",
+		"/F/Xampp/htdocs/company/app/models/PublishedTrait.php",
+		"/F/Xampp/htdocs/company/app/controllers/site/SiteUserController.php",
+		"/F/Xampp/htdocs/company/app/controllers/AjaxController.php",
+		"/F/Xampp/htdocs/company/app/models/UserCourse.php",
+		"/F/Xampp/htdocs/company/public/frontend/js/myscript.js",
+		"/F/Xampp/htdocs/baohy/sites/all/modules/custom/import.func.inc",
+		"/F/Xampp/htdocs/baohy/sites/default/settings.php",
+		"/F/Xampp/htdocs/baohy/.gitignore",
+		"/F/Xampp/htdocs/company/app/views/site/questions_guide/sosanh2so.blade.php",
+		"/F/Xampp/htdocs/company/app/routes.php",
+		"/F/Xampp/htdocs/company/app/controllers/TestController.php",
+		"/F/Xampp/htdocs/company/app/views/site/new_index.blade.php",
+		"/F/Xampp/htdocs/company/app/views/site/index.blade.php",
+		"/C/Users/TanTan/Desktop/HocmaiOAuth2.php",
+		"/F/Homestead/sangiaodich/app/Models/Page.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/Pages/PageController.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Administrators/Pages/PageRepository.php",
+		"/F/Homestead/sangiaodich/resources/views/administrator/pages/list.blade.php",
+		"/F/Homestead/sangiaodich/app/Helpers/Function.php",
+		"/F/Homestead/sangiaodich/resources/views/administrator/pages/update_form.blade.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/News/NewsController.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Administrators/News/NewsRepository.php",
+		"/F/Homestead/sangiaodich/resources/views/administrator/theme/left-sidebar.blade.php",
+		"/F/Homestead/sangiaodich/app/Models/Users/User.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/Auth/LoginController.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Frontends/Users/UsersController.php",
+		"/C/wamp/www/baohy/sites/default/settings.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Frontends/TransactionHistory/TransactionHistoryRepository.php",
+		"/F/Xampp/htdocs/baohy/sites/all/modules/custom/custom.module",
+		"/F/Homestead/sangiaodich/app/Http/Middleware/OwnerAuth.php",
+		"/F/Homestead/sangiaodich/database/seeds/CreateAdmin.php",
+		"/F/Homestead/sangiaodich/app/Http/Services/Common.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/Services/ServiceController.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/Authenticate/AuthController.php",
+		"/F/Homestead/sangiaodich/app/Http/Middleware/Auth.php",
+		"/F/Homestead/sangiaodich/app/Models/Services/Service.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/AdminController.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/service/register.blade.php",
+		"/F/Homestead/sangiaodich/config/app.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/transactionhistory/sectionlender.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/transactionhistory/index.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/users/register.blade.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Frontends/Users/UsersRepository.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Administrators/Users/UserRepository.php",
+		"/F/Homestead/sangiaodich/routes/web.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_17_160522_create_pages_table_and_remove_about_us.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/AjaxController.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Controllers/Administrators/Pages/PageController.php",
+		"/F/Homestead/sangiaodich/.env",
+		"/F/Homestead/sangiaodich/app/Http/Services/AuthService.php",
+		"/F/Xampp/htdocs/galileo/app/services/Common.php",
+		"/F/Dropbox/Project/fmall.vn/Backup/sites/all/themes/fmall/js/theme-script.js",
+		"/F/Dropbox/Project/fmall.vn/Backup/sites/all/themes/fmall/js/conruoi.js",
+		"/F/C#/loop-server/loopvn-admin/wwwroot/js/conruoi.js",
+		"/F/C#/loop-server/.gitattributes",
+		"/F/Homestead/sangiaodich/app/Http/Middleware/RedirectDestination.php",
+		"/F/Homestead/sangiaodich/app/Http/Kernel.php",
+		"/F/Homestead/sangiaodich/vendor/mockery/mockery/library/Mockery/Matcher/Closure.php",
+		"/F/Homestead/sangiaodich/vendor/mockery/mockery/library/Mockery/Matcher/MatcherAbstract.php",
+		"/F/Homestead/sangiaodich/vendor/nikic/php-parser/lib/PhpParser/Node/Expr/Closure.php",
+		"/F/Homestead/sangiaodich/config/auth.php",
+		"/F/Homestead/sangiaodich/app/Providers/BroadcastServiceProvider.php",
+		"/F/Homestead/sangiaodich/app/Providers/AppServiceProvider.php",
+		"/F/Homestead/sangiaodich/app/Providers/RouteServiceProvider.php",
+		"/F/Homestead/sangiaodich/app/Providers/AuthServiceProvider.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_11_182520_update_birthday_in_user.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/transactionhistory/update_info.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/home.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/transactionhistory/s_index.blade.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Frontends/TransactionHistory/TransactionHistoryController.php",
+		"/F/Homestead/sangiaodich/app/Helpers/Constant.php",
+		"/F/Homestead/sangiaodich/app/Models/TransactionHistory/TransactionHistory.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/users/profile_vay.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/users/profile_cho_vay.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/transactionhistory/list_transaction.blade.php",
+		"/F/Google drive/Du An Tima/tima.vn_co_chat_box/vay-theo-ho-khau.html",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_12_160538_add_field_user_table.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_12_160416_edit_some_field_of_user_table.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_11_174625_add_field_to_transaction_history.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/home.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/users/login.blade.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_09_164541_add_company_to_users.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_07_104815_update_table_transaction_history.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_08_154610_add_fee_and_discount_to_services_table_and_remove_their_table.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_08_144526_create_transaction_history_log.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_08_104612_add_amount_to_users.php",
+		"/F/Homestead/sangiaodich/database/factories/UserFactory.php",
+		"/F/Xampp/htdocs/baohy/sites/all/modules/custom/custom.func.inc",
+		"/F/Xampp/apache/conf/httpd.conf",
+		"/F/Homestead/sangiaodich/database/migrations/2018_03_28_055118_create_transaction_history.php",
+		"/F/Xampp/htdocs/baohy/composer.json",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Frontends/Services/ServicesRepository.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Frontends/Homes/HomesRepository.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Frontends/Services/ServicesController.php",
+		"/F/Homestead/sangiaodich/app/Models/Admins/Admin.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_10_163548_create_admins_table.php",
+		"/C/Users/TanTan/Desktop/simplehtmldom_1_5/example/example_extract_html.php",
+		"/F/Google drive/Du An Tima/tima.vn_co_chat_box/sau-khi-otp.html",
+		"/F/Homestead/sangiaodich/resources/views/administrator/Services/edit.blade.php",
+		"/F/Homestead/sangiaodich/app/Http/Repositories/Administrators/Services/ServiceRepository.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/service/list.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/administrator/Services/create.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/users/profile.blade.php",
+		"/F/Homestead/sangiaodich/resources/views/frontend/theme/header.blade.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_04_08_143851_create_relations_table.php",
+		"/F/Homestead/sangiaodich/app/Relation.php",
+		"/F/Homestead/sangiaodich/app/Models/Projects/Project.php",
+		"/F/Homestead/sangiaodich/app/Providers/ListsEloquent.php",
+		"/F/Homestead/sangiaodich/app/Http/Services/PermissionCommon.php",
+		"/F/Homestead/sangiaodich/app/Events/UserRegister.php",
+		"/F/Homestead/sangiaodich/app/Listeners/UserRegisterListener.php",
+		"/F/Homestead/sangiaodich/app/Jobs/SendEmail.php",
+		"/F/Homestead/sangiaodich/database/migrations/2018_03_28_055721_create_services.php",
+		"/F/Homestead/sangiaodich/app/Http/Services/ActivationService.php",
+		"/F/Homestead/sangiaodich/app/Providers/EventServiceProvider.php",
+		"/F/Homestead/sangiaodich/app/Events/Event.php",
+		"/F/Homestead/sangiaodich/app/Listeners/EventListener.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/Administrators/Users/UserController.php",
+		"/F/Homestead/sangiaodich/app/Http/Middleware/RedirectIfAuthenticated.php",
+		"/F/Homestead/sangiaodich/app/Http/Middleware/Authenticate.php",
+		"/F/Homestead/sangiaodich/vendor/laravel/framework/src/Illuminate/Cache/CacheManager.php",
+		"/F/Homestead/sangiaodich/app/Http/Controllers/HomeController.php"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 241.0,
+		"where_history":
+		[
+			"F:\\Homestead\\sangiaodich",
+			"F:\\Homestead\\sangiaodich\\public",
+			"F:\\Homestead\\sangiaodich\\app",
+			"F:\\Homestead\\sangiaodich\\database\\migrations",
+			"F:\\Xampp\\htdocs\\schedule"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"subject",
+			"){\n",
+			"        \n",
+			"news",
+			"getObject",
+			"getObj",
+			"logout",
+			"$this->auth",
+			"session()->has('destination') && ",
+			"logout",
+			"loggout",
+			"logout",
+			"__currentLoopData",
+			"uploadAvatar",
+			"count",
+			"transasction",
+			"vay-theo-dang-ky-xe-o-to",
+			" $",
+			"self::currentUser",
+			"service",
+			"[\n                'name[company_name]' => [\n                    'type' => 'text',\n                    'label' => 'Tên công ty',\n                ],\n                'user[income]' => [\n                    'type' => 'text',\n                    'label' => 'Thu nhập',\n                ],\n                'user[job]' => [\n                    'type' => 'select',\n                    'data' => [],\n                    'label' => 'Nghề nghiệp',\n                ],\n            ]",
+			"status_transactionhistory",
+			"allowoverride",
+			"STATUS_WAIT",
+			"status_transactionhistory",
+			"taxonomy",
+			"taxonomy_term",
+			"taxonomy_term_save",
+			"newNode",
+			"name",
+			"array_merge($rss, ",
+			" for=\"day_detail\"",
+			"Relation",
+			"services",
+			"district_id",
+			"source_model",
+			"App\\Models\\Services\\Services",
+			"Auth",
+			"auth",
+			"->auth",
+			"$this->auth",
+			"action('Frontends\\Users\\UsersController@getRegisterForm')",
+			"getInputFieldStore",
+			"email",
+			"data",
+			",",
+			"Services",
+			"ServicesController",
+			"phone",
+			"application_term",
+			"spanTextDay",
+			"amountConfig",
+			"amountPositions",
+			"amountLabels",
+			"amountTicks",
+			"amountConfig",
+			"hddTypeTime",
+			"chkDieuKhoan",
+			"partner-category.create",
+			"App\\Models\\Services\\Services",
+			"day_detail",
+			"DAY_DETAIL",
+			"ngày\\n",
+			"data",
+			"image_url",
+			"service_code",
+			"city_id",
+			"$city",
+			"city",
+			"district_id",
+			"$this->district_id",
+			"city_id",
+			"city",
+			"') ",
+			"antoree",
+			"ANTOREE",
+			"Antoree",
+			"address",
+			" // if( $parent == null ){\n        //     if( $value['depth'] == $depth ){\n        //         $_return[] = $value;\n        //     }\n        // } else {\n        //     if( $max_depth == 1 && $value['parent1'] == $parent ){\n        //         $_return[] = $value;\n        //     }\n        //     else if( $value['parent1'] == $parent | $value['parent2'] == $parent ){\n        //         $_return[] = $value;\n        //     }\n        // }",
+			"depth",
+			"parent1",
+			"taxonomy_manager_export_term_tree",
+			"taxonomy_manager_export_form_submit",
+			"Exported data",
+			"term->",
+			"$parents",
+			"parents",
+			"term_names_too_long",
+			"taxonomy_manager_tree_build_siblings_form",
+			"locationText",
+			"button",
+			"repository",
+			"Session::",
+			"txtCodeConfirm-error",
+			"response",
+			"required",
+			"haind",
+			"show-tick ",
+			"canvasOrder",
+			"FLOOR",
+			"canvas[i]",
+			"canvas[i].",
+			"canvas[i].on",
+			"'red'",
+			"canvasOrder",
+			"lineSize",
+			".group .",
+			"group .",
+			"dLabel",
+			"ton class",
+			"{{ key+1 }}",
+			"script",
+			"$",
+			"\\UploadController",
+			"Gate",
+			"rules",
+			"type_invertor",
+			"bootstrap",
+			"show-tick ",
+			"files/images/thanhcong.png",
+			"thanhcong",
+			"UserController",
+			"link",
+			"div",
+			"OrderBy",
+			"teacher",
+			"image_url",
+			"$)"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/F/Drupal-Vagrant/drupal/web/sites/default/settings.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26557,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9329,
+								9357
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3316.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 83.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "baohy.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app/views/site/questions_guide/sosanh2so.blade.php",
+				"company\\app\\views\\site\\questions_guide\\sosanh2so.blade.php"
+			],
+			[
+				"resources/views/administrator/theme/left-sidebar.blade.php",
+				"sangiaodich\\resources\\views\\administrator\\theme\\left-sidebar.blade.php"
+			],
+			[
+				"pagecontroller",
+				"sangiaodich\\app\\Http\\Controllers\\Controllers\\Administrators\\Pages\\PageController.php"
+			],
+			[
+				"2018_04_17_160522_create_pages_table_and_remove_about_us",
+				"sangiaodich\\database\\migrations\\2018_04_17_160522_create_pages_table_and_remove_about_us.php"
+			],
+			[
+				"transactionhistoryrepository",
+				"sangiaodich\\app\\Http\\Repositories\\Frontends\\TransactionHistory\\TransactionHistoryRepository.php"
+			],
+			[
+				"resources/views/frontend/transactionhistory/list_transaction.blade.php",
+				"F:\\Homestead\\sangiaodich\\resources\\views\\frontend\\transactionhistory\\list_transaction.blade.php"
+			],
+			[
+				"app/http/controllers/frontends/users/userscontroller.php",
+				"sangiaodich\\app\\Http\\Controllers\\Frontends\\Users\\UsersController.php"
+			],
+			[
+				"app/http/repositories/frontends/users/usersrepository.php",
+				"sangiaodich\\app\\Http\\Repositories\\Frontends\\Users\\UsersRepository.php"
+			],
+			[
+				"resources/views/frontend/transactionhistory/index.blade.php",
+				"sangiaodich\\resources\\views\\frontend\\transactionhistory\\index.blade.php"
+			],
+			[
+				"app/helpers/constant.php",
+				"sangiaodich\\app\\Helpers\\Constant.php"
+			],
+			[
+				"app/http/controllers/frontends/transactionhistory/transactionhistorycontroller.php",
+				"sangiaodich\\app\\Http\\Controllers\\Frontends\\TransactionHistory\\TransactionHistoryController.php"
+			],
+			[
+				"app/http/repositories/frontends/transactionhistory/transactionhistoryrepository.php",
+				"sangiaodich\\app\\Http\\Repositories\\Frontends\\TransactionHistory\\TransactionHistoryRepository.php"
+			],
+			[
+				"app/http/services/common.php",
+				"sangiaodich\\app\\Http\\Services\\Common.php"
+			],
+			[
+				"app/models/transactionhistory/transactionhistory.php",
+				"sangiaodich\\app\\Models\\TransactionHistory\\TransactionHistory.php"
+			],
+			[
+				"app/models/users/user.php",
+				"sangiaodich\\app\\Models\\Users\\User.php"
+			],
+			[
+				"database/migrations/2018_04_11_182520_update_birthday_in_user.php",
+				"sangiaodich\\database\\migrations\\2018_04_11_182520_update_birthday_in_user.php"
+			],
+			[
+				"resources/views/frontend/service/register.blade.php",
+				"sangiaodich\\resources\\views\\frontend\\service\\register.blade.php"
+			],
+			[
+				"resources/views/frontend/users/profile_cho_vay.blade.php",
+				"sangiaodich\\resources\\views\\frontend\\users\\profile_cho_vay.blade.php"
+			],
+			[
+				"resources/views/frontend/users/profile_vay.blade.php",
+				"sangiaodich\\resources\\views\\frontend\\users\\profile_vay.blade.php"
+			],
+			[
+				"routes/web.php",
+				"sangiaodich\\routes\\web.php"
+			],
+			[
+				"database/migrations/2018_04_12_160538_add_field_user_table.php",
+				"sangiaodich\\database\\migrations\\2018_04_12_160538_add_field_user_table.php"
+			],
+			[
+				"2018_04_12_160416_edit_some_field_of_user_table",
+				"sangiaodich\\database\\migrations\\2018_04_12_160416_edit_some_field_of_user_table.php"
+			],
+			[
+				"resources/views/home.blade.php",
+				"sangiaodich\\resources\\views\\home.blade.php"
+			],
+			[
+				"2018_04_08_154610_add_fee_and_discount_to_services_table_and_remove_their_table",
+				"sangiaodich\\database\\migrations\\2018_04_08_154610_add_fee_and_discount_to_services_table_and_remove_their_table.php"
+			],
+			[
+				"database/migrations/2018_04_08_143851_create_relations_table.php",
+				"sangiaodich\\database\\migrations\\2018_04_08_143851_create_relations_table.php"
+			],
+			[
+				"resources/views/frontend/theme/header.blade.php",
+				"F:\\Homestead\\sangiaodich\\resources\\views\\frontend\\theme\\header.blade.php"
+			],
+			[
+				"app/http/controllers/homecontroller.php",
+				"sangiaodich\\app\\Http\\Controllers\\HomeController.php"
+			],
+			[
+				"app/http/repositories/frontends/transactionhistory/transactionhistoryrepository",
+				"sangiaodich\\app\\Http\\Repositories\\Frontends\\TransactionHistory\\TransactionHistoryRepository.php"
+			],
+			[
+				"app/http/middleware/redirectdestination.php",
+				"sangiaodich\\app\\Http\\Middleware\\RedirectDestination.php"
+			],
+			[
+				"app/helpers/function.php",
+				"sangiaodich\\app\\Helpers\\Function.php"
+			],
+			[
+				"app/views/admin/common/navbar.blade.php",
+				"schedule\\app\\views\\admin\\common\\navbar.blade.php"
+			],
+			[
+				"app/views/emails/email_student.blade.php",
+				"schedule\\app\\views\\emails\\email_student.blade.php"
+			],
+			[
+				"app/views/admin/common/header.blade.php",
+				"F:\\Xampp\\htdocs\\schedule\\app\\views\\admin\\common\\header.blade.php"
+			],
+			[
+				"2018_04_03_154552_add_distric_city_to_user_and_service_table",
+				"database\\migrations\\2018_04_03_154552_add_distric_city_to_user_and_service_table.php"
+			],
+			[
+				"/uploadcontroller",
+				"galileo\\public\\adminlte\\plugins\\datatables\\extensions\\Responsive\\examples\\display-control\\complexHeader.html"
+			],
+			[
+				"app/controllers/user/publishcontroller.php",
+				"schedule\\app\\controllers\\user\\PublishController.php"
+			],
+			[
+				"app/views/admin/common/sidebar.blade.php",
+				"company\\app\\views\\admin\\common\\sidebar.blade.php"
+			],
+			[
+				"app/views/teacher/edit.blade.php",
+				"schedule\\app\\views\\teacher\\edit.blade.php"
+			],
+			[
+				"2018_03_21_004447_add_admin_id_to_teacher_and_student_table",
+				"schedule\\app\\database\\migrations\\2018_03_21_004447_add_admin_id_to_teacher_and_student_table.php"
+			],
+			[
+				"app/config/database.php",
+				"schedule\\app\\config\\database.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false
+		}
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 256.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

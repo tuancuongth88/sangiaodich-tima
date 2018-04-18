@@ -16,6 +16,10 @@ define('NO_IMG', '/frontend/images/nophoto.png');
 define('VAY', 0);
 define('CHO_VAY', 1);
 
+//type user
+define('NGUOIVAY', 6);
+define('NGUOICHOVAY', 7);
+
 /**
  * Gioi tinh
  */
@@ -47,4 +51,4 @@ define('TRAN_STATUS_APPROVE', 4);
 define('TRAN_STATUS_CANCEL', 5);
 
 
-define('HOTLINE', '1800.6919');
+define('HOTLINE', '0912345885');

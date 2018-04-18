@@ -34,8 +34,8 @@ class HomesRepository extends Repository
         $listService = Service::all();
 //        $total
         $listTransactionNews = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)->orderBy('id', 'desc')->paginate($this->perpage);
-        $total_reg_borrow = User::where('type', VAY)->count();
-        $total_reg_loan = User::where('type', CHO_VAY)->count();
+        $total_reg_borrow = User::where('type', NGUOIVAY)->count();
+        $total_reg_loan = User::where('type', NGUOICHOVAY)->count();
 
         $total_bill_day = TransactionHistory::where('status', TransactionHistory::STATUS_WAIT)
                                             ->where('created_at', DB::raw('CURDATE()'))
