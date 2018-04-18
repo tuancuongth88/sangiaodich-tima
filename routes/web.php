@@ -85,6 +85,7 @@ Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\Transa
 Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+Route::get('/page/{slug}', 'Frontends\Page\PageController@show');
 Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
 
 /*
