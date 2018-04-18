@@ -31,7 +31,7 @@
                                         <div class="px-5 py-3">
                                             <p class="text-center">
                                                 Hãy đăng ký ngay bây giờ <br>
-                                                để tham gia sàn tài chính Tima.
+                                                để tham gia sàn tài chính Lending.
                                                 <span id="sp-message-login"></span>
                                             </p>
 
