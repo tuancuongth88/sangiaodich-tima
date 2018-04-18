@@ -47,32 +47,40 @@
                         @csrf
                         <div class="m-portlet__body">
                             <div class="form-group m-form__group">
-                                <label for="name">
-                                    Tiêu đề
-                                </label>
-                                {{ Form::text('title', \Common::getObject($data, 'title'), ['class' => 'form-control m-input m-input--solid', 'required' => true]) }}
+                                <label for="name">Tiêu đề</label>
+                                {{ Form::text('title', \Common::getObject($data, 'title'), ['class' => 'form-control m-input', 'required' => true]) }}
                             </div>
                             <div class="form-group m-form__group">
+                                <div class="form-group">
+                                    <label for="name">Mô tả ngắn</label>
+                                    {{ Form::textarea('summary', \Common::getObject($data, 'summary'), ['class' => 'form-control m-input', 'rows' => 3]) }}
+                                </div>
                                 <label for="name">Body</label>
-                                {{ Form::textarea('body', \Common::getObject($data, 'body'), ['class' => 'form-control m-input m-input--solid', 'id' => 'summernote', 'rows' => 20]) }}
+                                {{ Form::textarea('body', \Common::getObject($data, 'body'), ['class' => 'form-control m-input', 'id' => 'summernote', 'rows' => 20]) }}
                             </div>
                             
                             <div class="form-group m-form__group">
-                                <label>Thời gian đăng</label>
-                                <div class="input-group date">
-                                    <input type="text" class="form-control m-input m-input--solid" id="send_at" name="created_at" value="{{ \Common::getObject($data, 'created_at') }}" readonly/>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar glyphicon-th"></i>
-                                        </span>
+                                <div class="form-group">
+                                    <label>Thời gian đăng</label>
+                                    <div class="input-group date">
+                                        <input type="text" class="form-control m-input" id="send_at" name="created_at" value="{{ \Common::getObject($data, 'created_at') }}" readonly/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="la la-calendar glyphicon-th"></i>
+                                            </span>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Machine name</label>
+                                    {{ Form::text('machine_name', \Common::getObject($data, 'machine_name'), ['class' => 'form-control m-input m-input--solid']) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Đường dẫn URL</label>
+                                    <input type="text" class="form-control m-input m-input--solid" id="slug" name="slug" value="{{ \Common::getObject($data, 'slug') }}"/>
                                 </div>
                             </div>
                             
-                            <div class="form-group m-form__group">
-                                <label>Đường dẫn URL</label>
-                                <input type="text" class="form-control m-input m-input--solid" id="slug" name="slug" value="{{ \Common::getObject($data, 'slug') }}" readonly/>
-                            </div>
                         </div>
                         <div class="m-portlet__foot m-portlet__foot--fit">
                             <div class="m-form__actions">

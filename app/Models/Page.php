@@ -17,7 +17,7 @@ class Page extends Model
     protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['title', 'body', 'author', 'slug', 'created_at'];
+    protected $fillable = ['title', 'body', 'author', 'slug', 'created_at', 'machine_name', 'summary'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -29,6 +29,9 @@ class Page extends Model
     {
         return [
             'slug' => [
+                'source' => 'title'
+            ],
+            'machine_name' => [
                 'source' => 'title'
             ]
         ];

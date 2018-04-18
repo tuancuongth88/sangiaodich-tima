@@ -89,6 +89,8 @@ Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHist
 Route::get('/page/{slug}', 'Frontends\Page\PageController@show');
 Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
 
+Route::get('/page/{slug}', 'Frontends\Pages\PageController@show')->name('frontend.page.show');
+
 /*
 |-------------------------------------------
 | ROUTE FOR USER IN FRONTEND
