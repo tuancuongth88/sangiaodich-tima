@@ -66,38 +66,21 @@
                 </div>
                 <nav id="aside-nav-left" class="aside-nav aside-nav--left collapse">
                     <ul class="nav nav-pills flex-column" id="ul-left">
-                        @foreach ($listCategory as $element)
+                        @foreach ($listData as $element)
                             <li class="nav-item">
-                                <a class="nav-link py-xl-4 py-3 px-5 active" href="{{ route('question.show', ['id' => $element->id]) }}">{{ $element->name }}</a>
+                                <a class="nav-link py-xl-4 py-3 px-5 active" href="{{ route('guide.show', ['id' => $element->id]) }}">{{ $element->question }}</a>
                             </li>
                         @endforeach
                     </ul>
                 </nav>
             </div>
             <div class="col-lg-9 border border-gray border-top-0 bg-white">
-                <div class="accordion p-sm-5 p-3">
-                    @foreach ($listData as $key => $item)
-                        <div class="card">
-                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading" role="tab" id="headingOne{{ $item->id }}">
-                                        <h5 class="mb-0">
-                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{ $item->id }}" aria-expanded="true" aria-controls="collapseOne{{ $item->id }}" class="card-header d-block fs-14">
-                                            {{ $item->question }}
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapseOne{{ $item->id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne{{ $item->id }}">
-                                        <div class="panel-body">
-                                            {{ $item->answer }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                <div id="accordion" class="accordion p-sm-5 p-3">
+                    <div class="card">
+                        <h5>{{ $data->question }}</h5><br>
+                        {!! $data->answer !!}
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>

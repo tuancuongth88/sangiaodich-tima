@@ -12,8 +12,8 @@ class NewsController extends Controller {
         $this->repository = $repository;
     }
 
-    public function getNewsByCategory($id) {
-        return $this->repository->getNewsByCategory($id);
+    public function getNewsByCategory() {
+        return $this->repository->getNewsByCategory();
     }
 
     public function getDetail($slug) {
