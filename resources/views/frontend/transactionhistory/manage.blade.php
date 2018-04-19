@@ -153,7 +153,7 @@
                             </th>
                             <th class="text-center">
                                 <div rel="-1" field="3" class="sort border-right">
-                                    Giá bán
+                                    Trạng thái
                                     <i class="fa fa-sort" aria-hidden="true"></i>
                                 </div>
                             </th>

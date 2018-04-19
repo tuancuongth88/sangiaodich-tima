@@ -41,77 +41,8 @@
     </div>
 
     <!--5 bước để nhận và thanh toán khoản vay-->
-
-    <div class="tm-card bg-white py-6">
-        <div class="container">
-            <h2 class="tm-card__heading text-center text-primary mb-6">
-                4 bước để nhận khoản vay
-            </h2>
-
-            <div class="tm-card__body tm-steps2">
-
-                <div class="row justify-content-center">
-
-                    <div class="tm-steps2__item col col-12 col-sm-6 col-lg-4 col-xl-auto w-xl-20 text-center fs-14 mb-5 mb-xl-0">
-                        <div class="tm-steps2__thumb mb-2 mx-auto">
-                            <i class="tm-steps2__icon icon-monitor-file"></i>
-                        </div>
-                        <h3 class="tm-steps2__title fw-4 text-uppercase fs-14 mb-1">
-                            <a class="tm-steps2__btn btn fw-6" href="#">
-                                Đăng ký vay
-                            </a>
-                        </h3>
-                        <p class="mb-0 px-xl-3">
-                            Hoàn tất điền thông tin trong 5 phút
-                        </p>
-                    </div>
-
-                    <div class="tm-steps2__item col col-12 col-sm-6 col-lg-4 col-xl-auto w-xl-20 text-center fs-14 mb-5 mb-xl-0">
-                        <div class="tm-steps2__thumb mb-2 mx-auto">
-                            <i class="tm-steps2__icon icon-user-switch"></i>
-                        </div>
-                        <h3 class="tm-steps2__title fw-4 text-uppercase fs-14 mb-1">
-                            <a class="tm-steps2__btn btn fw-6" href="#">
-                                Kết nối
-                            </a>
-                        </h3>
-                        <p class="mb-0 px-xl-3">
-                            Ngay lập tức người cho vay sẽ nhận được đơn xin vay của bạn
-                        </p>
-                    </div>
-
-                    <div class="tm-steps2__item col col-12 col-sm-6 col-lg-4 col-xl-auto w-xl-20 text-center fs-14 mb-5 mb-xl-0">
-                        <div class="tm-steps2__thumb mb-2 mx-auto">
-                            <i class="tm-steps2__icon icon-note-edit"></i>
-                        </div>
-                        <h3 class="tm-steps2__title fw-4 text-uppercase fs-14 mb-1">
-                            <a class="tm-steps2__btn btn fw-6" href="#">
-                                Xét duyệt
-                            </a>
-                        </h3>
-                        <p class="mb-0 px-xl-3">
-                            Nhận kết quả nhanh chóng sau khi gửi hồ sơ
-                        </p>
-                    </div>
-
-                    <div class="tm-steps2__item col col-12 col-sm-6 col-lg-4 col-xl-auto w-xl-20 text-center fs-14 mb-5 mb-xl-0">
-                        <div class="tm-steps2__thumb mb-2 mx-auto">
-                            <i class="tm-steps2__icon icon-hand-dollar"></i>
-                        </div>
-                        <h3 class="tm-steps2__title fw-4 text-uppercase fs-14 mb-1">
-                            <a class="tm-steps2__btn btn fw-6" href="#">
-                                Nhận khoản vay
-                            </a>
-                        </h3>
-                        <p class="mb-0 px-xl-3">
-                            Nhận tiền vào tài khoản hoặc tại cửa hàng Viettel Post trên toàn quốc
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+  @include('frontend.common.mohinh')
+   
 
     <!--Vì sao nên chọn Tima -->
     <div class="tm-card bg-white bg-gray-lighter">

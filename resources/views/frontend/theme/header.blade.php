@@ -63,13 +63,13 @@
                     <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/huong-dan-giao-dich-tren-san-tima.html">Hỗ trợ</a>
                     </li>
-                    <li class="topbar-list__item">
+                  <!--   <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/InstallApp/"><i class="icon-mobile"></i></a>
-                    </li>
+                    </li> -->
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:{{ HOTLINE }}">
+                       <!--  <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:{{ HOTLINE }}">
                             <i class="icon-phone-gray mr-1"></i><strong>{{ HOTLINE }}</strong>
-                        </a>
+                        </a> -->
                     </li>
                 </ul>
             </div>

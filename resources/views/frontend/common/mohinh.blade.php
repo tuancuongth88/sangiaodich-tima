@@ -1,7 +1,7 @@
 <div class="tm-card bg-white py-5 mb-md-2">
     <div class="container of-hidden">
         <h2 class="tm-card__heading text-center mb-6">
-            Mô hình hoạt động sàn <span class="hidden-sm-down">Lending</span>
+            Mô hình hoạt động 
         </h2>
 
         <div class="tm-card__body tm-steps">
@@ -24,7 +24,7 @@
                                 Đăng ký vay
                             </h3>
                             <div class="tm-steps__lead">
-                                Hoàn tất điền thông tin trong 1 phút
+                                Hoàn tất thông tin
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                                 Kết nối
                             </h3>
                             <div class="tm-steps__lead">
-                                Ngay lập tức người cho vay sẽ nhận được đơn xin vay của bạn
+                                Kết nối đến người cho vay
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                                 Xét duyệt
                             </h3>
                             <div class="tm-steps__lead">
-                                Nhận kết quả nhanh chóng sau khi gửi hồ sơ
+                                Nhận kết quả nhanh chóng
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                                 Nhận tiền
                             </h3>
                             <div class="tm-steps__lead">
-                                Tiền sẽ được chuyển vào tài khoản của bạn hoặc nhận tiền mặt
+                                Tiền được giải ngân
                             </div>
                         </div>
                     </div>

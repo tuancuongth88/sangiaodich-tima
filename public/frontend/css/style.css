@@ -2471,14 +2471,14 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #ed522e;
-    border-color: #ed522e
+    /*background-color: #ed522e;*/
+    /*border-color: #ed522e*/
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #d63712;
-    border-color: #cc3512
+    /*background-color: #d63712;*/
+    /*border-color: #cc3512*/
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -2722,16 +2722,16 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 .btn-outline-success {
-    color: #5cb85c;
+    color: #007bff;
     background-image: none;
     background-color: transparent;
-    border-color: #5cb85c
+    border-color: #007bff
 }
 
 .btn-outline-success:hover {
     color: #fff;
-    background-color: #5cb85c;
-    border-color: #5cb85c
+    background-color: #007bff;
+    border-color: #007bff
 }
 
 .btn-outline-success:focus, .btn-outline-success.focus {
@@ -4389,7 +4389,7 @@ a.badge:focus, a.badge:hover {
 }
 
 .badge-danger {
-    background-color: #d9534f
+    background-color: #007bff
 }
 
 .badge-danger[href]:focus, .badge-danger[href]:hover {
@@ -9824,7 +9824,7 @@ a.bg-inverse:focus, a.bg-inverse:hover {
     }
 
     .pl-xl-7 {
-        padding-left: 3.75rem !important
+        /*padding-left: 3.75rem !important*/
     }
 
     .px-xl-7 {
@@ -10018,7 +10018,7 @@ a.bg-inverse:focus, a.bg-inverse:hover {
     }
 
     .text-lg-right {
-        text-align: right !important
+        text-align: left !important
     }
 
     .text-lg-center {
@@ -10077,7 +10077,7 @@ a.text-muted:focus, a.text-muted:hover {
 }
 
 .text-primary {
-    color: #ed522e !important
+    color: #007bff !important
 }
 
 a.text-primary:focus, a.text-primary:hover {
@@ -17202,7 +17202,7 @@ html, body {
 .main-page {
     position: relative;
     z-index: 1;
-    margin-top: -1px
+    margin-top: 10px
 }
 
 .header {
@@ -17557,7 +17557,7 @@ html, body {
 }
 
 .main-nav.navbar-nav .nav-item.active .nav-link {
-    color: #ed522e
+    color: #007bff
 }
 
 .main-nav.navbar-nav .nav-link {
@@ -17575,7 +17575,7 @@ html, body {
 }
 
 .main-nav.navbar-nav .nav-link:hover {
-    color: #ed522e
+    color: #007bff
 }
 
 @media (max-width: 991px) {
@@ -17642,7 +17642,7 @@ html, body {
 }
 
 .border-primary {
-    border-color: #ed522e !important
+    border-color: #007bff !important
 }
 
 .rounded-lg {
