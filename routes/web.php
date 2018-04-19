@@ -108,7 +108,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 
     Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login')->middleware('guest');
-    Route::get('/logout', 'Frontends\Users\usersController@logout')->name('frontend.user.logout')->middleware('auth');
+    Route::get('/logout', 'Frontends\Users\UsersController@logout')->name('frontend.user.logout')->middleware('auth');
     Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
 
     /*
