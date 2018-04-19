@@ -81,7 +81,7 @@
                                                         {{ $listTransaction->userVay->fullname }}
                                                     </div>
                                                     <div class="tm-table__para text-gray-light">
-                                                        {{ substrPhone($listTransaction->userVay->phone) }}
+                                                        {{ substrPhone($listTransaction->userVay->phone,1) }}
                                                     </div>
                                                 </div>
                                             </div>

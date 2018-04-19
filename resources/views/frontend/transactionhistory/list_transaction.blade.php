@@ -196,7 +196,7 @@
                                             {{ $value->user->fullname }}
                                         </div>
                                         <div class="text-gray-lighter">
-                                            {{ substrPhone($value->user->phone) }}
+                                            {{ substrPhone($value->user->phone,$value['status']) }}
                                         </div>
                                     </div>
                                 </div>
