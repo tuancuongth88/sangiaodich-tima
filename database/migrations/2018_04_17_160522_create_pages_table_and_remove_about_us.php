@@ -19,7 +19,6 @@ class CreatePagesTableAndRemoveAboutUs extends Migration
             $table->string('title')->nullable();
             $table->longText('body')->nullable();
             $table->string('slug')->unique();
-            $table->integer('author')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -43,13 +43,6 @@
 
                         <div class="col-xl-6">
                             <div class="profilecard__progress">
-                                <p class="mb-0 text-gray-light fs-13">Mức độ hoàn thành hồ sơ</p>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 57%;"
-                                         aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="progress-tooltip">57%</span>
-                                    </div>
-                                </div>
                                 <p class="mb-0 text-gray-light fs-13">
                                     Bạn vui lòng cập nhật đầy đủ thông tin để đơn vay của bạn được duyệt nhanh hơn.
                                 </p>

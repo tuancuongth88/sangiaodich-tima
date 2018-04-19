@@ -27,9 +27,9 @@
     <div class="tm-news">
         <div class="row">
             <ul id="submenu">
-                <li class="active"><a href="/news">Tin tài chính</a></li>
-                <li class=""><a href="/news/tin-tima">Tin Lending</a></li>
-                <li class=""><a href="/news/video-tima">Video Lending</a></li>
+                @foreach ($listCategory as $element)
+                    <li class="active"><a href="{{ route('category.detail', ['id' => $element->id]) }}">{{ $element->name }}</a></li>
+                @endforeach
             </ul>
         </div>
         <div class="row">
@@ -37,6 +37,7 @@
                 <div class="border border-gray bg-white p-md-5 p-3">
                     <div class="row gutter-2 gutter-md-3 mb-5" id="topnewsinlistpage1">
                         <div class="col-sm-8 mb-5 mb-md-0">
+                            @if (isset($listHot[0]))
                             <div class="news">
                                 <div class="news__thumbnail border mb-4">
                                     <a href="/tin-tuc/co-nen-mua-vang-trong-ngay-via-than-tai-62.html">
@@ -53,6 +54,7 @@
                                 </p>
 
                             </div>
+                            @endif
                         </div>
                         <div class="col-sm-4">
                             @if (isset($listHot[1]))
@@ -167,7 +169,7 @@
                     <ul class="list-v">
                         @foreach ($listFaqCategory as $element)
                             <li class="list-v__item">
-                                <a class="list-v__link" href="{{ action('Frontends\News\NewsController@getDetail', $element->id) }}">
+                                <a class="list-v__link" href="{{ route('question.show', ['id' => $element->id]) }}">
                                     {{ $element->name }}
                                 </a>
                             </li>
