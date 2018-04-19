@@ -1,5 +1,5 @@
 @extends('frontend.app')
-@section('title','DASHBOARD ADMINISTRATOR')
+@section('title','Sàn giao dịch')
 
 @section('content')
     <div class="container py-5">
