@@ -1,5 +1,5 @@
 @extends('frontend.app')
-@section('title','DASHBOARD ADMINISTRATOR')
+@section('title','Sàn giao dịch')
 
 @section('content')
     <div class="container py-5">
@@ -196,7 +196,7 @@
                                             {{ $value->user->fullname }}
                                         </div>
                                         <div class="text-gray-lighter">
-                                            {{ substrPhone($value->user->phone) }}
+                                            {{ substrPhone($value->user->phone,$value['status']) }}
                                         </div>
                                     </div>
                                 </div>
