@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="col-6">
-                            <a class="d-flex align-items-center" href="https://www.facebook.com/tima.vn/"
+                            <a class="d-flex align-items-center" href="https://www.facebook.com/Lending.vn/"
                                target="_blank">
                                 <div class="f-contact__icon mr-10px">
                                     <i class="icon-facebook-circle d-flex"></i>
