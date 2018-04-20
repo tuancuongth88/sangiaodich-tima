@@ -25,7 +25,7 @@
 <div class="container py-5">
     <div class="tm-faq" style="min-height: 550px;">
         <div class="tm-faq__header d-flex flex-column flex-sm-row justify-content-between align-items-sm-center bg-white border border-gray px-sm-5 px-3 py-3 mb-0">
-            <h2 class="tm-faq__title text-uppercase fs-16 fw-6 mb-3 mb-sm-0">Trung tâm trợ giúp</h2>
+            <h2 class="tm-faq__title text-uppercase fs-16 fw-6 mb-3 mb-sm-0">Hỏi đáp</h2>
         </div>
         <div class="tm-faq__body row no-gutters">
             <div class="col-lg-3 navbar-toggleable-md">
