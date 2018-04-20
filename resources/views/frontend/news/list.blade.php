@@ -19,7 +19,7 @@
     }
 
     #submenu .active {
-        border-bottom: 2px solid #ed522e;
+        border-bottom: 2px solid #007bff;
     }
 </style>
 <div class="container py-5">
