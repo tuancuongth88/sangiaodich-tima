@@ -457,6 +457,12 @@ class TransactionHistoryRepository extends Repository {
         }
 
         $user  = \Auth::user();
+        if( $user->type != \Custom\Services\PermissionCommon::VAY ){
+            return view('frontend.error')
+                ->with('title', 'Đăng Ký Khoản Vay Không Thành Công')
+                ->with('message', 'Tài khoản của bạn là người cho vay, không được phép đăng ký vay.');
+        }
+
         $input = $this->request->all();
 
         $validator = $this->validator($input);
