@@ -36,7 +36,7 @@ class NewsRepository extends Repository {
             ->category($categoryId)
             ->approve()
             ->orderBy(self::ID, 'desc')
-            ->whereNull('is_hot')
+            ->where('is_hot', 0)
             ->paginate(20);
         $listLatest  = self::getLatest();
         $listService = Service::all();
@@ -57,7 +57,8 @@ class NewsRepository extends Repository {
         $listService     = Service::all();
         $listFaqCategory = \App\Models\Faqs\FaqCategories::where('type', 1)
             ->orderBy(self::ID, 'desc')->take(5)->get();
-        return view('frontend.news.detail', ['data' => $data, 'latest' => $listLatest, 'list_service' => $listService, 'listFaqCategory' => $listFaqCategory]);
+        $listCategory = $this->category->all();
+        return view('frontend.news.detail', ['data' => $data, 'latest' => $listLatest, 'list_service' => $listService, 'listFaqCategory' => $listFaqCategory, 'listCategory' => $listCategory]);
     }
 
     public function getViewMore() {
