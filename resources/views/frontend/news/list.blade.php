@@ -40,7 +40,7 @@
                             @if (isset($listHot[0]))
                             <div class="news">
                                 <div class="news__thumbnail border mb-4">
-                                    <a href="/tin-tuc/co-nen-mua-vang-trong-ngay-via-than-tai-62.html">
+                                    <a href="{{ action('Frontends\News\NewsController@getDetail', $listHot[0]->slug) }}">
                                         <img class="img-fluid" src="{{ $listHot[0]->image_url }}" alt="">
                                     </a>
                                 </div>
