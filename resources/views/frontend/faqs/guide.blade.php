@@ -58,5 +58,4 @@
         </div>
     </div>
 </div>
-@include('frontend.common.service')
 @stop
