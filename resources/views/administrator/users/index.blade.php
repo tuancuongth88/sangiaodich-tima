@@ -79,11 +79,6 @@
                                 <a href="{{ action('Administrators\Users\UserController@edit', $value->id) }}" class="btn btn-accent m-btn m-btn--icon m-btn--icon-only">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                {{ Form::open(array('method'=>'DELETE', 'action' => array('Administrators\Users\UserController@destroy', $value->id), 'style' => 'display: inline-block;')) }}
-                                <button onclick="return confirm('Bạn có chắc chắn muốn xóa?');" class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
-                                    <i class="fa fa-close"></i>
-                                </button>
-                                {{ Form::close() }}
                             </td>
                         </tr>
                         @endforeach
