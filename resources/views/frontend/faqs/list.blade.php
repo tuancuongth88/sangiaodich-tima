@@ -40,7 +40,7 @@
                     <ul class="nav nav-pills flex-column" id="ul-left">
                         @foreach ($listCategory as $element)
                             <li class="nav-item">
-                                <a class="nav-link py-xl-4 py-3 px-5 active" href="{{ route('question.show', ['id' => $element->id]) }}">{{ $element->name }}</a>
+                                <a class="nav-link py-xl-4 py-3 px-5 {{ Request::input('id') == $element->id ? 'active' : '' }}" href="{{ route('question.show', ['id' => $element->id]) }}">{{ $element->name }}</a>
                             </li>
                         @endforeach
                     </ul>
