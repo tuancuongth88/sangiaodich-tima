@@ -61,7 +61,7 @@ class UserRepository extends Repository {
     const UPDATED_BY = 'updated_by';
     const AVATAR     = 'avatar';
     const BIRTHDAY   = 'birthday';
-    const GENDER     = 'gender';
+    //const GENDER     = 'gender';
     const ADDRESS    = 'address';
     const ACTIVE     = 'active';
     const PASSWORD   = 'password';
@@ -102,7 +102,7 @@ class UserRepository extends Repository {
             self::PASSWORD_CONFIRM,
             self::EMAIL,
             self::PHONE,
-            self::GENDER,
+            //self::GENDER,
             self::ADDRESS,
             self::BIRTHDAY,
             self::PASSWORD,
@@ -159,13 +159,13 @@ class UserRepository extends Repository {
         if ($id) {
             return Validator::make($array, [
                 self::FULLNAME => 'required|max:60',
-                self::GENDER   => 'required',
+                //self::GENDER   => 'required',
             ], $messages);
         }
         return Validator::make($array, [
             self::EMAIL    => 'required|email|max:255',
             self::FULLNAME => 'required|max:60',
-            self::GENDER   => 'required',
+            //self::GENDER   => 'required',
             self::BIRTHDAY => 'date|date_format:"d-m-Y"',
             self::PASSWORD => 'required|confirmed',
         ], $messages);
@@ -183,7 +183,7 @@ class UserRepository extends Repository {
         $fieldInput = [
             self::FULLNAME,
             self::PHONE,
-            self::GENDER,
+           // self::GENDER,
             self::ADDRESS,
             self::AVATAR,
             self::BIRTHDAY,
