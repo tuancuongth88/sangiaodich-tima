@@ -76,14 +76,14 @@
 
                                         <div class="tm-table__col tm-table__col--6">
                                             <div class="d-inline-block text-left">
-                                                <div class="tm-table__para fw-6">
-                                                    <?php
-                                                    $date = strtotime($listTransaction->created_at);
-                                                    ?>
-                                                    {{ date('H:i:s', $date) }}
-                                                </div>
+                                                <?php
+                                                $date = strtotime($listTransaction->created_at);
+                                                ?>
                                                 <div class="tm-table__para text-gray-light">
-                                                    {{ date('Y/m/d', $date) }}
+                                                    {{ date('d/m/Y', $date) }}
+                                                </div>
+                                                <div class="tm-table__para fw-6">
+                                                    {{ date('H:i:s', $date) }}
                                                 </div>
                                             </div>
                                         </div>

@@ -51,15 +51,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="profilecard__progress">
-                                <p class="mb-0 text-gray-light fs-13">
-                                    Bạn vui lòng cập nhật đầy đủ hồ sơ để khách hàng có thể kết nối được với bạn.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
             {{ Form::open(['route' => ['frontend.user.update-user-info-lender', $data->id], 'method' => 'POST']) }}

@@ -56,13 +56,9 @@
                             <a class="topbar-list__link" href="{{ route('frontend.user.logout') }}">Đăng xuất</a>
                         </li>
                     @endauth
-
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/Home/Notification/">Thông báo</a>
-                    </li>
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/huong-dan-giao-dich-tren-san-tima.html">Hỗ trợ</a>
-                    </li>
+                    <!-- <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="">Hỗ trợ</a>
+                    </li> -->
                   <!--   <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/InstallApp/"><i class="icon-mobile"></i></a>
                     </li> -->
@@ -124,7 +120,6 @@
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@manage') }}">Quản lý đơn vay</a>
                                 </li>
                                 <li class="nav-item">
-                                    <span class="badge" style="color:white;font-size:9px;background-color:red;position:absolute;top:2px;right:2px">Hot</span>
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard') }}">
                                         Tra cứu lịch sử vay nợ
                                     </a>

@@ -1,30 +1,6 @@
     <footer id="footer" class="footer bg-white pb-4">
         <div class="container">
-            <nav class="footer__nav footer-nav">
-                <ul class="list-unstyled d-flex mb-0">
-                    <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/">Trang chủ</a>
-                    </li>
-                    <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/">Cần vay</a>
-                    </li>
-                    <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/">Cho vay</a>
-                    </li>
-
-                    <li class="footer-nav__item">
-                        <a class="footer-nav__link" href="/">Về Lending</a>
-                    </li>
-
-                    <li class="footer-nav__item hidden-sm-down">
-                        <a class="footer-nav__link" href="/">Thông báo</a>
-                    </li>
-                    <li class="footer-nav__item hidden-sm-down">
-                        <a class="footer-nav__link" href="/">Hỗ trợ</a>
-                    </li>
-
-                </ul>
-            </nav>
+           
 
             <hr class="mt-0 mb-4">
 

@@ -56,11 +56,11 @@
         <td class="h-100 hidden-xs-down">
             <div class="td-inner d-flex justify-content-center h-100">
                 <ul class="list-h-1 align-self-start mt-3">
+                    <li class="list-h-1__item">
+                        {{convertDate('d-m-Y',$data_val['created_at'])}}
+                    </li>
                     <li class="list-h-1__item text-primary">
                         {{convertDate('H:i',$data_val['created_at'])}}
-                    </li>
-                    <li class="list-h-1__item">
-                        {{convertDate('Y-m-d',$data_val['created_at'])}}
                     </li>
                 </ul>
             </div>

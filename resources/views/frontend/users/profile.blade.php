@@ -43,14 +43,7 @@
 
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-xl-6">
-                            <div class="profilecard__progress">
-                                <p class="mb-0 text-gray-light fs-13">Bạn vui l&#242;ng cập nhật đầy đủ hồ sơ để kh&#225;ch h&#224;ng c&#243; thể kết nối được với bạn.</p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 

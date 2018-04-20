@@ -2145,7 +2145,7 @@ pre code {
 .form-control:focus {
     color: #464a4c;
     background-color: #fff;
-    border-color: #f7b3a3;
+    border-color: #007bff;
     outline: none
 }
 
@@ -3289,11 +3289,11 @@ tbody.collapse.show {
 
 .custom-control-input:checked ~ .custom-control-indicator {
     color: #fff;
-    background-color: #ed522e
+    background-color: #007bff
 }
 
 .custom-control-input:focus ~ .custom-control-indicator {
-    box-shadow: 0 0 0 1px #ececf1, 0 0 0 3px #ed522e
+    box-shadow: 0 0 0 1px #ececf1, 0 0 0 3px #007bff
 }
 
 .custom-control-input:active ~ .custom-control-indicator {
@@ -4365,7 +4365,7 @@ a.badge:focus, a.badge:hover {
 }
 
 .badge-success {
-    background-color: #5cb85c
+    background-color: #007bff
 }
 
 .badge-success[href]:focus, .badge-success[href]:hover {

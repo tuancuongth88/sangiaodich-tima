@@ -227,11 +227,11 @@
                                         <?php
                                             $date = strtotime($value->created_at);
                                         ?>
+                                        <li class="list-h-1__item">
+                                            {{ date('d/m/Y', $date) }}
+                                        </li>
                                         <li class="list-h-1__item text-primary">
                                             {{ date('H:i:s', $date) }}
-                                        </li>
-                                        <li class="list-h-1__item">
-                                            {{ date('Y/m/d', $date) }}
                                         </li>
                                     </ul>
                                 </div>
