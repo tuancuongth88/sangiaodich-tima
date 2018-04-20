@@ -34,6 +34,7 @@ class FaqCategoriesRepository extends BaseRepository
     const DELETED = 'deleted';
     const CATEGORY_FAQ_ID = 'category_faq_id';
     const CATEGORY_ID = 'category_id';
+    const TYPE = 'type';
 
     const MODULE_NAME = 'FAQS';
 
@@ -76,7 +77,7 @@ class FaqCategoriesRepository extends BaseRepository
      */
     protected function getInputFieldStore()
     {
-        return $this->request->only(self::NAME);
+        return $this->request->only(self::NAME, self::TYPE);
     }
 
     /*
@@ -178,6 +179,7 @@ class FaqCategoriesRepository extends BaseRepository
                 ->withInput($data);
         }
         $data[self::CREATED_BY] = $this->auth->user()->id;
+        $data[self::TYPE] = 1;
         $obj = $this->model->create($data);
         return $this->redirectBackAction();
     }

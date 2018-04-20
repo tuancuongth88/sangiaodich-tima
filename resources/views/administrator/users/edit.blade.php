@@ -108,7 +108,7 @@
                                     <label for="name">
                                         Giới tính
                                     </label>
-                                    {{ Form::select('gender', array('1' => 'Nam', '2' => 'Nữ', '3' => 'Khác'), $user['gender'], ['class' => 'form-control m-input']) }}
+                                    {{ Form::select('sex', array('1' => 'Nam', '2' => 'Nữ', '3' => 'Khác'), $user['sex'], ['class' => 'form-control m-input']) }}
                                     <span class="m-form__help">
                                         Chọn giới tính
                                     </span>
