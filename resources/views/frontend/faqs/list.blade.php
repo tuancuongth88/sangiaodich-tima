@@ -26,34 +26,6 @@
     <div class="tm-faq" style="min-height: 550px;">
         <div class="tm-faq__header d-flex flex-column flex-sm-row justify-content-between align-items-sm-center bg-white border border-gray px-sm-5 px-3 py-3 mb-0">
             <h2 class="tm-faq__title text-uppercase fs-16 fw-6 mb-3 mb-sm-0">Trung tâm trợ giúp</h2>
-            <div class="tm-faq__header-search search__input-group input-group">
-                <input type="text" class="search__form-control form-control fs-14" id="txtSearch" placeholder="Nhập từ khóa tìm kiếm">
-                <span class="search__group-btn input-group-btn">
-                <button class="search__btn btn" type="button" onclick="Search()">
-                <i class="search__icon-search icon-search"></i>
-                </button>
-                </span>
-            </div>
-            <div class="d-flex align-items-center fs-14 hidden-md-down">
-                Tìm kiếm phổ biến:
-                <ul class="list-h-1 mb-0 ml-3">
-                    <li class="list-h-1__item">
-                        <a class="list-h-1__link text-primary" href="javascript:void(0)" onclick="SearchTop('vay tín chấp')">
-                        vay tín chấp
-                        </a>
-                    </li>
-                    <li class="list-h-1__item">
-                        <a class="list-h-1__link text-primary" href="javascript:void(0)" onclick="SearchTop('giải ngân')">
-                        giải ngân
-                        </a>
-                    </li>
-                    <li class="list-h-1__item">
-                        <a class="list-h-1__link text-primary" href="javascript:void(0)" onclick="SearchTop('đăng ký vay')">
-                        đăng ký vay
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
         <div class="tm-faq__body row no-gutters">
             <div class="col-lg-3 navbar-toggleable-md">
@@ -89,7 +61,7 @@
                                     </div>
                                     <div id="collapseOne{{ $item->id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne{{ $item->id }}">
                                         <div class="panel-body">
-                                            {{ $item->answer }}
+                                            {!! $item->answer !!}
                                         </div>
                                     </div>
                                 </div>
