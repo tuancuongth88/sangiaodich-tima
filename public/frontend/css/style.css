@@ -19074,7 +19074,7 @@ a.btn:focus {
 }
 
 .aside-nav .nav-pills .nav-link:hover {
-    color: #ed522e
+    color: #007bff
 }
 
 .aside-nav .nav-pills .nav-link.active {
@@ -19090,7 +19090,7 @@ a.btn:focus {
     left: 0;
     width: 6px;
     height: 100%;
-    background-color: #ed522e
+    background-color: #007bff
 }
 
 .aside-nav .nav-pills .nav-link.active:before {
