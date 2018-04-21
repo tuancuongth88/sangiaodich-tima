@@ -25,7 +25,6 @@
 	<div class="m-content">
 		<div style="margin-bottom: 20px">
 			<a href="{{ action('Administrators\Users\UserController@index') }}" class="btn btn-success">Danh sách tài khoản</a>
-        	<a href="{{ action('Administrators\Users\UserController@create') }}" class="btn btn-primary">Thêm tài khoản</a>
 		</div>
 		<div class="row">
 	        <div class="col-md-12">
@@ -51,7 +50,7 @@
                                     <label>
                                         Tên tài khoản:
                                     </label>
-                                    <input type="email" class="form-control m-input" placeholder="Tên tài khoản" name="fullname" value="{{ $user['fullname'] }}">
+                                    <input type="text" class="form-control m-input" placeholder="Tên tài khoản" name="fullname" value="{{ $user['fullname'] }}">
                                     <span class="m-form__help">
                                         Nhập tên tài khoản
                                     </span>
