@@ -55,7 +55,7 @@
                                                     <i class="la la-user"></i>
                                                 </span>
                                         </div>
-                                        <input type="email" class="form-control m-input" placeholder="Email" name="email" disabled value="{{ \App\Models\Users\User::find($id)->email }}">
+                                        <input type="email" class="form-control m-input" placeholder="Email" name="email" disabled value="{{ \App\Models\Users\User::find($id)->fullname }}">
                                     </div>
                                     <input type="hidden" name="user_id" value="{{ \App\Models\Users\User::find($id)->id }}">
                                 </div>
