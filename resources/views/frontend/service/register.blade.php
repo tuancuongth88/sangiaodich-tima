@@ -23,7 +23,7 @@ foreach ($dayConfig as $key => $value) {
     @include('frontend.alert.messages')
     @include('frontend.alert.errors-validate')
     {{ Form::open(['route' => ['services.site.register', $data->slug], 'method' => 'POST']) }}
-        <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('{{ $data->image_url }}') }}');">
+        <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('$data->image_url') }}');">
             <div class="container d-flex flex-column align-items-end px-0">
                 <div class="w-100 w-xl-66 relative px-3">
 
