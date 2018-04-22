@@ -23,7 +23,7 @@ foreach ($dayConfig as $key => $value) {
     @include('frontend.alert.messages')
     @include('frontend.alert.errors-validate')
     {{ Form::open(['route' => ['services.site.register', $data->slug], 'method' => 'POST']) }}
-        <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('frontend/images/bg-hk.jpg') }}');">
+        <div class="tm-card tm-cv flex-column bg-white py-6" style="background-image: url('{{ asset('{{ $data->image_url }}') }}');">
             <div class="container d-flex flex-column align-items-end px-0">
                 <div class="w-100 w-xl-66 relative px-3">
 
@@ -54,15 +54,8 @@ foreach ($dayConfig as $key => $value) {
 
                                     <p class="text-gray mb-0 fs-12">
                                         Lending tư vấn gói vay theo sổ hộ khẩu, khoản vay đến 50 triệu. Kỳ hạn vay 90
-                                        ngày. Kỳ thanh toán 10, 15 hoặc 30 ngày. Chi tiết liên hệ
-                                        <a class="text-gray" href="tel:18006919">1800 6919</a>
+                                        ngày. Kỳ thanh toán 10, 15 hoặc 30 ngày.
                                     </p>
-
-                                    <div class="text-gray mb-3">
-                                        <input type="checkbox" name="agree_term" checked>
-                                        <labels> <a href="~/" target="_blank"> Điều khoản </a> đăng ký khoản vay </label>
-                                    </div>
-
                                 </div>
                                 <div class="col-md-4 d-flex flex-column">
                                     <div class="form-group mb-2">
