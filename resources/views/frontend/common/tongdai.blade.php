@@ -8,9 +8,9 @@
                 <span class="hidden-sm-down">Tổng đài tư vấn miễn phí</span>
             </h3>
 
-            <a class="tm-support__number d-flex align-items-center" href="tel:18006919">
+            <a class="tm-support__number d-flex align-items-center" href="tel:{{ HOTLINE }}">
                 <i class="icon-phone mr-1 mr-md-3"></i>
-                1800 6919
+                {{ HOTLINE }}
             </a>
 
             <a class="d-flex align-items-center" href="/Home/Support/">

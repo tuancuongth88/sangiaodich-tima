@@ -56,20 +56,16 @@
                             <a class="topbar-list__link" href="{{ route('frontend.user.logout') }}">Đăng xuất</a>
                         </li>
                     @endauth
-
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/Home/Notification/">Thông báo</a>
-                    </li>
-                    <li class="topbar-list__item">
-                        <a class="topbar-list__link" href="/huong-dan-giao-dich-tren-san-tima.html">Hỗ trợ</a>
-                    </li>
-                    <li class="topbar-list__item">
+                    <!-- <li class="topbar-list__item">
+                        <a class="topbar-list__link" href="">Hỗ trợ</a>
+                    </li> -->
+                  <!--   <li class="topbar-list__item">
                         <a class="topbar-list__link" href="/Home/InstallApp/"><i class="icon-mobile"></i></a>
-                    </li>
+                    </li> -->
                     <li class="topbar-list__item">
-                        <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:{{ HOTLINE }}">
+                       <!--  <a class="topbar-list__link text-primary fs-16 d-flex align-items-center" href="tel:{{ HOTLINE }}">
                             <i class="icon-phone-gray mr-1"></i><strong>{{ HOTLINE }}</strong>
-                        </a>
+                        </a> -->
                     </li>
                 </ul>
             </div>
@@ -84,7 +80,7 @@
                 </button>
 
                 <a class="navbar-brand header__logo py-0" href="/">
-                    <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Tima">
+{{--                    <img class="header__logo-img img-fluid" src="{{ asset('frontend/images/logo1.png') }}" alt="Lending">--}}
                 </a>
                 <a class="header__call header__call--small media hidden-lg-up ml-3" href="tel:{{ HOTLINE }}">
                     <i class="header__call-icon align-self-center icon-phone-lg d-flex mr-2"></i>
@@ -106,10 +102,10 @@
                                 <a class="nav-link" href="{{ route('frontend.listtransaction.site') }}">Sàn giao dịch</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Về tima</a>
+                                <a class="nav-link" href="{{ route('frontend.page.show', 'about-us') }}">Về Lending</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('frontend.user.register') }}">Tin tức</a>
+                                <a class="nav-link" href="{{ route('category.detail') }}">Tin tức</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('frontend.user.login') }}">Đăng nhập</a>
@@ -124,7 +120,6 @@
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@manage') }}">Quản lý đơn vay</a>
                                 </li>
                                 <li class="nav-item">
-                                    <span class="badge" style="color:white;font-size:9px;background-color:red;position:absolute;top:2px;right:2px">Hot</span>
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard') }}">
                                         Tra cứu lịch sử vay nợ
                                     </a>

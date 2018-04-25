@@ -134,17 +134,24 @@ class UsersRepository extends Repository {
         $codeConfirm = $this->request->get('txtCodeConfirm');
         $otp         = session('OTP');
         $oldInput    = session('input');
-
         if (trim($codeConfirm) == $otp) {
             $user = $this->model->create($oldInput);
+            // dd($user);
+            ////////////////// login after register successfully
+            if( $user->id ){
+                // $checklogin = \Auth::attempt(['phone' => $oldInput['phone'], 'password' => $oldInput['password']], true);
+                $checklogin = \Auth::guard('user')->login($user, true);
+                if( session('destination') != '' ){
+                    return redirect( session('destination') )->with('status', true)->with('message', 'Bạn đã đăng ký thành công!');
+                }
+            }
             ////////// Khai bao event, thong bao cho cac Listener biet
             event(new UserRegister($user));
         } else {
             ///////// Deny your code
             return redirect()->back()->with('errorOTP', 1);
         }
-
-        ///// Remove all session after validate OTP
+        /// Remove all session after validate OTP
         $this->request->session()->forget('OTP');
         $this->request->session()->forget('input');
 
@@ -355,7 +362,7 @@ class UsersRepository extends Repository {
     public function updateAvatar() {
 
         //check user
-        $id       = $this->auth->user()->id;
+        $id       = \Auth::user()->id;
         $obj_user = $this->user::where('id', $id)->get()->toArray();
         if ($this->request->hasFile('uploadAvatar')) {
             $file            = $this->request->uploadAvatar;
@@ -385,7 +392,7 @@ class UsersRepository extends Repository {
     public function uploadImgProfile() {
 
         //check user
-        $id          = $this->auth->user()->id;
+        $id          = \Auth::user()->id;
         $typeImg     = $this->request->typeImg;
         $typeImg_str = 'personal_records';
         $data        = array();

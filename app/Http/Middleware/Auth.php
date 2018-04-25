@@ -12,8 +12,8 @@ class Auth {
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next) {
-        if (\App\Services\AuthService::isLogged()) {
+    public function handle($request, Closure $next, $guard) {
+        if ( \Auth::guard($guard)->check() ) {
             return $next($request);
         }
         return redirect()->action('Administrators\Authenticate\AuthController@getLogin');

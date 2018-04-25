@@ -1,5 +1,5 @@
 @extends('frontend.app')
-@section('title','DASHBOARD ADMINISTRATOR')
+@section('title','Tra cứu lịch sử')
 
 @section('content')
     <div class="container py-5">
@@ -8,19 +8,15 @@
                 <h3 class="text-center fw-3 fs-30 mb-3">
                     Chức năng tra cứu lịch sử vay nợ
                 </h3>
-                <div class="text-gray-light mb-2 fs-14">
-                    Tính năng này giúp cho bạn biết được KH đã vay mượn ở đâu hay chưa? Tình trạng của các khoản vay đó
-                    như thế nào?
-                    Từ đó, giúp cho Bạn và Người Đang Cho Vay tránh được rủi ro nợ xấu không đáng có
-                </div>
+                
                 <div class="text-gray-light mb-5 fs-14 text-center">
-                    Phí <span class="badge badge-success fs-12">2.000đ</span> cho mỗi lần kiểm tra không có kết quả,
-                    <span class="badge badge-success fs-12">10.000đ</span> cho mỗi lần kiểm tra thành công!
+                   Phí kiểm tra tình trạng khoản vay một lần có kết quả thành công là 
+                    <span class="badge badge-success fs-12">10.000đ</span>
                 </div>
 
-                <form id="frmCheckCIC" class="tima-search mx-auto px-md-6" novalidate="novalidate">
-                    <div class="row mb-5 text-gray-light flex-column flex-sm-row">
-                        <div class="col-sm-5 form-group mb-10">
+                <form id="frmCheckCIC" class="tima-search mx-auto px-md-12" novalidate="novalidate">
+                    <div class="row mb-12 text-gray-light flex-column flex-sm-row">
+                        <div class="col-sm-12 form-group mb-10">
                             <label for="search-fc-1">Số điện thoại:</label>
                             <div class="md-style md-style-icon">
                                 <input type="tel" class="form-control" id="txtPhone" name="txtPhone"
@@ -28,17 +24,7 @@
                                 <i class="form-control-icon icon-phone-gray-sm"></i>
                             </div>
                         </div>
-                        <div class="col-sm-2 hidden-xs-down d-flex align-items-center justify-content-center px-4 py-5 pb-sm-0">
-                            Hoặc
-                        </div>
-                        <div class="col-sm-5 form-group mb-10">
-                            <label for="search-fc-2">Số CMND:</label>
-                            <div class="md-style md-style-icon">
-                                <input type="number" class="form-control" name="txtCardNumber" id="txtCardNumber"
-                                       placeholder="Nhập số CMND" value="">
-                                <i class="form-control-icon icon-card-gray-sm"></i>
-                            </div>
-                        </div>
+                        
                     </div>
                     <button type="button"
                             class="btn btn-lg btn-block btn-primary justify-content-center align-items-center d-flex btn-search-tran">

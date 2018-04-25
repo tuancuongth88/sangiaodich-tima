@@ -1,5 +1,5 @@
 @extends('frontend.app')
-@section('title','DASHBOARD ADMINISTRATOR')
+@section('title','Sàn giao dịch')
 
 @section('content')
     <div class="container py-5">
@@ -196,7 +196,7 @@
                                             {{ $value->user->fullname }}
                                         </div>
                                         <div class="text-gray-lighter">
-                                            {{ substrPhone($value->user->phone) }}
+                                            {{ substrPhone($value->user->phone,$value['status']) }}
                                         </div>
                                     </div>
                                 </div>
@@ -227,11 +227,11 @@
                                         <?php
                                             $date = strtotime($value->created_at);
                                         ?>
+                                        <li class="list-h-1__item">
+                                            {{ date('d/m/Y', $date) }}
+                                        </li>
                                         <li class="list-h-1__item text-primary">
                                             {{ date('H:i:s', $date) }}
-                                        </li>
-                                        <li class="list-h-1__item">
-                                            {{ date('Y/m/d', $date) }}
                                         </li>
                                     </ul>
                                 </div>
@@ -241,7 +241,7 @@
                                     <div class="text-nowrap">
                                         <div class="text-nowrap">
                                             <span class="text-primary">
-                                                {{ $value->fee - ($value->fee * $value->percent_discount / 100) }} ₫
+                                                {{ number_format($value->fee - ($value->fee * $value->percent_discount / 100)) }} ₫
                                             </span>
                                             <hr class="my-0">
                                             <span style="text-decoration:line-through;font-size:12px;color:#9e9e9e">{{ $value->fee }} ₫ </span>
@@ -257,8 +257,8 @@
                                         <li class="list-h-1__item">
                                             {{ Form::open(array('method'=>'PUT', 'action' => array('Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction', $value->id), 'style' => 'display: inline-block;')) }}
                                             <button type="submit" class="btn btn-outline-success btn-sm mr-2"
-                                                    onclick="return confirm('Bạn muốn nhận đơn này?');" title="Nhận đơn"><i
-                                                        class="fa fa-shopping-cart" aria-hidden="true"></i> Nhận đơn
+                                                    onclick="return confirm('Bạn muốn nhận đơn này?');" title="Mua đơn"><i
+                                                        class="fa fa-shopping-cart" aria-hidden="true"></i> Mua đơn
                                             </button>
                                             {{ Form::close() }}
                                         </li>
@@ -281,7 +281,6 @@
         </div>
     </div>
     @include('frontend.common.mohinh')
-    @include('frontend.common.tongdai')
     @include('frontend.common.service')
 <script type="text/javascript">
     $(document).ready(function () {

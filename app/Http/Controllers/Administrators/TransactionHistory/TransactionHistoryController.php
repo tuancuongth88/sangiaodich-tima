@@ -32,4 +32,8 @@ class TransactionHistoryController extends Controller
     public function reject($id){
         return $this->repository->reject($id);
     }
+
+    public function search(){
+
+    }
 }

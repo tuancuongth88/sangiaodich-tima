@@ -165,6 +165,8 @@ return [
         Laravel\Scout\ScoutServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         App\Providers\ListsEloquent::class,
+
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -218,6 +220,8 @@ return [
         'Html'         => Collective\Html\HtmlFacade::class,
         'Common'       => Custom\Services\Common::class,
         'PermissionCommon' => Custom\Services\PermissionCommon::class,
+
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

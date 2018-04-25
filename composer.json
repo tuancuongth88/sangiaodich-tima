@@ -12,6 +12,7 @@
         "cviebrock/eloquent-sluggable": "^4.5",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.6.*",
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
@@ -20,10 +21,11 @@
         "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.1",
         "filp/whoops": "~2.0",
-        "nunomaduro/collision": "~1.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",
+        "nunomaduro/collision": "~1.1",
         "phpunit/phpunit": "~7.0",
         "symfony/thanks": "^1.0"
     },

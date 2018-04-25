@@ -17,7 +17,7 @@ Route::post('admin/login', ['uses' => 'Administrators\Authenticate\AuthControlle
 Route::get('admin/logout', ['uses' => 'Administrators\Authenticate\AuthController@getLogout']);
 //route need permission
 // Route::group(['prefix' => 'administrator', 'middleware' => 'authenticate'], function () {
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     //system route
     Route::resource('/', 'Administrators\Systems\DashboardController');
 
@@ -60,6 +60,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/list_transaction', 'Administrators\TransactionHistory\TransactionHistoryController@index')->name('admin.transaction.list');
     Route::put('/list_transaction/approve/{id}', 'Administrators\TransactionHistory\TransactionHistoryController@approve')->name('admin.transaction.approve');
     Route::put('/list_transaction/reject/{id}',  'Administrators\TransactionHistory\TransactionHistoryController@reject')->name('admin.transaction.reject');
+    // about us
+    Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
+
+    Route::resource('/pages', 'Administrators\Pages\PageController');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
@@ -68,9 +72,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 Route::resource('/', 'Frontends\Homes\HomeController');
-
 Route::get('/tin-tuc/danh-muc/{id}', 'Frontends\News\NewsController@getNewsByCategory');
-Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail');
+
+Route::get('/tin-tuc', 'Frontends\News\NewsController@getNewsByCategory')->name('category.detail');
+Route::get('/tin-tuc/chi-tiet/{slug}', 'Frontends\News\NewsController@getDetail')->name('news.detail');
 Route::get('/tin-tuc/view-more', 'Frontends\News\NewsController@getViewMore');
 
 Route::get('/transactionhistory/search', 'Frontends\TransactionHistory\TransactionHistoryController@getTranByProduct');
@@ -78,8 +83,13 @@ Route::get('/tra-cuu-lich-su-vay-no', 'Frontends\TransactionHistory\TransactionH
 Route::get('/quan-ly-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController@manage')->name('frontends.manager.transaction');
 Route::get('/quan-ly-don-vay/search', 'Frontends\TransactionHistory\TransactionHistoryController@m_search');
 Route::get('/lich-su-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatus');
+Route::get('/lich-su-don-vay/getlistlenderbyloanid', 'Frontends\TransactionHistory\TransactionHistoryController@getListLenderByLoanID');
 Route::get('/quan-ly-don-vay/updatestatus', 'Frontends\TransactionHistory\TransactionHistoryController@updateStatusTranLog');
 Route::resource('lich-su-don-vay', 'Frontends\TransactionHistory\TransactionHistoryController');
+Route::get('/page/{slug}', 'Frontends\Page\PageController@show');
+Route::resource('/about-us', 'Frontends\AboutUs\AboutUsController');
+
+Route::get('/page/{slug}', 'Frontends\Pages\PageController@show')->name('frontend.page.show');
 
 /*
 |-------------------------------------------
@@ -98,7 +108,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/register-otp', 'Frontends\Users\UsersController@validateOTP');
 
     Route::get('/login', 'Frontends\Users\UsersController@getLoginForm')->name('frontend.user.login')->middleware('guest');
-    Route::get('/logout', 'Frontends\Users\usersController@logout')->name('frontend.user.logout')->middleware('auth');
+    Route::get('/logout', 'Frontends\Users\UsersController@logout')->name('frontend.user.logout')->middleware('auth');
     Route::post('/login', 'Frontends\Users\UsersController@postloginForm')->name('frontend.user.dologin');
 
     /*
@@ -151,3 +161,6 @@ Route::group(['prefix' => 'san-giao-dich'], function () {
     Route::get('/', 'Frontends\TransactionHistory\ListTransactionController@index')->name('frontend.listtransaction.site');
     Route::put('/status-transaction/{id}', 'Frontends\TransactionHistory\TransactionHistoryController@putStatusTransaction');
 });
+
+Route::get('/hoi-dap', 'Frontends\Faqs\FaqCategoryController@getQuestion')->name('question.show');
+Route::get('/huong-dan', 'Frontends\Faqs\FaqCategoryController@getListGuide')->name('guide.show');

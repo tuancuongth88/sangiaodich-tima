@@ -36,27 +36,14 @@
 
                             <div  class="row">
                                 <label class="col-sm-4 fs-13">Số dư<span style="margin-left: 8px">:</span></label>
-                                <label class="col-sm-4 fs-13"><b><a href='/lich-su-giao-dich.html' class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm">20,000</a></b> </label>
+                                <label class="col-sm-4 fs-13"><b><a href='/lich-su-giao-dich.html' class="btn btn-primary text-uppercase text-white fs-15 fs-lg-15 btn-sm">{{ number_format($data->amount) }}</a></b> </label>
 
                             </div>
 
 
                         </div>
                     </div>
-                    <div class="row">
-
-                        <div class="col-xl-6">
-                            <div class="profilecard__progress">
-                                <p class="mb-0 text-gray-light fs-13">Mức độ hoàn thành hồ sơ</p>
-                                <div class="progress mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 71%;" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100">
-                                        <span class="progress-tooltip">71%</span>
-                                    </div>
-                                </div>
-                                <p class="mb-0 text-gray-light fs-13">Bạn vui l&#242;ng cập nhật đầy đủ hồ sơ để kh&#225;ch h&#224;ng c&#243; thể kết nối được với bạn.</p>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 

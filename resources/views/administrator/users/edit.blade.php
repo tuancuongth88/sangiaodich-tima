@@ -25,7 +25,6 @@
 	<div class="m-content">
 		<div style="margin-bottom: 20px">
 			<a href="{{ action('Administrators\Users\UserController@index') }}" class="btn btn-success">Danh sách tài khoản</a>
-        	<a href="{{ action('Administrators\Users\UserController@create') }}" class="btn btn-primary">Thêm tài khoản</a>
 		</div>
 		<div class="row">
 	        <div class="col-md-12">
@@ -51,7 +50,7 @@
                                     <label>
                                         Tên tài khoản:
                                     </label>
-                                    <input type="email" class="form-control m-input" placeholder="Tên tài khoản" name="fullname" value="{{ $user['fullname'] }}">
+                                    <input type="text" class="form-control m-input" placeholder="Tên tài khoản" name="fullname" value="{{ $user['fullname'] }}">
                                     <span class="m-form__help">
                                         Nhập tên tài khoản
                                     </span>
@@ -108,7 +107,7 @@
                                     <label for="name">
                                         Giới tính
                                     </label>
-                                    {{ Form::select('gender', array('1' => 'Nam', '2' => 'Nữ', '3' => 'Khác'), $user['gender'], ['class' => 'form-control m-input']) }}
+                                    {{ Form::select('sex', array('1' => 'Nam', '2' => 'Nữ', '3' => 'Khác'), $user['sex'], ['class' => 'form-control m-input']) }}
                                     <span class="m-form__help">
                                         Chọn giới tính
                                     </span>
@@ -134,6 +133,7 @@
                                         <label class="custom-file-label" for="customFile">
                                             Chọn ảnh
                                         </label>
+                                        <img src="{{ $data->avatar }}" width="300px" height="300px">
                                     </div>
                                 </div>
                             </div>

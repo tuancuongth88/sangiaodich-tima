@@ -27,7 +27,7 @@
                 </th>
                 <th class="text-center hidden-xs-down">
                     <div class="border-right">
-                        Hợp đồng
+                        Số hợp đồng
                     </div>
                 </th>
                 <th class="text-center hidden-xs-down">
@@ -38,7 +38,7 @@
                 </th>
                 <th class="text-center hidden-xs-down">
                     <div rel="-1" field="2" class="sort border-right">
-                        Thời gian tạo
+                        Thời gian
                         <i class="fa fa-sort" aria-hidden="true"></i>
                     </div>
                 </th>
@@ -63,7 +63,7 @@
                     <td class="hidden-xs-down">
                         <div class="td-inner d-flex justify-content-center text-center">
                             <div class="text-nowrap">
-                                HĐ-{{$data_val['id']}}
+                                HD-{{$data_val['id']}}
                             </div>
                         </div>
                     </td>
@@ -82,11 +82,11 @@
                     <td class="h-100 hidden-xs-down">
                         <div class="td-inner d-flex justify-content-center h-100">
                             <ul class="list-h-1 align-self-start mt-3">
-                                <li class="list-h-1__item text-primary">
-                                    {{convertDate('H:i',$data_val['create_time'])}}
-                                </li>
                                 <li class="list-h-1__item">
-                                    {{convertDate('Y-m-d',$data_val['created_time'])}}
+                                    {{convertDate('d-m-Y',$data_val['created_at'])}}
+                                </li>
+                                <li class="list-h-1__item text-primary">
+                                    {{convertDate('H:i',$data_val['created_at'])}}
                                 </li>
                             </ul>
                         </div>

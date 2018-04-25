@@ -96,7 +96,7 @@
                                     <label for="name">
                                         Giới tính
                                     </label>
-                                    <select class="form-control m-input" id="gender" name="gender">
+                                    <select class="form-control m-input" id="sex" name="sex">
                                         <option value="1">
                                             Nam
                                         </option>

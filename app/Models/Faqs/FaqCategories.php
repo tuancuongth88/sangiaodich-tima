@@ -13,6 +13,9 @@ class FaqCategories extends Model
     protected $table = 'faq_categories';
     protected $primaryKey = 'id';
 
+    const TYPE_FAQ = 1;
+    const TYPE_SUPPORT = 2;
+
     protected $fillable = ['name', 'type', 'created_by'];
 
     public static $rules = [
