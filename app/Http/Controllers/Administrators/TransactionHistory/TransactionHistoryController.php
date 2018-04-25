@@ -36,4 +36,9 @@ class TransactionHistoryController extends Controller
     public function search(){
 
     }
+
+    public function report(){
+        return $this->repository->report();
+    }
+
 }

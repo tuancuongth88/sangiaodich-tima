@@ -167,6 +167,7 @@ return [
         App\Providers\ListsEloquent::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -222,6 +223,7 @@ return [
         'PermissionCommon' => Custom\Services\PermissionCommon::class,
 
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
