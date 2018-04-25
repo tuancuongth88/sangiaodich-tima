@@ -16,6 +16,7 @@
         "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.2.0",
+        "phpoffice/phpexcel": "^1.8",
         "tymon/jwt-auth": "0.5.*"
     },
     "require-dev": {
