@@ -7,6 +7,7 @@ use App\Models\Users\User;
 use App\Services\AuthService;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
@@ -125,21 +126,21 @@ class TransactionHistoryRepository extends Repository
         $input = $this->request->all();
         $from = isset($input['from']) ? ($input['from']) : 0;
         $to = isset($input['to']) ? ($input['to']) : 0;
-        $isDownload = isset($input['download']) ? $input['download']: 0;
+        $isDownload = isset($input['download']) ? $input['download'] : 0;
 
         $where = array();
 
         if (isset($input['fee_type']) && !$input['fee_type'] == 0) {
-            $where['fee_type'] = $input['fee_type'];
+            $where[] = ['fee_type', '=', $input['fee_type']];
         }
         if (isset($input['service_code']) && !$input['service_code'] == 0) {
-            $where['service_code'] = $input['service_code'];
+            $where[] = ['service_code', '=', $input['service_code']];
         }
         if (isset($input['city_id'])) {
-            $where['city_id'] = $input['city_id'];
+            $where[] = ['city_id', '=', $input['city_id']];
         }
         if (isset($input['district_id'])) {
-            $where['district_id'] = $input['district_id'];
+            $where[] = ['district_id', '=', $input['district_id']];
         }
         if (isset($input['phone'])) {
             $user_search = $this->user::where('phone', 'like', '%' . $input['phone'] . '%')->get()->toArray();
@@ -152,14 +153,18 @@ class TransactionHistoryRepository extends Repository
             }
         }
 
+        if ($from) {
+            $where[] = [DB::raw('date(created_at)'), '>=',  convertDate('Y-m-d',$from)];
+        }
+        if ($to){
+            $where[] = [DB::raw('date(created_at)'), '<=',  convertDate('Y-m-d',$to)];
+        }
+
+
         if (!empty($users_id)) {
-            $query = $this->model->where($where)->whereIn('user_id', $users_id)
-                ->whereDate('created_at', '>=', convertDate('Y-m-d', $from))
-                ->whereDate('created_at', '<=', convertDate('Y-m-d', $to))->orderBy('id', 'desc');
+            $query = $this->model->where($where)->whereIn('user_id', $users_id)->orderBy('id', 'desc');
         } else {
-            $query = $this->model->where($where)
-                ->whereDate('created_at', '>=', convertDate('Y-m-d', $from))
-                ->whereDate('created_at', '<=', convertDate('Y-m-d', $to))->orderBy('id', 'desc');
+            $query = $this->model->where($where)->orderBy('id', 'desc');
         }
         $listData = $query->paginate($this->perpages);
         if ($isDownload) {

@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
                     {{ Form::select('service_code',
-                     $list_service->pluck('service_name', 'id'),
+                     [0 => 'Tất cả']+ $list_service->pluck('service_name', 'id')->toArray(),
                        isset($input['service_code'])? $input['service_code']:null,
                        ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbProduct']) }}
                 </div>
@@ -64,20 +64,20 @@
                 <div class="col-md-3 col-sm-6 mb-3 mb-sm-0" style="margin-top:  5px;">
                     {{ Form::select( 'status', ['' => 'Chọn trạng thái...']+$status_transaction,
                      isset($input['status'])? $input['status']:null,
-                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbStatus", 'required'] ) }}
+                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbStatus"] ) }}
 
                 </div>
                 <div class="col-md-3 col-sm-6 mb-3 mb-sm-0" style="margin-top:  5px;">
                     {{ Form::select( 'city_id', ['' => 'Chọn thành phố...']+getCityList(),
                 isset($input['city_id'])? $input['city_id']:null,
-                ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity", 'required'] ) }}
+                ['class' => 'selectpicker form-control input-lg', 'id' => "cbCity"] ) }}
 
                 </div>
 
                 <div class="col-md-3 col-sm-6" style="margin-top:  5px;">
                     {{ Form::select( 'district_id', ['' => 'Chọn quận huyện ...']+ getDistrictList(isset($input['city_id']) ? $input['city_id']:''),
                      isset($input['district_id'])? $input['district_id']:null,
-                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict", 'required'] ) }}
+                      ['class' => 'selectpicker form-control input-lg', 'id' => "cbDistrict"] ) }}
 
                 </div>
 
