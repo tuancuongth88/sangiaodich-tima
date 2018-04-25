@@ -122,7 +122,7 @@
                                 Thời gian tạo
                             </th>
                             <th>
-                                Tùy chọn
+                                Trạng thái
                             </th>
                         </tr>
                         </thead>
@@ -153,21 +153,7 @@
                                     {{ $value->created_at }}
                                 </td>
                                 <td>
-                                    {{ Form::open(array('method'=>'PUT', 'route' => array('admin.transaction.approve', $value->id), 'style' => 'display: inline-block;')) }}
-                                    <button class="btn btn-success ">
-                                        Duyệt
-                                    </button>
-                                    {{ Form::close() }}
-                                    {{ Form::open(array('method'=>'PUT', 'route' => array('admin.transaction.reject', $value->id), 'style' => 'display: inline-block;')) }}
-                                    <button onclick="return confirm('Bạn có chắc chắn muốn hủy giao dịch này?');"
-                                            class="btn btn-danger ">
-                                        Hủy
-                                    </button>
-                                    <a href="{{ action('Administrators\News\NewsController@show', $value->id) }}"
-                                       class="btn btn-accent ">
-                                        Chi tiết
-                                    </a>
-                                    {{ Form::close() }}
+                                    {{$status_transaction[$value['status']] }}
                                 </td>
                             </tr>
                         @endforeach
