@@ -67,6 +67,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::get('/report', 'Administrators\TransactionHistory\TransactionHistoryController@report')->name('admin.transaction.report');
 
+    Route::resource('/import-tax', 'Administrators\ImportData\DataTaxController');
+    Route::post('/import-tax/file','Administrators\ImportData\DataTaxController@doUpload');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
@@ -167,3 +169,5 @@ Route::group(['prefix' => 'san-giao-dich'], function () {
 
 Route::get('/hoi-dap', 'Frontends\Faqs\FaqCategoryController@getQuestion')->name('question.show');
 Route::get('/huong-dan', 'Frontends\Faqs\FaqCategoryController@getListGuide')->name('guide.show');
+
+Route::get('/tra-cuu-thue', 'Frontends\ImportData\DataTaxController@index')->name('data.tax');

@@ -124,6 +124,11 @@
                                         Tra cứu lịch sử vay nợ
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('data.tax') }}">
+                                        Tra cứu thuế
+                                    </a>
+                                </li>
                             @elseif( Auth::user()->type == \PermissionCommon::VAY )
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('services.site.list') }}">Cần một khoản vay</a>

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Services::class);
         $this->call(Slides::class);
         $this->call(FaqCategory::class);
+        $this->call(CreateAdmin::class);
 
     }
 }
