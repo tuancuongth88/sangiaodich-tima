@@ -251,5 +251,13 @@
                 </span>
             </a>
         </li>
+        <li class="m-menu__item">
+            <a href="{{ route('admin.transaction.report') }}" class="m-menu__link">
+                <i class="m-menu__link-icon flaticon-layers"></i>
+                <span class="m-menu__link-text">
+                    Báo cáo
+                </span>
+            </a>
+        </li>
     </ul>
 </div>

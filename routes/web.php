@@ -64,6 +64,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::resource('/about-us', 'Administrators\AboutUs\AboutUsController');
 
     Route::resource('/pages', 'Administrators\Pages\PageController');
+
+    Route::get('/report', 'Administrators\TransactionHistory\TransactionHistoryController@report')->name('admin.transaction.report');
+
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 

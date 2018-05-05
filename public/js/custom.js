@@ -18,7 +18,7 @@ function commonSearch(){
                 return '<div class="m-search-results m-search-results--skin-light"><span class="m-search-result__message">Something went wrong</div></div>';
             }                            
         }
-    });  
+    });
 }
 // submitForm.on('submit', function(e){
 //     // e.preventDefault();
@@ -52,3 +52,8 @@ function commonSearch(){
 //         console.log("commonSearch");
 //     }, 2000);
 // }
+
+//== Initialization
+jQuery(document).ready(function() {
+    $('.datepicker').datepicker();
+});

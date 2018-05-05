@@ -33,7 +33,7 @@ class TransactionHistoryRepository extends Repository {
     const STATUS      = 'status';
     const AGREE_TERM  = 'agree_term';
 
-    const FEE_SEARCH_LOAN_HISTORY_DEFAULT = 2000;
+    const FEE_SEARCH_LOAN_HISTORY_DEFAULT = 0;
     const FEE_SEARCH_LOAN_HISTORY_SUCCESS = 10000;
 
     function __construct(
