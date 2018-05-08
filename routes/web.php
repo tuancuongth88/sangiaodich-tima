@@ -66,9 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::resource('/pages', 'Administrators\Pages\PageController');
 
     Route::get('/report', 'Administrators\TransactionHistory\TransactionHistoryController@report')->name('admin.transaction.report');
-
     Route::resource('/import-tax', 'Administrators\ImportData\DataTaxController');
-    Route::post('/import-tax/file','Administrators\ImportData\DataTaxController@doUpload');
+    Route::post('/import-tax/file','Administrators\ImportData\DataTaxController@doUpload')->name('upload.tax.file');
 });
 /////////////////////////////////// END ADMIN PAGE ////////////////////////////////////////////
 
