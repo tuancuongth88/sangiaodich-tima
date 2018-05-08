@@ -259,5 +259,13 @@
                 </span>
             </a>
         </li>
+        <li class="m-menu__item">
+            <a href="{{ route('import-tax.index') }}" class="m-menu__link">
+                <i class="m-menu__link-icon flaticon-layers"></i>
+                <span class="m-menu__link-text">
+                    Import Thuế
+                </span>
+            </a>
+        </li>
     </ul>
 </div>
