@@ -337,10 +337,96 @@ class UserRepository extends Repository {
         $user->amount += $amount;
         $user->save();
         //store log
-        $dataLog['amount']  = $amount;
+        $dataLog['amount']  = '+'.$amount;
         $dataLog['user_id'] = $user->id;
+        $dataLog['type'] = RECHARGE;
         AccountLog::create($dataLog);
         return redirect()->action('Administrators\Users\UserController@index')->with('message', 'Nạp tiền thành công');
+    }
+
+    public function allTranHistory() {
+        if (!\Auth::check()) {
+            dd('Vui lòng đăng nhập');
+        }
+
+        $data = AccountLog::all();
+        $lis_type = AccountLog::$account_log_type;
+
+
+        return view('administrator.users.alltranhistory', ['data' => $data,'lis_type'=>$lis_type]);
+    }
+
+    public function allTranHistoryExport() {
+        if (!\Auth::check()) {
+            dd('Vui lòng đăng nhập');
+        }
+
+        $data = AccountLog::all();
+        $lis_type = AccountLog::$account_log_type;
+        $this->booksListPhpExcelUser($data);
+
+        return view('administrator.users.alltranhistory', ['data' => $data,'lis_type'=>$lis_type]);
+    }
+
+    public function booksListPhpExcelUser($bookData)
+    {
+        $fileType = \PHPExcel_IOFactory::identify(storage_path('excels/all_tran_history_acount_log.xlsx')); // đọc loại file template
+        $objReader = \PHPExcel_IOFactory::createReader($fileType);
+        $objPHPExcel = $objReader->load(storage_path('excels/all_tran_history_acount_log.xlsx')); //load dữ liệu từ file excel luu vao bien $objPHPExcel
+
+        $this->addDataToExcelFileUser($objPHPExcel->setActiveSheetIndex(0), $bookData); //chay ham them du lieu vao excel
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007'); //Ham tao moi file excel
+        $namedownload = 'report_trans' . time() . '.xlsx';
+        // We'll be outputting an excel file
+        header('Content-type: application/vnd.ms-excel');
+        // It will be called file.xls
+        header('Content-Disposition: attachment; filename="' . $namedownload . '"');
+        // Write file to the browser
+        $objWriter->save('php://output');
+
+    }
+
+    private function addDataToExcelFileUser($setCell, $bookData) //HAM THEM DU LIEU VAO FILE EXCEL
+    {
+        //$setCell->setCellValue('D7', 'Đào Hải Long');   //them doan text Dao Hai Long vao o D7
+        $lis_type = AccountLog::$account_log_type;
+        $index = 1;
+
+        $row = 2;  //danh dau dong bat dau them data, su dung trong vong lap foreach
+
+        foreach ($bookData as $key => $item) {
+            $setCell
+                ->setCellValue('A' . $row, $index)//them du lieu vao cot B
+                ->setCellValue('B' . $row, $lis_type[$item->type])
+                ->setCellValue('C' . $row, $item->user->phone)
+                ->setCellValue('D' . $row, $item->amount)
+                ->setCellValue('E' . $row, $item->created_at);
+            //->setCellValue('H' . $row, '=F' . $row . '*G' . $row); //them dong text vao cot H, su dung ham tinh toan mac dinh trong excel de tinh gia tri
+
+            $index++;
+
+            $row++;
+        }
+
+        //them duong vien cho du lieu trong file excel
+//
+//        $setCell->getStyle("A2:E" . ($index + 10))->applyFromArray(array(
+//            'borders' => array(
+//                'outline' => array(
+//                    'style' => \PHPExcel_Style_Border::BORDER_THIN,
+//                    'color' => array('argb' => '000000'),
+//                    'size' => 1,
+//                ),
+//                'inside' => array(
+//                    'style' => \PHPExcel_Style_Border::BORDER_THIN,
+//                    'color' => array('argb' => '000000'),
+//                    'size' => 1,
+//                ),
+//            ),
+//        ));
+        //------------------------------------------------------------------
+
+        return $this;
     }
 
 }

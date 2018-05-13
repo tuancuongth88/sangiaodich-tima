@@ -236,21 +236,14 @@ class TransactionHistoryRepository extends Repository {
                     $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_SUCCESS);
                     $data = $this->model::where('user_id', $user_search['id'])->paginate();
                 } elseif ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                    $this->updateUserAmount($current_user_id, $user_current_amount,  self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
                     return response()->json(array('success' => true, 'html' => 'Số dư của bạn không đủ'));
                 } else {
                     return response()->json(array('success' => true, 'html' => 'Số dư của bạn không đủ'));
                 }
             } else {
-                if ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                    $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
-                }
                 return response()->json(array('success' => true, 'html' => 'Tìm kiếm không tồn tại'));
             }
         } else {
-            if ($user_current_amount >= self::FEE_SEARCH_LOAN_HISTORY_DEFAULT) {
-                $this->updateUserAmount($current_user_id, $user_current_amount, self::FEE_SEARCH_LOAN_HISTORY_DEFAULT);
-            }
             return response()->json(array('success' => true, 'html' => 'Tìm kiếm không tồn tại'));
         }
 
@@ -281,6 +274,7 @@ class TransactionHistoryRepository extends Repository {
         }
         $accountLog['amount']  = -(int) $deducted;
         $accountLog['user_id'] = $id;
+        $accountLog['type'] = SEARCH_FEE_LOAN_HISTORY;
         AccountLog::create($accountLog);
         $this->user::where('id', $id)->update(['amount' => ($amount - $deducted)]);
     }
@@ -604,6 +598,7 @@ class TransactionHistoryRepository extends Repository {
             //store log
             $accountLog['amount']  = -$fee;
             $accountLog['user_id'] = $user->id;
+            $accountLog['type'] = FEES_RECEIVED;
             AccountLog::create($accountLog);
         }
         $obj->save();

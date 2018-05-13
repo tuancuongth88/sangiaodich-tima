@@ -51,6 +51,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::resource('/user', 'Administrators\Users\UserController');
     Route::get('/search', 'Administrators\Systems\DashboardController@getSearch');
 
+    Route::get('/all-tran-history', 'Administrators\Users\UserController@allTranHistory');
+    Route::get('/all-tran-history-export', 'Administrators\Users\UserController@allTranHistoryExport');
+
     Route::resource('/service', 'Administrators\Services\ServiceController');
     // Manage location, city, district
     Route::get('/location', 'Administrators\Systems\DashboardController@getLocation');

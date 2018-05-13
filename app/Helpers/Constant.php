@@ -52,3 +52,8 @@ define('TRAN_STATUS_CANCEL', 5);
 
 
 define('HOTLINE', '');
+
+define('FEES_RECEIVED', 1);
+define('SEARCH_FEE_LOAN_HISTORY', 2);
+define('SEARCH_FEE_LIMITS', 3);
+define('RECHARGE', 4);

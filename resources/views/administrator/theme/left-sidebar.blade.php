@@ -146,6 +146,16 @@
                             </span>
                         </a>
                     </li>
+                    <li class="m-menu__item " aria-haspopup="true">
+                        <a href="{{ action('Administrators\Users\UserController@allTranHistory') }}" class="m-menu__link ">
+                            <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                <span></span>
+                            </i>
+                            <span class="m-menu__link-text">
+                                Lịch sử giao dịch
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </li>
@@ -202,7 +212,8 @@
                         </a>
                     </li>
                     <li class="m-menu__item">
-                        <a href="{{ action('Administrators\Services\ServiceController@create') }}" class="m-menu__link ">
+                        <a href="{{ action('Administrators\Services\ServiceController@create') }}"
+                           class="m-menu__link ">
                             <i class="fa fa-list-ul"></i> Thêm mới
                         </a>
                     </li>
