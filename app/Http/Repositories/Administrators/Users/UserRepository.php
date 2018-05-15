@@ -10,6 +10,7 @@ use App\Services\AuthService;
 use App\Services\ResponseService;
 use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use JWTAuth;
 use PhpSpec\Exception\Exception;
 use Validator;
@@ -22,6 +23,7 @@ class UserRepository extends Repository {
     private $request;
 
     protected $auth;
+    protected $m_accountLog;
 
     private $response;
 
@@ -75,9 +77,20 @@ class UserRepository extends Repository {
     const MODULE      = 'modules';
     const TABLE       = 'companies';
 
-    public function __construct(User $user, UserType $userType, AuthService $auth, ResponseService $response, Request $request, $perpages = self::TWENTY, $current = self::ONE, ActivationService $activationService) {
+    public function __construct(
+        User $user,
+        UserType $userType,
+        AccountLog $accountLog,
+        AuthService $auth,
+        ResponseService $response,
+        Request $request,
+        $perpages = self::TWENTY,
+        $current = self::ONE,
+        ActivationService $activationService
+    ) {
         $this->user              = $user;
         $this->auth              = $auth;
+        $this->m_accountLog      = $accountLog;
         $this->request           = $request;
         $this->current           = $current;
         $this->response          = $response;
@@ -353,19 +366,49 @@ class UserRepository extends Repository {
         $lis_type = AccountLog::$account_log_type;
 
 
-        return view('administrator.users.alltranhistory', ['data' => $data,'lis_type'=>$lis_type]);
-    }
 
-    public function allTranHistoryExport() {
-        if (!\Auth::check()) {
-            dd('Vui lòng đăng nhập');
+
+        $input = $this->request->all();
+        $from = isset($input['from']) ? ($input['from']) : 0;
+        $to = isset($input['to']) ? ($input['to']) : 0;
+        $isDownload = isset($input['download']) ? $input['download'] : 0;
+
+        $where = array();
+
+        if (isset($input['type']) && !$input['type'] == 0) {
+            $where[] = ['type', '=', $input['type']];
+        }
+        if (isset($input['phone'])) {
+            $user_search = $this->user::where('phone', 'like', '%' . $input['phone'] . '%')->get()->toArray();
         }
 
-        $data = AccountLog::all();
-        $lis_type = AccountLog::$account_log_type;
-        $this->booksListPhpExcelUser($data);
+        $users_id = array();
+        if (isset($user_search[0]) && !empty($user_search[0])) {
+            foreach ($user_search as $key => $user) {
+                $users_id[] = $user['id'];
+            }
+        }
 
-        return view('administrator.users.alltranhistory', ['data' => $data,'lis_type'=>$lis_type]);
+        if ($from) {
+            $where[] = [DB::raw('date(created_at)'), '>=',  convertDate('Y-m-d',$from)];
+        }
+        if ($to){
+            $where[] = [DB::raw('date(created_at)'), '<=',  convertDate('Y-m-d',$to)];
+        }
+
+
+        if (!empty($users_id)) {
+            $query = $this->m_accountLog->where($where)->whereIn('user_id', $users_id)->orderBy('id', 'desc');
+        } else {
+            $query = $this->m_accountLog->where($where)->orderBy('id', 'desc');
+        }
+        $listData = $query->paginate($this->perpages);
+        if ($isDownload) {
+            $this->booksListPhpExcelUser($listData);
+        }
+        return view('administrator.users.alltranhistory',
+            ['data' => $listData, 'lis_type'=>$lis_type, 'input' => $input]
+        );
     }
 
     public function booksListPhpExcelUser($bookData)

@@ -23,17 +23,56 @@
         <!-- END: Subheader -->
         <div class="m-content">
             <!--begin::Section-->
-            <div class="col-xs-12" style="margin-bottom: 20px">
-                <a href="{{ action('Administrators\Users\UserController@allTranHistoryExport') }}"
-                   class="btn btn-primary m-btn m-btn--icon">
-                <span>
-                    <i class="fa flaticon-pie-chart"></i>
-                    <span>
-                        Xuất file
-                    </span>
-                </span>
-                </a>
+
+            {{ Form::open(array('action' => 'Administrators\Users\UserController@allTranHistory',
+                 'class' => 'm-form m-form--fit m-form--label-align-right m-form--group-seperator-dashed frmReport ',
+                  'enctype' => 'multipart/form-data',
+                  'method' => 'GET'
+                  ))
+                  }}
+            <div class="row gutter-2 gutter-lg-3 mb-4">
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                    {{ Form::select('type',
+                     [0 => 'Tất cả']+ $lis_type,
+                      isset($input['type'])? $input['type']:null,
+                       ['class' => 'form-control border-primary rounded-0 fs-15', 'id' => 'cbType']) }}
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                    {{ Form::text('from', '',
+                    array(
+                    'class' => 'form-control border-primary rounded-0 fs-15 datepicker',
+                    'placeholder'=>'Từ ngày',
+                    'data-date-format'=>"dd-mm-yyyy"
+                    )) }}
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0">
+                    {{ Form::text('to', '',
+                    array(
+                    'class' => 'form-control border-primary rounded-0 fs-15 datepicker',
+                    'placeholder'=>'Đến ngày',
+                    'data-date-format'=>"dd-mm-yyyy"
+                    )) }}
+                </div>
+                <div class="col-md-3 col-sm-6 mb-3 mb-md-0" style="margin-top:  5px;">
+                    {{ Form::text('phone', '',
+                    array(
+                    'class' => 'form-control border-primary rounded-0 fs-15',
+                    'placeholder'=>'Số điện thoại'
+                    )) }}
+                </div>
+
+
+                <input type="hidden" class="txtisDownload" name="download"
+                       value="{{isset($input['download'])? $input['download']:0}}"/>
+
+                <div class="col-md-3 col-sm-6" style="margin-top:  5px;">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-primary btnDownload">Tải về báo cáo</button>
+
+                </div>
             </div>
+            {{ Form::close() }}
             @include('administrator.errors.info-search')
             <div class="m-section">
                 @include('administrator.errors.messages')
@@ -85,4 +124,12 @@
             <!--end::Section-->
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.btnDownload').click(function () {
+                $('.txtisDownload').val(1);
+                $('.frmReport').submit();
+            });
+        });
+    </script>
 @stop
