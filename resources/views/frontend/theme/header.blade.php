@@ -121,12 +121,12 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ action('Frontends\TransactionHistory\TransactionHistoryController@searchTranByPhoneAndIdCard') }}">
-                                        Tra cứu lịch sử vay nợ
+                                        Lịch sử vay nợ
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('data.tax') }}">
-                                        Tra cứu thuế
+                                        Xếp hạng tín dụng
                                     </a>
                                 </li>
                             @elseif( Auth::user()->type == \PermissionCommon::VAY )

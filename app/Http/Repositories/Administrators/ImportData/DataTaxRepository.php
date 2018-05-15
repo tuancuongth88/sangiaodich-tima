@@ -131,32 +131,43 @@ class DataTaxRepository extends Repository {
     }
 
     public function importFile(){
+        ini_set('memory_limit','1024M');
         if($this->request->hasFile('file_data')){
-            $insert = array();
             Excel::load($this->request->file('file_data')->getRealPath(), function ($reader) {
-                foreach ($reader->toArray() as $row) {
-                    $insert['masothue'] = $row['tin'];
-                    $insert['tenchinhthuc'] = $row['ten_dtnt'];
-                    $insert['noidangkyquanly'] = $row['ten_cq_thue'];
-                    $insert['noidangkynopthue'] = $row['ten_cq_thue'];
-                    $insert['diachitruso'] = $row['tran_addr'];
-                    $insert['email'] = isset($row['post_mail']) ? $row['post_mail'] : $row['tin_emal'];
-                    $insert['ketoantruong'] = $row['ten_ketoan'];
-                    $insert['sodienthoaiketoantruong'] = $row['dienthoai_ketoan'];
-                    $insert['tengiamdoc'] = $row['ten_giamdoc'];
-                    $insert['sodienthoaigiamdoc'] = $row['dienthoai_giamdoc'];
-                    $insert['phone_company'] = $row['tran_tel'];
-                    $insert['x1'] = $row['x1'];
-                    $insert['x2'] = $row['x2'];
-                    $insert['x3'] = $row['x3'];
-                    $insert['x4'] = $row['x4'];
-                    $insert['x5'] = $row['x5'];
+                $i = 0;
+                $insert = array();
+                foreach ($reader->toArray() as $key => $row) {
+                    $i++;
+                    $charges = [
+                        'masothue' => $row['tin'],
+                        'tenchinhthuc' => $row['ten_dtnt'],
+                        'noidangkyquanly' => $row['ten_cq_thue'],
+                        'noidangkynopthue' => $row['ten_cq_thue'],
+                        'diachitruso' => $row['tran_addr'],
+                        'email' => isset($row['post_mail']) ? $row['post_mail'] : $row['tin_emal'],
+                        'ketoantruong' => $row['ten_ketoan'],
+                        'sodienthoaiketoantruong' => $row['dienthoai_ketoan'],
+                        'tengiamdoc' => $row['ten_giamdoc'],
+                        'sodienthoaigiamdoc' => $row['dienthoai_giamdoc'],
+                        'phone_company' => $row['tran_tel'],
+                        'phone_company' => $row['tran_tel'],
+                        'x1' => isset($row['x1']) ? $row['x1'] : 0,
+                        'x2' => isset($row['x2']) ? $row['x1'] : 0,
+                        'x3' => isset($row['x3']) ? $row['x3'] : 0,
+                        'x4' => isset($row['x4']) ? $row['x4'] : 0,
+                        'x5' => isset($row['x5']) ? $row['x5'] : 0,
+                        'type' => 1,
+                    ];
                     // check ma so thue
                     $checkData = $this->model->where('masothue', $row['tin']);
                     if($checkData->count() > 0){
-                        $checkData->update($insert);
-                    }else{
-                        $this->model->create($insert);
+                        $checkData->update($charges);
+                        continue;
+                    }
+                    $insert[$i] = $charges;
+                    if($i % 500 == 0){
+                        $this->model->insert($insert);
+                        $insert = array();
                     }
                 }
             });

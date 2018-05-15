@@ -90,6 +90,11 @@
 {{--                    <form action="{{ url('admin/import-tax/file') }}" enctype="multipart/form-data" method="POST">--}}
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">
+                                Loại Doanh nghiệp:
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="form-control-label">
                                 Upload File:
                             </label>
                             <input type="file" name="file_data" required="true" class="form-control">

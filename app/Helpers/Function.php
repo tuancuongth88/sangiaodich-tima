@@ -385,16 +385,3 @@ function convertAmount($amount)
         return $result . ' Tỷ';
     }
 }
-
-/*
-|--------------------------------------------------------------------------
-| Check user type
-|--------------------------------------------------------------------------
-| @return type
-| @Author : cuongnt
- */
-
-function isUser()
-{
-
-}
