@@ -23,9 +23,6 @@
             <div id="tabsJustifiedContent" class="tab-content">
                 <div id="doanhnghiep" class="container tab-pane active"><br>
                     <div class="px-3 px-md-5 px-xl-8 w-lg-75 mx-auto">
-                        <h3 class="text-center fw-3 fs-30 mb-3">
-                            Chức năng tra cứu thuế
-                        </h3>
                         {{ Form::open(array('route' => 'data.tax', 'method'=>'GET', 'class' => 'm-form m-form--fit m-form--label-align-right', 'enctype' => 'multipart/form-data')) }}
                         <form id="frmCheckCIC" class="tima-search mx-auto px-md-12" novalidate="novalidate">
                             <div class="row mb-12 text-gray-light flex-column flex-sm-row">
@@ -52,7 +49,7 @@
                         <table class="table-bordered">
                             <tbody>
                             <tr>
-                                <th width="16%">Đinh mức tín dụng</th>
+                                <th width="16%">Xếp hạng tính dụng</th>
                                 <td width="20%" colspan="5">
                                     {{ $data->checkEnterpriseLevel($_REQUEST['type']) }}
                                 </td>
@@ -91,15 +88,11 @@
                             </tr>
                             <tr>
                                 <th width="16%">Tên giám đốc</th>
-                                <td width="20%">{{ $data->tengiamdoc }}</td>
-                                <th width="16%">Địa Chỉ</th>
-                                <td width="48%" colspan="3">{{ $data->diachigiamdoc }}</td>
+                                <td width="20%" colspan="5">{{ $data->tengiamdoc }}</td>
                             </tr>
                             <tr>
                                 <th width="16%">Kế toán trưởng</th>
-                                <td width="20%">{{ $data->ketoantruong }}</td>
-                                <th width="16%">Địa Chỉ</th>
-                                <td width="48%" colspan="3">{{ $data->diachiketoantruong }}</td>
+                                <td width="20%" colspan="5">{{ $data->ketoantruong }}</td>
                             </tr>
                             </tbody></table>
                     @endif
