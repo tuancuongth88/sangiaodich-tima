@@ -29,7 +29,7 @@
                                 <div class="col-sm-12 form-group mb-10">
                                     <label for="search-fc-1">Mã số thuế:</label>
                                     <div class="md-style md-style-icon">
-                                        <input type="text" class="form-control" id="masothue" name="masothue" value="{{ old("masothue") }}" placeholder="Nhập mã số thuế">
+                                        <input type="text" class="form-control" id="masothue" name="masothue" value="{{ old("masothue") }}" placeholder="Nhập mã số thuế" required>
                                     </div>
                                     <label for="search-fc-1">Loại hình:</label>
                                     <div class="md-style md-style-icon">
@@ -45,6 +45,9 @@
                     </div>
                 <hr class="my-6">
                 <div class="px-3 px-md-5 px-xl-8" id="CICResult">
+                    @if(isset($message))
+                        <span style="color: red; text-align: center">{{ $message }}</span>
+                    @endif
                     @if(isset($data))
                         <table class="table-bordered">
                             <tbody>

@@ -26,6 +26,12 @@ class DataTaxRepository extends Repository
         $masothue = $this->request->masothue;
         if($masothue){
             $data = DataTax::where('masothue', $masothue)->where('type', 1)->first();
+            if($data){
+                return view('frontend.data_tax.index' , ['data' => $data]);
+            }else{
+                return view('frontend.data_tax.index')->with('message', 'Không tìm thấy kết quả');
+            }
+
         }
         return view('frontend.data_tax.index' , ['data' => $data]);
     }
@@ -35,6 +41,11 @@ class DataTaxRepository extends Repository
         $masothue = $this->request->masothue;
         if($masothue){
             $data = DataTax::where('masothue', $masothue)->where('type', 2)->first();
+            if($data){
+                return view('frontend.data_tax.canhan' , ['data_canhan' => $data]);
+            }else{
+                return view('frontend.data_tax.canhan')->with('message', 'Không tìm thấy kết quả');
+            }
         }
         return view('frontend.data_tax.canhan' , ['data_canhan' => $data]);
     }

@@ -37,6 +37,9 @@
                     </div>
                     <hr class="my-6">
                     <div class="px-3 px-md-5 px-xl-8" id="CICResult">
+                        @if(isset($message))
+                            <span style="color: red; text-align: center">{{ $message }}</span>
+                        @endif
                         @if(isset($data_canhan))
                             <table class="table-bordered">
                                 <tbody>
