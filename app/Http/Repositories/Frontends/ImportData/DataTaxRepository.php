@@ -25,7 +25,7 @@ class DataTaxRepository extends Repository
         $data = null;
         $masothue = $this->request->masothue;
         if($masothue){
-            $data = DataTax::where('masothue', $masothue)->first();
+            $data = DataTax::where('masothue', $masothue)->where('type', 1)->first();
         }
         return view('frontend.data_tax.index' , ['data' => $data]);
     }
@@ -36,7 +36,7 @@ class DataTaxRepository extends Repository
         if($masothue){
             $data = DataTax::where('masothue', $masothue)->where('type', 2)->first();
         }
-        return view('frontend.data_tax.index' , ['data_canhan' => $data]);
+        return view('frontend.data_tax.canhan' , ['data_canhan' => $data]);
     }
 
 
