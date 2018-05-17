@@ -69,5 +69,6 @@ class Kernel extends HttpKernel {
         'authenticate'  => \App\Http\Middleware\Auth::class,
         'redirect'      => \App\Http\Middleware\RedirectDestination::class,
         'owner'         => \App\Http\Middleware\OwnerAuth::class,
+        'checklogin'         => \App\Http\Middleware\CheckLogin::class,
     ];
 }

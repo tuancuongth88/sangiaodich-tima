@@ -30,5 +30,14 @@ class DataTaxRepository extends Repository
         return view('frontend.data_tax.index' , ['data' => $data]);
     }
 
+    public function canhan(){
+        $data = null;
+        $masothue = $this->request->masothue;
+        if($masothue){
+            $data = DataTax::where('masothue', $masothue)->where('type', 2)->first();
+        }
+        return view('frontend.data_tax.index' , ['data_canhan' => $data]);
+    }
+
 
 }

@@ -17,5 +17,8 @@ class DataTaxController extends Controller
         return $this->repository->index();
     }
 
+    public function canhan(){
+        return $this->repository->canhan();
+    }
 
 }

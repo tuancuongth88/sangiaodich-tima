@@ -131,7 +131,9 @@ class DataTaxRepository extends Repository {
     }
 
     public function importFile(){
-        ini_set('memory_limit','1024M');
+//        ini_set('memory_limit','1024M');
+        ini_set('max_execution_time', '1000');
+        ini_set('memory_limit', '-1');
         if($this->request->hasFile('file_data')){
             Excel::load($this->request->file('file_data')->getRealPath(), function ($reader) {
                 $i = 0;

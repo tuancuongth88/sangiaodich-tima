@@ -172,4 +172,5 @@ Route::group(['prefix' => 'san-giao-dich'], function () {
 Route::get('/hoi-dap', 'Frontends\Faqs\FaqCategoryController@getQuestion')->name('question.show');
 Route::get('/huong-dan', 'Frontends\Faqs\FaqCategoryController@getListGuide')->name('guide.show');
 
-Route::get('/tra-cuu-thue', 'Frontends\ImportData\DataTaxController@index')->name('data.tax');
+Route::get('/tra-cuu-thue', 'Frontends\ImportData\DataTaxController@index')->name('data.tax')->middleware('checklogin');
+Route::get('/tra-cuu-thue-ca-nhan', 'Frontends\ImportData\DataTaxController@canhan')->name('data.canhan')->middleware('checklogin');

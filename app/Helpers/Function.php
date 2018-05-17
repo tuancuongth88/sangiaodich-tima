@@ -385,3 +385,10 @@ function convertAmount($amount)
         return $result . ' Tỷ';
     }
 }
+
+function isActiveRoute($route, $output = "active")
+{
+    if (Route::currentRouteName() == $route){
+        return $output;
+    }
+}
