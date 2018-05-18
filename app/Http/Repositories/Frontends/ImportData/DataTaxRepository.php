@@ -40,7 +40,7 @@ class DataTaxRepository extends Repository
         $data = null;
         $masothue = $this->request->masothue;
         if($masothue){
-            $data = DataTax::where('masothue', $masothue)->where('type', 2)->first();
+            $data = DataTax::where('masothue', $masothue)->orWhere('phone_company', $masothue)->where('type', 2)->first();
             if($data){
                 return view('frontend.data_tax.canhan' , ['data_canhan' => $data]);
             }else{

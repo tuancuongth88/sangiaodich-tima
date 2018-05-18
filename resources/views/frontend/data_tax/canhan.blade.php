@@ -22,9 +22,9 @@
                         <form id="frmCheckCIC" class="tima-search mx-auto px-md-12" novalidate="novalidate">
                             <div class="row mb-12 text-gray-light flex-column flex-sm-row">
                                 <div class="col-sm-12 form-group mb-10">
-                                    <label for="search-fc-1">Số chứng minh thư:</label>
+                                    <label for="search-fc-1">Số chứng minh thư/ số điện thoại:</label>
                                     <div class="md-style md-style-icon">
-                                        <input type="text" class="form-control" id="masothue" name="masothue" value="{{ old("masothue") }}" placeholder="Nhập chứng minh thư">
+                                        <input type="text" class="form-control" id="masothue" name="masothue" value="{{ old("masothue") }}" placeholder="Nhập chứng minh thư hoặc số điện thoại">
                                     </div>
 
                                 </div>
