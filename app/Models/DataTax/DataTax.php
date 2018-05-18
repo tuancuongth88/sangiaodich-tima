@@ -31,6 +31,8 @@ class DataTax extends Model
     const NON_STOCK_ENTERPRISES = 2;
     const ENTERPRISES_OTHER = 3;
 
+    const TYPE_DOANHNGHIEP = 1;
+
     public static $listType = [
         self::JOINT_STOCK_COMPANIES => 'Doanh nghiệp đã cổ phần',
         self::NON_STOCK_ENTERPRISES => 'Doanh nghiệp chưa cổ phần',

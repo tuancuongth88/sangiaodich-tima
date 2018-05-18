@@ -68,7 +68,7 @@ class DataTaxRepository extends Repository {
         try {
             $orderField = ($this->request->has('field')) ? $this->request->input('field') : self::ID;
             $orderType  = ($this->request->has('type')) ? $this->request->input('type') : self::ID;
-            $query       = $this->model->orderBy($orderField, ($orderType) ? 'asc' : 'desc');
+            $query       = $this->model->where('type', $this->model::TYPE_DOANHNGHIEP)->orderBy($orderField, ($orderType) ? 'asc' : 'desc');
             $data = $query->paginate($this->perpages);
             return view('administrator.data_tax.index', ['data' => $data]);
         } catch (Exception $e) {
