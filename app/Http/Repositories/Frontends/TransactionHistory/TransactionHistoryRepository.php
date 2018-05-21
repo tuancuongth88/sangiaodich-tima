@@ -71,7 +71,7 @@ class TransactionHistoryRepository extends Repository {
             self::CITY_ID,
             self::DISTRICT_ID,
             self::AMOUNT,
-            self::AGREE_TERM,
+//            self::AGREE_TERM,
             self::AMOUNT_DAY
         );
     }
@@ -89,12 +89,12 @@ class TransactionHistoryRepository extends Repository {
             'required'                      => 'Vui lòng nhập :attribute',
             self::CITY_ID . '.required'     => 'Vui lòng chọn thành phố',
             self::DISTRICT_ID . '.required' => 'Vui lòng chọn quận/huyện',
-            self::AGREE_TERM . '.required'  => 'Bạn phải đồng ký với điều khoản của chúng tôi',
+//            self::AGREE_TERM . '.required'  => 'Bạn phải đồng ý với điều khoản của chúng tôi',
         ];
         return Validator::make($array, [
             self::CITY_ID     => 'required',
             self::DISTRICT_ID => 'required',
-            self::AGREE_TERM  => 'required',
+//            self::AGREE_TERM  => 'required',
         ], $messages);
     }
 
