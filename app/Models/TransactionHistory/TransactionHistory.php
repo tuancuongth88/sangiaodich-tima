@@ -72,6 +72,7 @@ class TransactionHistory extends Model {
     //1 ch
     public $status_transactionhistory =
     array(
+        self::STATUS_WAIT_APPROVE =>'Chờ phê duyệt',
         self::STATUS_WAIT      => 'Chờ nhận',
         self::STATUS_RECEIVED  => 'Đã nhận',
         self::STATUS_BORROWING => 'Đang vay',
