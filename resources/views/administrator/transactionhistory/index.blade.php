@@ -119,10 +119,7 @@
                                             class="btn btn-danger ">
                                         Hủy
                                     </button>
-                                    <a href="{{ action('Administrators\News\NewsController@show', $value->id) }}"
-                                       class="btn btn-accent ">
-                                        Chi tiết
-                                    </a>
+                                  
                                     {{ Form::close() }}
                                 </td>
                             </tr>
