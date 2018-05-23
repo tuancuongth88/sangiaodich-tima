@@ -133,7 +133,9 @@
                                         <label class="custom-file-label" for="customFile">
                                             Chọn ảnh
                                         </label>
-                                        <img src="{{ $data->avatar }}" width="300px" height="300px">
+                                        @if(isset($user->avatar))
+                                        <img src="{{ $user->avatar }}" width="300px" height="300px">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
