@@ -3,6 +3,7 @@ namespace App\Http\Repositories\Frontends\ImportData;
 
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\DataTax\DataTax;
+use App\Models\DataTax\PersonalInfor;
 use App\Services\ResponseService;
 use Illuminate\Http\Request;
 use Validator;
@@ -40,7 +41,7 @@ class DataTaxRepository extends Repository
         $data = null;
         $masothue = $this->request->masothue;
         if($masothue){
-            $data = DataTax::where('masothue', $masothue)->orWhere('phone_company', $masothue)->where('type', 2)->first();
+            $data = PersonalInfor::where('phone', $masothue)->orWhere('card_id', $masothue)->first();
             if($data){
                 return view('frontend.data_tax.canhan' , ['data_canhan' => $data]);
             }else{

@@ -52,19 +52,25 @@
                                 <tr>
                                     <th width="16%">Số chứng minh</th>
                                     <td width="20%" colspan="5">
-                                        {{ $data_canhan->masothue }}
+                                        {{ $data_canhan->id_card }}
                                     </td>
 
                                 </tr>
                                 <tr>
                                     <th width="16%">Tên đầy đủ</th>
                                     <td width="80%" colspan="5">
-                                        {{ $data_canhan->tenchinhthuc }}
+                                        {{ $data_canhan->name }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="16%">Giới tính</th>
+                                    <td width="80%" colspan="5">
+                                        {{ $data_canhan->gender}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th width="16%">Số điện thoại</th>
-                                    <td width="84%" colspan="5">{{ $data_canhan->phone_company }}</td>
+                                    <td width="84%" colspan="5">{{ $data_canhan->phone }}</td>
                                 </tr>
                                 <tr>
                                     <th width="16%">Email</th>
@@ -72,7 +78,7 @@
                                 </tr>
                                 <tr>
                                     <th width="16%">Địa chỉ</th>
-                                    <td width="84%" colspan="5">{{ $data_canhan->diachitruso }}</td>
+                                    <td width="84%" colspan="5">{{ $data_canhan->home_address }}</td>
                                 </tr>
                                 </tbody></table>
                         @endif
