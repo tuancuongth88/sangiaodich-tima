@@ -20,7 +20,7 @@ class CreatePersonalInfoTable extends Migration
             $table->string('email', 255)->nullable();
             $table->string('name', 255)->nullable();
             $table->string('gender', 255)->nullable();
-            $table->timestamp('birth')->nullable();
+            $table->string('birth', 255)->nullable();
             $table->string('home_address', 255)->nullable();
             $table->softDeletes();
             $table->timestamps();
