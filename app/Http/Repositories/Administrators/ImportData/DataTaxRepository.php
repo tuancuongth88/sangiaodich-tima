@@ -198,13 +198,13 @@ class DataTaxRepository extends Repository {
                     for ($c=0; $c < $num; $c++) {
                         $item[] = $data[$c];
                     }
+                    $personalInfor['phone'] = trim($item[0], ' ');
+                    $personalInfor['name'] = trim($item[1], ' ');
+                    $personalInfor['gender'] = trim($item[2], ' ');
+                    $personalInfor['birth'] = trim($item[3], ' ');
+                    $personalInfor['home_address'] = trim($item[4], ' ');
                     // check exit
-                    $data = PersonalInfor::where('phone', $item[0]);
-                    $personalInfor['phone'] = $item[0];
-                    $personalInfor['name'] = $item[1];
-                    $personalInfor['gender'] = $item[2];
-                    $personalInfor['birth'] = $item[3];
-                    $personalInfor['home_address'] = $item[4];
+                    $data = PersonalInfor::where('phone', $item[0])->first();
                     if($data){
                         $data->update($personalInfor);
                     }else{
