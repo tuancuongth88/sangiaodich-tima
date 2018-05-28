@@ -198,17 +198,23 @@ class DataTaxRepository extends Repository {
                     for ($c=0; $c < $num; $c++) {
                         $item[] = $data[$c];
                     }
+                    // check exit
+                    $data = PersonalInfor::where('phone', $item[0]);
                     $personalInfor['phone'] = $item[0];
                     $personalInfor['name'] = $item[1];
                     $personalInfor['gender'] = $item[2];
                     $personalInfor['birth'] = $item[3];
                     $personalInfor['home_address'] = $item[4];
-                    PersonalInfor::insert($personalInfor);
+                    if($data){
+                        $data->update($personalInfor);
+                    }else{
+                        PersonalInfor::insert($personalInfor);
+                    }
                 }
                 fclose($handle);
             }
         }
-        return redirect()->route('import-tax.index');
+        return redirect()->route('upload.tax.personal');
     }
 
 }
