@@ -37,6 +37,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="text-gray-light fs-14">Phí kiểm tra xếp hạng tín dụng có kết quả thành công là {{ number_format(AMOUNT_DOANHNGHIEP)}}đ</div>
                             <button type="submit" class="btn btn-lg btn-block btn-primary justify-content-center align-items-center d-flex btn-search-tran">
                                 Tìm kiếm
                                 <i class="icon-search-white ml-3"></i>

@@ -267,14 +267,14 @@ class TransactionHistoryRepository extends Repository {
     | @return object
     | @Author : phuonglv
      */
-    public function updateUserAmount($id, $amount,$deducted) {
+    public function updateUserAmount($id, $amount,$deducted, $type = SEARCH_FEE_LOAN_HISTORY) {
         //store log
         if(!\Auth::check()){
             return redirect('user/login');
         }
         $accountLog['amount']  = -(int) $deducted;
         $accountLog['user_id'] = $id;
-        $accountLog['type'] = SEARCH_FEE_LOAN_HISTORY;
+        $accountLog['type'] = $type;
         AccountLog::create($accountLog);
         $this->user::where('id', $id)->update(['amount' => ($amount - $deducted)]);
     }

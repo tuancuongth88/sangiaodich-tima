@@ -57,3 +57,7 @@ define('FEES_RECEIVED', 1);
 define('SEARCH_FEE_LOAN_HISTORY', 2);
 define('SEARCH_FEE_LIMITS', 3);
 define('RECHARGE', 4);
+define('DATA_TAX', 5);
+
+define('AMOUNT_DOANHNGHIEP', 10000);
+define('AMOUNT_CANHAN', 10000);

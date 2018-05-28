@@ -278,5 +278,13 @@
                 </span>
             </a>
         </li>
+        <li class="m-menu__item">
+            <a href="{{ route('upload.tax.personal') }}" class="m-menu__link">
+                <i class="m-menu__link-icon flaticon-layers"></i>
+                <span class="m-menu__link-text">
+                    Import cá nhân
+                </span>
+            </a>
+        </li>
     </ul>
 </div>

@@ -22,4 +22,12 @@ class DataTaxController extends Controller
     public function doUpload(){
         return $this->repository->importFile();
     }
+
+    public function personalUpload(){
+        return $this->repository->personalUpload();
+    }
+
+    public function doUploadPersenal(){
+        return $this->repository->doUploadPersenal();
+    }
 }

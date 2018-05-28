@@ -392,3 +392,12 @@ function isActiveRoute($route, $output = "active")
         return $output;
     }
 }
+
+function updateUserAmount($id, $amount,$deducted, $type) {
+    //store log
+    $accountLog['amount']  = -(int) $deducted;
+    $accountLog['user_id'] = $id;
+    $accountLog['type'] = $type;
+    \App\Models\Users\AccountLog::create($accountLog);
+    \App\Models\Users\User::where('id', $id)->update(['amount' => ($amount - $deducted)]);
+}

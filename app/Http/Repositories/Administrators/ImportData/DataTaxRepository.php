@@ -3,6 +3,7 @@ namespace App\Http\Repositories\Administrators\ImportData;
 
 use App\Http\Repositories\Administrators\Repository;
 use App\Models\DataTax\DataTax;
+use App\Models\DataTax\PersonalInfor;
 use App\Models\Partner\Partner;
 use App\Models\Partner\PartnerCategory;
 use App\Services\AuthService;
@@ -176,4 +177,38 @@ class DataTaxRepository extends Repository {
         }
         return redirect()->route('import-tax.index');
     }
+
+    public function personalUpload(){
+        $data = PersonalInfor::paginate($this->perpages);
+        return view('administrator.data_tax.persone', ['data' => $data]);
+    }
+
+    public function doUploadPersenal(){
+        ini_set('max_execution_time', '1000');
+        ini_set('memory_limit', '-1');
+        if($this->request->hasFile('file_data')){
+            $row = 0;
+            if (($handle = fopen($this->request->file('file_data')->getRealPath(), "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, "\t")) !== FALSE) {
+                    $row++;
+                    if($row == 1)
+                        continue;
+                    $num = count($data);
+                    $item = array();
+                    for ($c=0; $c < $num; $c++) {
+                        $item[] = $data[$c];
+                    }
+                    $personalInfor['phone'] = $item[0];
+                    $personalInfor['name'] = $item[1];
+                    $personalInfor['gender'] = $item[2];
+                    $personalInfor['birth'] = $item[3];
+                    $personalInfor['home_address'] = $item[4];
+                    PersonalInfor::insert($personalInfor);
+                }
+                fclose($handle);
+            }
+        }
+        return redirect()->route('import-tax.index');
+    }
+
 }
