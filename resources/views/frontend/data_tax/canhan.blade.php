@@ -45,7 +45,7 @@
                             <table class="table-bordered">
                                 <tbody>
                                 <tr>
-                                    <th width="16%">Xếp hạng tính dụng</th>
+                                    <th width="16%">Xếp hạng tín dụng</th>
                                     <td width="20%" colspan="5">
                                         Tốt
                                     </td>
