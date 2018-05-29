@@ -23,6 +23,7 @@ class AccountLog extends Model
             SEARCH_FEE_LOAN_HISTORY => 'Phí tra cứu lịch sử vay',
             SEARCH_FEE_LIMITS => 'Phí tra cứu xếp hạng hạn mức',
             RECHARGE => 'Nạp tiền',
+            DATA_TAX    => 'Phí tra cứu xếp hạng tín dụng'
         );
 
     public function user()
