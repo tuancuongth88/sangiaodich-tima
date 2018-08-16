@@ -36,6 +36,7 @@ class SendEmail implements ShouldQueue {
      * @return void
      */
     public function __construct($data) {
+
         $this->data = $data;
     }
 

@@ -46,6 +46,11 @@
                                             </div>
 
                                             <div class="form-group">
+                                                {{ Form::email('email', null, ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'maxlength ' => '100', 'placeholder' => 'Email', 'required', 'autocomplete' => "off"]) }}
+                                                <span class="error">{{ $errors->first('email') }}</span>
+                                            </div>
+
+                                            <div class="form-group">
                                                 {{ Form::password('password', ['class' => 'form-control form-control-lg fs-13 px-3 rounded', 'placeholder' => 'Mật khẩu', 'autocomplete' => "off"]) }}
                                                 <span class="error">{{ $errors->first('password') }}</span>
                                             </div>
@@ -123,7 +128,8 @@
 
                                 <div class="px-5 py-3">
                                     <p class="text-center">
-                                        Mã xác nhận đã được gửi đến số <b id="bPhone">{{ session('input')['phone'] }}</b> <br>
+                                        <!-- Mã xác nhận đã được gửi đến số <b id="bPhone">{{ session('input')['phone'] }}</b> <br> -->
+                                        Mã xác nhận đã được gửi đến Mail <b> {{ session('input')['email'] }} </b> của bạn
                                         Vui lòng nhập mã xác nhận vào ô dưới:
                                     </p>
 

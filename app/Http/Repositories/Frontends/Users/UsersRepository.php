@@ -2,6 +2,7 @@
 
 use App\Events\UserRegister;
 use App\Http\Repositories\Administrators\Repository;
+use App\Jobs\SendEmail;
 use App\Models\Users\AccountLog;
 use App\Models\Users\User;
 use App\Services\AuthService;
@@ -13,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-
 use Validator;
 
 class UsersRepository extends Repository {
@@ -32,26 +32,25 @@ class UsersRepository extends Repository {
     }
 
     // field of user table.
-    const ID       = 'id';
-    const FULLNAME = 'fullname';
-    const PHONE    = 'phone';
-    const USERNAME = 'username';
-    const EMAIL    = 'email';
-    const PASSWORD = 'password';
-    const TYPE     = 'type';
+    const ID            = 'id';
+    const FULLNAME      = 'fullname';
+    const PHONE         = 'phone';
+    const USERNAME      = 'username';
+    const EMAIL         = 'email';
+    const PASSWORD      = 'password';
+    const TYPE          = 'type';
     const COMPANY_PHONE = 'company_phone';
 
     /*
-   |--------------------------------------------------------------------------
-   | VALIDATOR
-   |--------------------------------------------------------------------------
-   | @params array[requestAll]
-   | @return boolean
-   | @Author : phuonglv
-    */
+    |--------------------------------------------------------------------------
+    | VALIDATOR
+    |--------------------------------------------------------------------------
+    | @params array[requestAll]
+    | @return boolean
+    | @Author : phuonglv
+     */
 
-    public function validatorProfile(array $array)
-    {
+    public function validatorProfile(array $array) {
         return Validator::make($array, $this->model::$rules, $this->model::$messages);
     }
 
@@ -116,7 +115,8 @@ class UsersRepository extends Repository {
                 ->withErrors($validator)
                 ->withInput($input);
         }
-        return $this->sendOTP($input);
+        // return $this->sendOTP($input);
+        return $this->sendEmail($input);
         // $input['password'] = Hash::make($input['password']);
         // $this->model->create($input);
         // return redirect()->back()->with('status', true)->with('message', 'Đăng ký thành công!');
@@ -138,11 +138,11 @@ class UsersRepository extends Repository {
             $user = $this->model->create($oldInput);
             // dd($user);
             ////////////////// login after register successfully
-            if( $user->id ){
+            if ($user->id) {
                 // $checklogin = \Auth::attempt(['phone' => $oldInput['phone'], 'password' => $oldInput['password']], true);
                 $checklogin = \Auth::guard('user')->login($user, true);
-                if( session('destination') != '' ){
-                    return redirect( session('destination') )->with('status', true)->with('message', 'Bạn đã đăng ký thành công!');
+                if (session('destination') != '') {
+                    return redirect(session('destination'))->with('status', true)->with('message', 'Bạn đã đăng ký thành công!');
                 }
             }
             ////////// Khai bao event, thong bao cho cac Listener biet
@@ -169,6 +169,46 @@ class UsersRepository extends Repository {
     public function sendOTP($input) {
         $OTP = $this->createOTP($input['phone']);
         return redirect()->back()->with(['input' => $input, 'OTP' => $OTP, 'sendOTP' => true]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SEND OPT EMAIL.
+    |--------------------------------------------------------------------------
+    | @params $input array, $request in Request
+    | @return mix response with Flashed Session Data
+    | @Author : cuongnt
+     */
+    public function sendEmail($input) {
+        $OTP                 = $this->createRandomPassword();
+        $data['title']       = 'Mã kích hoạt tài khoản';
+        $data['description'] = "Mã để kích hoạt tài khoản của bạn là: " . $OTP;
+        dispatch(new \App\Jobs\SendEmail($data));
+        return redirect()->back()->with(['input' => $input, 'OTP' => $OTP, 'sendOTP' => true]);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CREATE OPT STRING EMAIL..
+    |--------------------------------------------------------------------------
+    | @params $input array, $request in Request
+    | @return mix response with Flashed Session Data
+    | @Author : cuongnt
+     */
+    public function createRandomPassword() {
+        $chars = "abcdefghijkmnopqrstuvwxyz023456789";
+        srand((double) microtime() * 1000000);
+        $i    = 0;
+        $pass = '';
+
+        while ($i <= 7) {
+            $num  = rand() % 33;
+            $tmp  = substr($chars, $num, 1);
+            $pass = $pass . $tmp;
+            $i++;
+        }
+        return $pass;
+
     }
 
     /*
@@ -220,9 +260,8 @@ class UsersRepository extends Repository {
     | @method GET
     | @Author : tantan
      */
-    public function getProfile($user)
-    {
-        $data = $this->model::find($user);
+    public function getProfile($user) {
+        $data    = $this->model::find($user);
         $listJob = $this->user->listJob;
         if ($data == null) {
             return abort(404);
@@ -312,7 +351,7 @@ class UsersRepository extends Repository {
     }
 
     /*
-<<<<<<< HEAD
+    <<<<<<< HEAD
     |--------------------------------------------------------------------------
     | CREATE OPT STRING.
     |--------------------------------------------------------------------------
@@ -322,11 +361,10 @@ class UsersRepository extends Repository {
     | @Author : phuonglv
      */
 
-    public function updateUserInfo()
-    {
+    public function updateUserInfo() {
         //check user
-        $params = $this->request->all();
-        $where = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
+        $params    = $this->request->all();
+        $where     = array(['id', '=', $params['id']], ['phone', '=', $params['phone']]);
         $user_data = $this->user::where($where)->get()->toArray();
         $user_data = isset($user_data[0]) ? $user_data[0] : null;
         if ($user_data) {
