@@ -183,6 +183,7 @@ class UsersRepository extends Repository {
         $OTP                 = $this->createRandomPassword();
         $data['title']       = 'Mã kích hoạt tài khoản';
         $data['description'] = "Mã để kích hoạt tài khoản của bạn là: " . $OTP;
+        $data['email']       = $input['email'];
         dispatch(new \App\Jobs\SendEmail($data));
         return redirect()->back()->with(['input' => $input, 'OTP' => $OTP, 'sendOTP' => true]);
     }

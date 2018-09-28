@@ -46,7 +46,7 @@ class SendEmail implements ShouldQueue {
      * @return void
      */
     public function handle() {
-        sleep(10);
+        sleep(5);
         $email       = new SendEmailContact($this->data);
         $emailConfig = EmailConfig::firstOrFail();
         if ($emailConfig) {
@@ -69,10 +69,7 @@ class SendEmail implements ShouldQueue {
                 ],
             ]);
 
-            $listEmailSender = explode(',', $emailConfig->email_to);
-            foreach ($listEmailSender as $emailTo) {
-                Mail::to($emailTo)->send($email);
-            }
+            Mail::to($this->data['email'])->send($email);
         }
     }
 }
